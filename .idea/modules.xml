@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/open-bank.iml" filepath="$PROJECT_DIR$/.idea/modules/open-bank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/open-bank_main.iml" filepath="$PROJECT_DIR$/.idea/modules/open-bank_main.iml" group="open-bank" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/open-bank_test.iml" filepath="$PROJECT_DIR$/.idea/modules/open-bank_test.iml" group="open-bank" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phone-app_main.iml" filepath="$PROJECT_DIR$/.idea/modules/phone-app_main.iml" group="phone-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phone-app_test.iml" filepath="$PROJECT_DIR$/.idea/modules/phone-app_test.iml" group="phone-app" />
+    </modules>
+  </component>
+</project>
