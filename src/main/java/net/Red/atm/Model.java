@@ -13,7 +13,11 @@ import org.sdmlib.storyboards.Storyboard;
  */
 public class Model {
 
-    public static void main(String[] args) {
+      /**
+    * 
+    * @see <a href='../../../../../../doc/Model.html'>Model.html</a>
+ */
+   public static void main(String[] args) {
         //create class model
         ClassModel model = new ClassModel("net.Red.atm");
 
@@ -32,7 +36,13 @@ public class Model {
         Storyboard storyboard = new Storyboard();
         storyboard.add("This shows the class diagram.");
         storyboard.addClassDiagram(model);
-        
+
+        // add it to the storyboard
+        //storyboard.addObjectDiagram(user);
+
+        // show it in html
+        storyboard.dumpHTML();
+
         model.generate();
     }
 }
