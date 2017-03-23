@@ -26,6 +26,8 @@ public class Model {
         user.withAttribute("UserID",DataType.STRING);
         //user.withAttribute("DOB",DataType.STRING);
 
+        // create class user
+       // Clazz transaction = model.createClazz("Transaction");
 
         model.generate();
     }
