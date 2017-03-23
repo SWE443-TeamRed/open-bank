@@ -29,6 +29,10 @@ public class Model {
         // create class user
        // Clazz transaction = model.createClazz("Transaction");
 
+        Storyboard storyboard = new Storyboard();
+        storyboard.add("This shows the class diagram.");
+        storyboard.addClassDiagram(model);
+        
         model.generate();
     }
 }
