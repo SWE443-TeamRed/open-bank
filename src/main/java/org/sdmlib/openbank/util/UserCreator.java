@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 CShultz
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,10 +19,10 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package net.Red.atm.util;
+package org.sdmlib.openbank.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import net.Red.atm.User;
+import org.sdmlib.openbank.User;
 import de.uniks.networkparser.IdMap;
 
 public class UserCreator implements SendableEntityCreator
@@ -93,7 +93,7 @@ public class UserCreator implements SendableEntityCreator
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return net.Red.atm.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.openbank.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================

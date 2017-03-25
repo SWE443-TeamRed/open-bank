@@ -1,4 +1,4 @@
-package net.Red.atm.util;
+package org.sdmlib.openbank.util;
 
 import de.uniks.networkparser.IdMap;
 

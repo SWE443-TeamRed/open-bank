@@ -1,8 +1,8 @@
-package net.Red.atm.util;
+package org.sdmlib.openbank.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
-import net.Red.atm.User;
+import org.sdmlib.openbank.User;
 
 public class UserPOCreator extends PatternObjectCreator
 {
@@ -17,6 +17,6 @@ public class UserPOCreator extends PatternObjectCreator
    }
    
    public static IdMap createIdMap(String sessionID) {
-      return net.Red.atm.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.openbank.util.CreatorCreator.createIdMap(sessionID);
    }
 }

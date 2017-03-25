@@ -1,7 +1,7 @@
-package net.Red.atm.util;
+package org.sdmlib.openbank.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import net.Red.atm.User;
+import org.sdmlib.openbank.User;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 

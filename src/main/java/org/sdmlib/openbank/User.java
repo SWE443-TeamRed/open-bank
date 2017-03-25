@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 CShultz
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package net.Red.atm;
+package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
@@ -27,7 +27,7 @@ import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
    /**
     * 
-    * @see <a href='../../../../../../src/main/java/net/Red/atm/Model.java'>Model.java</a>
+    * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
    public  class User implements SendableEntity
 {

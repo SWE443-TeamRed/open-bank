@@ -1,5 +1,3 @@
-package net.Red.atm;
-
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
@@ -14,12 +12,11 @@ import org.sdmlib.storyboards.Storyboard;
 public class Model {
 
       /**
-    * 
-    * @see <a href='../../../../../../doc/Model.html'>Model.html</a>
+     * @see <a href='../../../doc/Model.html'>Model.html</a>
  */
    public static void main(String[] args) {
         //create class model
-        ClassModel model = new ClassModel("net.Red.atm");
+        ClassModel model = new ClassModel("org.sdmlib.openbank");
 
 
         // create class user
