@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="Slightly more specific README.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
+    <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -42,12 +40,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Github_Repo_Setup.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Github_Repo_Setup.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="309">
-                <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+                <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -94,7 +92,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Modelling.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Modelling.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kanban/InProcess/Modelling.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -1113,7 +1111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490217891419</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update in-progress tasks with worked hours.">
+      <created>1490457051814</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1490457051814</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1211,7 +1216,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Slightly more specific README." />
-    <option name="LAST_COMMIT_MESSAGE" value="Slightly more specific README." />
+    <MESSAGE value="Update in-progress tasks with worked hours." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update in-progress tasks with worked hours." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1416,6 +1422,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-540">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1515,17 +1522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="309">
-            <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kanban/InProcess/GUI_Mockups.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1553,6 +1549,17 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="375">
             <caret line="25" column="47" lean-forward="false" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="309">
+            <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
             <folding />
           </first_editor>
           <second_editor />
