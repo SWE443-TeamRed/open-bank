@@ -1,0 +1,13 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**7**
+Title: Tina gives Nick 10 dollars through their accounts
+*(Pre)* Tina wants to give Nick 10 dollars by connecting their accounts through phone. Tina has 50 dollars in her checking and Nick has 15
+	1) Tina connects to Nick's phone -> See S6
+	2) Tina selects the exchange funds option
+	3) Tina enters the amount she wants to transfer
+	4) Tina enters the account she wants to funds to come out of
+	5) Tina selects the trasfer funds option
+	6) Nick selects the approve option on his phone to recieve the funds
+*(Post)* Tina has trasnfered 10 dollars to Nick between their accounts

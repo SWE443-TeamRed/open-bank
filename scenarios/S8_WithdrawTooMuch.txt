@@ -1,0 +1,13 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**8**
+Title: Tina tries to withdraw too much money
+*(Pre)* Tina is desperate for money and needs 1 million dollars. Tina has 40 dollars in her checking account
+	1) Tine logs into her banking account -> See S1
+	2) Tina selects withdraw option
+	3) Tina enters savings account
+	4) Tina enters 1 million dollars
+	5) Tina select the withdraw button
+	6) Tina reads the alert that that reads "Cannot complete transaction: Too many funds requested"
+*(Post)* Tina does not have 1 million in cash
