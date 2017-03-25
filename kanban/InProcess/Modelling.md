@@ -22,3 +22,5 @@ Assigned person (currently working on task):
 	- Henry
 
 Log entries (who worked when and how long on this):
+
+    - Cycielya, 1 hr (March 23), 1 hr (March 25)

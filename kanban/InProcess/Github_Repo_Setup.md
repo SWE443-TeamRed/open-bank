@@ -20,8 +20,12 @@ Author(s):
 
 Assigned persons (currently working on task):
 
+  - Cycielya
+
 
 
 Log entries (who worked when and how long on this):
+
+  - Cycielya, 3hrs (March 23)
 
 
