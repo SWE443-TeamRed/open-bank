@@ -1,0 +1,11 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**6**
+Title: Tina connects her phone to Nick's phone
+*(Pre)* Tina wants to connect her phone to Nick so that they can make a transaction
+	1) Tina logs into her banking account -> See S1
+	2) Tina selects the transfer funds option
+	3) Tina selects the to other user option
+	4) Tina waits for Nick to select the other user option as well
+*(Post)* Tina is now connected to Nick's phone a transaction can take place

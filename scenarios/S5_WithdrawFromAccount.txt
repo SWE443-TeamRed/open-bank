@@ -1,0 +1,13 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**5**
+Title: Tina withdraws 30 dollars from savings
+*(Pre)* Tina has 50 dollars in her checking account and needs 30 dollars to buy food.
+	1) Tine logs into her banking account -> See S1
+	2) Tina is in the homepage of her account.
+	3) Tina selects the withdraw money option
+	4) Tina selects the saving account to withdraw from
+	5) Tina enters 30 dollars to withdraw
+	6) Tina selects the withdraw button
+*(Post)* Tina gets 30 dollars cash and her checking now has 20 dollars

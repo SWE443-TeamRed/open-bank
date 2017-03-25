@@ -1,0 +1,12 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**11**
+Title: Tina modifies her previous transaction
+*(Pre)* Tina wants to modify some previous transactions she made.
+	1) Tina views her transactions -> See S9
+	2) Tina selects the transaction she made from her checking to savings account at the top of the list
+	3) Tina selects the edit transaction option
+	4) Tina changes the amount to transfer from 10 dollars to 20
+	5) Tina selects the save transaction option
+*(Post)* Tina has edited her most recent transaction
