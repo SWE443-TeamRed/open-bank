@@ -65,7 +65,7 @@ public class Model {
 
        model.generate();
 
-       
+
     }
 }
 
