@@ -20,7 +20,7 @@ Related scenario(s):
   
 Time estimate(s):
 
-  2H
+  
 
 Author(s):
 

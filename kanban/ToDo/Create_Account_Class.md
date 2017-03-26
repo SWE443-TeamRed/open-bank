@@ -18,6 +18,8 @@ Description:
   - Seeding for accounts is likely going to be a one time action that
   occurs when the account is first created. You may be able to perform
   this action in the constructor rather then creating a method for it.
+  - I recommend having each account keep track of transactions that 
+  involve the account.
   
 Related scenario(s):
 

@@ -6,8 +6,8 @@ Description:
   is used to store information about transactions that have occured.
   The Transaction class should contain a timestamp, the type of transaction
   (deposit, withdraw, transfer between accounts, or seeding), the amount of
-  money being moved, and the accounts involved. There should be getters and
-  setters for each attribute.
+  money being moved, a unique ID, and the accounts involved. There should be
+  getters and setters for each attribute.
   
   Note:
   - Each transaction should be related to at most two accounts. I suggest
