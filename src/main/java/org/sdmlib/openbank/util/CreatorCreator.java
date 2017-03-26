@@ -8,7 +8,12 @@ class CreatorCreator{
    {
       IdMap jsonIdMap = new IdMap().withSessionId(sessionID);
       jsonIdMap.with(new UserCreator());
+      jsonIdMap.with(new UserCreator());
       jsonIdMap.with(new UserPOCreator());
+      jsonIdMap.with(new AccountCreator());
+      jsonIdMap.with(new AccountPOCreator());
+      jsonIdMap.with(new TransactionCreator());
+      jsonIdMap.with(new TransactionPOCreator());
       return jsonIdMap;
    }
 }
