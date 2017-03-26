@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/main/java/Model.java' type='text/x-java'>Model</a></p>
+<p>This shows the class diagram.</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"User",
+         "attributes":[
+            "name : String",
+            "UserID : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Account",
+         "attributes":[
+            "balance : double",
+            "accountnum : int",
+            "creationdate : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Transaction",
+         "attributes":[
+            "amount : double",
+            "date : String",
+            "time : String",
+            "note : String"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"one",
+            "property":"owner"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"fromAccount"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"credit"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"toAccount"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"debit"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":null
+}   ;
+   json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>
