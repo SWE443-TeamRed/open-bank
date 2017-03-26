@@ -64,6 +64,8 @@ public class Model {
        storyboard.dumpHTML();
 
        model.generate();
+
+       
     }
 }
 
