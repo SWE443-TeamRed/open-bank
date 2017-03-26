@@ -9,5 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.sdmlib:SDMLib:2.2.1094" level="project" />
+    <orderEntry type="library" name="Gradle: de.uniks:NetworkParser:sources:4.4.311" level="project" />
   </component>
 </module>
