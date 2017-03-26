@@ -25,6 +25,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.Account;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -84,6 +86,7 @@ import de.uniks.networkparser.EntityUtil;
    
    public void removeYou()
    {
+      withoutAccount(this.getAccount().toArray(new Account[this.getAccount().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -153,5 +156,77 @@ import de.uniks.networkparser.EntityUtil;
    {
       setUserID(value);
       return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * User ----------------------------------- Account
+    *              owner                   account
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ACCOUNT = "account";
+
+   private AccountSet account = null;
+   
+   public AccountSet getAccount()
+   {
+      if (this.account == null)
+      {
+         return AccountSet.EMPTY_SET;
+      }
+   
+      return this.account;
+   }
+
+   public User withAccount(Account... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Account item : value)
+      {
+         if (item != null)
+         {
+            if (this.account == null)
+            {
+               this.account = new AccountSet();
+            }
+            
+            boolean changed = this.account.add (item);
+
+            if (changed)
+            {
+               item.withOwner(this);
+               firePropertyChange(PROPERTY_ACCOUNT, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public User withoutAccount(Account... value)
+   {
+      for (Account item : value)
+      {
+         if ((this.account != null) && (item != null))
+         {
+            if (this.account.remove(item))
+            {
+               item.setOwner(null);
+               firePropertyChange(PROPERTY_ACCOUNT, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Account createAccount()
+   {
+      Account value = new Account();
+      withAccount(value);
+      return value;
    } 
 }

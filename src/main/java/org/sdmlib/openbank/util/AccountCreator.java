@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 FA
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,17 +22,21 @@
 package org.sdmlib.openbank.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.openbank.User;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.Account;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
 
-public class UserCreator implements SendableEntityCreator
+public class AccountCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      User.PROPERTY_NAME,
-      User.PROPERTY_USERID,
-      User.PROPERTY_ACCOUNT,
+      Account.PROPERTY_BALANCE,
+      Account.PROPERTY_ACCOUNTNUM,
+      Account.PROPERTY_CREATIONDATE,
+      Account.PROPERTY_OWNER,
+      Account.PROPERTY_CREDIT,
+      Account.PROPERTY_DEBIT,
    };
    
    @Override
@@ -44,7 +48,7 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new User();
+      return new Account();
    }
    
    @Override
@@ -58,19 +62,34 @@ public class UserCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (User.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getName();
+         return ((Account) target).getBalance();
       }
 
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attribute))
+      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getUserID();
+         return ((Account) target).getAccountnum();
       }
 
-      if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attribute))
+      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getAccount();
+         return ((Account) target).getCreationdate();
+      }
+
+      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getOwner();
+      }
+
+      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getCredit();
+      }
+
+      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getDebit();
       }
       
       return null;
@@ -79,15 +98,21 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
+      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setUserID((String) value);
+         ((Account) target).setCreationdate((String) value);
          return true;
       }
 
-      if (User.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
       {
-         ((User) target).setName((String) value);
+         ((Account) target).setAccountnum(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBalance(Double.parseDouble(value.toString()));
          return true;
       }
 
@@ -96,15 +121,33 @@ public class UserCreator implements SendableEntityCreator
          attrName = attrName + type;
       }
 
-      if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attrName))
+      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attrName))
       {
-         ((User) target).withAccount((Account) value);
+         ((Account) target).setOwner((User) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withCredit((Transaction) value);
          return true;
       }
       
-      if ((User.PROPERTY_ACCOUNT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((User) target).withoutAccount((Account) value);
+         ((Account) target).withoutCredit((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withDebit((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutDebit((Transaction) value);
          return true;
       }
       
@@ -118,6 +161,6 @@ public class UserCreator implements SendableEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((User) entity).removeYou();
+      ((Account) entity).removeYou();
    }
 }
