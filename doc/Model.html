@@ -24,11 +24,78 @@
             "name : String",
             "UserID : String"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"Account",
+         "attributes":[
+            "balance : double",
+            "accountnum : int",
+            "creationdate : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Transaction",
+         "attributes":[
+            "amount : double",
+            "date : String",
+            "time : String",
+            "note : String"
+         ]
       }
    ],
-   "edges":[]
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"one",
+            "property":"owner"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"fromAccount"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"credit"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"toAccount"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"debit"
+         }
+      }
+   ]
 }   ;
    new Graph(json, {"canvasid":"canvasModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":null
+}   ;
+   json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
 </script>
 
 </body>

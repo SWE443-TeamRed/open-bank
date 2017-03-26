@@ -26,6 +26,9 @@ import org.sdmlib.openbank.User;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.Account;
 
 public class UserSet extends SimpleSet<User>
 {
@@ -265,6 +268,86 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.setUserID(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
+    * 
+    * @return Set of Account objects reachable via account
+    */
+   public AccountSet getAccount()
+   {
+      AccountSet result = new AccountSet();
+      
+      for (User obj : this)
+      {
+         result.with(obj.getAccount());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect all contained objects with reference account pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as account neighbor of the collected results. 
+    * 
+    * @return Set of Account objects referring to value via account
+    */
+   public UserSet filterAccount(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
+      
+      for (User obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAccount()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Account attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Account attributes.
+    */
+   public UserSet withAccount(Account value)
+   {
+      for (User obj : this)
+      {
+         obj.withAccount(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the User object passed as parameter from the Account attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public UserSet withoutAccount(Account value)
+   {
+      for (User obj : this)
+      {
+         obj.withoutAccount(value);
       }
       
       return this;
