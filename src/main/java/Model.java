@@ -13,6 +13,7 @@ public class Model {
 
       /**
      * @see <a href='../../../doc/Model.html'>Model.html</a>
+ * @see <a href='../../../../doc/Model.html'>Model.html</a>
  */
    public static void main(String[] args) {
         //create class model
