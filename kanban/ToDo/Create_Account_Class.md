@@ -3,6 +3,8 @@ Title: Create Account Class
 Description:
 
   Create an Account class for the open-bank. The Account class should
+  hold information related to the owner of the account as well as be able
+  to interact with the money stored in the account. The Account class should
   contain a username, password, owner's name, owner's e-mail, owner's
   phone number, an unique ID, and account balance. The Account class
   should contain getter/setters for each attribute and an appropriate
@@ -23,7 +25,7 @@ Related scenario(s):
   
 Time estimate(s):
 
-  2H
+  
 
 Author(s):
 
