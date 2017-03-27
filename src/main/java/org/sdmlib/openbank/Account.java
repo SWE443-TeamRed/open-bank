@@ -393,17 +393,25 @@ import org.sdmlib.openbank.Transaction;
       return value;
    } 
 
-   // Methods
+   // Methods not including setters and getters
    //==========================================================================
+
+   /*
+      Constructor setting the initial amount
+   */
    public void Account( double initialAmount )
    {
-      
+      this.setBalance(initialAmount);
    }
 
-   
-   //==========================================================================
+   /*
+      Right now only returns true, if latter we add something that might require
+       try catch, we might need to use a return false.
+   */
    public boolean transferFounds( double amount, Account destinationAccount )
    {
-      return false;
+      this.setBalance(this.getBalance()-amount);
+      destinationAccount.setBalance(destinationAccount.getBalance()+amount);
+      return true;
    }
 }
