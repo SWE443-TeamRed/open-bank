@@ -16,11 +16,6 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
  * Created by FA on 3/23/2017.
  */
 public class Model {
-
-      /**
-     * @see <a href='../../../doc/Model.html'>Model.html</a>
- * @see <a href='../../../../doc/Model.html'>Model.html</a>
- */
    public static void main(String[] args) {
        //create class model
        ClassModel model = new ClassModel("org.sdmlib.openbank");
