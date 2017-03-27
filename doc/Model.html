@@ -43,6 +43,15 @@
             "time : String",
             "note : String"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"Database",
+         "methods":[
+            "addAccounts(org.sdmlib.openbank.Account account) boolean",
+            "searchForAccount(String userId) org.sdmlib.openbank.Account",
+            "searchForTransaction(String userId) org.sdmlib.openbank.Transaction"
+         ]
       }
    ],
    "edges":[

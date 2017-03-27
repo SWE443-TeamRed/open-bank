@@ -14,6 +14,8 @@ class CreatorCreator{
       jsonIdMap.with(new AccountPOCreator());
       jsonIdMap.with(new TransactionCreator());
       jsonIdMap.with(new TransactionPOCreator());
+      jsonIdMap.with(new DatabaseCreator());
+      jsonIdMap.with(new DatabasePOCreator());
       return jsonIdMap;
    }
 }
