@@ -108,9 +108,7 @@ import org.sdmlib.openbank.Account;
    {
       // check for negative if less then
       if (value < 0) {
-         double oldValue = this.amount;
-         this.amount = 0;
-         this.firePropertyChange(PROPERTY_AMOUNT, oldValue, 0);
+         throw new IllegalArgumentException("Amount is not valid!");
       }else{
          if (this.amount != value) {
 
