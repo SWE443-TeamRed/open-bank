@@ -5,6 +5,7 @@ import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -64,8 +65,12 @@ public class Model {
        storyboard.add("This shows the class diagram.");
        storyboard.addClassDiagram(model);
 
-       // add it to the storyboard
-       storyboard.addObjectDiagram(user);
+       //users
+       User bob = new User().withName("Bob").withUserID("1");
+       User sam = new User().withName("Sam").withUserID("2");
+
+       // add users to the object diagram
+       storyboard.addObjectDiagram(bob,sam);
 
        // show it in html
        storyboard.dumpHTML();

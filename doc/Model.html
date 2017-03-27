@@ -92,7 +92,24 @@
 <script>
    var json = {
    "typ":"objectdiagram",
-   "nodes":null
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "name=Bob",
+            "UserID=1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U2 : User",
+         "attributes":[
+            "name=Sam",
+            "UserID=2"
+         ]
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
