@@ -106,7 +106,7 @@ import org.sdmlib.openbank.Account;
    
    public void setAmount(double value)
    {
-      // check for negative if less then
+      // check for negative if less then 0
       if (value < 0) {
          throw new IllegalArgumentException("Amount is not valid!");
       }else{
