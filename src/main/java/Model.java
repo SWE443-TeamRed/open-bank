@@ -36,6 +36,7 @@ public class Model {
        // create class Account
        Clazz account = model.createClazz("Account");
 
+       //set attributes
        account.withAttribute("balance", DataType.DOUBLE);
        account.withAttribute("accountnum",DataType.INT);
        account.withAttribute("creationdate", DataType.create(Date.class)); //DataType.STRING);
@@ -43,6 +44,7 @@ public class Model {
        // create class Transaction
        Clazz transaction = model.createClazz("Transaction");
 
+       //set attributes
        transaction.withAttribute("amount", DataType.DOUBLE);
        transaction.withAttribute("date",DataType.create(Date.class));
        transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
