@@ -65,7 +65,7 @@ public class Model {
        storyboard.add("This shows the class diagram.");
        storyboard.addClassDiagram(model);
 
-       //users
+       //user objects
        User bob = new User().withName("Bob").withUserID("1");
        User sam = new User().withName("Sam").withUserID("2");
 
