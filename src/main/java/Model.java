@@ -25,7 +25,6 @@ public class Model {
        //create class model
        ClassModel model = new ClassModel("org.sdmlib.openbank");
 
-
        // create class user
        Clazz user = model.createClazz("User");
 
