@@ -1,8 +1,4 @@
-import de.uniks.networkparser.graph.Association;
-import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -43,6 +39,13 @@ public class Model {
        transaction.withAttribute("time", DataType.STRING);
        transaction.withAttribute("note",DataType.STRING);
 
+       //Create class Database
+       Clazz database = model.createClazz("Database");
+       database.withMethod("addAccounts", DataType.BOOLEAN, new Parameter(DataType.create(account)).with("account"));
+       database.withMethod("addAccounts", DataType.BOOLEAN, new Parameter(DataType.create(transaction)).with("transaction"));
+       database.withMethod("searchForAccount", DataType.create(account), new Parameter(DataType.STRING).with("userId"));
+       database.withMethod("searchForTransaction", DataType.create(transaction), new Parameter(DataType.STRING).with("userId"));
+
        // the account in user
        user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
 
@@ -51,7 +54,6 @@ public class Model {
 
        //transactions fromAccount
        account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
-
 
        Storyboard storyboard = new Storyboard();
        storyboard.add("This shows the class diagram.");

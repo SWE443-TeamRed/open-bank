@@ -35,4 +35,11 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
 
+Daniel Krinke
+ - Added Class Database to the model (30 Minutes)
+	- With method addAccounts(Account account) returns boolean
+	- With method addTransactions(Transaction account) returns boolean
+	- With method searchForAccounts(String userId) returns Account
+	- With method searchForTransaction(String userId) returns Transaction
+
 
