@@ -24,7 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
+import java.util.Date;
+
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
@@ -129,7 +130,6 @@ import org.sdmlib.openbank.Transaction;
       
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
-      result.append(" ").append(this.getCreationdate());
       return result.substring(1);
    }
 
@@ -167,24 +167,24 @@ import org.sdmlib.openbank.Transaction;
    
    public static final String PROPERTY_CREATIONDATE = "creationdate";
    
-   private String creationdate;
+   private Date creationdate;
 
-   public String getCreationdate()
+   public Date getCreationdate()
    {
       return this.creationdate;
    }
    
-   public void setCreationdate(String value)
+   public void setCreationdate(Date value)
    {
-      if ( ! EntityUtil.stringEquals(this.creationdate, value)) {
+      if (this.creationdate != value) {
       
-         String oldValue = this.creationdate;
+         Date oldValue = this.creationdate;
          this.creationdate = value;
          this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
       }
    }
    
-   public Account withCreationdate(String value)
+   public Account withCreationdate(Date value)
    {
       setCreationdate(value);
       return this;
