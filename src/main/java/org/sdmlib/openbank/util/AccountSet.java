@@ -584,4 +584,27 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public AccountSet Account(double initialAmount)
+   {
+      return AccountSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList transferFounds(double amount, Account destinationAccount)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.transferFounds(amount, destinationAccount) );
+      }
+      return result;
+   }
+
 }

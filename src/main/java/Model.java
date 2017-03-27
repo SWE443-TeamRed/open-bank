@@ -1,8 +1,4 @@
-import de.uniks.networkparser.graph.Association;
-import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -34,6 +30,16 @@ public class Model {
        account.withAttribute("balance", DataType.DOUBLE);
        account.withAttribute("accountnum",DataType.INT);
        account.withAttribute("creationdate", DataType.STRING);
+
+       // Account Methods
+
+       //void Account(double initialAmount), constructor
+       account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
+
+       //boolean transferFounds(double amount, Account destinationAccount)
+       account.withMethod("transferFounds", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
+               new Parameter(account).with("destinationAccount"));
+
 
        // create class Transaction
        Clazz transaction = model.createClazz("Transaction");

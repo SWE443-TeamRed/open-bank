@@ -392,4 +392,18 @@ import org.sdmlib.openbank.Transaction;
       withDebit(value);
       return value;
    } 
+
+   // Methods
+   //==========================================================================
+   public void Account( double initialAmount )
+   {
+      
+   }
+
+   
+   //==========================================================================
+   public boolean transferFounds( double amount, Account destinationAccount )
+   {
+      return false;
+   }
 }

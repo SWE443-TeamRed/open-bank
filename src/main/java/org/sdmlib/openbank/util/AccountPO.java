@@ -346,4 +346,27 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
+   
+   //==========================================================================
+   
+   public void Account(double initialAmount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).Account(initialAmount);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public boolean transferFounds(double amount, Account destinationAccount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).transferFounds(amount, destinationAccount);
+      }
+      return false;
+   }
+
 }
