@@ -24,93 +24,99 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-   /**
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
+/**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
-   public  class Database implements SendableEntity
-{
+public class Database implements SendableEntity {
+    Map<String,Account> accounts;
+    Map<String, Transaction> transactions;
 
-   
-   //==========================================================================
-   public boolean addAccounts( Account account )
-   {
-      return false;
-   }
+    public Database() {}
 
-   
-   //==========================================================================
-   public Account searchForAccount( String userId )
-   {
-      return null;
-   }
+    //==========================================================================
+    public boolean addAccounts(Account account) {
+        if (account != null) {
+            this.accounts.put(account.getOwner().getUserID(), account);
+            return true;
+        }
+        return false;
+    }
 
-   
-   //==========================================================================
-   public Transaction searchForTransaction( String userId )
-   {
-      return null;
-   }
+    //==========================================================================
+    public boolean addTransaction(Transaction transaction) {
+        if (transaction != null) {
+            this.transactions.put(transaction.getFromAccount().getOwner().getUserID(), transaction);
+            return true;
+        }
+        return false;
+    }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = null;
-   
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
-   }
-   
-   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners.removePropertyChangeListener(listener);
-   	}
-   	listeners.removePropertyChangeListener(listener);
-   	return true;
-   }
+    //==========================================================================
+    public Account searchForAccount(String userId) {
+        return accounts.get(userId);
+    }
 
-   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
-   	if (listeners != null) {
-   		listeners.removePropertyChangeListener(propertyName, listener);
-   	}
-   	return true;
-   }
 
-   
-   //==========================================================================
-   
-   
-   public void removeYou()
-   {
-      firePropertyChange("REMOVE_YOU", this, null);
-   }
+    //==========================================================================
+    public Transaction searchForTransaction(String userId) {
+        return transactions.get(userId);
+    }
 
-   
-   //==========================================================================
-   public boolean addTransaction( Transaction transaction )
-   {
-      return false;
-   }
+
+    //==========================================================================
+
+    protected PropertyChangeSupport listeners = null;
+
+    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+        if (listeners != null) {
+            listeners.firePropertyChange(propertyName, oldValue, newValue);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addPropertyChangeListener(PropertyChangeListener listener) {
+        if (listeners == null) {
+            listeners = new PropertyChangeSupport(this);
+        }
+        listeners.addPropertyChangeListener(listener);
+        return true;
+    }
+
+    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        if (listeners == null) {
+            listeners = new PropertyChangeSupport(this);
+        }
+        listeners.addPropertyChangeListener(propertyName, listener);
+        return true;
+    }
+
+    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+        if (listeners == null) {
+            listeners.removePropertyChangeListener(listener);
+        }
+        listeners.removePropertyChangeListener(listener);
+        return true;
+    }
+
+    public boolean removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        if (listeners != null) {
+            listeners.removePropertyChangeListener(propertyName, listener);
+        }
+        return true;
+    }
+
+
+    //==========================================================================
+
+
+    public void removeYou() {
+        firePropertyChange("REMOVE_YOU", this, null);
+    }
 }
