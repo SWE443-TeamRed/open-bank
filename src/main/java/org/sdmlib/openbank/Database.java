@@ -106,4 +106,11 @@ import java.beans.PropertyChangeListener;
    {
       firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   public boolean addTransaction( Transaction transaction )
+   {
+      return false;
+   }
 }

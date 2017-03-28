@@ -28,6 +28,7 @@ import java.util.Collection;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.Transaction;
 
 public class DatabaseSet extends SimpleSet<Database>
 {
@@ -147,6 +148,21 @@ public class DatabaseSet extends SimpleSet<Database>
       for (Database obj : this)
       {
          result.add( obj.searchForTransaction(userId) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList addTransaction(Transaction transaction)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Database obj : this)
+      {
+         result.add( obj.addTransaction(transaction) );
       }
       return result;
    }

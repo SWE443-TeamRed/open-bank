@@ -76,4 +76,16 @@ public class DatabasePO extends PatternObject<DatabasePO, Database>
       return null;
    }
 
+   
+   //==========================================================================
+   
+   public boolean addTransaction(Transaction transaction)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Database) getCurrentMatch()).addTransaction(transaction);
+      }
+      return false;
+   }
+
 }

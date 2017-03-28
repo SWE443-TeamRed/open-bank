@@ -42,7 +42,7 @@ public class Model {
        //Create class Database
        Clazz database = model.createClazz("Database");
        database.withMethod("addAccounts", DataType.BOOLEAN, new Parameter(DataType.create(account)).with("account"));
-       database.withMethod("addAccounts", DataType.BOOLEAN, new Parameter(DataType.create(transaction)).with("transaction"));
+       database.withMethod("addTransaction", DataType.BOOLEAN, new Parameter(DataType.create(transaction)).with("transaction"));
        database.withMethod("searchForAccount", DataType.create(account), new Parameter(DataType.STRING).with("userId"));
        database.withMethod("searchForTransaction", DataType.create(transaction), new Parameter(DataType.STRING).with("userId"));
 
