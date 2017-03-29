@@ -44,4 +44,11 @@ SetAmount method modified. Checks for negative value. if it is less than 0 thwro
 
 Spend about 3-4 hours.
 
+-Fatih:3/29/2017
 
+Created 9 test cases. Checks for the followings 
+- null value for dates
+- negative for setAmount
+- expected results for each attributes
+
+Spent 2 Hours
