@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,6 +27,7 @@ import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
 import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.User;
 import java.util.Collections;
@@ -110,491 +111,17 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
-
-   /**
-    * Loop through the current set of Account objects and collect a list of the balance attribute values. 
-    * 
-    * @return List of double objects reachable via balance attribute
-    */
-   public NumberList getBalance()
-   {
-      NumberList result = new NumberList();
-      
-      for (Account obj : this)
-      {
-         result.add(obj.getBalance());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the balance attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterBalance(double value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value == obj.getBalance())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the balance attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterBalance(double lower, double upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the balance attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Account objects now with new attribute values.
-    */
-   public AccountSet withBalance(double value)
-   {
-      for (Account obj : this)
-      {
-         obj.setBalance(value);
-      }
-      
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect a list of the accountnum attribute values. 
-    * 
-    * @return List of int objects reachable via accountnum attribute
-    */
-   public NumberList getAccountnum()
-   {
-      NumberList result = new NumberList();
-      
-      for (Account obj : this)
-      {
-         result.add(obj.getAccountnum());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the accountnum attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterAccountnum(int value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value == obj.getAccountnum())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the accountnum attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterAccountnum(int lower, int upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower <= obj.getAccountnum() && obj.getAccountnum() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the accountnum attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Account objects now with new attribute values.
-    */
-   public AccountSet withAccountnum(int value)
-   {
-      for (Account obj : this)
-      {
-         obj.setAccountnum(value);
-      }
-      
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect a list of the creationdate attribute values. 
-    * 
-    * @return List of String objects reachable via creationdate attribute
-    */
-   public ObjectSet getCreationdate()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (Account obj : this)
-      {
-         result.add(obj.getCreationdate());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value.equals(obj.getCreationdate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String lower, String upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the creationdate attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Account objects now with new attribute values.
-    */
-   public AccountSet withCreationdate(String value)
-   {
-      for (Account obj : this)
-      {
-         obj.setCreationdate(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect a set of the User objects reached via owner. 
-    * 
-    * @return Set of User objects reachable via owner
-    */
-   public UserSet getOwner()
-   {
-      UserSet result = new UserSet();
-      
-      for (Account obj : this)
-      {
-         result.with(obj.getOwner());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference owner pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as owner neighbor of the collected results. 
-    * 
-    * @return Set of User objects referring to value via owner
-    */
-   public AccountSet filterOwner(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AccountSet answer = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (neighbors.contains(obj.getOwner()) || (neighbors.isEmpty() && obj.getOwner() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Owner attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Owner attributes.
-    */
-   public AccountSet withOwner(User value)
-   {
-      for (Account obj : this)
-      {
-         obj.withOwner(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via credit. 
-    * 
-    * @return Set of Transaction objects reachable via credit
-    */
-   public TransactionSet getCredit()
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.with(obj.getCredit());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference credit pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as credit neighbor of the collected results. 
-    * 
-    * @return Set of Transaction objects referring to value via credit
-    */
-   public AccountSet filterCredit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AccountSet answer = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getCredit()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Credit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Credit attributes.
-    */
-   public AccountSet withCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withCredit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Credit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutCredit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via debit. 
-    * 
-    * @return Set of Transaction objects reachable via debit
-    */
-   public TransactionSet getDebit()
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.with(obj.getDebit());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference debit pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as debit neighbor of the collected results. 
-    * 
-    * @return Set of Transaction objects referring to value via debit
-    */
-   public AccountSet filterDebit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AccountSet answer = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDebit()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Debit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Debit attributes.
-    */
-   public AccountSet withDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withDebit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Debit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutDebit(value);
-      }
-      
-      return this;
-   }
-
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList validateLogin()
+   public de.uniks.networkparser.list.BooleanList login(String username, String password)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
       
       for (Account obj : this)
       {
-         result.add( obj.validateLogin() );
+         result.add( obj.login(username, password) );
       }
       return result;
    }
@@ -1039,6 +566,373 @@ public class AccountSet extends SimpleSet<Account>
       for (Account obj : this)
       {
          obj.setPhone(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the balance attribute values. 
+    * 
+    * @return List of double objects reachable via balance attribute
+    */
+   public NumberList getBalance()
+   {
+      NumberList result = new NumberList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getBalance());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the balance attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterBalance(double value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getBalance())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the balance attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterBalance(double lower, double upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the balance attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withBalance(double value)
+   {
+      for (Account obj : this)
+      {
+         obj.setBalance(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the isLoggedIn attribute values. 
+    * 
+    * @return List of boolean objects reachable via isLoggedIn attribute
+    */
+   public BooleanList getIsLoggedIn()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.isIsLoggedIn());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the isLoggedIn attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterIsLoggedIn(boolean value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.isIsLoggedIn())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the isLoggedIn attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withIsLoggedIn(boolean value)
+   {
+      for (Account obj : this)
+      {
+         obj.setIsLoggedIn(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the User objects reached via owner. 
+    * 
+    * @return Set of User objects reachable via owner
+    */
+   public UserSet getOwner()
+   {
+      UserSet result = new UserSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getOwner());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference owner pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as owner neighbor of the collected results. 
+    * 
+    * @return Set of User objects referring to value via owner
+    */
+   public AccountSet filterOwner(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (neighbors.contains(obj.getOwner()) || (neighbors.isEmpty() && obj.getOwner() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Owner attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Owner attributes.
+    */
+   public AccountSet withOwner(User value)
+   {
+      for (Account obj : this)
+      {
+         obj.withOwner(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via credit. 
+    * 
+    * @return Set of Transaction objects reachable via credit
+    */
+   public TransactionSet getCredit()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getCredit());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference credit pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as credit neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via credit
+    */
+   public AccountSet filterCredit(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getCredit()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Credit attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Credit attributes.
+    */
+   public AccountSet withCredit(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withCredit(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Credit attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public AccountSet withoutCredit(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withoutCredit(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via debit. 
+    * 
+    * @return Set of Transaction objects reachable via debit
+    */
+   public TransactionSet getDebit()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getDebit());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference debit pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as debit neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via debit
+    */
+   public AccountSet filterDebit(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDebit()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Debit attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Debit attributes.
+    */
+   public AccountSet withDebit(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withDebit(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Debit attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public AccountSet withoutDebit(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withoutDebit(value);
       }
       
       return this;

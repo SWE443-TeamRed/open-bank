@@ -41,7 +41,7 @@ public class Model {
        account.withAttribute("email", DataType.STRING);
        account.withAttribute("phone", DataType.INT);
        account.withAttribute("balance", DataType.DOUBLE);
-       account.withAttribute("isLoggedIn", DataType.DOUBLE);
+       account.withAttribute("isLoggedIn", DataType.BOOLEAN);
 
 
        //User can open an account (for others if they are an admin)

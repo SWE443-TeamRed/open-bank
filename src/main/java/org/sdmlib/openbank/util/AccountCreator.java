@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -31,17 +31,16 @@ public class AccountCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Account.PROPERTY_BALANCE,
-      Account.PROPERTY_ACCOUNTNUM,
-      Account.PROPERTY_CREATIONDATE,
-      Account.PROPERTY_OWNER,
-      Account.PROPERTY_CREDIT,
-      Account.PROPERTY_DEBIT,
       Account.PROPERTY_USERNAME,
       Account.PROPERTY_PASSWORD,
       Account.PROPERTY_NAME,
       Account.PROPERTY_EMAIL,
       Account.PROPERTY_PHONE,
+      Account.PROPERTY_BALANCE,
+      Account.PROPERTY_ISLOGGEDIN,
+      Account.PROPERTY_OWNER,
+      Account.PROPERTY_CREDIT,
+      Account.PROPERTY_DEBIT,
    };
    
    @Override
@@ -65,36 +64,6 @@ public class AccountCreator implements SendableEntityCreator
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
-      }
-
-      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getBalance();
-      }
-
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getAccountnum();
-      }
-
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getCreationdate();
-      }
-
-      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getOwner();
-      }
-
-      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getCredit();
-      }
-
-      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getDebit();
       }
 
       if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
@@ -121,6 +90,31 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getPhone();
       }
+
+      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getBalance();
+      }
+
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsLoggedIn();
+      }
+
+      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getOwner();
+      }
+
+      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getCredit();
+      }
+
+      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getDebit();
+      }
       
       return null;
    }
@@ -128,6 +122,18 @@ public class AccountCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsLoggedIn((Boolean) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBalance(Double.parseDouble(value.toString()));
+         return true;
+      }
+
       if (Account.PROPERTY_PHONE.equalsIgnoreCase(attrName))
       {
          ((Account) target).setPhone(Integer.parseInt(value.toString()));
@@ -155,24 +161,6 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
       {
          ((Account) target).setUsername((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setCreationdate((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setAccountnum(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setBalance(Double.parseDouble(value.toString()));
          return true;
       }
 

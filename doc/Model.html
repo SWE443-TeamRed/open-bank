@@ -26,7 +26,7 @@
             "isAdmin : boolean"
          ],
          "methods":[
-            "login() boolean"
+            "openAccount(org.sdmlib.openbank.User p0) boolean"
          ]
       },
       {
@@ -38,10 +38,11 @@
             "name : String",
             "email : String",
             "phone : int",
-            "balance : double"
+            "balance : double",
+            "isLoggedIn : boolean"
          ],
          "methods":[
-            "validateLogin() boolean",
+            "login(String username, String password) boolean",
             "withdraw() double",
             "deposit() double"
          ]

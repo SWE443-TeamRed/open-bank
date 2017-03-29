@@ -44,6 +44,18 @@ public class UserPO extends PatternObject<UserPO, User>
    {
       this.setModifier(modifier);
    }
+   
+   //==========================================================================
+   
+   public boolean openAccount(User p0)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).openAccount(p0);
+      }
+      return false;
+   }
+
    public UserPO createNameCondition(String value)
    {
       new AttributeConstraint()
@@ -166,57 +178,6 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
-   public AccountPO createAccountPO()
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(User.PROPERTY_ACCOUNT, result);
-      
-      return result;
-   }
-
-   public AccountPO createAccountPO(String modifier)
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(User.PROPERTY_ACCOUNT, result);
-      
-      return result;
-   }
-
-   public UserPO createAccountLink(AccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT);
-   }
-
-   public UserPO createAccountLink(AccountPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT, modifier);
-   }
-
-   public AccountSet getAccount()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) this.getCurrentMatch()).getAccount();
-      }
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean login()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) getCurrentMatch()).login();
-      }
-      return false;
-   }
-
    public UserPO createIsAdminCondition(boolean value)
    {
       new AttributeConstraint()
@@ -263,4 +224,43 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public AccountPO createAccountPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_ACCOUNT, result);
+      
+      return result;
+   }
+
+   public AccountPO createAccountPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_ACCOUNT, result);
+      
+      return result;
+   }
+
+   public UserPO createAccountLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT);
+   }
+
+   public UserPO createAccountLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT, modifier);
+   }
+
+   public AccountSet getAccount()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) this.getCurrentMatch()).getAccount();
+      }
+      return null;
+   }
+
 }
