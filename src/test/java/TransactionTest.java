@@ -16,14 +16,14 @@ public class TransactionTest {
 
     @Before
     public void setUp() throws Exception{
+        // initiate transaction class
         trans = new Transaction();
     }
 
+    @Test(expected=IllegalArgumentException.class)
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
-
-    @Test(expected=IllegalArgumentException.class)
-    public void testNegative()throws Exception{
+    public void testSetAmountNegative()throws Exception{
         trans.setAmount(-5);
     }
 
