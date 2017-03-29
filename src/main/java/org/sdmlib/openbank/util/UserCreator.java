@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -32,6 +32,7 @@ public class UserCreator implements SendableEntityCreator
    {
       User.PROPERTY_NAME,
       User.PROPERTY_USERID,
+      User.PROPERTY_ISADMIN,
       User.PROPERTY_ACCOUNT,
    };
    
@@ -68,6 +69,11 @@ public class UserCreator implements SendableEntityCreator
          return ((User) target).getUserID();
       }
 
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).isIsAdmin();
+      }
+
       if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attribute))
       {
          return ((User) target).getAccount();
@@ -79,6 +85,12 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setIsAdmin((Boolean) value);
+         return true;
+      }
+
       if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
       {
          ((User) target).setUserID((String) value);

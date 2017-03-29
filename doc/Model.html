@@ -22,16 +22,29 @@
          "id":"User",
          "attributes":[
             "name : String",
-            "UserID : String"
+            "userID : String",
+            "isAdmin : boolean"
+         ],
+         "methods":[
+            "openAccount(org.sdmlib.openbank.User p0) boolean"
          ]
       },
       {
          "typ":"node",
          "id":"Account",
          "attributes":[
+            "username : String",
+            "password : String",
+            "name : String",
+            "email : String",
+            "phone : int",
             "balance : double",
-            "accountnum : int",
-            "creationdate : String"
+            "isLoggedIn : boolean"
+         ],
+         "methods":[
+            "login(String username, String password) boolean",
+            "withdraw() double",
+            "deposit() double"
          ]
       },
       {

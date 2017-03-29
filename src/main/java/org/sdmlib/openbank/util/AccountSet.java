@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,6 +27,7 @@ import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
 import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.User;
 import java.util.Collections;
@@ -107,6 +108,466 @@ public class AccountSet extends SimpleSet<Account>
    public AccountSet without(Account value)
    {
       this.remove(value);
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList login(String username, String password)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.login(username, password) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList withdraw()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.withdraw() );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList deposit()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.deposit() );
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the username attribute values. 
+    * 
+    * @return List of String objects reachable via username attribute
+    */
+   public ObjectSet getUsername()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getUsername());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the username attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterUsername(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getUsername()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the username attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterUsername(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the username attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withUsername(String value)
+   {
+      for (Account obj : this)
+      {
+         obj.setUsername(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the password attribute values. 
+    * 
+    * @return List of String objects reachable via password attribute
+    */
+   public ObjectSet getPassword()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getPassword());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the password attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPassword(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getPassword()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the password attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPassword(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower.compareTo(obj.getPassword()) <= 0 && obj.getPassword().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the password attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withPassword(String value)
+   {
+      for (Account obj : this)
+      {
+         obj.setPassword(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public ObjectSet getName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterName(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterName(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withName(String value)
+   {
+      for (Account obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the email attribute values. 
+    * 
+    * @return List of String objects reachable via email attribute
+    */
+   public ObjectSet getEmail()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getEmail());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the email attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterEmail(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getEmail()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the email attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterEmail(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower.compareTo(obj.getEmail()) <= 0 && obj.getEmail().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the email attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withEmail(String value)
+   {
+      for (Account obj : this)
+      {
+         obj.setEmail(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the phone attribute values. 
+    * 
+    * @return List of int objects reachable via phone attribute
+    */
+   public NumberList getPhone()
+   {
+      NumberList result = new NumberList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getPhone());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the phone attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPhone(int value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getPhone())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the phone attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPhone(int lower, int upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower <= obj.getPhone() && obj.getPhone() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the phone attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withPhone(int value)
+   {
+      for (Account obj : this)
+      {
+         obj.setPhone(value);
+      }
+      
       return this;
    }
 
@@ -195,17 +656,17 @@ public class AccountSet extends SimpleSet<Account>
 
 
    /**
-    * Loop through the current set of Account objects and collect a list of the accountnum attribute values. 
+    * Loop through the current set of Account objects and collect a list of the isLoggedIn attribute values. 
     * 
-    * @return List of int objects reachable via accountnum attribute
+    * @return List of boolean objects reachable via isLoggedIn attribute
     */
-   public NumberList getAccountnum()
+   public BooleanList getIsLoggedIn()
    {
-      NumberList result = new NumberList();
+      BooleanList result = new BooleanList();
       
       for (Account obj : this)
       {
-         result.add(obj.getAccountnum());
+         result.add(obj.isIsLoggedIn());
       }
       
       return result;
@@ -213,19 +674,19 @@ public class AccountSet extends SimpleSet<Account>
 
 
    /**
-    * Loop through the current set of Account objects and collect those Account objects where the accountnum attribute matches the parameter value. 
+    * Loop through the current set of Account objects and collect those Account objects where the isLoggedIn attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterAccountnum(int value)
+   public AccountSet filterIsLoggedIn(boolean value)
    {
       AccountSet result = new AccountSet();
       
       for (Account obj : this)
       {
-         if (value == obj.getAccountnum())
+         if (value == obj.isIsLoggedIn())
          {
             result.add(obj);
          }
@@ -236,124 +697,17 @@ public class AccountSet extends SimpleSet<Account>
 
 
    /**
-    * Loop through the current set of Account objects and collect those Account objects where the accountnum attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterAccountnum(int lower, int upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower <= obj.getAccountnum() && obj.getAccountnum() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the accountnum attribute of each of it. 
+    * Loop through the current set of Account objects and assign value to the isLoggedIn attribute of each of it. 
     * 
     * @param value New attribute value
     * 
     * @return Current set of Account objects now with new attribute values.
     */
-   public AccountSet withAccountnum(int value)
+   public AccountSet withIsLoggedIn(boolean value)
    {
       for (Account obj : this)
       {
-         obj.setAccountnum(value);
-      }
-      
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect a list of the creationdate attribute values. 
-    * 
-    * @return List of String objects reachable via creationdate attribute
-    */
-   public ObjectSet getCreationdate()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (Account obj : this)
-      {
-         result.add(obj.getCreationdate());
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value.equals(obj.getCreationdate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String lower, String upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the creationdate attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Account objects now with new attribute values.
-    */
-   public AccountSet withCreationdate(String value)
-   {
-      for (Account obj : this)
-      {
-         obj.setCreationdate(value);
+         obj.setIsLoggedIn(value);
       }
       
       return this;

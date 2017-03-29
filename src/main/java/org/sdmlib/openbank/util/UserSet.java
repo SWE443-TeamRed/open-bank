@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,6 +26,7 @@ import org.sdmlib.openbank.User;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
 import java.util.Collections;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
@@ -105,6 +106,21 @@ public class UserSet extends SimpleSet<User>
    {
       this.remove(value);
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList openAccount(User p0)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add( obj.openAccount(p0) );
+      }
+      return result;
    }
 
 
@@ -192,9 +208,9 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the UserID attribute values. 
+    * Loop through the current set of User objects and collect a list of the userID attribute values. 
     * 
-    * @return List of String objects reachable via UserID attribute
+    * @return List of String objects reachable via userID attribute
     */
    public ObjectSet getUserID()
    {
@@ -210,7 +226,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the UserID attribute matches the parameter value. 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
@@ -233,7 +249,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the UserID attribute is between lower and upper. 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute is between lower and upper. 
     * 
     * @param lower Lower bound 
     * @param upper Upper bound 
@@ -257,7 +273,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and assign value to the UserID attribute of each of it. 
+    * Loop through the current set of User objects and assign value to the userID attribute of each of it. 
     * 
     * @param value New attribute value
     * 
@@ -268,6 +284,65 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.setUserID(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect a list of the isAdmin attribute values. 
+    * 
+    * @return List of boolean objects reachable via isAdmin attribute
+    */
+   public BooleanList getIsAdmin()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add(obj.isIsAdmin());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the isAdmin attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterIsAdmin(boolean value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value == obj.isIsAdmin())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the isAdmin attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withIsAdmin(boolean value)
+   {
+      for (User obj : this)
+      {
+         obj.setIsAdmin(value);
       }
       
       return this;

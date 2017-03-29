@@ -1,8 +1,4 @@
-import de.uniks.networkparser.graph.Association;
-import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -25,15 +21,39 @@ public class Model {
 
        // set attributes
        user.withAttribute("name", DataType.STRING);
-       user.withAttribute("UserID",DataType.STRING);
-       //user.withAttribute("DOB",DataType.STRING);
+       user.withAttribute("userID",DataType.STRING);
+       user.withAttribute("isAdmin", DataType.BOOLEAN);
 
-       // create class Account
+
+       /*
+       Account class:
+        username: Account login ID,
+        password: Account login password,
+        name: Name on the account,
+        email: Email on the account,
+        phone: Contact number of the account
+        balance: Balance on the account
+        */
        Clazz account = model.createClazz("Account");
-
+       account.withAttribute("username", DataType.STRING);
+       account.withAttribute("password", DataType.STRING);
+       account.withAttribute("name", DataType.STRING);
+       account.withAttribute("email", DataType.STRING);
+       account.withAttribute("phone", DataType.INT);
        account.withAttribute("balance", DataType.DOUBLE);
-       account.withAttribute("accountnum",DataType.INT);
-       account.withAttribute("creationdate", DataType.STRING);
+       account.withAttribute("isLoggedIn", DataType.BOOLEAN);
+
+
+       //User can open an account (for others if they are an admin)
+       user.withMethod("openAccount", DataType.BOOLEAN, new Parameter(DataType.create(user)));
+
+       //User logs into their account
+       account.withMethod("login", DataType.BOOLEAN, new Parameter(DataType.STRING).with("username"),new Parameter(DataType.STRING).with("password"));
+      //Withdraw funds from account
+       account.withMethod("withdraw", DataType.DOUBLE);
+       //Deposit funds with account
+       account.withMethod("deposit", DataType.DOUBLE);
+
 
        // create class Transaction
        Clazz transaction = model.createClazz("Transaction");
@@ -43,7 +63,7 @@ public class Model {
        transaction.withAttribute("time", DataType.STRING);
        transaction.withAttribute("note",DataType.STRING);
 
-       // the account in user
+       //User has MANY accounts, Account has ONE user
        user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
 
        //transactions toAccount

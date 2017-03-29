@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -33,6 +33,15 @@ import org.sdmlib.openbank.Account;
  */
    public  class User implements SendableEntity
 {
+
+   public User(){
+
+   }
+   //==========================================================================
+   public boolean openAccount( User p0 )
+   {
+      return false;
+   }
 
    
    //==========================================================================
@@ -133,21 +142,21 @@ import org.sdmlib.openbank.Account;
    
    //==========================================================================
    
-   public static final String PROPERTY_USERID = "UserID";
+   public static final String PROPERTY_USERID = "userID";
    
-   private String UserID;
+   private String userID;
 
    public String getUserID()
    {
-      return this.UserID;
+      return this.userID;
    }
    
-   public void setUserID(String value)
+   private void setUserID(String value)
    {
-      if ( ! EntityUtil.stringEquals(this.UserID, value)) {
-      
-         String oldValue = this.UserID;
-         this.UserID = value;
+      if ( ! EntityUtil.stringEquals(this.userID, value)) {
+
+         String oldValue = this.userID;
+         this.userID = value;
          this.firePropertyChange(PROPERTY_USERID, oldValue, value);
       }
    }
@@ -155,6 +164,34 @@ import org.sdmlib.openbank.Account;
    public User withUserID(String value)
    {
       setUserID(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISADMIN = "isAdmin";
+   
+   private boolean isAdmin;
+
+   public boolean isIsAdmin()
+   {
+      return this.isAdmin;
+   }
+   
+   public void setIsAdmin(boolean value)
+   {
+      if (this.isAdmin != value) {
+      
+         boolean oldValue = this.isAdmin;
+         this.isAdmin = value;
+         this.firePropertyChange(PROPERTY_ISADMIN, oldValue, value);
+      }
+   }
+   
+   public User withIsAdmin(boolean value)
+   {
+      setIsAdmin(value);
       return this;
    } 
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -31,9 +31,13 @@ public class AccountCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      Account.PROPERTY_USERNAME,
+      Account.PROPERTY_PASSWORD,
+      Account.PROPERTY_NAME,
+      Account.PROPERTY_EMAIL,
+      Account.PROPERTY_PHONE,
       Account.PROPERTY_BALANCE,
-      Account.PROPERTY_ACCOUNTNUM,
-      Account.PROPERTY_CREATIONDATE,
+      Account.PROPERTY_ISLOGGEDIN,
       Account.PROPERTY_OWNER,
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
@@ -62,19 +66,39 @@ public class AccountCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
+      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getUsername();
+      }
+
+      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getPassword();
+      }
+
+      if (Account.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getName();
+      }
+
+      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getEmail();
+      }
+
+      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getPhone();
+      }
+
       if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getBalance();
       }
 
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attribute))
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attribute))
       {
-         return ((Account) target).getAccountnum();
-      }
-
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getCreationdate();
+         return ((Account) target).isIsLoggedIn();
       }
 
       if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
@@ -98,21 +122,45 @@ public class AccountCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attrName))
       {
-         ((Account) target).setCreationdate((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setAccountnum(Integer.parseInt(value.toString()));
+         ((Account) target).setIsLoggedIn((Boolean) value);
          return true;
       }
 
       if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
          ((Account) target).setBalance(Double.parseDouble(value.toString()));
+         return true;
+      }
+
+      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setPhone(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setEmail((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setName((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setPassword((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setUsername((String) value);
          return true;
       }
 

@@ -44,6 +44,18 @@ public class UserPO extends PatternObject<UserPO, User>
    {
       this.setModifier(modifier);
    }
+   
+   //==========================================================================
+   
+   public boolean openAccount(User p0)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).openAccount(p0);
+      }
+      return false;
+   }
+
    public UserPO createNameCondition(String value)
    {
       new AttributeConstraint()
@@ -162,6 +174,52 @@ public class UserPO extends PatternObject<UserPO, User>
       if (this.getPattern().getHasMatch())
       {
          ((User) getCurrentMatch()).setUserID(value);
+      }
+      return this;
+   }
+   
+   public UserPO createIsAdminCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_ISADMIN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createIsAdminAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_ISADMIN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getIsAdmin()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).isIsAdmin();
+      }
+      return false;
+   }
+   
+   public UserPO withIsAdmin(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setIsAdmin(value);
       }
       return this;
    }

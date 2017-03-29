@@ -26,8 +26,7 @@ Related scenario(s):
 
   
 Time estimate(s):
-
-  
+4
 
 Author(s):
 
@@ -39,6 +38,7 @@ Assigned persons (currently working on task):
   - Kimberly
   - Savindi
   - Henry
+
 
 Log entries (who worked when and how long on this):
 
