@@ -22,16 +22,28 @@
          "id":"User",
          "attributes":[
             "name : String",
-            "UserID : String"
+            "userID : String",
+            "isAdmin : boolean"
+         ],
+         "methods":[
+            "login() boolean"
          ]
       },
       {
          "typ":"node",
          "id":"Account",
          "attributes":[
-            "balance : double",
-            "accountnum : int",
-            "creationdate : String"
+            "username : String",
+            "password : String",
+            "name : String",
+            "email : String",
+            "phone : int",
+            "balance : double"
+         ],
+         "methods":[
+            "validateLogin() boolean",
+            "withdraw() double",
+            "deposit() double"
          ]
       },
       {

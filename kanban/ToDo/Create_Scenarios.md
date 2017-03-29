@@ -21,15 +21,17 @@ Related scenario(s):
 Time estimate(s):
 
   10H
+  - Took 4 hours max
 
 Author(s):
 
   - Vincent
 
 Assigned persons (currently working on task):
-
+ - Henry
+    - 12 Scenarios are done and ready to be tests
 
 
 Log entries (who worked when and how long on this):
-
+- Henry created 12 sceanrios and created a scenario folder which contains all of them. Hours worked are logged in the burndown chart
 
