@@ -106,6 +106,7 @@ import org.sdmlib.openbank.Account;
    
    public void setAmount(double value)
    {
+
       // check for negative, if less then 0 throw IllegalArgumentException
       if (value < 0) {
          throw new IllegalArgumentException("Amount is not valid!");
@@ -151,11 +152,16 @@ import org.sdmlib.openbank.Account;
    
    public void setDate(Date value)
    {
-      if (this.date != value) {
-      
-         Date oldValue = this.date;
-         this.date = value;
-         this.firePropertyChange(PROPERTY_DATE, oldValue, value);
+      // check for negative, if less then 0 throw IllegalArgumentException
+      if (value ==null) {
+         throw new IllegalArgumentException("Date is null. Invalid Date.");
+      }else {
+         if (this.date != value) {
+
+            Date oldValue = this.date;
+            this.date = value;
+            this.firePropertyChange(PROPERTY_DATE, oldValue, value);
+         }
       }
    }
    
@@ -179,11 +185,15 @@ import org.sdmlib.openbank.Account;
    
    public void setTime(Date value)
    {
-      if (this.time != value) {
-      
-         Date oldValue = this.time;
-         this.time = value;
-         this.firePropertyChange(PROPERTY_TIME, oldValue, value);
+      if (value ==null) {
+         throw new IllegalArgumentException("Date is null. Invalid Date/Time.");
+      }else {
+         if (this.time != value) {
+
+            Date oldValue = this.time;
+            this.time = value;
+            this.firePropertyChange(PROPERTY_TIME, oldValue, value);
+         }
       }
    }
    

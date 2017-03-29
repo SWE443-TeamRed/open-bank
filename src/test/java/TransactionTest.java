@@ -24,13 +24,7 @@ public class TransactionTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void testNegative()throws Exception{
-
-        try {
-            trans.setAmount(-5);
-        } catch (IllegalArgumentException ex) {
-            assertThat(ex.getMessage(), containsString("Amount is not valid!"));
-
-        }
+        trans.setAmount(-5);
     }
 
     @Test
@@ -50,6 +44,15 @@ public class TransactionTest {
         assertTrue(dt == trans.getDate());
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    // setDate with null to see if it will throw IllegalArgumentException
+    public void setgetDateTestNULL(){
+        Date dt = new Date(null);
+
+        // set date with null
+        trans.setDate(dt);
+    }
+
     @Test
     // setTime and get the time to make sure you get the correct time
     public void setgetTime(){
@@ -58,6 +61,15 @@ public class TransactionTest {
         // set time
         trans.setTime(dt);
         assertTrue(dt == trans.getTime());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    // setTime with null to see if it will throw IllegalArgumentException
+    public void setgetTimeTestNULL(){
+        Date dt = new Date(null);
+
+        // set date with null
+        trans.setDate(dt);
     }
 
     @Test
@@ -69,4 +81,21 @@ public class TransactionTest {
         assertTrue(nt == trans.getNote());
     }
 
+    @Test
+    // setNote and get the note to make sure you get the correct value
+    public void setgetNoteNULL(){
+        String nt = null;
+        // set note
+        trans.setNote(nt);
+        assertTrue(nt == trans.getNote());
+    }
+
+    @Test
+    // setNote and get the note to make sure you get the correct value
+    public void setgetNoteEmpty(){
+        String nt = " ";
+        // set note
+        trans.setNote(nt);
+        assertTrue(nt == trans.getNote());
+    }
 }
