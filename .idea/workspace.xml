@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="Slightly more specific README.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md" afterPath="$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java" afterPath="$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -50,8 +52,8 @@
       <file leaf-file-name="JsonPersistency.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="258">
+              <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,18 +64,8 @@
       <file leaf-file-name="JsonPersistencyTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="19" column="134" lean-forward="false" selection-start-line="19" selection-start-column="134" selection-end-line="19" selection-end-column="134" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Transaction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="122" column="20" lean-forward="false" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="20" />
+            <state relative-caret-position="108">
+              <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -83,8 +75,8 @@
         <entry file="file://$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="270">
-                <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+              <first_editor relative-caret-position="302">
+                <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -652,8 +644,8 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" />
         <option value="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
         <option value="$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md" />
       </list>
     </option>
@@ -966,7 +958,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -1308,34 +1300,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 15m 59s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 23m 21s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 18m 12s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 23m 42s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 18m 33s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 26m 41s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 19m 40s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 27m 40s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 20m 06s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 28m 06s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 20m 58s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 29m 11s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 21m 28s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 30m 44s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 26m 44s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 32m 17s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 26m 45s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 32m 41s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonPersistencyTest - 2017.03.29 at 21h 26m 47s.xml">
+    <history-entry file="JsonPersistencyTest - 2017.03.29 at 22h 36m 45s.xml">
       <configuration name="JsonPersistencyTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1358,14 +1350,14 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39865997" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31490788" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26968175" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283082" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9731993" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7671692" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32663316" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23712121" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1445,36 +1437,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/doc/Model.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="2" lean-forward="false" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/Model.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1701,10 +1663,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java">
+    <entry file="file://$PROJECT_DIR$/test.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="134" lean-forward="false" selection-start-line="19" selection-start-column="134" selection-end-line="19" selection-end-column="134" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1717,6 +1679,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jsonPersistencyTest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.uniks/NetworkParser/4.4.311/2ed0c53eeed3d9314b6350d134c8abdda779b8fe/NetworkParser-4.4.311-sources.jar!/de/uniks/networkparser/json/JsonTokener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="188" column="48" lean-forward="true" selection-start-line="188" selection-start-column="48" selection-end-line="188" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.uniks/NetworkParser/4.4.311/2ed0c53eeed3d9314b6350d134c8abdda779b8fe/NetworkParser-4.4.311-sources.jar!/de/uniks/networkparser/json/JsonObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1725,21 +1721,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="108">
+          <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="270">
-            <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <first_editor relative-caret-position="302">
+            <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
             <folding />
           </first_editor>
           <second_editor />

@@ -2,16 +2,19 @@ package org.sdmlib.openbank;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonObject;
 import org.sdmlib.openbank.util.AccountCreator;
+
+import java.io.*;
+import java.text.ParseException;
 
 /**
  * Created by daniel on 3/29/17.
  */
 public class JsonPersistency {
 
-    String jsonText = "";
-
     public void toJson(Account account){
+        String jsonText = "";
 
         IdMap idMap = AccountCreator.createIdMap("demo");
 
@@ -21,16 +24,53 @@ public class JsonPersistency {
         System.out.println(jsonText); //For testing
 
         // Write Json to textfile
+        try{
+            FileWriter file = new FileWriter("jsonPersistencyTest.json");
+            file.write(jsonText);
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Account fromJson(){
 
+        BufferedReader br = null;
+        FileReader fr = null;
+        String jsonString = "";
+
+        try {
+            String sCurrentLine;
+
+            br = new BufferedReader(new FileReader("jsonPersistencyTest.json"));
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                jsonString += sCurrentLine + "\n";
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+            }
+        }
+
         // read jsonText from file
+        Account account = null;
+
         IdMap readerMap = AccountCreator.createIdMap("demo");
 
-        Object rootObject = readerMap.decode(jsonText);
+        Object rootObject = readerMap.decode(jsonString);
 
-        Account account = (Account) rootObject;
+        account = (Account) rootObject;
 
         return account;
     }

@@ -19,10 +19,13 @@ public class JsonPersistencyTest {
                 .withBalance(100.50).withCreationdate("3/29/2017")
                 .withCredit(new Transaction().withAmount(25.89).withDate("3/30/2017").withNote("For parking ticket").withTime("10:15AM"));
 
+        System.out.println("*********************************toJson*********************************");
         jsonPersistency.toJson(accountBeforeJson);
 
         Account accountAfterJson = jsonPersistency.fromJson();
 
+        System.out.println();
+        System.out.println("*******************************fromJson*********************************");
         System.out.println(accountAfterJson.toString());
         System.out.println("UserID: " + accountAfterJson.getOwner().getUserID());
         System.out.println("Name: " + accountAfterJson.getOwner().getName());
