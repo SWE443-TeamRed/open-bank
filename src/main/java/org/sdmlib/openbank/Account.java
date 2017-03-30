@@ -688,9 +688,11 @@ import org.sdmlib.openbank.Transaction;
                                              "and greater than 0.");
    }
 
-   public void deposit( Account ToAccount, double amount )
+   public void deposit(double amount )
    {
-
+      if (amount > 0.00)
+         this.setBalance(this.getBalance()+ amount);
+      else
+         throw new IllegalArgumentException("Not a valid number");
    }
-
 }
