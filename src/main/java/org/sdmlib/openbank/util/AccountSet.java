@@ -30,6 +30,8 @@ import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.User;
 import java.util.Collections;
+import java.util.Date;
+
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.list.BooleanList;
@@ -281,7 +283,7 @@ public class AccountSet extends SimpleSet<Account>
    /**
     * Loop through the current set of Account objects and collect a list of the creationdate attribute values. 
     * 
-    * @return List of String objects reachable via creationdate attribute
+    * @return List of java.util.Date objects reachable via creationdate attribute
     */
    public ObjectSet getCreationdate()
    {
@@ -303,37 +305,13 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterCreationdate(String value)
+   public AccountSet filterCreationdate(Date value)
    {
       AccountSet result = new AccountSet();
       
       for (Account obj : this)
       {
-         if (value.equals(obj.getCreationdate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String lower, String upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
+         if (value == obj.getCreationdate())
          {
             result.add(obj);
          }
@@ -350,7 +328,7 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Current set of Account objects now with new attribute values.
     */
-   public AccountSet withCreationdate(String value)
+   public AccountSet withCreationdate(Date value)
    {
       for (Account obj : this)
       {

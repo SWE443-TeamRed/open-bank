@@ -1,21 +1,24 @@
+
 import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
+
+import java.util.Date;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
 
 /**
  * Created by FA on 3/23/2017.
  */
 public class Model {
-
-      /**
-     * @see <a href='../../../doc/Model.html'>Model.html</a>
- * @see <a href='../../../../doc/Model.html'>Model.html</a>
- */
    public static void main(String[] args) {
        //create class model
        ClassModel model = new ClassModel("org.sdmlib.openbank");
 
+
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
        // create class user
        Clazz user = model.createClazz("User");
 
@@ -26,17 +29,19 @@ public class Model {
 
         //User Methods
 
+
        //User can open an account (for others if they are an admin)
        user.withMethod("openAccount", DataType.BOOLEAN, new Parameter(DataType.create(user)));
-
 
 
 /////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
        // create class Transaction
        Clazz transaction = model.createClazz("Transaction");
+
+       //set attributes
        transaction.withAttribute("amount", DataType.DOUBLE);
-       transaction.withAttribute("date",DataType.STRING);
-       transaction.withAttribute("time", DataType.STRING);
+       transaction.withAttribute("date",DataType.create(Date.class));
+       transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
        transaction.withAttribute("note",DataType.STRING);
 
        //Transaction Methods
@@ -114,14 +119,19 @@ public class Model {
        Storyboard storyboard = new Storyboard();
        storyboard.add("This shows the class diagram.");
        storyboard.addClassDiagram(model);
-       // add it to the storyboard
-       storyboard.addObjectDiagram(user);
+
+
+       //user objects
+       User bob = new User().withName("Bob").withUserID("1");
+       User sam = new User().withName("Sam").withUserID("2");
+
+       // add users to the object diagram
+       storyboard.addObjectDiagram(bob,sam);
+
        // show it in html
        storyboard.dumpHTML();
 
        model.generate();
-
-
     }
 }
 

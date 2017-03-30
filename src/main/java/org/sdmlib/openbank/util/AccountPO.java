@@ -11,6 +11,8 @@ import org.sdmlib.openbank.util.TransactionPO;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.util.TransactionSet;
 
+import java.util.Date;
+
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
 
@@ -168,7 +170,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public AccountPO createCreationdateCondition(String value)
+   public AccountPO createCreationdateCondition(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Account.PROPERTY_CREATIONDATE)
@@ -182,22 +184,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public AccountPO createCreationdateCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createCreationdateAssignment(String value)
+   public AccountPO createCreationdateAssignment(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Account.PROPERTY_CREATIONDATE)
@@ -211,7 +198,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public String getCreationdate()
+   public Date getCreationdate()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -220,7 +207,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
    
-   public AccountPO withCreationdate(String value)
+   public AccountPO withCreationdate(Date value)
    {
       if (this.getPattern().getHasMatch())
       {

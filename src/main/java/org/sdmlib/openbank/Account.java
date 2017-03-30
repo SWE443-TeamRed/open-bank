@@ -21,10 +21,12 @@
    
 package org.sdmlib.openbank;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
+import java.util.Date;
+
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
@@ -135,6 +137,7 @@ import org.sdmlib.openbank.Transaction;
       result.append(" ").append(this.getName());
       result.append(" ").append(this.getEmail());
       result.append(" ").append(this.getPhone());
+
       return result.substring(1);
    }
 
@@ -172,24 +175,24 @@ import org.sdmlib.openbank.Transaction;
    
    public static final String PROPERTY_CREATIONDATE = "creationdate";
    
-   private String creationdate;
+   private Date creationdate;
 
-   public String getCreationdate()
+   public Date getCreationdate()
    {
       return this.creationdate;
    }
    
-   public void setCreationdate(String value)
+   public void setCreationdate(Date value)
    {
-      if ( ! EntityUtil.stringEquals(this.creationdate, value)) {
+      if (this.creationdate != value) {
       
-         String oldValue = this.creationdate;
+         Date oldValue = this.creationdate;
          this.creationdate = value;
          this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
       }
    }
    
-   public Account withCreationdate(String value)
+   public Account withCreationdate(Date value)
    {
       setCreationdate(value);
       return this;
@@ -396,6 +399,7 @@ import org.sdmlib.openbank.Transaction;
       Transaction value = new Transaction();
       withDebit(value);
       return value;
+
    } 
 
    
@@ -565,28 +569,29 @@ import org.sdmlib.openbank.Transaction;
       setIsLoggedIn(value);
       return this;
    }
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
-   
+
+
    private boolean IsConnected;
 
    public boolean isIsConnected()
    {
       return this.IsConnected;
    }
-   
+
    public void setIsConnected(boolean value)
    {
       if (this.IsConnected != value) {
-      
+
          boolean oldValue = this.IsConnected;
          this.IsConnected = value;
          this.firePropertyChange(PROPERTY_ISCONNECTED, oldValue, value);
       }
    }
-   
+
    public Account withIsConnected(boolean value)
    {
       setIsConnected(value);
@@ -598,9 +603,17 @@ import org.sdmlib.openbank.Transaction;
    *
    * Log:
    *     Kimberly 03/29/17
+<<<<<<< HEAD
    *
    * /
 
+=======
+   *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
+   *
+   * Notes:
+   *    Sam 03/29/17 -> we need to discuss
+   * /
+>>>>>>> master
    /*
       Constructor setting the initial amount
    */
@@ -612,16 +625,18 @@ import org.sdmlib.openbank.Transaction;
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
-   public boolean transferToUser( double amount, Account destinationAccount )
+   public boolean transferToUser(double amount, Account destinationAccount)
    {
-      if(amount<=0 || destinationAccount==null)
+      if(amount <=0 || destinationAccount == null)
          throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
 
-      this.setIsConnected(true);
-      if(destinationAccount.IsConnected) {
-         this.setBalance(this.getBalance() - amount);
-         destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-         return true;
+      if (amount <= this.getBalance()) {
+         this.setIsConnected(true);
+         if (destinationAccount.IsConnected) {
+            this.setBalance(this.getBalance() - amount);
+            destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+            return true;
+         }
       }
 
       return false;//transferToUser did not work.
@@ -656,7 +671,7 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //This sets the information of the transaction.
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
+   public boolean sendTransactionInfo( Transaction transaction, double amount, Date date, Date time, String note )
    {
       if(transaction==null || date==null || time==null || amount==0)
          throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
@@ -675,13 +690,13 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //To withdraw money from this account.
-   public void withdraw( double amount )
+   public void withdraw(double amount)
    {
-      if(amount<=this.getBalance() || amount>0)
-         this.setBalance(this.getBalance()-balance);
+      if(amount <= this.getBalance() && amount > 0)
+         this.setBalance(this.getBalance() - amount);
       else
          throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
-                                             "and greater than 0.");
+                 "and greater than 0.");
    }
 
    public void deposit( Account ToAccount, double amount )

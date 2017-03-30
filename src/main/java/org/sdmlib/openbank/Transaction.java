@@ -24,6 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
+
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
    /**
@@ -104,11 +106,17 @@ import org.sdmlib.openbank.Account;
    
    public void setAmount(double value)
    {
-      if (this.amount != value) {
-      
-         double oldValue = this.amount;
-         this.amount = value;
-         this.firePropertyChange(PROPERTY_AMOUNT, oldValue, value);
+
+      // check for negative, if less then 0 throw IllegalArgumentException
+      if (value < 0) {
+         throw new IllegalArgumentException("Amount is not valid!");
+      }else{
+         if (this.amount != value) {
+
+            double oldValue = this.amount;
+            this.amount = value;
+            this.firePropertyChange(PROPERTY_AMOUNT, oldValue, value);
+         }
       }
    }
    
@@ -125,8 +133,6 @@ import org.sdmlib.openbank.Account;
       StringBuilder result = new StringBuilder();
       
       result.append(" ").append(this.getAmount());
-      result.append(" ").append(this.getDate());
-      result.append(" ").append(this.getTime());
       result.append(" ").append(this.getNote());
       return result.substring(1);
    }
@@ -137,24 +143,29 @@ import org.sdmlib.openbank.Account;
    
    public static final String PROPERTY_DATE = "date";
    
-   private String date;
+   private Date date;
 
-   public String getDate()
+   public Date getDate()
    {
       return this.date;
    }
    
-   public void setDate(String value)
+   public void setDate(Date value)
    {
-      if ( ! EntityUtil.stringEquals(this.date, value)) {
-      
-         String oldValue = this.date;
-         this.date = value;
-         this.firePropertyChange(PROPERTY_DATE, oldValue, value);
+      // check for negative, if less then 0 throw IllegalArgumentException
+      if (value ==null) {
+         throw new IllegalArgumentException("Date is null. Invalid Date.");
+      }else {
+         if (this.date != value) {
+
+            Date oldValue = this.date;
+            this.date = value;
+            this.firePropertyChange(PROPERTY_DATE, oldValue, value);
+         }
       }
    }
    
-   public Transaction withDate(String value)
+   public Transaction withDate(Date value)
    {
       setDate(value);
       return this;
@@ -165,24 +176,28 @@ import org.sdmlib.openbank.Account;
    
    public static final String PROPERTY_TIME = "time";
    
-   private String time;
+   private Date time;
 
-   public String getTime()
+   public Date getTime()
    {
       return this.time;
    }
    
-   public void setTime(String value)
+   public void setTime(Date value)
    {
-      if ( ! EntityUtil.stringEquals(this.time, value)) {
-      
-         String oldValue = this.time;
-         this.time = value;
-         this.firePropertyChange(PROPERTY_TIME, oldValue, value);
+      if (value ==null) {
+         throw new IllegalArgumentException("Date is null. Invalid Date/Time.");
+      }else {
+         if (this.time != value) {
+
+            Date oldValue = this.time;
+            this.time = value;
+            this.firePropertyChange(PROPERTY_TIME, oldValue, value);
+         }
       }
    }
    
-   public Transaction withTime(String value)
+   public Transaction withTime(Date value)
    {
       setTime(value);
       return this;
