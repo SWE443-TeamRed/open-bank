@@ -12,12 +12,12 @@ public class JsonPersistencyTest {
     public void test1() throws Exception {
         JsonPersistency jsonPersistency = new JsonPersistency();
 
-        Account transactionAccount = new Account().withOwner(new User().withUserID("1235").withName("Brad"))
-                .withBalance(198.50).withCreationdate("3/25/2017");
+        /*Account transactionAccount = new Account().withOwner(new User().withUserID("1235").withName("Brad"))
+                .withBalance(198.50).withCreationdate("3/25/2017");*/
 
-        Account accountBeforeJson= new Account().withOwner(new User().withUserID("1234").withName("Daniel"))
-                .withBalance(100.50).withCreationdate("3/29/2017")
-                .withCredit(new Transaction().withAmount(25.89).withDate("3/30/2017").withNote("For parking ticket").withTime("10:15AM"));
+        Account accountBeforeJson = new Account().withOwner(new User().withUserID("1234").withName("Tina"))
+                .withBalance(140.00).withCreationdate("3/29/2017")
+                .withCredit(new Transaction().withAmount(100.00).withDate("3/30/2017").withNote("Deposit").withTime("10:15AM"));
 
         System.out.println("*********************************toJson*********************************");
         jsonPersistency.toJson(accountBeforeJson);
@@ -31,5 +31,4 @@ public class JsonPersistencyTest {
         System.out.println("Name: " + accountAfterJson.getOwner().getName());
         System.out.println("Credit: " + accountAfterJson.getCredit().toString());
     }
-
 }

@@ -16,21 +16,27 @@ public class JsonPersistency {
     public void toJson(Account account){
         String jsonText = "";
 
-        IdMap idMap = AccountCreator.createIdMap("demo");
+        if(account == null){
+            throw new NullPointerException();
+        }
+        else {
 
-        JsonArray jsonArray = idMap.toJsonArray(account);
-        jsonText = jsonArray.toString(3);
+            IdMap idMap = AccountCreator.createIdMap("demo");
 
-        System.out.println(jsonText); //For testing
+            JsonArray jsonArray = idMap.toJsonArray(account);
+            jsonText = jsonArray.toString(3);
 
-        // Write Json to textfile
-        try{
-            FileWriter file = new FileWriter("jsonPersistencyTest.json");
-            file.write(jsonText);
-            file.flush();
+            System.out.println(jsonText); //For testing
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Write Json to textfile
+            try {
+                FileWriter file = new FileWriter("jsonPersistencyTest.json");
+                file.write(jsonText);
+                file.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
