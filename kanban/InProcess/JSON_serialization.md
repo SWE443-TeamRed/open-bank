@@ -20,3 +20,8 @@ Victor
 Daniel
 
 Log entries (who worked when and how long on this):
+
+Daniel (1 hour)
+-Added basic Json Serialization
+-Converts Account object and associated user object to Json string
+-Converts the same Json string back to an Account/User object
