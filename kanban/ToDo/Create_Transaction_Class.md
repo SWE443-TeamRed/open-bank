@@ -33,5 +33,15 @@ Assigned persons (currently working on task):
   - Mitchell
 
 Log entries (who worked when and how long on this):
+- Fatih: Class created using SDMLib with following attributes
+amount
+date
+time
+note
+
+Also changed the datatypes for date and time from String to Java.util.Date(Using SDMLib).
+SetAmount method modified. Checks for negative value. if it is less than 0 thwrows IllegalArgumentException
+
+Spend about 3-4 hours.
 
 

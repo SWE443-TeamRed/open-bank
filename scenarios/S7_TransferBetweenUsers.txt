@@ -8,6 +8,6 @@ Title: Tina gives Nick 10 dollars through their accounts
 	2) Tina selects the exchange funds option
 	3) Tina enters the amount she wants to transfer
 	4) Tina enters the account she wants to funds to come out of
-	5) Tina selects the trasfer funds option
-	6) Nick selects the approve option on his phone to recieve the funds
-*(Post)* Tina has trasnfered 10 dollars to Nick between their accounts
+	5) Tina selects the transfer funds option
+	6) Nick selects the approve option on his phone to receive the funds
+*(Post)* Tina has transferred 10 dollars to Nick between their accounts
