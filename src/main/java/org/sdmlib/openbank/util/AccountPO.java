@@ -360,18 +360,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean transferFounds(double amount, Account destinationAccount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).transferFounds(amount, destinationAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
    public boolean transferToUser(double amount, Account destinationAccount)
    {
       if (this.getPattern().getHasMatch())
@@ -401,18 +389,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       if (this.getPattern().getHasMatch())
       {
          return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean sendTransactionInfo(String amount, String date, String time, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).sendTransactionInfo(amount, date, time, note);
       }
       return false;
    }
@@ -802,4 +778,62 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
+   public AccountPO createIsConnectedCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createIsConnectedAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getIsConnected()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).isIsConnected();
+      }
+      return false;
+   }
+   
+   public AccountPO withIsConnected(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setIsConnected(value);
+      }
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+      }
+      return false;
+   }
+
 }

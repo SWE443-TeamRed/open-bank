@@ -29,6 +29,18 @@ public class Model {
        //User can open an account (for others if they are an admin)
        user.withMethod("openAccount", DataType.BOOLEAN, new Parameter(DataType.create(user)));
 
+
+
+/////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
+       // create class Transaction
+       Clazz transaction = model.createClazz("Transaction");
+       transaction.withAttribute("amount", DataType.DOUBLE);
+       transaction.withAttribute("date",DataType.STRING);
+       transaction.withAttribute("time", DataType.STRING);
+       transaction.withAttribute("note",DataType.STRING);
+
+       //Transaction Methods
+
 /////////Account////////////////////////////////////////////////////////////////////////////////////////////////////////
        /*
         Account class:
@@ -50,6 +62,7 @@ public class Model {
        account.withAttribute("isLoggedIn", DataType.BOOLEAN);
        account.withAttribute("accountnum",DataType.INT);
        account.withAttribute("creationdate", DataType.STRING);
+       account.withAttribute("IsConnected", DataType.BOOLEAN);//Connected to another user.
 
        //Account Methods
 
@@ -57,22 +70,23 @@ public class Model {
        account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
        //boolean transferFounds(double amount, Account destinationAccount)
        account.withMethod("transferToUser", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                                                               new Parameter(account).with("destinationAccount"));
+                                                              new Parameter(account).with("destinationAccount"));
        //boolean myBankTransaction(double amount, Account destinationAccount)
        //transaction from my bank accounts
        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-               new Parameter(account).with("destinationAccount"));
+                                                                 new Parameter(account).with("destinationAccount"));
 
        //boolean receiveFound(double amount, Account sourceAccount)
        //Receive found from another user
        account.withMethod("receiveFound", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                                                              new Parameter(account).with("sourceAccount"));
+                                                            new Parameter(account).with("sourceAccount"));
        //boolean sendTransactionInfo(double amount, Transaction transaction)
        //Send information from transaction to Transaction class
-       account.withMethod("sendTransactionInfo", DataType.BOOLEAN, new Parameter(DataType.STRING).with("amount"),
-                                                                    new Parameter(DataType.STRING).with("date"),
-                                                                     new Parameter(DataType.STRING).with("time"),
-                                                                        new Parameter(DataType.STRING).with("note"));
+       account.withMethod("sendTransactionInfo", DataType.BOOLEAN, new Parameter(transaction).with("transaction"),
+                                                                   new Parameter(DataType.DOUBLE).with("amount"),
+                                                                   new Parameter(DataType.STRING).with("date"),
+                                                                   new Parameter(DataType.STRING).with("time"),
+                                                                   new Parameter(DataType.STRING).with("note"));
        //User logs into their account
        account.withMethod("login", DataType.BOOLEAN, new Parameter(DataType.STRING).with("username"),
                                                      new Parameter(DataType.STRING).with("password"));
@@ -85,15 +99,6 @@ public class Model {
        account.withMethod("deposit", DataType.VOID, new Parameter(account).with("ToAccount"),
                                                     new Parameter(DataType.DOUBLE).with("amount"));
 
-/////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
-       // create class Transaction
-       Clazz transaction = model.createClazz("Transaction");
-       transaction.withAttribute("amount", DataType.DOUBLE);
-       transaction.withAttribute("date",DataType.STRING);
-       transaction.withAttribute("time", DataType.STRING);
-       transaction.withAttribute("note",DataType.STRING);
-
-       //Transaction Methods
 
 /////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
 

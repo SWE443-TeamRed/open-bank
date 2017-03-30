@@ -593,20 +593,6 @@ public class AccountSet extends SimpleSet<Account>
       return AccountSet.EMPTY_SET;
    }
 
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList transferFounds(double amount, Account destinationAccount)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.transferFounds(amount, destinationAccount) );
-      }
-      return result;
-   }
 
    
    //==========================================================================
@@ -649,21 +635,6 @@ public class AccountSet extends SimpleSet<Account>
       for (Account obj : this)
       {
          result.add( obj.receiveFound(amount, sourceAccount) );
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(String amount, String date, String time, String note)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.sendTransactionInfo(amount, date, time, note) );
       }
       return result;
    }
@@ -1171,6 +1142,79 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the IsConnected attribute values. 
+    * 
+    * @return List of boolean objects reachable via IsConnected attribute
+    */
+   public BooleanList getIsConnected()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.isIsConnected());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the IsConnected attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterIsConnected(boolean value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.isIsConnected())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the IsConnected attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withIsConnected(boolean value)
+   {
+      for (Account obj : this)
+      {
+         obj.setIsConnected(value);
+      }
+      
+      return this;
+   }
+
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
+      }
+      return result;
    }
 
 }

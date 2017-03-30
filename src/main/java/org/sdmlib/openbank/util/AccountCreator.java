@@ -43,6 +43,7 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_EMAIL,
       Account.PROPERTY_PHONE,
       Account.PROPERTY_ISLOGGEDIN,
+      Account.PROPERTY_ISCONNECTED,
    };
    
    @Override
@@ -127,6 +128,11 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).isIsLoggedIn();
       }
+
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsConnected();
+      }
       
       return null;
    }
@@ -134,6 +140,12 @@ public class AccountCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsConnected((Boolean) value);
+         return true;
+      }
+
       if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attrName))
       {
          ((Account) target).setIsLoggedIn((Boolean) value);
