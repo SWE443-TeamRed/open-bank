@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="Slightly more specific README.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Database_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Transaction_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/JSON_serialization.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Start_Screen.md" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/kanban/todo/.create_basic_class_diagram.md.swp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/kanban/todo/create_basic_class_diagram.md" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Model.java" afterPath="$PROJECT_DIR$/src/main/java/Model.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -92,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="28">
-              <caret line="481" column="35" lean-forward="true" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
+              <caret line="481" column="35" lean-forward="false" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
               <folding>
                 <element signature="e#10239#10240#0" expanded="true" />
                 <element signature="e#10275#10276#0" expanded="true" />
@@ -1747,7 +1757,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
-          <caret line="481" column="35" lean-forward="true" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
+          <caret line="481" column="35" lean-forward="false" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
           <folding>
             <element signature="e#10239#10240#0" expanded="true" />
             <element signature="e#10275#10276#0" expanded="true" />
