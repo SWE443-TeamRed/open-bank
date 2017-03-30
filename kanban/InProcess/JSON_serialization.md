@@ -25,3 +25,7 @@ Daniel (1 hour)
 -Added basic Json Serialization
 -Converts Account object and associated user object to Json string
 -Converts the same Json string back to an Account/User object
+-Created method toJson(Account)
+    -Takes in an account and converts it to a json string
+-Created method fromJson() which returns the previously created json string as an Account object
+-Have test case for demonstration
