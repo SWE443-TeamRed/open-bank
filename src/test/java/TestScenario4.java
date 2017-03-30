@@ -9,7 +9,7 @@ import org.sdmlib.openbank.Account;
 public class TestScenario4 {
     @Test
     public void test1() {
-//        Account account = new Account();
+        Account account = new Account();
         assert(1==1);
     }
 
