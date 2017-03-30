@@ -1,20 +1,31 @@
 import org.junit.Test;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.User;
-
 import static org.junit.Assert.*;
 
 /**
  * author: Samuel Luu
  */
 
-public class S7_S9_AccountTests {
+public class TestScenario789 {
+    private User tina, nick;
+    private Account t, n;
 
     public void precondition() {
-        User tina = new User().withName("Tina").withUserID("tina2017");
-        User nick = new User().withName("Nick").withUserID("nick2017");
-        Account t = new Account().withOwner(tina).withAccountnum(1);
-        Account n = new Account().withOwner(nick).withAccountnum(2);
+        this.tina = new User()
+                .withName("Tina")
+                .withUserID("tina2017")
+                .withIsAdmin(false);
+        this.nick = new User()
+                .withName("Nick")
+                .withUserID("nick2017")
+                .withIsAdmin(false);
+        this.t = new Account()
+                .withOwner(tina)
+                .withAccountnum(1);
+        this.n = new Account()
+                .withOwner(nick)
+                .withAccountnum(2);
     }
 
     /**
@@ -33,6 +44,12 @@ public class S7_S9_AccountTests {
     @Test //Test the Player functionality
     public void S7Test(){
         this.precondition();
+        this.t.withBalance(50);
+        this.n.withBalance(15).setIsConnected(true);
+        this.t.transferToUser(10, this.n);
+
+        assertEquals(40, this.t.getBalance(), 0);
+        assertEquals(25, this.n.getBalance(), 0);
     }
 
     /**
@@ -47,9 +64,11 @@ public class S7_S9_AccountTests {
      * 6) Tina reads the alert that that reads "Cannot complete transaction: Too many funds requested"
      *(Post)* Tina does not have 1 million in cash
      */
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void S8Test() {
         this.precondition();
+        this.t.withBalance(40);
+        this.t.withdraw(1000000);   //This should throw an IllegalArgumentException
     }
 
     /**
@@ -66,5 +85,8 @@ public class S7_S9_AccountTests {
     @Test
     public void S9Test() {
         this.precondition();
+        this.t.withBalance(30);
+        this.n.withBalance(15).withIsConnected(true);
+        assertFalse(this.t.transferToUser(1000000, this.n));
     }
 }

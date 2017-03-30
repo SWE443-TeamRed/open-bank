@@ -598,7 +598,10 @@ import org.sdmlib.openbank.Transaction;
    *
    * Log:
    *     Kimberly 03/29/17
+   *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
    *
+   * Notes:
+   *    Sam 03/29/17 -> we need to discuss
    * /
 
    /*
@@ -612,18 +615,19 @@ import org.sdmlib.openbank.Transaction;
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
-   public boolean transferToUser( double amount, Account destinationAccount )
+   public boolean transferToUser(double amount, Account destinationAccount)
    {
-      if(amount<=0 || destinationAccount==null)
+      if(amount < 0 || destinationAccount == null)
          throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
 
-      this.setIsConnected(true);
-      if(destinationAccount.IsConnected) {
-         this.setBalance(this.getBalance() - amount);
-         destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-         return true;
+      if (amount <= this.getBalance()) {
+         this.setIsConnected(true);
+         if (destinationAccount.IsConnected) {
+            this.setBalance(this.getBalance() - amount);
+            destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+            return true;
+         }
       }
-
       return false;//transferToUser did not work.
    }
 
@@ -675,10 +679,10 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //To withdraw money from this account.
-   public void withdraw( double amount )
+   public void withdraw(double amount)
    {
-      if(amount<=this.getBalance() || amount>0)
-         this.setBalance(this.getBalance()-balance);
+      if(amount <= this.getBalance() && amount > 0)
+          this.setBalance(this.getBalance() - amount);
       else
          throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
                                              "and greater than 0.");
