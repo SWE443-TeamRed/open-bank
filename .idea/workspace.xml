@@ -2,18 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="Slightly more specific README.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Database_Class.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Transaction_Class.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/JSON_serialization.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Start_Screen.md" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/kanban/todo/.create_basic_class_diagram.md.swp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/kanban/todo/create_basic_class_diagram.md" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/S1_Login_Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Model.class" afterPath="$PROJECT_DIR$/build/classes/main/Model.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/Account.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/Account.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/User.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/User.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountCreator.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountCreator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountPO.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountPO.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountSet.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/AccountSet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserCreator.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserCreator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserPO.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserPO.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserSet.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserSet.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/Model.html" afterPath="$PROJECT_DIR$/doc/Model.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/refs.html" afterPath="$PROJECT_DIR$/doc/refs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Model.java" afterPath="$PROJECT_DIR$/src/main/java/Model.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPO.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -51,11 +63,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="483">
-      <file leaf-file-name="Model.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Model.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+            <state relative-caret-position="693">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="S1_Login_Test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/S1_Login_Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="703">
+              <caret line="46" column="35" lean-forward="true" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,8 +90,8 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+            <state relative-caret-position="990">
+              <caret line="54" column="2" lean-forward="false" selection-start-line="54" selection-start-column="2" selection-end-line="54" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -76,11 +100,9 @@
       <file leaf-file-name="TransactionTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/TransactionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="1320">
+              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -88,28 +110,82 @@
       <file leaf-file-name="Transaction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="43" />
+            <state relative-caret-position="538">
+              <caret line="333" column="7" lean-forward="false" selection-start-line="333" selection-start-column="7" selection-end-line="333" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Account.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="477">
+              <caret line="658" column="22" lean-forward="true" selection-start-line="658" selection-start-column="22" selection-end-line="658" selection-end-column="22" />
               <folding>
-                <element signature="e#5217#5218#0" expanded="true" />
-                <element signature="e#5246#5247#0" expanded="true" />
+                <element signature="e#0#18047#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4948#4949#0" expanded="true" />
+                <element signature="e#4983#4984#0" expanded="true" />
+                <element signature="e#5557#5558#0" expanded="true" />
+                <element signature="e#5594#5595#0" expanded="true" />
+                <element signature="e#6373#6374#0" expanded="true" />
+                <element signature="e#6403#6404#0" expanded="true" />
+                <element signature="e#10593#10594#0" expanded="true" />
+                <element signature="e#10626#10627#0" expanded="true" />
+                <element signature="e#11205#11206#0" expanded="true" />
+                <element signature="e#11238#11239#0" expanded="true" />
+                <element signature="e#11801#11802#0" expanded="true" />
+                <element signature="e#11830#11831#0" expanded="true" />
+                <element signature="e#12369#12370#0" expanded="true" />
+                <element signature="e#12399#12400#0" expanded="true" />
+                <element signature="e#12939#12940#0" expanded="true" />
+                <element signature="e#12969#12970#0" expanded="true" />
+                <element signature="e#13507#13508#0" expanded="true" />
+                <element signature="e#13543#13544#0" expanded="true" />
+                <element signature="e#14081#14082#0" expanded="true" />
+                <element signature="e#14124#14125#0" expanded="true" />
+                <element signature="e#17652#17653#0" expanded="true" />
+                <element signature="e#17685#17686#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
+      <file leaf-file-name="AccountPO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="481" column="35" lean-forward="false" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
+            <state relative-caret-position="726">
+              <caret line="753" column="31" lean-forward="false" selection-start-line="753" selection-start-column="31" selection-end-line="753" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccountSet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="830">
+              <caret line="1146" column="0" lean-forward="true" selection-start-line="1146" selection-start-column="0" selection-end-line="1146" selection-end-column="0" />
               <folding>
-                <element signature="e#10239#10240#0" expanded="true" />
-                <element signature="e#10275#10276#0" expanded="true" />
-                <element signature="e#10945#10946#0" expanded="true" />
-                <element signature="e#10988#10989#0" expanded="true" />
-                <element signature="e#13239#13240#0" expanded="true" />
-                <element signature="e#13264#13265#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1815#1816#0" expanded="true" />
+                <element signature="e#1842#1843#0" expanded="true" />
+                <element signature="e#2073#2074#0" expanded="true" />
+                <element signature="e#2106#2107#0" expanded="true" />
+                <element signature="e#2246#2247#0" expanded="true" />
+                <element signature="e#2319#2320#0" expanded="true" />
+                <element signature="e#2358#2359#0" expanded="true" />
+                <element signature="e#2407#2408#0" expanded="true" />
+                <element signature="e#2477#2478#0" expanded="true" />
+                <element signature="e#2513#2514#0" expanded="true" />
+                <element signature="e#2701#2731#0" expanded="true" />
+                <element signature="e#14774#14775#0" expanded="true" />
+                <element signature="e#14814#14815#0" expanded="true" />
+                <element signature="e#17273#17274#0" expanded="true" />
+                <element signature="e#17313#17314#0" expanded="true" />
+                <element signature="e#17451#17452#0" expanded="true" />
+                <element signature="e#17491#17492#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,9 +206,16 @@
       <file leaf-file-name="AccountCreator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="134" column="7" lean-forward="true" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="1221">
+              <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+              <folding>
+                <element signature="e#2029#2030#0" expanded="true" />
+                <element signature="e#2059#2060#0" expanded="true" />
+                <element signature="e#2124#2125#0" expanded="true" />
+                <element signature="e#2157#2158#0" expanded="true" />
+                <marker date="1490886849529" expanded="false" signature="7169:7181" ph=" { " />
+                <marker date="1490886849529" expanded="false" signature="7212:7217" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -152,6 +235,9 @@
       <find>amount</find>
       <find>creation</find>
       <find>withatt</find>
+      <find>isLoggedIn</find>
+      <find>getB</find>
+      <find>login</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -172,7 +258,7 @@
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
       <map>
-        <entry key="$PROJECT_DIR$" value="C:\Users\FA\.gradle\wrapper\dists\gradle-3.1-bin\37qejo6a26ua35lyn7h1u9v2n\gradle-3.1" />
+        <entry key="$PROJECT_DIR$" value="C:\Users\hlope\.gradle\wrapper\dists\gradle-3.1-bin\37qejo6a26ua35lyn7h1u9v2n\gradle-3.1" />
         <entry key="$PROJECT_DIR$/phone-app" value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1" />
       </map>
     </option>
@@ -496,7 +582,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="2981081843664" />
+        <entry key="$PROJECT_DIR$" value="2981110846017" />
         <entry key="$PROJECT_DIR$/phone-app" value="2980432704000" />
       </map>
     </option>
@@ -694,33 +780,34 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/../../GMU/SWE443/tr-git-guidelines.md" />
+        <option value="$USER_HOME$/GMU/SWE443/tr-git-guidelines.md" />
         <option value="$PROJECT_DIR$/.idea/modules.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/net/Red/atm/util/UserCreator.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/Red/atm/util/UserSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
         <option value="$PROJECT_DIR$/src/test/java/Test.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
         <option value="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestScenario789.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model.java" />
+        <option value="$PROJECT_DIR$/src/test/java/S1_Login_Test.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="x" value="-16" />
+    <option name="y" value="-16" />
+    <option name="width" value="3872" />
+    <option name="height" value="2092" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -741,8 +828,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -871,12 +956,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="openbank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="doc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -894,7 +1011,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestScenario789">
+  <component name="RunManager" selected="JUnit.S1_Login_Test">
     <configuration default="false" name="TransactionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="open-bank_test" />
@@ -904,48 +1021,6 @@
       <option name="MAIN_CLASS_NAME" value="TransactionTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TransactionTest.testNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="open-bank_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TransactionTest" />
-      <option name="METHOD_NAME" value="testNegative" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TransactionTest.setgetAmount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="open-bank_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TransactionTest" />
-      <option name="METHOD_NAME" value="setgetAmount" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -986,6 +1061,42 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestScenario789" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Model" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="Model" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="open-bank_main" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="S1_Login_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="open-bank_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="S1_Login_Test" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1060,6 +1171,9 @@
         <option name="SUPPORT_LIB_ENABLED" value="true" />
         <option name="INSTRUMENTATION_ENABLED" value="true" />
       </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="ApexTest" factoryName="Apex Test">
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -1213,6 +1327,19 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="executeSpecs" factoryName="Gauge Execution">
+      <setting name="environment" value="" />
+      <setting name="specsToExecute" value="" />
+      <setting name="tags" value="" />
+      <setting name="parallelNodes" value="" />
+      <setting name="execInParallel" value="false" />
+      <setting name="programParameters" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="moduleName" value="" />
+      <envMap />
+      <setting name="rowsRange" value="" />
+      <method />
+    </configuration>
     <configuration default="false" name="build" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="open-bank" />
       <setting name="path" value="file://$PROJECT_DIR$/build.gradle" />
@@ -1227,18 +1354,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Groovy.build" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.TransactionTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TransactionTest.testNegative" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetAmount" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetDateTestNULL" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TestScenario789" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetDateTestNULL" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.TestScenario789" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Model" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.S1_Login_Test" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TestScenario789" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TransactionTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetDateTestNULL" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetAmount" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TransactionTest.testNegative" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.S1_Login_Test" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Model" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.TestScenario789" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.TransactionTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TransactionTest.setgetDateTestNULL" />
       </list>
     </recent_temporary>
   </component>
@@ -1264,20 +1391,20 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestScenario789 - 2017.03.30 at 09h 41m 46s.xml">
-      <configuration name="TestScenario789" configurationId="JUnit" />
+    <history-entry file="S1_Login_Test - 2017.03.30 at 11h 06m 44s.xml">
+      <configuration name="S1_Login_Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionTest - 2017.03.29 at 11h 07m 36s.xml">
-      <configuration name="TransactionTest" configurationId="JUnit" />
+    <history-entry file="S1_Login_Test - 2017.03.30 at 11h 14m 19s.xml">
+      <configuration name="S1_Login_Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionTest - 2017.03.29 at 11h 08m 30s.xml">
-      <configuration name="TransactionTest" configurationId="JUnit" />
+    <history-entry file="S1_Login_Test - 2017.03.30 at 11h 17m 47s.xml">
+      <configuration name="S1_Login_Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionTest - 2017.03.29 at 11h 10m 08s.xml">
-      <configuration name="TransactionTest" configurationId="JUnit" />
+    <history-entry file="S1_Login_Test - 2017.03.30 at 11h 21m 35s.xml">
+      <configuration name="S1_Login_Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TransactionTest - 2017.03.29 at 11h 11m 29s.xml">
-      <configuration name="TransactionTest" configurationId="JUnit" />
+    <history-entry file="S1_Login_Test - 2017.03.30 at 11h 22m 56s.xml">
+      <configuration name="S1_Login_Test" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TransactionTest - 2017.03.29 at 11h 11m 42s.xml">
       <configuration name="TransactionTest" configurationId="JUnit" />
@@ -1296,41 +1423,41 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837838" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29594594" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1875" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283166" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2954292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4620959" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23208556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1875" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1424,23 +1551,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="53" column="3" lean-forward="false" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#4964#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#1805#1806#0" expanded="false" />
-            <element signature="e#1835#1836#0" expanded="false" />
-            <element signature="e#1900#1901#0" expanded="false" />
-            <element signature="e#1933#1934#0" expanded="false" />
-            <element signature="e#4917#4918#0" expanded="false" />
-            <element signature="e#4960#4961#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1522,7 +1632,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phone-app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/README.md" />
-    <entry file="file://$PROJECT_DIR$/../../GMU/SWE443/tr-git-guidelines.md" />
+    <entry file="file://$USER_HOME$/GMU/SWE443/tr-git-guidelines.md" />
     <entry file="file://$PROJECT_DIR$/.idea/modules/phone-app_main.iml" />
     <entry file="file://$PROJECT_DIR$/.idea/modules/phone-app_test.iml" />
     <entry file="file://$PROJECT_DIR$/.idea/modules/open-bank_test.iml">
@@ -1625,36 +1735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5032">
-          <caret line="329" column="38" lean-forward="false" selection-start-line="329" selection-start-column="38" selection-end-line="329" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2652">
-          <caret line="172" column="50" lean-forward="false" selection-start-line="172" selection-start-column="48" selection-end-line="172" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#911#912#0" expanded="false" />
-            <element signature="e#941#942#0" expanded="false" />
-            <element signature="e#1169#1170#0" expanded="false" />
-            <element signature="e#1208#1209#0" expanded="false" />
-            <element signature="e#5731#5732#0" expanded="false" />
-            <element signature="e#5797#5798#0" expanded="false" />
-            <element signature="e#6714#6715#0" expanded="false" />
-            <element signature="e#6781#6782#0" expanded="false" />
-            <element signature="e#7714#7715#0" expanded="false" />
-            <element signature="e#7780#7781#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3417">
@@ -1711,7 +1791,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1719,60 +1798,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#1511#1512#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="43" />
-          <folding>
-            <element signature="e#5217#5218#0" expanded="true" />
-            <element signature="e#5246#5247#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TransactionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="134" column="7" lean-forward="true" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="481" column="35" lean-forward="false" selection-start-line="481" selection-start-column="35" selection-end-line="481" selection-end-column="35" />
-          <folding>
-            <element signature="e#10239#10240#0" expanded="true" />
-            <element signature="e#10275#10276#0" expanded="true" />
-            <element signature="e#10945#10946#0" expanded="true" />
-            <element signature="e#10988#10989#0" expanded="true" />
-            <element signature="e#13239#13240#0" expanded="true" />
-            <element signature="e#13264#13265#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+        <state relative-caret-position="1320">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1787,12 +1819,121 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="333" column="7" lean-forward="false" selection-start-line="333" selection-start-column="7" selection-end-line="333" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="54" column="2" lean-forward="false" selection-start-line="54" selection-start-column="2" selection-end-line="54" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Model.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+        <state relative-caret-position="693">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="830">
+          <caret line="1146" column="0" lean-forward="true" selection-start-line="1146" selection-start-column="0" selection-end-line="1146" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1815#1816#0" expanded="true" />
+            <element signature="e#1842#1843#0" expanded="true" />
+            <element signature="e#2073#2074#0" expanded="true" />
+            <element signature="e#2106#2107#0" expanded="true" />
+            <element signature="e#2246#2247#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2407#2408#0" expanded="true" />
+            <element signature="e#2477#2478#0" expanded="true" />
+            <element signature="e#2513#2514#0" expanded="true" />
+            <element signature="e#2701#2731#0" expanded="true" />
+            <element signature="e#14774#14775#0" expanded="true" />
+            <element signature="e#14814#14815#0" expanded="true" />
+            <element signature="e#17273#17274#0" expanded="true" />
+            <element signature="e#17313#17314#0" expanded="true" />
+            <element signature="e#17451#17452#0" expanded="true" />
+            <element signature="e#17491#17492#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="753" column="31" lean-forward="false" selection-start-line="753" selection-start-column="31" selection-end-line="753" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1221">
+          <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+          <folding>
+            <element signature="e#2029#2030#0" expanded="true" />
+            <element signature="e#2059#2060#0" expanded="true" />
+            <element signature="e#2124#2125#0" expanded="true" />
+            <element signature="e#2157#2158#0" expanded="true" />
+            <marker date="1490886849529" expanded="false" signature="7169:7181" ph=" { " />
+            <marker date="1490886849529" expanded="false" signature="7212:7217" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/S1_Login_Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="46" column="35" lean-forward="true" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="658" column="22" lean-forward="true" selection-start-line="658" selection-start-column="22" selection-end-line="658" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#18047#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4948#4949#0" expanded="true" />
+            <element signature="e#4983#4984#0" expanded="true" />
+            <element signature="e#5557#5558#0" expanded="true" />
+            <element signature="e#5594#5595#0" expanded="true" />
+            <element signature="e#6373#6374#0" expanded="true" />
+            <element signature="e#6403#6404#0" expanded="true" />
+            <element signature="e#10593#10594#0" expanded="true" />
+            <element signature="e#10626#10627#0" expanded="true" />
+            <element signature="e#11205#11206#0" expanded="true" />
+            <element signature="e#11238#11239#0" expanded="true" />
+            <element signature="e#11801#11802#0" expanded="true" />
+            <element signature="e#11830#11831#0" expanded="true" />
+            <element signature="e#12369#12370#0" expanded="true" />
+            <element signature="e#12399#12400#0" expanded="true" />
+            <element signature="e#12939#12940#0" expanded="true" />
+            <element signature="e#12969#12970#0" expanded="true" />
+            <element signature="e#13507#13508#0" expanded="true" />
+            <element signature="e#13543#13544#0" expanded="true" />
+            <element signature="e#14081#14082#0" expanded="true" />
+            <element signature="e#14124#14125#0" expanded="true" />
+            <element signature="e#17652#17653#0" expanded="true" />
+            <element signature="e#17685#17686#0" expanded="true" />
           </folding>
         </state>
       </provider>
