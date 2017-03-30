@@ -2,7 +2,7 @@
 3/23/2017: Henry Lopez 
 
 **9**
-Title: Tina tries to transer too much money to Nick
+Title: Tina tries to transfer too much money to Nick
 *(Pre)* Tina wants to transfer 1 million dollars to Nick. She has 30 dollars in her checking account
 	1) Tina connects to Nick's phone -> See S6
 	2) Tina selects the exchange funds option
