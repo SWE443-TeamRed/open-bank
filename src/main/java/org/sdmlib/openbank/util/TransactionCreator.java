@@ -26,6 +26,8 @@ import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.Account;
 
+import java.util.Date;
+
 public class TransactionCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
@@ -38,19 +40,16 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_TOACCOUNT,
    };
    
-   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
-   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Transaction();
    }
    
-   @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -94,7 +93,6 @@ public class TransactionCreator implements SendableEntityCreator
       return null;
    }
    
-   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attrName))
@@ -105,13 +103,13 @@ public class TransactionCreator implements SendableEntityCreator
 
       if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setTime((String) value);
+         ((Transaction) target).setTime((Date) value);
          return true;
       }
 
       if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setDate((String) value);
+         ((Transaction) target).setDate((Date) value);
          return true;
       }
 

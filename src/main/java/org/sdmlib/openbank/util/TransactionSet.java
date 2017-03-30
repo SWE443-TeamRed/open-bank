@@ -25,6 +25,8 @@ import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Date;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.openbank.util.AccountSet;
@@ -194,7 +196,7 @@ public class TransactionSet extends SimpleSet<Transaction>
    /**
     * Loop through the current set of Transaction objects and collect a list of the date attribute values. 
     * 
-    * @return List of String objects reachable via date attribute
+    * @return List of java.util.Date objects reachable via date attribute
     */
    public ObjectSet getDate()
    {
@@ -216,37 +218,13 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterDate(String value)
+   public TransactionSet filterDate(Date value)
    {
       TransactionSet result = new TransactionSet();
       
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getDate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterDate(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getDate()) <= 0 && obj.getDate().compareTo(upper) <= 0)
+         if (value == obj.getDate())
          {
             result.add(obj);
          }
@@ -263,7 +241,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withDate(String value)
+   public TransactionSet withDate(Date value)
    {
       for (Transaction obj : this)
       {
@@ -277,7 +255,7 @@ public class TransactionSet extends SimpleSet<Transaction>
    /**
     * Loop through the current set of Transaction objects and collect a list of the time attribute values. 
     * 
-    * @return List of String objects reachable via time attribute
+    * @return List of java.util.Date objects reachable via time attribute
     */
    public ObjectSet getTime()
    {
@@ -299,37 +277,13 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterTime(String value)
+   public TransactionSet filterTime(Date value)
    {
       TransactionSet result = new TransactionSet();
       
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getTime()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterTime(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getTime()) <= 0 && obj.getTime().compareTo(upper) <= 0)
+         if (value == obj.getTime())
          {
             result.add(obj);
          }
@@ -346,7 +300,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withTime(String value)
+   public TransactionSet withTime(Date value)
    {
       for (Transaction obj : this)
       {
