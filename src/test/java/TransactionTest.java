@@ -1,11 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.Transaction;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 
 /**
