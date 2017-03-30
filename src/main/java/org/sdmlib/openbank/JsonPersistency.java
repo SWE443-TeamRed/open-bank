@@ -11,10 +11,7 @@ public class JsonPersistency {
 
     String jsonText = "";
 
-    public void toJson(){
-
-        User user = new User().withUserID("1").withName("Daniel");
-        Account account = new Account().withOwner(user);
+    public void toJson(Account account){
 
         IdMap idMap = AccountCreator.createIdMap("demo");
 
@@ -26,7 +23,7 @@ public class JsonPersistency {
         // Write Json to textfile
     }
 
-    public void fromJson(){
+    public Account fromJson(){
 
         // read jsonText from file
         IdMap readerMap = AccountCreator.createIdMap("demo");
@@ -35,6 +32,6 @@ public class JsonPersistency {
 
         Account account = (Account) rootObject;
 
-        System.out.println("Owner: " + account.getOwner().getName()); //For testing
+        return account;
     }
 }
