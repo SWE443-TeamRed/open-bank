@@ -391,5 +391,131 @@ import org.sdmlib.openbank.Transaction;
       Transaction value = new Transaction();
       withDebit(value);
       return value;
-   } 
+   }
+
+   //==========================================================================
+
+   public static final String PROPERTY_ISCONNECTED = "IsConnected";
+
+   private boolean IsConnected;
+
+   public boolean isIsConnected()
+   {
+      return this.IsConnected;
+   }
+
+   public void setIsConnected(boolean value)
+   {
+      if (this.IsConnected != value) {
+
+         boolean oldValue = this.IsConnected;
+         this.IsConnected = value;
+         this.firePropertyChange(PROPERTY_ISCONNECTED, oldValue, value);
+      }
+   }
+
+   public Account withIsConnected(boolean value)
+   {
+      setIsConnected(value);
+      return this;
+   }
+
+
+   /*
+   *
+   * Log:
+   *     Kimberly 03/29/17
+   *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
+   *
+   * Notes:
+   *    Sam 03/29/17 -> we need to discuss
+   * /
+   /*
+      Constructor setting the initial amount
+   */
+   public void Account( double initialAmount )
+   {
+      this.setBalance(initialAmount);
+   }
+
+
+   //User transfer founds to another user,
+   // needs to connect and verify destinationAccount connection.
+   public boolean transferToUser(double amount, Account destinationAccount)
+   {
+      if(amount < 0 || destinationAccount == null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
+      if (amount <= this.getBalance()) {
+         this.setIsConnected(true);
+         if (destinationAccount.IsConnected) {
+            this.setBalance(this.getBalance() - amount);
+            destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+            return true;
+         }
+      }
+      return false;//transferToUser did not work.
+   }
+
+   //Simple transaction between same user bank accounts.
+   public boolean myBankTransaction( double amount, Account destinationAccount )
+   {
+      if(amount<=0 || destinationAccount==null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
+      this.setBalance(this.getBalance()-amount);
+      destinationAccount.setBalance(destinationAccount.getBalance()+amount);
+
+      return true;
+   }
+
+
+   //This how the second user connects to get found from another user.
+   public boolean receiveFound( double amount, Account sourceAccount )
+   {
+      if(amount<=0 || sourceAccount==null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
+      //Only connects if sourceAccount is connected.
+      if(sourceAccount.IsConnected)
+      {
+         this.setIsConnected(true);
+         return true;
+      }
+      return false;//receiveFound did not work.
+   }
+
+   //This sets the information of the transaction.
+   public boolean sendTransactionInfo( Transaction transaction, double amount, Date date, Date time, String note )
+   {
+      if(transaction==null || date==null || time==null || amount==0)
+         throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
+
+      transaction.setAmount(amount);
+      transaction.setDate(date);
+      transaction.setTime(time);
+      transaction.setNote(note);
+      return false;
+   }
+
+
+   public boolean login( String username, String password )
+   {
+      return false;
+   }
+
+   //To withdraw money from this account.
+   public void withdraw(double amount)
+   {
+      if(amount <= this.getBalance() && amount > 0)
+         this.setBalance(this.getBalance() - amount);
+      else
+         throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                 "and greater than 0.");
+   }
+
+   public void deposit( Account ToAccount, double amount )
+   {
+
+   }
 }
