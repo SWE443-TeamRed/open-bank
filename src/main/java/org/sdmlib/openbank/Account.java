@@ -21,6 +21,7 @@
    
 package org.sdmlib.openbank;
 
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
@@ -130,6 +131,13 @@ import org.sdmlib.openbank.Transaction;
       
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
+      result.append(" ").append(this.getCreationdate());
+      result.append(" ").append(this.getUsername());
+      result.append(" ").append(this.getPassword());
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getEmail());
+      result.append(" ").append(this.getPhone());
+
       return result.substring(1);
    }
 
@@ -391,11 +399,181 @@ import org.sdmlib.openbank.Transaction;
       Transaction value = new Transaction();
       withDebit(value);
       return value;
+
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_USERNAME = "username";
+   
+   private String username;
+
+   public String getUsername()
+   {
+      return this.username;
+   }
+   
+   public void setUsername(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.username, value)) {
+      
+         String oldValue = this.username;
+         this.username = value;
+         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+      }
+   }
+   
+   public Account withUsername(String value)
+   {
+      setUsername(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PASSWORD = "password";
+   
+   private String password;
+
+   public String getPassword()
+   {
+      return this.password;
+   }
+   
+   public void setPassword(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.password, value)) {
+      
+         String oldValue = this.password;
+         this.password = value;
+         this.firePropertyChange(PROPERTY_PASSWORD, oldValue, value);
+      }
+   }
+   
+   public Account withPassword(String value)
+   {
+      setPassword(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
+      
+         String oldValue = this.name;
+         this.name = value;
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Account withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_EMAIL = "email";
+   
+   private String email;
+
+   public String getEmail()
+   {
+      return this.email;
+   }
+   
+   public void setEmail(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.email, value)) {
+      
+         String oldValue = this.email;
+         this.email = value;
+         this.firePropertyChange(PROPERTY_EMAIL, oldValue, value);
+      }
+   }
+   
+   public Account withEmail(String value)
+   {
+      setEmail(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PHONE = "phone";
+   
+   private int phone;
+
+   public int getPhone()
+   {
+      return this.phone;
+   }
+   
+   public void setPhone(int value)
+   {
+      if (this.phone != value) {
+      
+         int oldValue = this.phone;
+         this.phone = value;
+         this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
+      }
+   }
+   
+   public Account withPhone(int value)
+   {
+      setPhone(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISLOGGEDIN = "isLoggedIn";
+   
+   private boolean isLoggedIn;
+
+   public boolean isIsLoggedIn()
+   {
+      return this.isLoggedIn;
+   }
+   
+   public void setIsLoggedIn(boolean value)
+   {
+      if (this.isLoggedIn != value) {
+      
+         boolean oldValue = this.isLoggedIn;
+         this.isLoggedIn = value;
+         this.firePropertyChange(PROPERTY_ISLOGGEDIN, oldValue, value);
+      }
+   }
+   
+   public Account withIsLoggedIn(boolean value)
+   {
+      setIsLoggedIn(value);
+      return this;
    }
 
    //==========================================================================
 
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
+
 
    private boolean IsConnected;
 
@@ -425,11 +603,17 @@ import org.sdmlib.openbank.Transaction;
    *
    * Log:
    *     Kimberly 03/29/17
+<<<<<<< HEAD
+   *
+   * /
+
+=======
    *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
    *
    * Notes:
    *    Sam 03/29/17 -> we need to discuss
    * /
+>>>>>>> master
    /*
       Constructor setting the initial amount
    */
@@ -443,7 +627,7 @@ import org.sdmlib.openbank.Transaction;
    // needs to connect and verify destinationAccount connection.
    public boolean transferToUser(double amount, Account destinationAccount)
    {
-      if(amount < 0 || destinationAccount == null)
+      if(amount <=0 || destinationAccount == null)
          throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
 
       if (amount <= this.getBalance()) {
@@ -454,6 +638,7 @@ import org.sdmlib.openbank.Transaction;
             return true;
          }
       }
+
       return false;//transferToUser did not work.
    }
 
@@ -518,4 +703,5 @@ import org.sdmlib.openbank.Transaction;
    {
 
    }
+
 }

@@ -39,6 +39,13 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_OWNER,
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
+      Account.PROPERTY_USERNAME,
+      Account.PROPERTY_PASSWORD,
+      Account.PROPERTY_NAME,
+      Account.PROPERTY_EMAIL,
+      Account.PROPERTY_PHONE,
+      Account.PROPERTY_ISLOGGEDIN,
+      Account.PROPERTY_ISCONNECTED,
    };
    
    public String[] getProperties()
@@ -90,12 +97,89 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getDebit();
       }
+
+      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getUsername();
+      }
+
+      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getPassword();
+      }
+
+      if (Account.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getName();
+      }
+
+      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getEmail();
+      }
+
+      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getPhone();
+      }
+
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsLoggedIn();
+      }
+
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsConnected();
+      }
       
       return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsConnected((Boolean) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsLoggedIn((Boolean) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setPhone(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setEmail((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setName((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setPassword((String) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setUsername((String) value);
+         return true;
+      }
+
       if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
       {
          ((Account) target).setCreationdate((Date) value);
