@@ -566,13 +566,40 @@ import org.sdmlib.openbank.Transaction;
       return this;
    }
    
+   //==========================================================================
+   
+   public static final String PROPERTY_ISCONNECTED = "IsConnected";
+   
+   private boolean IsConnected;
+
+   public boolean isIsConnected()
+   {
+      return this.IsConnected;
+   }
+   
+   public void setIsConnected(boolean value)
+   {
+      if (this.IsConnected != value) {
+      
+         boolean oldValue = this.IsConnected;
+         this.IsConnected = value;
+         this.firePropertyChange(PROPERTY_ISCONNECTED, oldValue, value);
+      }
+   }
+   
+   public Account withIsConnected(boolean value)
+   {
+      setIsConnected(value);
+      return this;
+   }
+
+
    /*
    *
+   * Log:
+   *     Kimberly 03/29/17
    *
-   *
-   * */
-   // Methods not including setters and getters
-   // Log: Kimberly 03/29/17
+   * /
 
    /*
       Constructor setting the initial amount
@@ -582,36 +609,62 @@ import org.sdmlib.openbank.Transaction;
       this.setBalance(initialAmount);
    }
 
-   /*
-      Right now only returns true, if latter we add something that might require
-       try catch, we might need to use a return false.
-   */
-   public boolean transferFounds( double amount, Account destinationAccount )
+
+   //User transfer founds to another user,
+   // needs to connect and verify destinationAccount connection.
+   public boolean transferToUser( double amount, Account destinationAccount )
    {
+      if(amount<=0 || destinationAccount==null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
+      this.setIsConnected(true);
+      if(destinationAccount.IsConnected) {
+         this.setBalance(this.getBalance() - amount);
+         destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+         return true;
+      }
+
+      return false;//transferToUser did not work.
+   }
+
+   //Simple transaction between same user bank accounts.
+   public boolean myBankTransaction( double amount, Account destinationAccount )
+   {
+      if(amount<=0 || destinationAccount==null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
       this.setBalance(this.getBalance()-amount);
       destinationAccount.setBalance(destinationAccount.getBalance()+amount);
+
       return true;
    }
 
 
-   public boolean transferToUser( double amount, Account destinationAccount )
-   {
-      return false;
-   }
-
-   public boolean myBankTransaction( double amount, Account destinationAccount )
-   {
-      return false;
-   }
-
-
+   //This how the second user connects to get found from another user.
    public boolean receiveFound( double amount, Account sourceAccount )
    {
-      return false;
+      if(amount<=0 || sourceAccount==null)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+
+      //Only connects if sourceAccount is connected.
+      if(sourceAccount.IsConnected)
+      {
+         this.setIsConnected(true);
+         return true;
+      }
+      return false;//receiveFound did not work.
    }
 
-   public boolean sendTransactionInfo( String amount, String date, String time, String note )
+   //This sets the information of the transaction.
+   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
    {
+      if(transaction==null || date==null || time==null || amount==0)
+         throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
+
+      transaction.setAmount(amount);
+      transaction.setDate(date);
+      transaction.setTime(time);
+      transaction.setNote(note);
       return false;
    }
 
@@ -621,12 +674,15 @@ import org.sdmlib.openbank.Transaction;
       return false;
    }
 
-
+   //To withdraw money from this account.
    public void withdraw( double amount )
    {
-
+      if(amount<=this.getBalance() || amount>0)
+         this.setBalance(this.getBalance()-balance);
+      else
+         throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                                             "and greater than 0.");
    }
-
 
    public void deposit( Account ToAccount, double amount )
    {

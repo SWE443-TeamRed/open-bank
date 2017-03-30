@@ -13,8 +13,8 @@ public class S7_S9_AccountTests {
     public void precondition() {
         User tina = new User().withName("Tina").withUserID("tina2017");
         User nick = new User().withName("Nick").withUserID("nick2017");
-        Account t = new Account().withOwner(tina).withAccountnum(1).withBalance(50);
-        Account n = new Account().withOwner(nick).withAccountnum(2).withBalance(15);
+        Account t = new Account().withOwner(tina).withAccountnum(1);
+        Account n = new Account().withOwner(nick).withAccountnum(2);
     }
 
     /**
@@ -31,8 +31,8 @@ public class S7_S9_AccountTests {
      * (Post)* Tina has transferred 10 dollars to Nick between their accounts
      */
     @Test //Test the Player functionality
-    public void S7Test() {
-        this.S7Precondition();
+    public void S7Test(){
+        this.precondition();
     }
 
     /**
@@ -49,7 +49,7 @@ public class S7_S9_AccountTests {
      */
     @Test
     public void S8Test() {
-        this.S8Precondition();
+        this.precondition();
     }
 
     /**
@@ -65,6 +65,6 @@ public class S7_S9_AccountTests {
      */
     @Test
     public void S9Test() {
-        this.S9Precondition();
+        this.precondition();
     }
 }
