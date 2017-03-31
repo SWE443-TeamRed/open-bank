@@ -4,7 +4,10 @@ Description:
 
 	Code the UI of the open bank android app based on the GUI mock ups created.
 	Currently you don't need to have anything working, just make each screen
-	look like the GUI mock ups 
+	look like the GUI mock ups. 
+	
+	Not much to test here but make sure everything you intended to show up, shows up.
+	
 	Note:
 	 - Log-In screen should also include username and password prompts as well
 		as buttons for creating a new account and forgeting your password or
@@ -16,7 +19,8 @@ Description:
 	
 Related scenario(s):
 
-
+Tina clicked banking app in her Android phone.
+[……………/scenarios/S1_Login.txt]
   
 Time estimate(s):
 
@@ -25,6 +29,7 @@ Time estimate(s):
 Author(s):
 
   - Vincent
+  - Savindi
 
 Assigned persons (currently working on task):
 

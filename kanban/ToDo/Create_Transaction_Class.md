@@ -9,6 +9,8 @@ Description:
   money being moved, a unique ID, and the accounts involved. There should be
   getters and setters for each attribute.
   
+  Test the method created to make sure the code works as intended
+  
   Note:
   - Each transaction should be related to at most two accounts. I suggest
   giving them the roles "sender" and "reciever".

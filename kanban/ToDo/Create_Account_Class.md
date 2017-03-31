@@ -12,6 +12,8 @@ Description:
   depositing money, withdrawing money, transfering money between
   accounts, and seeding accounts. 
   
+  Test any and all methods created to ensure they work as intended.
+  
   Note: 
   - We may be encorporating a boolean flag to determine if the 
   account is an admin console.

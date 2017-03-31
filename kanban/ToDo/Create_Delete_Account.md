@@ -3,6 +3,7 @@ Title: Add Create and Delete Accounts to Database
 Description:
 
 	Add methods to Database that will create and delete Accounts.
+	Test to see if the methods work properly.
 	
 	Note:
 	 - Created accounts need an initial seeding of over $0.00	
