@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 FA
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -228,5 +228,45 @@ import org.sdmlib.openbank.Account;
       Account value = new Account();
       withAccount(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   public boolean openAccount( User p0 )
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   private String userID;
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISADMIN = "isAdmin";
+   
+   private boolean isAdmin;
+
+   public boolean isIsAdmin()
+   {
+      return this.isAdmin;
+   }
+   
+   public void setIsAdmin(boolean value)
+   {
+      if (this.isAdmin != value) {
+      
+         boolean oldValue = this.isAdmin;
+         this.isAdmin = value;
+         this.firePropertyChange(PROPERTY_ISADMIN, oldValue, value);
+      }
+   }
+   
+   public User withIsAdmin(boolean value)
+   {
+      setIsAdmin(value);
+      return this;
    } 
 }

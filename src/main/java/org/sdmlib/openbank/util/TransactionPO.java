@@ -8,6 +8,8 @@ import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.TransactionPO;
 
+import java.util.Date;
+
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
 
@@ -104,7 +106,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createDateCondition(String value)
+   public TransactionPO createDateCondition(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_DATE)
@@ -118,22 +120,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createDateCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_DATE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TransactionPO createDateAssignment(String value)
+   public TransactionPO createDateAssignment(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_DATE)
@@ -147,7 +134,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public String getDate()
+   public Date getDate()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -156,7 +143,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
    
-   public TransactionPO withDate(String value)
+   public TransactionPO withDate(Date value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -165,7 +152,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createTimeCondition(String value)
+   public TransactionPO createTimeCondition(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_TIME)
@@ -179,22 +166,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createTimeCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_TIME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TransactionPO createTimeAssignment(String value)
+   public TransactionPO createTimeAssignment(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_TIME)
@@ -208,7 +180,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public String getTime()
+   public Date getTime()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -217,7 +189,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
    
-   public TransactionPO withTime(String value)
+   public TransactionPO withTime(Date value)
    {
       if (this.getPattern().getHasMatch())
       {

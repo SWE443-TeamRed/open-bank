@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 FA
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -29,6 +29,7 @@ import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
+import de.uniks.networkparser.list.BooleanList;
 
 public class UserSet extends SimpleSet<User>
 {
@@ -348,6 +349,80 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.withoutAccount(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList openAccount(User p0)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add( obj.openAccount(p0) );
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect a list of the isAdmin attribute values. 
+    * 
+    * @return List of boolean objects reachable via isAdmin attribute
+    */
+   public BooleanList getIsAdmin()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add(obj.isIsAdmin());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the isAdmin attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterIsAdmin(boolean value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value == obj.isIsAdmin())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the isAdmin attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withIsAdmin(boolean value)
+   {
+      for (User obj : this)
+      {
+         obj.setIsAdmin(value);
       }
       
       return this;
