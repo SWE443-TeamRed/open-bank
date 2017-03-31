@@ -23,3 +23,5 @@ Assigned person (currently working on task):
 	- Victor
 
 Log entries (who worked when and how long on this):
+
+    - Kimberly 3 h

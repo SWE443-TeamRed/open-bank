@@ -42,4 +42,6 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
 
+  - Kimberly 4 hr
+
 

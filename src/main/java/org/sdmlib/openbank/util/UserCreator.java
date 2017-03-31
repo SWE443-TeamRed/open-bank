@@ -33,6 +33,7 @@ public class UserCreator implements SendableEntityCreator
       User.PROPERTY_NAME,
       User.PROPERTY_USERID,
       User.PROPERTY_ACCOUNT,
+      User.PROPERTY_ISADMIN,
    };
    
    @Override
@@ -72,6 +73,11 @@ public class UserCreator implements SendableEntityCreator
       {
          return ((User) target).getAccount();
       }
+
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).isIsAdmin();
+      }
       
       return null;
    }
@@ -79,6 +85,12 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setIsAdmin((Boolean) value);
+         return true;
+      }
+
       if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
       {
          ((User) target).setUserID((String) value);
