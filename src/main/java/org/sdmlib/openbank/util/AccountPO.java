@@ -198,23 +198,23 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public Date getCreationdate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getCreationdate();
-      }
-      return null;
-   }
+//   public Date getCreationdate()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).getCreationdate();
+//      }
+//      return null;
+//   }
    
-   public AccountPO withCreationdate(Date value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setCreationdate(value);
-      }
-      return this;
-   }
+//   public AccountPO withCreationdate(Date value)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         ((Account) getCurrentMatch()).setCreationdate(value);
+//      }
+//      return this;
+//   }
    
    public UserPO createOwnerPO()
    {
@@ -383,14 +383,17 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean login(String username, String password)
+   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).login(username, password);
+         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
       }
       return false;
    }
+
+   
+
 
    
    //==========================================================================
@@ -406,18 +409,21 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public void deposit(Account ToAccount, double amount)
+   public void deposit(double amount)
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Account) getCurrentMatch()).deposit(ToAccount, amount);
+          ((Account) getCurrentMatch()).deposit(amount);
       }
    }
 
-   public AccountPO createUsernameCondition(String value)
+
+
+   
+   public AccountPO createCreationdateCondition(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_USERNAME)
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -428,10 +434,10 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public AccountPO createUsernameCondition(String lower, String upper)
+   public AccountPO createCreationdateCondition(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_USERNAME)
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -443,10 +449,10 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public AccountPO createUsernameAssignment(String value)
+   public AccountPO createCreationdateAssignment(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_USERNAME)
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -457,310 +463,20 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public String getUsername()
+   public String getCreationdate()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).getUsername();
+         return ((Account) getCurrentMatch()).getCreationdate();
       }
       return null;
    }
    
-   public AccountPO withUsername(String value)
+   public AccountPO withCreationdate(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Account) getCurrentMatch()).setUsername(value);
-      }
-      return this;
-   }
-   
-   public AccountPO createPasswordCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PASSWORD)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createPasswordCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PASSWORD)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createPasswordAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PASSWORD)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getPassword()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getPassword();
-      }
-      return null;
-   }
-   
-   public AccountPO withPassword(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setPassword(value);
-      }
-      return this;
-   }
-   
-   public AccountPO createNameCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createNameAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
-   public AccountPO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setName(value);
-      }
-      return this;
-   }
-   
-   public AccountPO createEmailCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_EMAIL)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createEmailCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_EMAIL)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createEmailAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_EMAIL)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getEmail()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getEmail();
-      }
-      return null;
-   }
-   
-   public AccountPO withEmail(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setEmail(value);
-      }
-      return this;
-   }
-   
-   public AccountPO createPhoneCondition(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PHONE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createPhoneCondition(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PHONE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createPhoneAssignment(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_PHONE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public int getPhone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getPhone();
-      }
-      return 0;
-   }
-   
-   public AccountPO withPhone(int value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setPhone(value);
-      }
-      return this;
-   }
-   
-   public AccountPO createIsLoggedInCondition(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_ISLOGGEDIN)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createIsLoggedInAssignment(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_ISLOGGEDIN)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public boolean getIsLoggedIn()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).isIsLoggedIn();
-      }
-      return false;
-   }
-   
-   public AccountPO withIsLoggedIn(boolean value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setIsLoggedIn(value);
+         ((Account) getCurrentMatch()).setCreationdate(value);
       }
       return this;
    }
@@ -810,7 +526,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       }
       return this;
    }
-
+   
    
    //==========================================================================
    
@@ -823,4 +539,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
+
+   
 }

@@ -263,4 +263,257 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public UserPO createPasswordCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PASSWORD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPasswordCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PASSWORD)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPasswordAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PASSWORD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getPassword()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getPassword();
+      }
+      return null;
+   }
+   
+   public UserPO withPassword(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setPassword(value);
+      }
+      return this;
+   }
+   
+   public UserPO createEmailCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_EMAIL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createEmailCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_EMAIL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createEmailAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_EMAIL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getEmail()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getEmail();
+      }
+      return null;
+   }
+   
+   public UserPO withEmail(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setEmail(value);
+      }
+      return this;
+   }
+   
+   public UserPO createLoggedInCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_LOGGEDIN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createLoggedInAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_LOGGEDIN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getLoggedIn()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).isLoggedIn();
+      }
+      return false;
+   }
+   
+   public UserPO withLoggedIn(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setLoggedIn(value);
+      }
+      return this;
+   }
+   
+   public UserPO createPhoneCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public int getPhone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getPhone();
+      }
+      return 0;
+   }
+   
+   public UserPO withPhone(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setPhone(value);
+      }
+      return this;
+   }
+   
+   
+   //==========================================================================
+   
+   public boolean login(String username, String password)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).login(username, password);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean logout()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).logout();
+      }
+      return false;
+   }
+
 }
