@@ -603,17 +603,12 @@ import org.sdmlib.openbank.Transaction;
    *
    * Log:
    *     Kimberly 03/29/17
-<<<<<<< HEAD
-   *
-   * /
-
-=======
    *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
    *
    * Notes:
    *    Sam 03/29/17 -> we need to discuss
    * /
->>>>>>> master
+
    /*
       Constructor setting the initial amount
    */

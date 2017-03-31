@@ -25,3 +25,4 @@ Assigned persons (currently working on task):
   - Henry     Scenarios 1-3
 
 Log entries (who worked when and how long on this):
+  - Kimberly 10 min
