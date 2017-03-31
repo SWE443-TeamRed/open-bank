@@ -1,4 +1,4 @@
-Title: Database Filtering Research and Implementation
+Title: Research and Implement Filtering for the Database class
 
 Description:
 

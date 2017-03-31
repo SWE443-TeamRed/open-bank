@@ -1,4 +1,4 @@
-Title: SDMLIB Android Integration Research
+Title: Research SDMLIB Android Integration 
 
 Description:
 
