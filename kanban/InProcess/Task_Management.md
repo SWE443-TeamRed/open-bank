@@ -14,12 +14,12 @@ Time estimate(s):
 
 Author(s):
 
-  - Mitchell
+    - Mitchell
 
 Assigned persons (currently working on task):
 
-  - Vincent
-  - Mitchell
+    - Vincent
+    - Mitchell
 
 Log entries (who worked when and how long on this):
 
