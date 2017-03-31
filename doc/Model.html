@@ -23,10 +23,16 @@
          "attributes":[
             "name : String",
             "userID : String",
-            "isAdmin : boolean"
+            "isAdmin : boolean",
+            "password : String",
+            "email : String",
+            "LoggedIn : boolean",
+            "phone : int"
          ],
          "methods":[
-            "openAccount(org.sdmlib.openbank.User p0) boolean"
+            "openAccount(org.sdmlib.openbank.User p0) boolean",
+            "login(String username, String password) boolean",
+            "logout() boolean"
          ]
       },
       {
@@ -43,13 +49,7 @@
          "typ":"node",
          "id":"Account",
          "attributes":[
-            "username : String",
-            "password : String",
-            "name : String",
-            "email : String",
-            "phone : int",
             "balance : double",
-            "LoggedIn : boolean",
             "accountnum : int",
             "creationdate : String",
             "IsConnected : boolean"
@@ -60,7 +60,6 @@
             "myBankTransaction(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
             "receiveFound(double amount, org.sdmlib.openbank.Account sourceAccount) boolean",
             "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, String date, String time, String note) boolean",
-            "login(String username, String password) boolean",
             "withdraw(double amount)",
             "deposit(double amount)"
          ]

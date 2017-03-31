@@ -11,7 +11,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/S1_Login_Test.java' type='text/x-java'>TinaLogsIntoHerBankingAccount</a></p>
+<p>Storyboard <a href='.././src/test/java/Test_S1_S3_S13_S14.java' type='text/x-java'>loginTest</a></p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -21,7 +21,11 @@
          "id":"Tina : User",
          "attributes":[
             "name=Tina",
-            "isAdmin=false"
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "LoggedIn=false",
+            "phone=0"
          ]
       },
       {
@@ -29,13 +33,7 @@
          "id":"A1 : Account",
          "attributes":[
             "balance=0.0",
-            "accountnum=0",
-            "username=henryapez",
-            "password=1111",
-            "email=henryapez@gmail.com",
-            "phone=0",
-            "IsConnected=false",
-            "LoggedIn=false"
+            "accountnum=1"
          ]
       }
    ],
@@ -55,11 +53,11 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTinaLogsIntoHerBankingAccount1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasloginTest1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>0. (Pre-condition) Tina has her phone and wants to log into her banking account. The app is installed on her phone but Tina is not logged in</p>
-<p>Check: Tina is currently not logged in false actual false</p>
+<p>Check: Tina is currently not logged in to her checking account false actual false</p>
 <p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 <p>1) Tina opens her banking app
 	2) Tina is at the login screen

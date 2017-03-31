@@ -1,5 +1,6 @@
 import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -25,12 +26,21 @@ public class Model {
         user.withAttribute("name", DataType.STRING);
         user.withAttribute("userID",DataType.STRING);
         user.withAttribute("isAdmin", DataType.BOOLEAN);
+        user.withAttribute("password", DataType.STRING);
+        user.withAttribute("name", DataType.STRING);
+        user.withAttribute("email", DataType.STRING);
+        user.withAttribute("LoggedIn", DataType.BOOLEAN);
+        user.withAttribute("phone", DataType.INT);
 
         //User Methods
 
-        //User can open an account (for others if they are an admin)
+        //User can open an account for others if they are an admin
         user.withMethod("openAccount", DataType.BOOLEAN, new Parameter(DataType.create(user)));
-
+        //User logs into their account
+        user.withMethod("login", DataType.BOOLEAN, new Parameter(DataType.STRING).with("username"),
+                new Parameter(DataType.STRING).with("password"));
+        //User logs into their account
+        user.withMethod("logout", DataType.BOOLEAN);
 
 
 /////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,25 +56,17 @@ public class Model {
 /////////Account////////////////////////////////////////////////////////////////////////////////////////////////////////
        /*
         Account class:
-        username: Account login ID,
-        password: Account login password,
-        name: Name on the account,
-        email: Email on the account,
-        phone: Contact number of the account
+        accountnum: account number ID
         balance: Balance on the account
+        creationdate: when the account was created
+        isConnected: if the account is connected to another user
         */
 
         Clazz account = model.createClazz("Account");
-        account.withAttribute("username", DataType.STRING);
-        account.withAttribute("password", DataType.STRING);
-        account.withAttribute("name", DataType.STRING);
-        account.withAttribute("email", DataType.STRING);
-        account.withAttribute("phone", DataType.INT);
         account.withAttribute("balance", DataType.DOUBLE);
-        account.withAttribute("LoggedIn", DataType.BOOLEAN);
         account.withAttribute("accountnum",DataType.INT);
         account.withAttribute("creationdate", DataType.STRING);
-        account.withAttribute("IsConnected", DataType.BOOLEAN);//Connected to another user.
+        account.withAttribute("IsConnected", DataType.BOOLEAN);
 
         //Account Methods
 
@@ -89,9 +91,7 @@ public class Model {
                 new Parameter(DataType.STRING).with("date"),
                 new Parameter(DataType.STRING).with("time"),
                 new Parameter(DataType.STRING).with("note"));
-        //User logs into their account
-        account.withMethod("login", DataType.BOOLEAN, new Parameter(DataType.STRING).with("username"),
-                new Parameter(DataType.STRING).with("password"));
+
         //void withdraw(double amount)
         //Withdraw funds from account
         account.withMethod("withdraw", DataType.VOID, new Parameter(DataType.DOUBLE).with("amount"));

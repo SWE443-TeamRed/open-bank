@@ -11,7 +11,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/S1_Login_Test.java' type='text/x-java'>TinaLogsIntoHerBankingAccount</a></p>
+<p>Storyboard <a href='.././src/test/java/Test_S1_S3_S13_S14.java' type='text/x-java'>S13_S14_incorrectLoginAttemptsTest</a></p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -21,7 +21,11 @@
          "id":"Tina : User",
          "attributes":[
             "name=Tina",
-            "isAdmin=false"
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=1111",
+            "LoggedIn=false",
+            "phone=0"
          ]
       },
       {
@@ -29,13 +33,7 @@
          "id":"A1 : Account",
          "attributes":[
             "balance=0.0",
-            "accountnum=0",
-            "username=henryapez",
-            "password=1111",
-            "email=henryapez@gmail.com",
-            "phone=0",
-            "IsConnected=false",
-            "LoggedIn=false"
+            "accountnum=1"
          ]
       }
    ],
@@ -55,19 +53,15 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTinaLogsIntoHerBankingAccount1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>0. (Pre-condition) Tina has her phone and wants to log into her banking account. The app is installed on her phone but Tina is not logged in</p>
-<p>Check: Tina is currently not logged in false actual false</p>
+<p>Check: Tina tries to login with wrong username false actual false</p>
 <p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
-<p>1) Tina opens her banking app
-	2) Tina is at the login screen
-	3) Tina enters her username in the username field
-	4) Tina enters her password in the password field</p>
-<p>5) (Post-Condition)  Tina has loged into her account and can now view her balance</p>
-<p>Check: Tina is now logged in true actual true</p>
-<p>Check: Tina can view the 100 dollars in her account 100.0 actual 100.0</p>
+<p>Check: Tina tries to login with wrong password false actual false</p>
+<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
+<p>Check: Tina tries to login with wron username and password false actual false</p>
+<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 
 </body>
 </html>
