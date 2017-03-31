@@ -43,5 +43,7 @@ Assigned persons (currently working on task):
 Log entries (who worked when and how long on this):
 
   - Kimberly 4 hr
-
+    3/31 - Henry - 2 hrs
+            -Refactoreed Account class to not include fields that the User class should store, 
+            Account should only store a User object which can then have user info
 
