@@ -22,24 +22,11 @@
          "id":"User",
          "attributes":[
             "name : String",
-<<<<<<< HEAD
             "userID : String",
             "isAdmin : boolean"
          ],
          "methods":[
             "openAccount(org.sdmlib.openbank.User p0) boolean"
-=======
-            "UserID : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Account",
-         "attributes":[
-            "balance : double",
-            "accountnum : int",
-            "creationdate : Date"
->>>>>>> master
          ]
       },
       {
@@ -60,7 +47,7 @@
             "password : String",
             "name : String",
             "email : String",
-            "phone : int",
+            "phone : long",
             "balance : double",
             "isLoggedIn : boolean",
             "accountnum : int",
@@ -132,7 +119,8 @@
          "id":"U1 : User",
          "attributes":[
             "name=Bob",
-            "UserID=1"
+            "UserID=1",
+            "isAdmin=false"
          ]
       },
       {
@@ -140,7 +128,8 @@
          "id":"U2 : User",
          "attributes":[
             "name=Sam",
-            "UserID=2"
+            "UserID=2",
+            "isAdmin=false"
          ]
       }
    ]

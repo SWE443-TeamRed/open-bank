@@ -701,7 +701,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public int getPhone()
+   public long getPhone()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -814,7 +814,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -823,4 +823,90 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
+   public AccountPO createPhoneCondition(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createPhoneCondition(long lower, long upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_PHONE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createPhoneAssignment(long value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createCreationdateCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createCreationdateCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createCreationdateAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

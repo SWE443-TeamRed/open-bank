@@ -1183,7 +1183,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -1194,5 +1194,119 @@ public class AccountSet extends SimpleSet<Account>
       }
       return result;
    }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the phone attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPhone(long value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getPhone())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the phone attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterPhone(long lower, long upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower <= obj.getPhone() && obj.getPhone() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the phone attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withPhone(long value)
+   {
+      for (Account obj : this)
+      {
+         obj.setPhone(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterCreationdate(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getCreationdate()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterCreationdate(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+//
+//      for (Account obj : this)
+//      {
+//         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+      return result;
+   }
+
+
 
 }

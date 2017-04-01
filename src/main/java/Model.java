@@ -12,6 +12,10 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
  * Created by FA on 3/23/2017.
  */
 public class Model {
+     /**
+    * 
+    * @see <a href='../../../doc/Model.html'>Model.html</a>
+ */
    public static void main(String[] args) {
        //create class model
        ClassModel model = new ClassModel("org.sdmlib.openbank");
@@ -62,13 +66,12 @@ public class Model {
        account.withAttribute("password", DataType.STRING);
        account.withAttribute("name", DataType.STRING);
        account.withAttribute("email", DataType.STRING);
-       account.withAttribute("phone", DataType.INT);
+       account.withAttribute("phone", DataType.LONG);
        account.withAttribute("balance", DataType.DOUBLE);
        account.withAttribute("isLoggedIn", DataType.BOOLEAN);
        account.withAttribute("accountnum",DataType.INT);
        account.withAttribute("creationdate", DataType.STRING);
        account.withAttribute("IsConnected", DataType.BOOLEAN);//Connected to another user.
-
        //Account Methods
 
        //void Account(double initialAmount), constructor
