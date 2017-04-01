@@ -375,47 +375,5 @@ import org.sdmlib.openbank.Account;
       return value;
    } 
 
-<<<<<<< HEAD
-   
-   //==========================================================================
-   public boolean openAccount( User p0 )
-   {
-      return false;
-   }
 
-   
-   //==========================================================================
-   
-   private String userID;
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_ISADMIN = "isAdmin";
-   
-   private boolean isAdmin;
-
-   public boolean isIsAdmin()
-   {
-      return this.isAdmin;
-   }
-   
-   public void setIsAdmin(boolean value)
-   {
-      if (this.isAdmin != value) {
-      
-         boolean oldValue = this.isAdmin;
-         this.isAdmin = value;
-         this.firePropertyChange(PROPERTY_ISADMIN, oldValue, value);
-      }
-   }
-   
-   public User withIsAdmin(boolean value)
-   {
-      setIsAdmin(value);
-      return this;
-   } 
-=======
-
->>>>>>> master
 }

@@ -24,16 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-<<<<<<< HEAD
-import java.util.Iterator;
-
-=======
-import java.sql.Time;
-import java.util.Iterator;
-
 import java.util.Date;
 
->>>>>>> master
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
@@ -147,11 +139,6 @@ public  class Account implements SendableEntity
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
       result.append(" ").append(this.getCreationdate());
-      result.append(" ").append(this.getUsername());
-      result.append(" ").append(this.getPassword());
-      result.append(" ").append(this.getName());
-      result.append(" ").append(this.getEmail());
-      result.append(" ").append(this.getPhone());
       return result.substring(1);
    }
 
@@ -417,404 +404,47 @@ public  class Account implements SendableEntity
 
 
 
-   // Methods not including setters and getters
 
 
 
 
 
 
-
-
-
-   //==========================================================================
-
-
-   //==========================================================================
-
-   public static final String PROPERTY_USERNAME = "username";
-
-   private String username;
-
-   public String getUsername()
-   {
-      return this.username;
-   }
-
-   public void setUsername(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.username, value)) {
-
-         String oldValue = this.username;
-         this.username = value;
-         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-      }
-   }
-
-   public Account withUsername(String value)
-   {
-      setUsername(value);
-      return this;
-   }
-
-
-   //==========================================================================
-
-   public static final String PROPERTY_PASSWORD = "password";
-
-   private String password;
-
-   public String getPassword()
-   {
-      return this.password;
-   }
-
-   public void setPassword(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.password, value)) {
-
-         String oldValue = this.password;
-         this.password = value;
-         this.firePropertyChange(PROPERTY_PASSWORD, oldValue, value);
-      }
-   }
-
-   public Account withPassword(String value)
-   {
-      setPassword(value);
-      return this;
-   }
-
-
-   //==========================================================================
-
-   public static final String PROPERTY_NAME = "name";
-
-   private String name;
-
-   public String getName()
-   {
-      return this.name;
-   }
-
-   public void setName(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
-
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-
-   public Account withName(String value)
-   {
-      setName(value);
-      return this;
-   }
-
-
-   //==========================================================================
-
-   public static final String PROPERTY_EMAIL = "email";
-
-   private String email;
-
-   public String getEmail()
-   {
-      return this.email;
-   }
-
-   public void setEmail(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.email, value)) {
-
-         String oldValue = this.email;
-         this.email = value;
-         this.firePropertyChange(PROPERTY_EMAIL, oldValue, value);
-      }
-   }
-
-   public Account withEmail(String value)
-   {
-      setEmail(value);
-      return this;
-   }
-
-
-   //==========================================================================
-
-   public static final String PROPERTY_PHONE = "phone";
-
-   private int phone;
-
-   public int getPhone()
-   {
-      return this.phone;
-   }
-
-   public void setPhone(int value)
-   {
-      if (this.phone != value) {
-
-         int oldValue = this.phone;
-         this.phone = value;
-         this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
-      }
-   }
-
-   public Account withPhone(int value)
-   {
-      setPhone(value);
-      return this;
-   }
-
-
-   //==========================================================================
-
-<<<<<<< HEAD
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_USERNAME = "username";
-   
-   private String username;
-
-   public String getUsername()
-   {
-      return this.username;
-   }
-   
-   public void setUsername(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.username, value)) {
-      
-         String oldValue = this.username;
-         this.username = value;
-         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-      }
-   }
-   
-   public Account withUsername(String value)
-   {
-      setUsername(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_PASSWORD = "password";
-   
-   private String password;
-
-   public String getPassword()
-   {
-      return this.password;
-   }
-   
-   public void setPassword(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.password, value)) {
-      
-         String oldValue = this.password;
-         this.password = value;
-         this.firePropertyChange(PROPERTY_PASSWORD, oldValue, value);
-      }
-   }
-   
-   public Account withPassword(String value)
-   {
-      setPassword(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_NAME = "name";
-   
-   private String name;
-
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
-      
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-   
-   public Account withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_EMAIL = "email";
-   
-   private String email;
-
-   public String getEmail()
-   {
-      return this.email;
-   }
-   
-   public void setEmail(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.email, value)) {
-      
-         String oldValue = this.email;
-         this.email = value;
-         this.firePropertyChange(PROPERTY_EMAIL, oldValue, value);
-      }
-   }
-   
-   public Account withEmail(String value)
-   {
-      setEmail(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_PHONE = "phone";
-   
-   private int phone;
-
-   public int getPhone()
-   {
-      return this.phone;
-   }
-   
-   public void setPhone(int value)
-   {
-      if (this.phone != value) {
-      
-         int oldValue = this.phone;
-         this.phone = value;
-         this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
-      }
-   }
-   
-   public Account withPhone(int value)
-   {
-      setPhone(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_ISLOGGEDIN = "isLoggedIn";
-   
-=======
-   public static final String PROPERTY_ISLOGGEDIN = "isLoggedIn";
-
->>>>>>> master
-   private boolean isLoggedIn;
-
-   public boolean isIsLoggedIn()
-   {
-      return this.isLoggedIn;
-   }
-<<<<<<< HEAD
-   
-   public void setIsLoggedIn(boolean value)
-   {
-      if (this.isLoggedIn != value) {
-      
-=======
-
-   public void setIsLoggedIn(boolean value)
-   {
-      if (this.isLoggedIn != value) {
-
->>>>>>> master
-         boolean oldValue = this.isLoggedIn;
-         this.isLoggedIn = value;
-         this.firePropertyChange(PROPERTY_ISLOGGEDIN, oldValue, value);
-      }
-   }
-<<<<<<< HEAD
-   
-=======
-
->>>>>>> master
-   public Account withIsLoggedIn(boolean value)
-   {
-      setIsLoggedIn(value);
-      return this;
-   }
-<<<<<<< HEAD
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_ISCONNECTED = "IsConnected";
-   
-=======
 
    //==========================================================================
 
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
 
->>>>>>> master
    private boolean IsConnected;
 
    public boolean isIsConnected()
    {
       return this.IsConnected;
    }
-<<<<<<< HEAD
-   
-   public void setIsConnected(boolean value)
-   {
-      if (this.IsConnected != value) {
-      
-=======
 
    public void setIsConnected(boolean value)
    {
       if (this.IsConnected != value) {
 
->>>>>>> master
          boolean oldValue = this.IsConnected;
          this.IsConnected = value;
          this.firePropertyChange(PROPERTY_ISCONNECTED, oldValue, value);
       }
    }
-<<<<<<< HEAD
-   
-=======
 
->>>>>>> master
    public Account withIsConnected(boolean value)
    {
       setIsConnected(value);
       return this;
    }
 
+
    /*
    *
    * Log:
    *     Kimberly 03/29/17
-   *     Sam 03/29/17 -> made some minor edits to transferToUser and withdraw
    *
-   * Notes:
-   *    Sam 03/29/17 -> we need to discuss
-   *    Savindi ->added three methods
-   */
-
+   * /
 
    /*
       Constructor setting the initial amount
@@ -824,40 +454,24 @@ public  class Account implements SendableEntity
       this.setBalance(initialAmount);
    }
 
-   /*
-      Right now only returns true, if latter we add something that might require
-       try catch, we might need to use a return false.
-   */
-   public boolean transferFounds( double amount, Account destinationAccount )
-   {
-      this.setBalance(this.getBalance()-amount);
-      destinationAccount.setBalance(destinationAccount.getBalance()+amount);
-      return true;
-   }
 
-   //User transfer founds to another user,
-   // needs to connect and verify destinationAccount connection.
-<<<<<<< HEAD
-   public boolean transferToUser(double amount, Account destinationAccount, TransactionSet credit, Transaction transaction, String date, String time, String note)
-=======
-   public boolean transferToUser(double amount, Account destinationAccount, TransactionSet credit, Transaction transaction, Date date, Time time, String note)
->>>>>>> master
-   {
-      if(amount < 0 || destinationAccount == null)
-         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+    //User transfer founds to another user,
+    // needs to connect and verify destinationAccount connection.
+    public boolean transferToUser(double amount, Account destinationAccount)
+    {
+        if(amount < 0 || destinationAccount == null)
+            throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
 
-      if (amount <= this.getBalance()) {
-         this.setIsConnected(true);
-         if (destinationAccount.IsConnected) {
-            sendTransactionInfo( transaction,  amount,  date,  time, note);
-            this.setBalance(this.getBalance() - amount);
-            destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-            credit.add(transaction);
-            return true;
-         }
-      }
-      return false;//transferToUser did not work.
-   }
+        if (amount <= this.getBalance()) {
+            this.setIsConnected(true);
+            if (destinationAccount.IsConnected) {
+                this.setBalance(this.getBalance() - amount);
+                destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+                return true;
+            }
+        }
+        return false;//transferToUser did not work.
+    }
 
    //Simple transaction between same user bank accounts.
    public boolean myBankTransaction( double amount, Account destinationAccount )
@@ -870,6 +484,7 @@ public  class Account implements SendableEntity
 
       return true;
    }
+
 
    //This how the second user connects to get found from another user.
    public boolean receiveFound( double amount, Account sourceAccount )
@@ -887,11 +502,7 @@ public  class Account implements SendableEntity
    }
 
    //This sets the information of the transaction.
-<<<<<<< HEAD
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note)
-=======
-   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Time time, String note)
->>>>>>> master
+   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note )
    {
       if(transaction==null || date==null || time==null || amount==0)
          throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
@@ -903,62 +514,32 @@ public  class Account implements SendableEntity
       return false;
    }
 
-   public boolean login( String username, String password )
+
+
+
+    //To withdraw money from this account.
+    public void withdraw(double amount)
+    {
+        if(amount <= this.getBalance() && amount > 0)
+            this.setBalance(this.getBalance() - amount);
+        else
+            throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                    "and greater than 0.");
+    }
+
+   //=========================================================================
+   public void deposit( double amount )
+   {
+      
+   }
+
+   
+   //==========================================================================
+   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
    {
       return false;
    }
 
-   //To withdraw money from this account.
-<<<<<<< HEAD
-   public void withdraw(double amount,Transaction transaction, String date, String time, String note, TransactionSet credit)
-=======
-   public void withdraw(double amount,Transaction transaction, Date date, Time time, String note, TransactionSet credit)
->>>>>>> master
-   {
-      if(amount <= this.getBalance() && amount > 0) {
-         sendTransactionInfo(transaction, amount, date, time, note);
-         this.setBalance(this.getBalance() - amount);
-         credit.add(transaction);
-      }
-      else
-         throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
-<<<<<<< HEAD
-                                             "and greater than 0.");
-   }
+   
 
-   public void deposit(double amount,Transaction transaction, String date, String time, String note, TransactionSet debit )
-=======
-                 "and greater than 0.");
-   }
-
-   public void deposit(double amount,Transaction transaction, Date date, Time time, String note, TransactionSet debit )
->>>>>>> master
-   {
-      if (amount > 0.00) {
-         sendTransactionInfo( transaction,  amount,  date,  time, note);
-         this.setBalance(this.getBalance() + amount);
-         debit.add(transaction);
-      }
-      else
-         throw new IllegalArgumentException("Not a valid number");
-   }
-
-   public String transactionFromAccount( TransactionSet credit)
-   {
-      StringBuilder result = new StringBuilder();
-      for (Transaction trFrom : credit ) {
-         result.append(trFrom);
-         result.append("\n");
-      }
-      return result.toString();
-   }
-   public String transactionToAccount(TransactionSet debit)
-   {
-      StringBuilder result = new StringBuilder();
-      for (Transaction trFrom : debit) {
-         result.append(trFrom);
-         result.append("\n");
-      }
-      return result.toString();
-   }
 }

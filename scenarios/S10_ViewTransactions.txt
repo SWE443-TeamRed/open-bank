@@ -1,9 +1,0 @@
-﻿Edits:
-3/23/2017: Henry Lopez 
-
-**J**
-Title: Tina views her transactions 
-*(Pre)* Tina wants to view her transaction to ensure she is spending correctly
-	1) Tina logs into her banking account -> See S1
-	2) Tina selects the transactions option
-*(Post)* Tina can see all of her transactions that have occured
