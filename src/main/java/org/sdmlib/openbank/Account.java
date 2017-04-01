@@ -24,6 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Iterator;
+
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
@@ -597,7 +599,6 @@ import org.sdmlib.openbank.Transaction;
       return this;
    }
 
-
    /*
    *
    * Log:
@@ -606,6 +607,7 @@ import org.sdmlib.openbank.Transaction;
    *
    * Notes:
    *    Sam 03/29/17 -> we need to discuss
+   *    Savindi ->added three methods
    */
 
 
@@ -630,7 +632,7 @@ import org.sdmlib.openbank.Transaction;
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
-   public boolean transferToUser(double amount, Account destinationAccount)
+   public boolean transferToUser(double amount, Account destinationAccount, TransactionSet credit, Transaction transaction, String date, String time, String note)
    {
       if(amount < 0 || destinationAccount == null)
          throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
@@ -638,8 +640,10 @@ import org.sdmlib.openbank.Transaction;
       if (amount <= this.getBalance()) {
          this.setIsConnected(true);
          if (destinationAccount.IsConnected) {
+            sendTransactionInfo( transaction,  amount,  date,  time, note);
             this.setBalance(this.getBalance() - amount);
             destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+            credit.add(transaction);
             return true;
          }
       }
@@ -658,7 +662,6 @@ import org.sdmlib.openbank.Transaction;
       return true;
    }
 
-
    //This how the second user connects to get found from another user.
    public boolean receiveFound( double amount, Account sourceAccount )
    {
@@ -675,7 +678,7 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //This sets the information of the transaction.
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
+   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note)
    {
       if(transaction==null || date==null || time==null || amount==0)
          throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
@@ -687,27 +690,51 @@ import org.sdmlib.openbank.Transaction;
       return false;
    }
 
-
    public boolean login( String username, String password )
    {
       return false;
    }
 
    //To withdraw money from this account.
-   public void withdraw(double amount)
+   public void withdraw(double amount,Transaction transaction, String date, String time, String note, TransactionSet credit)
    {
-      if(amount <= this.getBalance() && amount > 0)
-          this.setBalance(this.getBalance() - amount);
+      if(amount <= this.getBalance() && amount > 0) {
+         sendTransactionInfo(transaction, amount, date, time, note);
+         this.setBalance(this.getBalance() - amount);
+         credit.add(transaction);
+      }
       else
          throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
                                              "and greater than 0.");
    }
 
-   public void deposit(double amount )
+   public void deposit(double amount,Transaction transaction, String date, String time, String note, TransactionSet debit )
    {
-      if (amount > 0.00)
-         this.setBalance(this.getBalance()+ amount);
+      if (amount > 0.00) {
+         sendTransactionInfo( transaction,  amount,  date,  time, note);
+         this.setBalance(this.getBalance() + amount);
+         debit.add(transaction);
+      }
       else
          throw new IllegalArgumentException("Not a valid number");
+   }
+
+   public String transactionFromAccount( TransactionSet credit)
+   {
+      StringBuilder result = new StringBuilder();
+      for (Transaction trFrom : credit ) {
+         result.append(trFrom);
+         result.append("\n");
+      }
+      return result.toString();
+   }
+   public String transactionToAccount(TransactionSet debit)
+   {
+      StringBuilder result = new StringBuilder();
+      for (Transaction trFrom : debit) {
+         result.append(trFrom);
+         result.append("\n");
+      }
+      return result.toString();
    }
 }
