@@ -27,21 +27,23 @@ Related scenario(s):
   
 Time estimate(s):
 
-  
+    - 15 hr
 
 Author(s):
 
-  - Vincent
+    - Vincent
 
 Assigned persons (currently working on task):
 
-  - Samuel
-  - Kimberly
-  - Savindi
-  - Henry
+    - Samuel
+    - Kimberly
+    - Savindi
+    - Henry
 
 Log entries (who worked when and how long on this):
 
-  - Kimberly 30 min
-
+    - Kimberly 4 hr
+    - 3/31 Henry - 2 hrs
+            -Refactoreed Account class to not include fields that the User class should store, 
+            Account should only store a User object which can then have user info
 

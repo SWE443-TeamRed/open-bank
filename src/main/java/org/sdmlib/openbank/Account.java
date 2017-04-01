@@ -1,92 +1,101 @@
 /*
    Copyright (c) 2017 FA
-   
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
-   
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
-   
-   The Software shall be used for Good, not Evil. 
-   
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files (the "Software"), to deal in the Software without restriction,
+   including without limitation the rights to use, copy, modify, merge, publish, distribute,
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
+
+   The Software shall be used for Good, not Evil.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-   
+
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+<<<<<<< HEAD
 import java.util.Iterator;
 
+=======
+import java.sql.Time;
+import java.util.Iterator;
+
+import java.util.Date;
+
+>>>>>>> master
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+/**
+ *
+ * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
-   public  class Account implements SendableEntity
+public  class Account implements SendableEntity
 {
 
-   
+
+
    //==========================================================================
-   
+
    protected PropertyChangeSupport listeners = null;
-   
+
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
       if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
+         listeners.firePropertyChange(propertyName, oldValue, newValue);
+         return true;
+      }
+      return false;
    }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(listener);
+      return true;
    }
-   
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(propertyName, listener);
+      return true;
    }
-   
+
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners.removePropertyChangeListener(listener);
-   	}
-   	listeners.removePropertyChangeListener(listener);
-   	return true;
+      if (listeners == null) {
+         listeners.removePropertyChangeListener(listener);
+      }
+      listeners.removePropertyChangeListener(listener);
+      return true;
    }
 
    public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
-   	if (listeners != null) {
-   		listeners.removePropertyChangeListener(propertyName, listener);
-   	}
-   	return true;
+      if (listeners != null) {
+         listeners.removePropertyChangeListener(propertyName, listener);
+      }
+      return true;
    }
 
-   
+
    //==========================================================================
-   
-   
+
+
    public void removeYou()
    {
       setOwner(null);
@@ -95,40 +104,46 @@ import org.sdmlib.openbank.Transaction;
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_BALANCE = "balance";
-   
+
    private double balance;
 
    public double getBalance()
    {
-      return this.balance;
+      /*
+         If the user is not logged in, they should not be able to get balance
+       */
+      if(getOwner()
+              .isLoggedIn()==true)
+         return this.balance;
+      else
+         return 0.0;
    }
-   
+
    public void setBalance(double value)
    {
       if (this.balance != value) {
-      
+
          double oldValue = this.balance;
          this.balance = value;
          this.firePropertyChange(PROPERTY_BALANCE, oldValue, value);
       }
    }
-   
+
    public Account withBalance(double value)
    {
       setBalance(value);
       return this;
-   } 
+   }
 
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
-      
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
       result.append(" ").append(this.getCreationdate());
@@ -141,63 +156,63 @@ import org.sdmlib.openbank.Transaction;
    }
 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_ACCOUNTNUM = "accountnum";
-   
+
    private int accountnum;
 
    public int getAccountnum()
    {
       return this.accountnum;
    }
-   
+
    public void setAccountnum(int value)
    {
       if (this.accountnum != value) {
-      
+
          int oldValue = this.accountnum;
          this.accountnum = value;
          this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
       }
    }
-   
+
    public Account withAccountnum(int value)
    {
       setAccountnum(value);
       return this;
-   } 
+   }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_CREATIONDATE = "creationdate";
-   
+
    private String creationdate;
 
    public String getCreationdate()
    {
       return this.creationdate;
    }
-   
+
    public void setCreationdate(String value)
    {
       if ( ! EntityUtil.stringEquals(this.creationdate, value)) {
-      
+
          String oldValue = this.creationdate;
          this.creationdate = value;
          this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
       }
    }
-   
+
    public Account withCreationdate(String value)
    {
       setCreationdate(value);
       return this;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -205,7 +220,7 @@ import org.sdmlib.openbank.Transaction;
     *              account                   owner
     * </pre>
     */
-   
+
    public static final String PROPERTY_OWNER = "owner";
 
    private User owner = null;
@@ -218,28 +233,28 @@ import org.sdmlib.openbank.Transaction;
    public boolean setOwner(User value)
    {
       boolean changed = false;
-      
+
       if (this.owner != value)
       {
          User oldValue = this.owner;
-         
+
          if (this.owner != null)
          {
             this.owner = null;
             oldValue.withoutAccount(this);
          }
-         
+
          this.owner = value;
-         
+
          if (value != null)
          {
             value.withAccount(this);
          }
-         
+
          firePropertyChange(PROPERTY_OWNER, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -247,16 +262,16 @@ import org.sdmlib.openbank.Transaction;
    {
       setOwner(value);
       return this;
-   } 
+   }
 
    public User createOwner()
    {
       User value = new User();
       withOwner(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -264,18 +279,18 @@ import org.sdmlib.openbank.Transaction;
     *              fromAccount                   credit
     * </pre>
     */
-   
+
    public static final String PROPERTY_CREDIT = "credit";
 
    private TransactionSet credit = null;
-   
+
    public TransactionSet getCredit()
    {
       if (this.credit == null)
       {
          return TransactionSet.EMPTY_SET;
       }
-   
+
       return this.credit;
    }
 
@@ -292,7 +307,7 @@ import org.sdmlib.openbank.Transaction;
             {
                this.credit = new TransactionSet();
             }
-            
+
             boolean changed = this.credit.add (item);
 
             if (changed)
@@ -303,7 +318,7 @@ import org.sdmlib.openbank.Transaction;
          }
       }
       return this;
-   } 
+   }
 
    public Account withoutCredit(Transaction... value)
    {
@@ -326,9 +341,9 @@ import org.sdmlib.openbank.Transaction;
       Transaction value = new Transaction();
       withCredit(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -336,18 +351,18 @@ import org.sdmlib.openbank.Transaction;
     *              toAccount                   debit
     * </pre>
     */
-   
+
    public static final String PROPERTY_DEBIT = "debit";
 
    private TransactionSet debit = null;
-   
+
    public TransactionSet getDebit()
    {
       if (this.debit == null)
       {
          return TransactionSet.EMPTY_SET;
       }
-   
+
       return this.debit;
    }
 
@@ -364,7 +379,7 @@ import org.sdmlib.openbank.Transaction;
             {
                this.debit = new TransactionSet();
             }
-            
+
             boolean changed = this.debit.add (item);
 
             if (changed)
@@ -375,7 +390,7 @@ import org.sdmlib.openbank.Transaction;
          }
       }
       return this;
-   } 
+   }
 
    public Account withoutDebit(Transaction... value)
    {
@@ -398,12 +413,166 @@ import org.sdmlib.openbank.Transaction;
       Transaction value = new Transaction();
       withDebit(value);
       return value;
-   } 
+   }
+
 
 
    // Methods not including setters and getters
+
+
+
+
+
+
+
+
+
    //==========================================================================
 
+
+   //==========================================================================
+
+   public static final String PROPERTY_USERNAME = "username";
+
+   private String username;
+
+   public String getUsername()
+   {
+      return this.username;
+   }
+
+   public void setUsername(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.username, value)) {
+
+         String oldValue = this.username;
+         this.username = value;
+         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+      }
+   }
+
+   public Account withUsername(String value)
+   {
+      setUsername(value);
+      return this;
+   }
+
+
+   //==========================================================================
+
+   public static final String PROPERTY_PASSWORD = "password";
+
+   private String password;
+
+   public String getPassword()
+   {
+      return this.password;
+   }
+
+   public void setPassword(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.password, value)) {
+
+         String oldValue = this.password;
+         this.password = value;
+         this.firePropertyChange(PROPERTY_PASSWORD, oldValue, value);
+      }
+   }
+
+   public Account withPassword(String value)
+   {
+      setPassword(value);
+      return this;
+   }
+
+
+   //==========================================================================
+
+   public static final String PROPERTY_NAME = "name";
+
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+
+   public void setName(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
+
+         String oldValue = this.name;
+         this.name = value;
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+
+   public Account withName(String value)
+   {
+      setName(value);
+      return this;
+   }
+
+
+   //==========================================================================
+
+   public static final String PROPERTY_EMAIL = "email";
+
+   private String email;
+
+   public String getEmail()
+   {
+      return this.email;
+   }
+
+   public void setEmail(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.email, value)) {
+
+         String oldValue = this.email;
+         this.email = value;
+         this.firePropertyChange(PROPERTY_EMAIL, oldValue, value);
+      }
+   }
+
+   public Account withEmail(String value)
+   {
+      setEmail(value);
+      return this;
+   }
+
+
+   //==========================================================================
+
+   public static final String PROPERTY_PHONE = "phone";
+
+   private int phone;
+
+   public int getPhone()
+   {
+      return this.phone;
+   }
+
+   public void setPhone(int value)
+   {
+      if (this.phone != value) {
+
+         int oldValue = this.phone;
+         this.phone = value;
+         this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
+      }
+   }
+
+   public Account withPhone(int value)
+   {
+      setPhone(value);
+      return this;
+   }
+
+
+   //==========================================================================
+
+<<<<<<< HEAD
    
    //==========================================================================
    
@@ -549,50 +718,86 @@ import org.sdmlib.openbank.Transaction;
    
    public static final String PROPERTY_ISLOGGEDIN = "isLoggedIn";
    
+=======
+   public static final String PROPERTY_ISLOGGEDIN = "isLoggedIn";
+
+>>>>>>> master
    private boolean isLoggedIn;
 
    public boolean isIsLoggedIn()
    {
       return this.isLoggedIn;
    }
+<<<<<<< HEAD
    
    public void setIsLoggedIn(boolean value)
    {
       if (this.isLoggedIn != value) {
       
+=======
+
+   public void setIsLoggedIn(boolean value)
+   {
+      if (this.isLoggedIn != value) {
+
+>>>>>>> master
          boolean oldValue = this.isLoggedIn;
          this.isLoggedIn = value;
          this.firePropertyChange(PROPERTY_ISLOGGEDIN, oldValue, value);
       }
    }
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> master
    public Account withIsLoggedIn(boolean value)
    {
       setIsLoggedIn(value);
       return this;
    }
+<<<<<<< HEAD
    
    //==========================================================================
    
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
    
+=======
+
+   //==========================================================================
+
+   public static final String PROPERTY_ISCONNECTED = "IsConnected";
+
+>>>>>>> master
    private boolean IsConnected;
 
    public boolean isIsConnected()
    {
       return this.IsConnected;
    }
+<<<<<<< HEAD
    
    public void setIsConnected(boolean value)
    {
       if (this.IsConnected != value) {
       
+=======
+
+   public void setIsConnected(boolean value)
+   {
+      if (this.IsConnected != value) {
+
+>>>>>>> master
          boolean oldValue = this.IsConnected;
          this.IsConnected = value;
          this.firePropertyChange(PROPERTY_ISCONNECTED, oldValue, value);
       }
    }
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> master
    public Account withIsConnected(boolean value)
    {
       setIsConnected(value);
@@ -632,7 +837,11 @@ import org.sdmlib.openbank.Transaction;
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
+<<<<<<< HEAD
    public boolean transferToUser(double amount, Account destinationAccount, TransactionSet credit, Transaction transaction, String date, String time, String note)
+=======
+   public boolean transferToUser(double amount, Account destinationAccount, TransactionSet credit, Transaction transaction, Date date, Time time, String note)
+>>>>>>> master
    {
       if(amount < 0 || destinationAccount == null)
          throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
@@ -678,7 +887,11 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //This sets the information of the transaction.
+<<<<<<< HEAD
    public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note)
+=======
+   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Time time, String note)
+>>>>>>> master
    {
       if(transaction==null || date==null || time==null || amount==0)
          throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
@@ -696,7 +909,11 @@ import org.sdmlib.openbank.Transaction;
    }
 
    //To withdraw money from this account.
+<<<<<<< HEAD
    public void withdraw(double amount,Transaction transaction, String date, String time, String note, TransactionSet credit)
+=======
+   public void withdraw(double amount,Transaction transaction, Date date, Time time, String note, TransactionSet credit)
+>>>>>>> master
    {
       if(amount <= this.getBalance() && amount > 0) {
          sendTransactionInfo(transaction, amount, date, time, note);
@@ -705,10 +922,17 @@ import org.sdmlib.openbank.Transaction;
       }
       else
          throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+<<<<<<< HEAD
                                              "and greater than 0.");
    }
 
    public void deposit(double amount,Transaction transaction, String date, String time, String note, TransactionSet debit )
+=======
+                 "and greater than 0.");
+   }
+
+   public void deposit(double amount,Transaction transaction, Date date, Time time, String note, TransactionSet debit )
+>>>>>>> master
    {
       if (amount > 0.00) {
          sendTransactionInfo( transaction,  amount,  date,  time, note);

@@ -10,17 +10,18 @@ Related scenario(s):
   
 Time estimate(s):
 
-  A lot
+    - 25 hrs
 
 Author(s):
 
-  - Vincent
+    - Vincent
 
 Assigned persons (currently working on task):
 
-  - Vincent
-  - Samuel
-  - Savindi
+    - Vincent
+    - Sam
+    - Savindi
+    - Mitchell
 
 Log entries (who worked when and how long on this):
 
@@ -30,4 +31,5 @@ Log entries (who worked when and how long on this):
     - 2017-03-26: 14:30-16:00 Vincent
 		| Created Create_Account_Class.md, Create_Transaction_Class.md, and
 		    Create_Database_Class.md
+    - 3/31 SM Mitchell 1hr
 

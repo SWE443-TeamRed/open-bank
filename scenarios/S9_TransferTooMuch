@@ -1,0 +1,12 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+
+**9**
+Title: Tina tries to transfer too much money to Nick
+*(Pre)* Tina wants to transfer 1 million dollars to Nick. She has 30 dollars in her checking account
+	1) Tina connects to Nick's phone -> See S6
+	2) Tina selects the exchange funds option
+	3) Tina enters 1 million dollars to transfer
+	4) Tina selects the checking account to get the money
+	5) Tina selects the transfer funds option
+*(Post)* Tina is presented with a message saying she does not have enough funds
