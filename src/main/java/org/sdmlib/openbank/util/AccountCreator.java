@@ -27,6 +27,8 @@ import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 
+import java.util.Date;
+
 public class AccountCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
@@ -37,21 +39,19 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_OWNER,
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
+      Account.PROPERTY_ISCONNECTED
    };
    
-   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
-   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Account();
    }
    
-   @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -91,18 +91,20 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getDebit();
       }
+
+
+
+
+
+
       
       return null;
    }
    
-   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setCreationdate((String) value);
-         return true;
-      }
+
+
 
       if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
       {
@@ -132,7 +134,7 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withCredit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutCredit((Transaction) value);
@@ -144,13 +146,13 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withDebit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutDebit((Transaction) value);
          return true;
       }
-      
+
       return false;
    }
    public static IdMap createIdMap(String sessionID)

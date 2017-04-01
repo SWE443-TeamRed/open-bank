@@ -22,7 +22,27 @@
          "id":"User",
          "attributes":[
             "name : String",
-            "UserID : String"
+            "userID : String",
+            "isAdmin : boolean",
+            "password : String",
+            "email : String",
+            "LoggedIn : boolean",
+            "phone : int"
+         ],
+         "methods":[
+            "openAccount(org.sdmlib.openbank.User p0) boolean",
+            "login(String username, String password) boolean",
+            "logout() boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Transaction",
+         "attributes":[
+            "amount : double",
+            "date : Date",
+            "time : Date",
+            "note : String"
          ]
       },
       {
@@ -31,17 +51,17 @@
          "attributes":[
             "balance : double",
             "accountnum : int",
-            "creationdate : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"Transaction",
-         "attributes":[
-            "amount : double",
-            "date : String",
-            "time : String",
-            "note : String"
+            "creationdate : String",
+            "IsConnected : boolean"
+         ],
+         "methods":[
+            "Account(double initialAmount)",
+            "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
+            "myBankTransaction(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
+            "receiveFound(double amount, org.sdmlib.openbank.Account sourceAccount) boolean",
+            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, String date, String time, String note) boolean",
+            "withdraw(double amount)",
+            "deposit(double amount)"
          ]
       }
    ],
@@ -62,27 +82,27 @@
       {
          "typ":"ASSOCIATION",
          "source":{
-            "id":"Account",
-            "cardinality":"one",
-            "property":"fromAccount"
-         },
-         "target":{
             "id":"Transaction",
             "cardinality":"many",
             "property":"credit"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"fromAccount"
          }
       },
       {
          "typ":"ASSOCIATION",
          "source":{
-            "id":"Account",
-            "cardinality":"one",
-            "property":"toAccount"
-         },
-         "target":{
             "id":"Transaction",
             "cardinality":"many",
             "property":"debit"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"toAccount"
          }
       }
    ]
