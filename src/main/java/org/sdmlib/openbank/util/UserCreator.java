@@ -34,6 +34,10 @@ public class UserCreator implements SendableEntityCreator
       User.PROPERTY_USERID,
       User.PROPERTY_ACCOUNT,
       User.PROPERTY_ISADMIN,
+      User.PROPERTY_PASSWORD,
+      User.PROPERTY_EMAIL,
+      User.PROPERTY_LOGGEDIN,
+      User.PROPERTY_PHONE,
    };
    
    @Override
@@ -78,6 +82,26 @@ public class UserCreator implements SendableEntityCreator
       {
          return ((User) target).isIsAdmin();
       }
+
+      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getPassword();
+      }
+
+      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getEmail();
+      }
+
+      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).isLoggedIn();
+      }
+
+      if (User.PROPERTY_PHONE.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getPhone();
+      }
       
       return null;
    }
@@ -85,6 +109,30 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (User.PROPERTY_PHONE.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setPhone(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setLoggedIn((Boolean) value);
+         return true;
+      }
+
+      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setEmail((String) value);
+         return true;
+      }
+
+      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setPassword((String) value);
+         return true;
+      }
+
       if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attrName))
       {
          ((User) target).setIsAdmin((Boolean) value);

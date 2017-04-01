@@ -8,11 +8,12 @@ Description:
   (deposit, withdraw, transfer between accounts, or seeding), the amount of
   money being moved, a unique ID, and the accounts involved. There should be
   getters and setters for each attribute.
-  
-  Note:
-  - Each transaction should be related to at most two accounts. I suggest
-  giving them the roles "sender" and "reciever".
- 
+
+  Testing the Transaction class to verify its' functionality.
+
+
+   Note:
+   Each transaction should be related to at most two accounts. Suggest giving them the roles "sender" and "reciever".
   
 Related scenario(s):
 
@@ -20,28 +21,24 @@ Related scenario(s):
   
 Time estimate(s):
 
-  
+    - 10 hrs
 
 Author(s):
 
-  - Vincent
+    - Vincent
 
 Assigned persons (currently working on task):
 
-  - Cycielya
-  - Fatih
-  - Mitchell
+    - Sam
+    - Fatih
+    - Mitchell
 
 Log entries (who worked when and how long on this):
-- Fatih: Class created using SDMLib with following attributes
-amount
-date
-time
-note
 
-Also changed the datatypes for date and time from String to Java.util.Date(Using SDMLib).
-SetAmount method modified. Checks for negative value. if it is less than 0 thwrows IllegalArgumentException
-
-Spend about 3-4 hours.
+    - 3/25 Fatih 1 hrs
+    - 3/26 Mitchell 1 hr
+    - 3/26 Fatih 2 hr
+    - 3/27 Fatih 2 hrs
+    - 3/28 Fatih 1 hr
 
 

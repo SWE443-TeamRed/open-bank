@@ -59,10 +59,6 @@ public class TransactionSet extends SimpleSet<Transaction>
    public static final TransactionSet EMPTY_SET = new TransactionSet().withFlag(TransactionSet.READONLY);
 
 
-   public TransactionPO createTransactionPO()
-   {
-      return new TransactionPO(this.toArray(new Transaction[this.size()]));
-   }
 
 
    public String getEntryType()
@@ -522,5 +518,4 @@ public class TransactionSet extends SimpleSet<Transaction>
       
       return this;
    }
-
 }
