@@ -537,4 +537,20 @@ public  class Account implements SendableEntity
    {
       return false;
    }
+
+   public void modiftyTransaction(Transaction transaction, double newAmount)
+   {
+      double  previousAmount = transaction.getAmount();
+      transaction.setAmount(newAmount);
+      double balance =0.0;
+      if (previousAmount > newAmount && newAmount>0.0 )
+      {
+         balance = getBalance()+(previousAmount- newAmount);
+      }
+      else if (newAmount>0.0)
+      {
+         balance = getBalance()-(newAmount - previousAmount);
+      }
+      this.setBalance(balance);
+   }
 }
