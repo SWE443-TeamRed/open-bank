@@ -1,0 +1,13 @@
+Edits:
+04/01/2017: Kimberly Perez
+
+**15***
+Title: Tina opens a Checking account.
+*(Pre)* Tina wants to open a Checking account with Open Bank, she has no accounts.
+	1) Tina goes to her Open Bank app.
+	2) Tina logs in to her bank account.
+	3) Tina clicks on create a Checking account.
+	4) Tina enters information of her new Checking account.
+	5) Tina named her Checking account as "My checking".
+	6) Tina submits the information and enters a seeding amount of $30.
+*(Post)* Tina now has a Checking account.
