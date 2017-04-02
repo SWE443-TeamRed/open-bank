@@ -2,73 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12cd51c8-e333-4920-a5d5-bdf676e18973" name="Default" comment="Slightly more specific README.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/Model.class" afterPath="$PROJECT_DIR$/build/classes/main/Model.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/User.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/CreatorCreator.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/CreatorCreator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserCreator.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserCreator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserPO.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserPO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserSet.class" afterPath="$PROJECT_DIR$/build/classes/main/org/sdmlib/openbank/util/UserSet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.1/taskArtifacts/cache.properties" afterPath="$PROJECT_DIR$/.gradle/3.1/taskArtifacts/cache.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_uniks_NetworkParser_sources_4_4_311.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_uniks_NetworkParser_sources_4_4_311.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_sdmlib_SDMLib_2_2_1094.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_sdmlib_SDMLib_2_2_1094.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/open-bank.iml" afterPath="$PROJECT_DIR$/.idea/modules/open-bank.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/open-bank_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/open-bank_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/preferred-vcs.xml" afterPath="$PROJECT_DIR$/.idea/preferred-vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/Model.html" afterPath="$PROJECT_DIR$/doc/Model.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/index.html" afterPath="$PROJECT_DIR$/doc/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/refs.html" afterPath="$PROJECT_DIR$/doc/refs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/style.css" afterPath="$PROJECT_DIR$/doc/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew" afterPath="$PROJECT_DIR$/gradlew" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew.bat" afterPath="$PROJECT_DIR$/gradlew.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Create_Burndown_Chart.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Burndown_Chart.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/GUI_Mockups.md" afterPath="$PROJECT_DIR$/kanban/InProcess/GUI_Mockups.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Repo_Setup.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/LogSheet.url" afterPath="$PROJECT_DIR$/kanban/LogSheet.url" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/Requirements_and_Tasks_Overview.url" afterPath="$PROJECT_DIR$/kanban/Requirements_and_Tasks_Overview.url" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Account_Class.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Create_Scenarios.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Scenarios.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S10_ViewTransactions.txt" afterPath="$PROJECT_DIR$/scenarios/S10_ViewTransactions.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S11_ModifyTransactions.txt" afterPath="$PROJECT_DIR$/scenarios/S11_ModifyTransactions.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S12_DepositMoney.txt" afterPath="$PROJECT_DIR$/scenarios/S12_DepositMoney.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S1_Login.txt" afterPath="$PROJECT_DIR$/scenarios/S1_Login.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S2_CreateUser.txt" afterPath="$PROJECT_DIR$/scenarios/S2_CreateUser.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S3_ViewBalance.txt" afterPath="$PROJECT_DIR$/scenarios/S3_ViewBalance.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S4_TransferBetweenUserAccounts.txt" afterPath="$PROJECT_DIR$/scenarios/S4_TransferBetweenUserAccounts.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S5_WithdrawFromAccount.txt" afterPath="$PROJECT_DIR$/scenarios/S5_WithdrawFromAccount.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S6_ConnectPhones.txt" afterPath="$PROJECT_DIR$/scenarios/S6_ConnectPhones.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S7_TransferBetweenUsers.txt" afterPath="$PROJECT_DIR$/scenarios/S7_TransferBetweenUsers.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S8_WithdrawTooMuch.txt" afterPath="$PROJECT_DIR$/scenarios/S8_WithdrawTooMuch.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenarios/S9_TransferTooMuch.txt" afterPath="$PROJECT_DIR$/scenarios/S9_TransferTooMuch.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Model.java" afterPath="$PROJECT_DIR$/src/main/java/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPO.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/TransactionTest.java" afterPath="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -119,8 +53,8 @@
       <file leaf-file-name="TransactionTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/TransactionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+            <state relative-caret-position="323">
+              <caret line="208" column="8" lean-forward="false" selection-start-line="208" selection-start-column="8" selection-end-line="208" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -748,8 +682,8 @@
         <option value="$PROJECT_DIR$/src/test/java/TestScenario789.java" />
         <option value="$PROJECT_DIR$/kanban/ToDo/Create_Transaction_Class.md" />
         <option value="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
-        <option value="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model.java" />
+        <option value="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
       </list>
     </option>
   </component>
@@ -1322,7 +1256,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1339,7 +1273,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16510417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16510417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1731,8 +1665,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/TransactionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+        <state relative-caret-position="323">
+          <caret line="208" column="8" lean-forward="false" selection-start-line="208" selection-start-column="8" selection-end-line="208" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
