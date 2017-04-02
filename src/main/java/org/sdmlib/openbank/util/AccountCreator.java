@@ -39,6 +39,7 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_OWNER,
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
+      Account.PROPERTY_ISCONNECTED
    };
    
    public String[] getProperties()
@@ -90,17 +91,20 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getDebit();
       }
+
+
+
+
+
+
       
       return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setCreationdate((Date) value);
-         return true;
-      }
+
+
 
       if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
       {
@@ -130,7 +134,7 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withCredit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutCredit((Transaction) value);
@@ -142,13 +146,13 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withDebit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutDebit((Transaction) value);
          return true;
       }
-      
+
       return false;
    }
    public static IdMap createIdMap(String sessionID)

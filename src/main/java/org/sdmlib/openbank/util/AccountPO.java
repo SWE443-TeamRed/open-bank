@@ -198,23 +198,23 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public Date getCreationdate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getCreationdate();
-      }
-      return null;
-   }
+//   public Date getCreationdate()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).getCreationdate();
+//      }
+//      return null;
+//   }
    
-   public AccountPO withCreationdate(Date value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setCreationdate(value);
-      }
-      return this;
-   }
+//   public AccountPO withCreationdate(Date value)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         ((Account) getCurrentMatch()).setCreationdate(value);
+//      }
+//      return this;
+//   }
    
    public UserPO createOwnerPO()
    {
@@ -333,4 +333,212 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
+   
+   //==========================================================================
+   
+   public void Account(double initialAmount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).Account(initialAmount);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public boolean transferToUser(double amount, Account destinationAccount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean myBankTransaction(double amount, Account destinationAccount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).myBankTransaction(amount, destinationAccount);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean receiveFound(double amount, Account sourceAccount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+      }
+      return false;
+   }
+
+   
+
+
+   
+   //==========================================================================
+   
+   public void withdraw(double amount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).withdraw(amount);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public void deposit(double amount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).deposit(amount);
+      }
+   }
+
+
+
+   
+   public AccountPO createCreationdateCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createCreationdateCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createCreationdateAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getCreationdate()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).getCreationdate();
+      }
+      return null;
+   }
+   
+   public AccountPO withCreationdate(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+   
+   public AccountPO createIsConnectedCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createIsConnectedAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getIsConnected()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).isIsConnected();
+      }
+      return false;
+   }
+   
+   public AccountPO withIsConnected(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setIsConnected(value);
+      }
+      return this;
+   }
+   
+   
+   //==========================================================================
+   
+   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+      }
+      return false;
+   }
+
+
+   
 }
