@@ -10,8 +10,8 @@ import java.util.Date;
 /**
  * Created by kimberly_93pc on 3/29/17.
  * log:
- *  03/31/17
- *  05/01/17
+ *  03/31/17 Kimberly
+ *  05/01/17 Kimberly
  */
 
 
@@ -46,9 +46,6 @@ public class Test_S4_S5_S6_S7_S15 {
                 .withDebit()
                 .withOwner(tina)
                 .withCreationdate(date);
-
-        //Tina logs in
-        tina.login("Tina", "1234");
     }
 
     //Creating Savings Account
@@ -105,15 +102,17 @@ public class Test_S4_S5_S6_S7_S15 {
         creatingCheckingAccount();
         creatingSavingsAccount();
 
-        double initialCheckingBalance = CheckingAccount.getBalance();
-        double initialSavingsBalance = SavingsAccount.getBalance();
-
         storyboard.add("Precondition: Tina has $30 on her checking account and $5 in her savings account");
         storyboard.addObjectDiagram("Tina", tina, "Checking", CheckingAccount,"Savings", SavingsAccount);
 
+        tina.login("Tina","1234");
+        storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());//Sign in before making transaction.
+
+        double initialCheckingBalance = CheckingAccount.getBalance();
+        double initialSavingsBalance = SavingsAccount.getBalance();
         CheckingAccount.myBankTransaction(10.00, SavingsAccount);
 
-        //Making sure transfer works
+        //Making sure transfer works.
         storyboard.assertEquals("Checking Account reduced by $10.00: ",
                 CheckingAccount.getBalance(),initialCheckingBalance-10.00);
         storyboard.assertEquals("Savings Account has $10.00 extra: ",
@@ -139,7 +138,7 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard = new Storyboard();
         creatingSavingsAccount();
         SavingsAccount.setBalance(50.00);
-        assert(tina.isLoggedIn());
+        storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());
 
         storyboard.add("Precondition: Tina has $50 in her Checking account and needs $30 to buy food.");
         storyboard.addObjectDiagram("Tina", tina,"Savings", SavingsAccount, "Checking", CheckingAccount);

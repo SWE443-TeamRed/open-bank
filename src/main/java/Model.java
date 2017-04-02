@@ -2,7 +2,6 @@ import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
-import sun.util.calendar.LocalGregorianCalendar;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -120,7 +119,7 @@ public class Model {
         storyboard.add("This shows the class diagram.");
         storyboard.addClassDiagram(model);
         // add it to the storyboard
-        storyboard.addObjectDiagram(user);
+//        storyboard.addObjectDiagram(user);
         // show it in html
         storyboard.dumpHTML();
 

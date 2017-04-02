@@ -475,6 +475,4 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
 
-
-
 }

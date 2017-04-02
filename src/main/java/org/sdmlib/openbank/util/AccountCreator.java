@@ -38,14 +38,59 @@ public class AccountCreator implements SendableEntityCreator
    }
 
    @Override
-   public Object getValue(Object entity, String attribute) {
+   public Object getValue(Object target, String attribute) {
+      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getOwner();
+      }
+
+      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getCredit();
+      }
+
+      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getDebit();
+      }
+
 
 
      return null;
    }
 
    @Override
-   public boolean setValue(Object entity, String attribute, Object value, String type) {
+   public boolean setValue(Object target, String attrName, Object value, String type) {
+      if (Account.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setOwner((User) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withCredit((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutCredit((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withDebit((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutDebit((Transaction) value);
+         return true;
+      }
+
 
       return false;
    }
