@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/TestScenario12.java' type='text/x-java'>S12_testDeposit</a></p>
+<p>Precondition: Tina has $50 in her account and she deposit $30 to her account.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "name=Tina",
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "email=Tina@email.com",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=50.0",
+            "accountnum=0",
+            "creationdate=Wed Dec 31 19:00:00 EST 1969"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS12_testDeposit2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Tina makes transaction:  80.0 actual 80.0</p>
+<p>Post-condition: Tina has $80 in her account</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "name=Tina",
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "email=Tina@email.com",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=80.0",
+            "accountnum=0",
+            "creationdate=Wed Dec 31 19:00:00 EST 1969"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS12_testDeposit5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

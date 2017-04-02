@@ -513,10 +513,6 @@ public  class Account implements SendableEntity
       transaction.setNote(note);
       return false;
    }
-
-
-
-
     //To withdraw money from this account.
     public void withdraw(double amount)
     {
@@ -530,16 +526,15 @@ public  class Account implements SendableEntity
    //=========================================================================
    public void deposit( double amount )
    {
-      
+      if(amount > 0.0)
+         this.setBalance(this.getBalance() + amount);
+      else
+         throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                 "and greater than 0.");
    }
-
-   
    //==========================================================================
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
+   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time,  String note )
    {
       return false;
    }
-
-   
-
 }
