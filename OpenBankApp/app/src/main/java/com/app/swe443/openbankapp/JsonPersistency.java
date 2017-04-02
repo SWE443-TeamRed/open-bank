@@ -40,7 +40,6 @@ public class JsonPersistency {
         try {
             String sCurrentLine;
 
-            String jsonLocation = AssetJSONFile("jsonPersistencyTest.json", CatList.this);
             br = new BufferedReader(new FileReader("jsonPersistencyTest.json"));
 
             while ((sCurrentLine = br.readLine()) != null) {
