@@ -32,11 +32,11 @@ Assigned persons (currently working on task):
     - Sam
 
 Log entries (who worked when and how long on this):
-
     - 3/19 Henry 4 hours
         Completed 12 scenarios 1-12
     - 3/20 Sam 2 hours
         At some point, Sam created scenarios 13 and 14 -Henry
+    - 3/26 Kimberly Perez 10 min
     - 04/01 Kimberly Perez 20 min
          Added scenario 15
 
