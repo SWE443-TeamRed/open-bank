@@ -365,4 +365,22 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
+   public TransactionTypeEnum getTransType()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getTransType();
+      }
+      return null;
+   }
+   
+   public TransactionPO withTransType(TransactionTypeEnum value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setTransType(value);
+      }
+      return this;
+   }
+   
 }

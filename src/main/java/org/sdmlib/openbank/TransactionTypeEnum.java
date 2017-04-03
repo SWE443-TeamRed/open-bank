@@ -23,8 +23,12 @@ package org.sdmlib.openbank;
 
 public enum TransactionTypeEnum
 {
-		Debit,
-		Credit;
+		Deposit,
+		Withdraw,
+		Delete,
+		Create,
+		Transfer;
+
 
    
    //==========================================================================

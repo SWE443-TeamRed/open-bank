@@ -31,6 +31,7 @@ import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import org.sdmlib.openbank.util.AccountSet;
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -562,6 +563,24 @@ public class TransactionSet extends SimpleSet<Transaction>
       }
       
       return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the transType attribute values. 
+    * 
+    * @return List of org.sdmlib.openbank.TransactionTypeEnum objects reachable via transType attribute
+    */
+   public TransactionTypeEnumSet getTransType()
+   {
+      TransactionTypeEnumSet result = new TransactionTypeEnumSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getTransType());
+      }
+      
+      return result;
    }
 
 }

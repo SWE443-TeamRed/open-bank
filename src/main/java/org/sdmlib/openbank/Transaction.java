@@ -27,6 +27,8 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.openbank.TransactionTypeEnum;
+import org.sdmlib.openbank.Account;
 
 /**
     * 

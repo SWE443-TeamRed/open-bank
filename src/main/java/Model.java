@@ -21,8 +21,8 @@ public class Model {
        ClassModel model = new ClassModel("org.sdmlib.openbank");
        Clazz enumeration = model.createClazz("TransactionTypeEnum").enableEnumeration();
 
-       enumeration.with(new Literal("Debit"),
-               new Literal("Credit"));
+       enumeration.with(new Literal("Deposit"),
+               new Literal("Withdraw"),new Literal("Delete"),new Literal("Create"),new Literal("Transfer"));
 
        enumeration.withMethod("toString", DataType.STRING);
 

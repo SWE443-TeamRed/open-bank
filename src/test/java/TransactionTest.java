@@ -98,20 +98,20 @@ public class TransactionTest {
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
-    public void setgetTransTypeDebit(){
+    public void setgetTransTypeWithdraw(){
        // set type
-        trans.setTransType(TransactionTypeEnum.Debit);
+        trans.setTransType(TransactionTypeEnum.Withdraw);
 
-        assertTrue(TransactionTypeEnum.Debit == trans.getTransType());
+        assertTrue(TransactionTypeEnum.Withdraw == trans.getTransType());
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
-    public void setgetTransTypeCredit(){
+    public void setgetTransTypeDeposit(){
         // set type
-        trans.setTransType(TransactionTypeEnum.Credit);
+        trans.setTransType(TransactionTypeEnum.Deposit);
 
-        assertTrue(TransactionTypeEnum.Credit == trans.getTransType());
+        assertTrue(TransactionTypeEnum.Deposit == trans.getTransType());
     }
 
     @Test
