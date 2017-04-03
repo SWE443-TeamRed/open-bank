@@ -377,5 +377,4 @@ import org.sdmlib.openbank.Account;
       return value;
    } 
 
-
 }
