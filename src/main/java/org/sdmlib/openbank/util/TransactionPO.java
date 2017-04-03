@@ -13,34 +13,6 @@ import java.util.Date;
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
 
-    public TransactionSet allMatches()
-   {
-      this.setDoAllMatches(true);
-      
-      TransactionSet matches = new TransactionSet();
-
-      while (this.getPattern().getHasMatch())
-      {
-         matches.add((Transaction) this.getCurrentMatch());
-         
-         this.getPattern().findMatch();
-      }
-      
-      return matches;
-   }
-
-
-   public TransactionPO(){
-      newInstance(null);
-   }
-
-   public TransactionPO(Transaction... hostGraphObject) {
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
-      newInstance(null, hostGraphObject);
-   }
-
    public TransactionPO(String modifier)
    {
       this.setModifier(modifier);
@@ -259,25 +231,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public AccountPO createFromAccountPO()
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
-      
-      return result;
-   }
 
-   public AccountPO createFromAccountPO(String modifier)
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
-      
-      return result;
-   }
 
    public TransactionPO createFromAccountLink(AccountPO tgt)
    {
@@ -298,25 +252,6 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
 
-   public AccountPO createToAccountPO()
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
-      
-      return result;
-   }
-
-   public AccountPO createToAccountPO(String modifier)
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
-      
-      return result;
-   }
 
    public TransactionPO createToAccountLink(AccountPO tgt)
    {
@@ -335,6 +270,46 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
          return ((Transaction) this.getCurrentMatch()).getToAccount();
       }
       return null;
+   }
+
+   public AccountPO createFromAccountPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
+      
+      return result;
+   }
+
+   public AccountPO createFromAccountPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
+      
+      return result;
+   }
+
+   public AccountPO createToAccountPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
+      
+      return result;
+   }
+
+   public AccountPO createToAccountPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
+      
+      return result;
    }
 
 }

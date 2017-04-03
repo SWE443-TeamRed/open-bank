@@ -31,58 +31,14 @@ import java.util.Date;
 
 public class AccountCreator implements SendableEntityCreator
 {
-   private final String[] properties = new String[]
-   {
-      Account.PROPERTY_BALANCE,
-      Account.PROPERTY_ACCOUNTNUM,
-      Account.PROPERTY_CREATIONDATE,
-      Account.PROPERTY_OWNER,
-      Account.PROPERTY_CREDIT,
-      Account.PROPERTY_DEBIT,
-      Account.PROPERTY_USERNAME,
-      Account.PROPERTY_PASSWORD,
-      Account.PROPERTY_NAME,
-      Account.PROPERTY_EMAIL,
-      Account.PROPERTY_PHONE,
-      Account.PROPERTY_ISLOGGEDIN,
-      Account.PROPERTY_ISCONNECTED,
-   };
-   
-   public String[] getProperties()
-   {
-      return properties;
+
+   @Override
+   public String[] getProperties() {
+      return new String[0];
    }
-   
-   public Object getSendableInstance(boolean reference)
-   {
-      return new Account();
-   }
-   
-   public Object getValue(Object target, String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
 
-      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getBalance();
-      }
-
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getAccountnum();
-      }
-
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getCreationdate();
-      }
-
+   @Override
+   public Object getValue(Object target, String attribute) {
       if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getOwner();
@@ -98,111 +54,13 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getDebit();
       }
 
-      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getUsername();
-      }
 
-      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getPassword();
-      }
 
-      if (Account.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getName();
-      }
-
-      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getEmail();
-      }
-
-      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getPhone();
-      }
-
-      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).isIsLoggedIn();
-      }
-
-      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).isIsConnected();
-      }
-      
-      return null;
+     return null;
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setIsConnected((Boolean) value);
-         return true;
-      }
 
-      if (Account.PROPERTY_ISLOGGEDIN.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setIsLoggedIn((Boolean) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_PHONE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setPhone(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (Account.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setEmail((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setName((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setPassword((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setUsername((String) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setCreationdate((Date) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_ACCOUNTNUM.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setAccountnum(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).setBalance(Double.parseDouble(value.toString()));
-         return true;
-      }
-
-      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
-
+   @Override
+   public boolean setValue(Object target, String attrName, Object value, String type) {
       if (Account.PROPERTY_OWNER.equalsIgnoreCase(attrName))
       {
          ((Account) target).setOwner((User) value);
@@ -232,13 +90,16 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withoutDebit((Transaction) value);
          return true;
       }
-      
+
+
       return false;
    }
-   public static IdMap createIdMap(String sessionID)
-   {
-      return org.sdmlib.openbank.util.CreatorCreator.createIdMap(sessionID);
+
+   @Override
+   public Object getSendableInstance(boolean prototyp) {
+      return null;
    }
+
    
    //==========================================================================
       public void removeObject(Object entity)
