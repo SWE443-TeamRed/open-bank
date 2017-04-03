@@ -138,7 +138,7 @@ public  class Account implements SendableEntity
       StringBuilder result = new StringBuilder();
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
-      result.append(" ").append(this.getCreationdate());
+      result.append(" ").append(this.getName());
       return result.substring(1);
    }
 
@@ -173,31 +173,6 @@ public  class Account implements SendableEntity
 
 
    //==========================================================================
-
-   public static final String PROPERTY_CREATIONDATE = "creationdate";
-
-   private String creationdate;
-
-   public String getCreationdate()
-   {
-      return this.creationdate;
-   }
-
-   public void setCreationdate(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.creationdate, value)) {
-
-         String oldValue = this.creationdate;
-         this.creationdate = value;
-         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
-      }
-   }
-
-   public Account withCreationdate(String value)
-   {
-      setCreationdate(value);
-      return this;
-   }
 
 
    /********************************************************************
@@ -403,14 +378,6 @@ public  class Account implements SendableEntity
    }
 
 
-
-
-
-
-
-
-
-
    //==========================================================================
 
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
@@ -438,6 +405,59 @@ public  class Account implements SendableEntity
       return this;
    }
 
+   //==========================================================================
+
+   public static final String PROPERTY_NAME = "name";
+
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+
+   public void setName(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
+
+         String oldValue = this.name;
+         this.name = value;
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+
+   public Account withName(String value)
+   {
+      setName(value);
+      return this;
+   }
+
+   //==========================================================================
+
+   public static final String PROPERTY_CREATIONDATE = "creationdate";
+
+   private Date creationdate;
+
+   public Date getCreationdate()
+   {
+      return this.creationdate;
+   }
+
+   public void setCreationdate(Date value)
+   {
+      if (this.creationdate != value) {
+
+         Date oldValue = this.creationdate;
+         this.creationdate = value;
+         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
+      }
+   }
+
+   public Account withCreationdate(Date value)
+   {
+      setCreationdate(value);
+      return this;
+   }
 
    /*
    *
@@ -456,19 +476,18 @@ public  class Account implements SendableEntity
 
 
     //User transfer founds to another user,
-    // needs to connect and verify destinationAccount connection.
+    // needs to connect.
     public boolean transferToUser(double amount, Account destinationAccount)
     {
-        if(amount < 0 || destinationAccount == null)
-            throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+        if(amount < 0 || amount > this.getBalance() || destinationAccount == null)
+            throw new IllegalArgumentException("Can't have an amount less than 0, Greater than current" +
+                                                "balance,  or an undefined Account");
 
-        if (amount <= this.getBalance()) {
-            this.setIsConnected(true);
-            if (destinationAccount.IsConnected) {
-                this.setBalance(this.getBalance() - amount);
-                destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-                return true;
-            }
+       this.setIsConnected(true);
+       if (this.IsConnected) {
+          this.setBalance(this.getBalance() - amount);
+          destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+          return true;
         }
         return false;//transferToUser did not work.
     }
@@ -484,7 +503,6 @@ public  class Account implements SendableEntity
 
       return true;
    }
-
 
    //This how the second user connects to get found from another user.
    public boolean receiveFound( double amount, Account sourceAccount )
@@ -514,9 +532,6 @@ public  class Account implements SendableEntity
       return false;
    }
 
-
-
-
     //To withdraw money from this account.
     public void withdraw(double amount)
     {
@@ -527,19 +542,9 @@ public  class Account implements SendableEntity
                     "and greater than 0.");
     }
 
-   //=========================================================================
    public void deposit( double amount )
    {
       
    }
-
-   
-   //==========================================================================
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
-   {
-      return false;
-   }
-
-   
 
 }

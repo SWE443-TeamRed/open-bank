@@ -3,6 +3,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
@@ -63,9 +64,10 @@ public class Model {
         */
 
         Clazz account = model.createClazz("Account");
+        account.withAttribute("name", DataType.STRING);
         account.withAttribute("balance", DataType.DOUBLE);
         account.withAttribute("accountnum",DataType.INT);
-        account.withAttribute("creationdate", DataType.STRING);
+        account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
 
         //Account Methods
@@ -88,8 +90,8 @@ public class Model {
         //Send information from transaction to Transaction class
         account.withMethod("sendTransactionInfo", DataType.BOOLEAN, new Parameter(transaction).with("transaction"),
                 new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(DataType.STRING).with("date"),
-                new Parameter(DataType.STRING).with("time"),
+                new Parameter(DataType.create(Date.class)).with("date"),
+                new Parameter(DataType.create(Date.class)).with("time"),
                 new Parameter(DataType.STRING).with("note"));
 
         //void withdraw(double amount)
@@ -117,7 +119,7 @@ public class Model {
         storyboard.add("This shows the class diagram.");
         storyboard.addClassDiagram(model);
         // add it to the storyboard
-        storyboard.addObjectDiagram(user);
+//        storyboard.addObjectDiagram(user);
         // show it in html
         storyboard.dumpHTML();
 

@@ -49,9 +49,10 @@
          "typ":"node",
          "id":"Account",
          "attributes":[
+            "name : String",
             "balance : double",
             "accountnum : int",
-            "creationdate : String",
+            "creationdate : Date",
             "IsConnected : boolean"
          ],
          "methods":[
@@ -59,7 +60,7 @@
             "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
             "myBankTransaction(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
             "receiveFound(double amount, org.sdmlib.openbank.Account sourceAccount) boolean",
-            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, String date, String time, String note) boolean",
+            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, java.util.Date date, java.util.Date time, String note) boolean",
             "withdraw(double amount)",
             "deposit(double amount)"
          ]
@@ -108,14 +109,6 @@
    ]
 }   ;
    new Graph(json, {"canvasid":"canvasModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"objectdiagram",
-   "nodes":null
-}   ;
-   json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
 </script>
 
 </body>
