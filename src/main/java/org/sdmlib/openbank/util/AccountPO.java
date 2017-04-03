@@ -169,72 +169,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       }
       return this;
    }
-   
-   public AccountPO createCreationdateCondition(Date value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createCreationdateAssignment(Date value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-//   public Date getCreationdate()
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).getCreationdate();
-//      }
-//      return null;
-//   }
-   
-//   public AccountPO withCreationdate(Date value)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         ((Account) getCurrentMatch()).setCreationdate(value);
-//      }
-//      return this;
-//   }
-   
-   public UserPO createOwnerPO()
-   {
-      UserPO result = new UserPO(new User[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Account.PROPERTY_OWNER, result);
-      
-      return result;
-   }
 
-   public UserPO createOwnerPO(String modifier)
-   {
-      UserPO result = new UserPO(new User[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Account.PROPERTY_OWNER, result);
-      
-      return result;
-   }
 
    public AccountPO createOwnerLink(UserPO tgt)
    {
@@ -255,25 +190,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
-   public TransactionPO createCreditPO()
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Account.PROPERTY_CREDIT, result);
-      
-      return result;
-   }
 
-   public TransactionPO createCreditPO(String modifier)
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Account.PROPERTY_CREDIT, result);
-      
-      return result;
-   }
 
    public AccountPO createCreditLink(TransactionPO tgt)
    {
@@ -294,25 +211,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
-   public TransactionPO createDebitPO()
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Account.PROPERTY_DEBIT, result);
-      
-      return result;
-   }
-
-   public TransactionPO createDebitPO(String modifier)
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Account.PROPERTY_DEBIT, result);
-      
-      return result;
-   }
 
    public AccountPO createDebitLink(TransactionPO tgt)
    {
@@ -418,69 +316,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
 
-
-   
-   public AccountPO createCreationdateCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createCreationdateCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createCreationdateAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_CREATIONDATE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getCreationdate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getCreationdate();
-      }
-      return null;
-   }
-   
-   public AccountPO withCreationdate(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setCreationdate(value);
-      }
-      return this;
-   }
-   
    public AccountPO createIsConnectedCondition(boolean value)
    {
       new AttributeConstraint()
@@ -528,17 +363,116 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
    
    
-   //==========================================================================
+
+
    
-   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   public AccountPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getName()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+         return ((Account) getCurrentMatch()).getName();
       }
-      return false;
+      return null;
+   }
+   
+   public AccountPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setName(value);
+      }
+      return this;
    }
 
 
+   public AccountPO createCreationdateCondition(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
    
+   public AccountPO createCreationdateAssignment(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public Date getCreationdate()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).getCreationdate();
+      }
+      return null;
+   }
+   
+   public AccountPO withCreationdate(Date value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+
+
 }

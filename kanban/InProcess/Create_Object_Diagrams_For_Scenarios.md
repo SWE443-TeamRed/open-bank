@@ -28,4 +28,5 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
     3/31 - Henry
-            Scenario 1, 13, and 14 have object diagrams (sceanrio 2 too trivial)
+            Scenario 1, 13, and 14 have object diagrams (scenario 2 too trivial)
+    04/01-Kimberly 4 hr (having some issues)

@@ -3,7 +3,7 @@
       "class":"org.sdmlib.openbank.Account",
       "id":"demo.A1",
       "prop":{
-         "balance":100.5,
+         "balance":140,
          "creationdate":"3/29/2017",
          "owner":{
             "class":"org.sdmlib.openbank.User",
@@ -21,7 +21,7 @@
       "class":"org.sdmlib.openbank.User",
       "id":"demo.U2",
       "prop":{
-         "name":"Daniel",
+         "name":"Tina",
          "UserID":"1234",
          "account":[
             {
@@ -35,10 +35,10 @@
       "class":"org.sdmlib.openbank.Transaction",
       "id":"demo.T3",
       "prop":{
-         "amount":25.89,
+         "amount":100,
          "date":"3/30/2017",
          "time":"10:15AM",
-         "note":"For parking ticket",
+         "note":"Deposit",
          "fromAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
