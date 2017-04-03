@@ -23,10 +23,6 @@ Assigned person (currently working on task):
 
 Log entries (who worked when and how long on this):
 
-    - Fatih, 1 hr (March 21)
     - Cycielya, 1 hr (March 21)
-    - Fatih, 1 hr (March 22)
     - Cycielya, 1 hr (March 23), 1 hr (March 25)
-    - Fatih, 2 hr (March 23)
-    - Fatih, 1 hr (March 25)
     - Cycielya, 2 hrs (March 26)

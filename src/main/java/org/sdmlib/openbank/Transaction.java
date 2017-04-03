@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -28,63 +28,63 @@ import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
-/**
- *
- * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
-public  class Transaction implements SendableEntity
+   public  class Transaction implements SendableEntity
 {
 
-
+   
    //==========================================================================
-
+   
    protected PropertyChangeSupport listeners = null;
-
+   
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
       if (listeners != null) {
-         listeners.firePropertyChange(propertyName, oldValue, newValue);
-         return true;
-      }
-      return false;
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
-
-   public boolean addPropertyChangeListener(PropertyChangeListener listener)
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      if (listeners == null) {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
-
+   
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      if (listeners == null) {
-         listeners = new PropertyChangeSupport(this);
-      }
-      listeners.addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
-
+   
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      if (listeners == null) {
-         listeners.removePropertyChangeListener(listener);
-      }
-      listeners.removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
    }
 
    public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
-      if (listeners != null) {
-         listeners.removePropertyChangeListener(propertyName, listener);
-      }
-      return true;
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
-
+   
    //==========================================================================
-
-
+   
+   
    public void removeYou()
    {
       setFromAccount(null);
@@ -92,18 +92,18 @@ public  class Transaction implements SendableEntity
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_AMOUNT = "amount";
-
+   
    private double amount;
 
    public double getAmount()
    {
       return this.amount;
    }
-
+   
    public void setAmount(double value)
    {
 
@@ -119,37 +119,37 @@ public  class Transaction implements SendableEntity
          }
       }
    }
-
+   
    public Transaction withAmount(double value)
    {
       setAmount(value);
       return this;
-   }
+   } 
 
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
-
+      
       result.append(" ").append(this.getAmount());
       result.append(" ").append(this.getNote());
       return result.substring(1);
    }
 
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_DATE = "date";
-
+   
    private Date date;
 
    public Date getDate()
    {
       return this.date;
    }
-
+   
    public void setDate(Date value)
    {
       // check for negative, if less then 0 throw IllegalArgumentException
@@ -164,25 +164,25 @@ public  class Transaction implements SendableEntity
          }
       }
    }
-
+   
    public Transaction withDate(Date value)
    {
       setDate(value);
       return this;
-   }
+   } 
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_TIME = "time";
-
+   
    private Date time;
 
    public Date getTime()
    {
       return this.time;
    }
-
+   
    public void setTime(Date value)
    {
       if (value ==null) {
@@ -196,42 +196,42 @@ public  class Transaction implements SendableEntity
          }
       }
    }
-
+   
    public Transaction withTime(Date value)
    {
       setTime(value);
       return this;
-   }
+   } 
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_NOTE = "note";
-
+   
    private String note;
 
    public String getNote()
    {
       return this.note;
    }
-
+   
    public void setNote(String value)
    {
       if ( ! EntityUtil.stringEquals(this.note, value)) {
-
+      
          String oldValue = this.note;
          this.note = value;
          this.firePropertyChange(PROPERTY_NOTE, oldValue, value);
       }
    }
-
+   
    public Transaction withNote(String value)
    {
       setNote(value);
       return this;
-   }
+   } 
 
-
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -239,7 +239,7 @@ public  class Transaction implements SendableEntity
     *              credit                   fromAccount
     * </pre>
     */
-
+   
    public static final String PROPERTY_FROMACCOUNT = "fromAccount";
 
    private Account fromAccount = null;
@@ -252,28 +252,28 @@ public  class Transaction implements SendableEntity
    public boolean setFromAccount(Account value)
    {
       boolean changed = false;
-
+      
       if (this.fromAccount != value)
       {
          Account oldValue = this.fromAccount;
-
+         
          if (this.fromAccount != null)
          {
             this.fromAccount = null;
             oldValue.withoutCredit(this);
          }
-
+         
          this.fromAccount = value;
-
+         
          if (value != null)
          {
             value.withCredit(this);
          }
-
+         
          firePropertyChange(PROPERTY_FROMACCOUNT, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -281,16 +281,16 @@ public  class Transaction implements SendableEntity
    {
       setFromAccount(value);
       return this;
-   }
+   } 
 
    public Account createFromAccount()
    {
       Account value = new Account();
       withFromAccount(value);
       return value;
-   }
+   } 
 
-
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -298,7 +298,7 @@ public  class Transaction implements SendableEntity
     *              debit                   toAccount
     * </pre>
     */
-
+   
    public static final String PROPERTY_TOACCOUNT = "toAccount";
 
    private Account toAccount = null;
@@ -311,28 +311,28 @@ public  class Transaction implements SendableEntity
    public boolean setToAccount(Account value)
    {
       boolean changed = false;
-
+      
       if (this.toAccount != value)
       {
          Account oldValue = this.toAccount;
-
+         
          if (this.toAccount != null)
          {
             this.toAccount = null;
             oldValue.withoutDebit(this);
          }
-
+         
          this.toAccount = value;
-
+         
          if (value != null)
          {
             value.withDebit(this);
          }
-
+         
          firePropertyChange(PROPERTY_TOACCOUNT, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -340,12 +340,12 @@ public  class Transaction implements SendableEntity
    {
       setToAccount(value);
       return this;
-   }
+   } 
 
    public Account createToAccount()
    {
       Account value = new Account();
       withToAccount(value);
       return value;
-   }
+   } 
 }

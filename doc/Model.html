@@ -22,17 +22,24 @@
          "id":"User",
          "attributes":[
             "name : String",
+<<<<<<< HEAD
             "userID : String",
-            "isAdmin : boolean",
-            "password : String",
-            "email : String",
-            "LoggedIn : boolean",
-            "phone : int"
+            "isAdmin : boolean"
          ],
          "methods":[
-            "openAccount(org.sdmlib.openbank.User p0) boolean",
-            "login(String username, String password) boolean",
-            "logout() boolean"
+            "openAccount(org.sdmlib.openbank.User p0) boolean"
+=======
+            "UserID : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Account",
+         "attributes":[
+            "balance : double",
+            "accountnum : int",
+            "creationdate : Date"
+>>>>>>> master
          ]
       },
       {
@@ -49,10 +56,15 @@
          "typ":"node",
          "id":"Account",
          "attributes":[
+            "username : String",
+            "password : String",
             "name : String",
+            "email : String",
+            "phone : int",
             "balance : double",
+            "isLoggedIn : boolean",
             "accountnum : int",
-            "creationdate : Date",
+            "creationdate : String",
             "IsConnected : boolean"
          ],
          "methods":[
@@ -60,9 +72,10 @@
             "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
             "myBankTransaction(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
             "receiveFound(double amount, org.sdmlib.openbank.Account sourceAccount) boolean",
-            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, java.util.Date date, java.util.Date time, String note) boolean",
+            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, String date, String time, String note) boolean",
+            "login(String username, String password) boolean",
             "withdraw(double amount)",
-            "deposit(double amount)"
+            "deposit(org.sdmlib.openbank.Account ToAccount, double amount)"
          ]
       }
    ],
@@ -109,6 +122,31 @@
    ]
 }   ;
    new Graph(json, {"canvasid":"canvasModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "name=Bob",
+            "UserID=1"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"U2 : User",
+         "attributes":[
+            "name=Sam",
+            "UserID=2"
+         ]
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
 </script>
 
 </body>

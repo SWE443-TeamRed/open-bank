@@ -10,18 +10,17 @@ Related scenario(s):
   
 Time estimate(s):
 
-    - 25 hrs
+  A lot
 
 Author(s):
 
-    - Vincent
+  - Vincent
 
 Assigned persons (currently working on task):
 
-    - Vincent
-    - Sam
-    - Savindi
-    - Mitchell
+  - Vincent
+  - Samuel
+  - Savindi
 
 Log entries (who worked when and how long on this):
 
@@ -31,12 +30,8 @@ Log entries (who worked when and how long on this):
     - 2017-03-26: 14:30-16:00 Vincent
 		| Created Create_Account_Class.md, Create_Transaction_Class.md, and
 		    Create_Database_Class.md
-<<<<<<< HEAD
 			
 	- 2017-03-31: 15:00-18:00 Vincent
 		| Created alot of markdowns
 		| Edit markdowns to include testing what you made for the task.
-=======
-    - 3/31 SM Mitchell 1hr
->>>>>>> refs/remotes/origin/master
 

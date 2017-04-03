@@ -25,6 +25,4 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
 
-   - 3/23 SM Mitchell initial creation of Burndown Chart, 3hrs.
-   - 3/25 SM Mitchell bug fixes, addt'l features, more sheet tabs. 2hrs.
 

@@ -25,7 +25,4 @@ Assigned persons (currently working on task):
   - Henry     Scenarios 1-3
 
 Log entries (who worked when and how long on this):
-  - 3/31 Henry 3 hours
-        Scenarios 1,3,13,14 complete
-        Ensured Scenarios 7,8,9 also passed with new login requirement
-  - 03/31 Kimberly 4 hr
+  - Kimberly 10 min

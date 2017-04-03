@@ -12,7 +12,7 @@ Related scenario(s):
   
 Time estimate(s):
 
-  5H
+  2H
 
 Author(s):
 
