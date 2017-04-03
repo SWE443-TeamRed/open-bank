@@ -492,8 +492,8 @@ import org.sdmlib.openbank.Transaction;
          throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
 
       transaction.setAmount(amount);
-      transaction.setDate(date);
-      transaction.setTime(time);
+      transaction.setCreationdate(date);
+      //transaction.setTime(time);
       transaction.setNote(note);
       return false;
    }

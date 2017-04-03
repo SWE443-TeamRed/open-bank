@@ -34,12 +34,13 @@ public class TransactionCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Transaction.PROPERTY_AMOUNT,
-      Transaction.PROPERTY_DATE,
-      Transaction.PROPERTY_TIME,
+      //Transaction.PROPERTY_DATE,
+      //Transaction.PROPERTY_TIME,
       Transaction.PROPERTY_NOTE,
       Transaction.PROPERTY_FROMACCOUNT,
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
+      Transaction.PROPERTY_CREATIONDATE,
    };
    
    public String[] getProperties()
@@ -67,17 +68,7 @@ public class TransactionCreator implements SendableEntityCreator
          return ((Transaction) target).getAmount();
       }
 
-      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getDate();
-      }
-
-      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getTime();
-      }
-
-      if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attribute))
+     if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attribute))
       {
          return ((Transaction) target).getNote();
       }
@@ -96,12 +87,23 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getTransType();
       }
+
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getCreationdate();
+      }
       
       return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setCreationdate((Date) value);
+         return true;
+      }
+
       if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setTransType(TransactionTypeEnum.valueOf((String) value));
@@ -111,18 +113,6 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setNote((String) value);
-         return true;
-      }
-
-      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setTime((Date) value);
-         return true;
-      }
-
-      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setDate((Date) value);
          return true;
       }
 

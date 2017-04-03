@@ -109,7 +109,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
    public TransactionPO createDateCondition(Date value)
    {
       new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_DATE)
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -123,7 +123,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
    public TransactionPO createDateAssignment(Date value)
    {
       new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_DATE)
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -131,70 +131,6 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       
       super.filterAttr();
       
-      return this;
-   }
-   
-   public Date getDate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) getCurrentMatch()).getDate();
-      }
-      return null;
-   }
-   
-   public TransactionPO withDate(Date value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Transaction) getCurrentMatch()).setDate(value);
-      }
-      return this;
-   }
-   
-   public TransactionPO createTimeCondition(Date value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_TIME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TransactionPO createTimeAssignment(Date value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_TIME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public Date getTime()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) getCurrentMatch()).getTime();
-      }
-      return null;
-   }
-   
-   public TransactionPO withTime(Date value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Transaction) getCurrentMatch()).setTime(value);
-      }
       return this;
    }
    
@@ -379,6 +315,52 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       if (this.getPattern().getHasMatch())
       {
          ((Transaction) getCurrentMatch()).setTransType(value);
+      }
+      return this;
+   }
+   
+   public TransactionPO createCreationdateCondition(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createCreationdateAssignment(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public Date getCreationdate()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getCreationdate();
+      }
+      return null;
+   }
+   
+   public TransactionPO withCreationdate(Date value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setCreationdate(value);
       }
       return this;
    }

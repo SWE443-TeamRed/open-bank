@@ -54,18 +54,14 @@
       "id":"demo.T4",
       "prop":{
          "amount":50,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D2"
-         },
-         "time":{
-            "class":"java.util.Date",
-            "id":"demo.D8"
-         },
          "note":"Deposit Trans 1",
          "fromAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
@@ -74,18 +70,14 @@
       "id":"demo.T5",
       "prop":{
          "amount":20,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D2"
-         },
-         "time":{
-            "class":"java.util.Date",
-            "id":"demo.D9"
-         },
          "note":"Deposit Trans 2",
          "fromAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
@@ -94,18 +86,14 @@
       "id":"demo.T6",
       "prop":{
          "amount":40,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D2"
-         },
-         "time":{
-            "class":"java.util.Date",
-            "id":"demo.D10"
-         },
          "note":"Withdraw Trans 3",
          "toAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
@@ -120,9 +108,6 @@
          }
       }
    },
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
    {"class":"java.util.Date"},
    {"class":"java.util.Date"},
    {"class":"java.util.Date"}

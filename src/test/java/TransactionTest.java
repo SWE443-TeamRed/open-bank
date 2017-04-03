@@ -37,8 +37,8 @@ public class TransactionTest {
         Date dt = new Date("03/19/2017");
 
         // set date
-        trans.setDate(dt);
-        assertTrue(dt == trans.getDate());
+        trans.setCreationdate(dt);
+        assertTrue(dt == trans.getCreationdate());
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -47,9 +47,10 @@ public class TransactionTest {
         Date dt = new Date(null);
 
         // set date with null
-        trans.setDate(dt);
+        trans.setCreationdate(dt);
     }
 
+    /*
     @Test
     // setTime and get the time to make sure you get the correct time
     public void setgetTime(){
@@ -68,6 +69,7 @@ public class TransactionTest {
         // set date with null
         trans.setDate(dt);
     }
+*/
 
     @Test
     // setNote and get the note to make sure you get the correct note
@@ -137,7 +139,7 @@ public class TransactionTest {
         System.out.println(resultAccnt.toString());
         System.out.println("UserID: " + resultAccnt.getOwner().getUserID());
         System.out.println("Name: " + resultAccnt.getOwner().getName());
-        System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getDate().toString());
+        System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getCreationdate().toString());
         System.out.println("Debit: " + resultAccnt.getDebit().toString());
 
         System.out.println("Balance: " + resultAccnt.getBalance());
@@ -165,9 +167,9 @@ public class TransactionTest {
 
         trans.setAmount(50.00);
         // set date
-        trans.setDate(dt);
+        trans.setCreationdate(dt);
         // set time
-        trans.setTime(dtime);
+        //trans.setTime(dtime);
         trans.setNote("Deposit Trans 1");
 
         //*** Second Transaction
@@ -176,9 +178,9 @@ public class TransactionTest {
 
         trans2.setAmount(20.00);
         // set date
-        trans2.setDate(dt);
+        trans2.setCreationdate(dt);
         // set time
-        trans2.setTime(dtime);
+        //trans2.setTime(dtime);
         trans2.setNote("Deposit Trans 2");
 
         //*** Third Transaction
@@ -187,9 +189,9 @@ public class TransactionTest {
 
         trans3.setAmount(40.00);
         // set date
-        trans3.setDate(dt);
+        trans3.setCreationdate(dt);
         // set time
-        trans3.setTime(dtime);
+       // trans3.setTime(dtime);
         trans3.setNote("Withdraw Trans 3");
 
 
@@ -213,7 +215,7 @@ public class TransactionTest {
         System.out.println(accountAfterJson.toString());
         System.out.println("UserID: " + accountAfterJson.getOwner().getUserID());
         System.out.println("Name: " + accountAfterJson.getOwner().getName());
-        System.out.println("Credit: Amount:" + accountAfterJson.getCredit().toString() + ". Time:" + accountAfterJson.getCredit().getDate().toString());
+        System.out.println("Credit: Amount:" + accountAfterJson.getCredit().toString() + ". Time:" + accountAfterJson.getCredit().getCreationdate().toString());
         System.out.println("Debit: " + accountAfterJson.getDebit().toString());
 
         System.out.println("Balance: " + accountAfterJson.getBalance());

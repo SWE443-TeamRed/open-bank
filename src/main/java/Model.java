@@ -48,8 +48,8 @@ public class Model {
 
        //set attributes
        transaction.withAttribute("amount", DataType.DOUBLE);
-       transaction.withAttribute("date",DataType.create(Date.class));
-       transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
+       transaction.withAttribute("creationdate",DataType.create(Date.class));
+       //transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
        transaction.withAttribute("note",DataType.STRING);
        transaction.withAttribute("transType", DataType.create(enumeration));
        //transaction.withAttribute("transType",DataType.);
