@@ -31,6 +31,7 @@ import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.AccountTypeEnum;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -179,28 +180,14 @@ public  class Account implements SendableEntity
 
    public static final String PROPERTY_CREATIONDATE = "creationdate";
 
-   private String creationdate;
+   private Date creationdate;
 
-   public String getCreationdate()
+   public Date getCreationdate()
    {
       return this.creationdate;
    }
 
-   public void setCreationdate(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.creationdate, value)) {
 
-         String oldValue = this.creationdate;
-         this.creationdate = value;
-         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
-      }
-   }
-
-   public Account withCreationdate(String value)
-   {
-      setCreationdate(value);
-      return this;
-   }
 
 
    /********************************************************************
@@ -446,7 +433,7 @@ public  class Account implements SendableEntity
    *
    * Log:
    *     Kimberly 03/29/17
-   *
+   *     4/3 - Henry -> refactored and incorporated transaction serialization
    * /
 
    /*
@@ -482,19 +469,6 @@ public  class Account implements SendableEntity
         }
         return false;//transferToUser did not work.
     }
-
-    //Uneccessary method as a user transfering funds from his checking to savings can be done with method above
-//   //Simple transaction between same user bank accounts.
-//   public boolean myBankTransaction( double amount, Account destinationAccount )
-//   {
-//      if(amount<=0 || destinationAccount==null)
-//         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-//
-//      this.setBalance(this.getBalance()-amount);
-//      destinationAccount.receiveFunds(amount);
-//
-//      return true;
-//   }
 
 
     //User wants to give money to this, recieve the funds if this is able to
@@ -573,14 +547,24 @@ public  class Account implements SendableEntity
    
 
 
-   
-
 
    
    //==========================================================================
-   public boolean transferToUser( double amount, Account destinationAccount )
+   
+   public void setCreationdate(Date value)
    {
-      return false;
+      if (this.creationdate != value) {
+
+         Date oldValue = this.creationdate;
+         this.creationdate = value;
+         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
+      }
+   }
+   
+   public Account withCreationdate(Date value)
+   {
+      setCreationdate(value);
+      return this;
    }
 
    
@@ -589,4 +573,32 @@ public  class Account implements SendableEntity
    {
       return null;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TYPE = "type";
+   
+   private AccountTypeEnum type;
+
+   public AccountTypeEnum getType()
+   {
+      return this.type;
+   }
+   
+   public void setType(AccountTypeEnum value)
+   {
+      if (this.type != value) {
+      
+         AccountTypeEnum oldValue = this.type;
+         this.type = value;
+         this.firePropertyChange(PROPERTY_TYPE, oldValue, value);
+      }
+   }
+   
+   public Account withType(AccountTypeEnum value)
+   {
+      setType(value);
+      return this;
+   } 
 }

@@ -2,16 +2,17 @@ package org.sdmlib.openbank.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.Transaction;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.openbank.util.UserPO;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.util.TransactionPO;
-import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.util.TransactionSet;
 
 import java.util.Date;
+import org.sdmlib.openbank.AccountTypeEnum;
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -48,6 +49,87 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    {
       this.setModifier(modifier);
    }
+   
+   //==========================================================================
+   
+   public void Account(double initialAmount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).Account(initialAmount);
+      }
+   }
+
+   
+   //==========================================================================
+
+   public boolean transferToUser(double amount, Account destinationAccount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount, note);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+//
+//   public boolean myBankTransaction(double amount, Account destinationAccount)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).myBankTransaction(amount, destinationAccount);
+//      }
+//      return false;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public boolean receiveFound(double amount, Account sourceAccount)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
+//      }
+//      return false;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, p0, p1, note);
+//      }
+//      return false;
+//   }
+
+   
+   //==========================================================================
+   
+   public void withdraw(double amount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).withdraw(amount);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public void deposit(double amount)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Account) getCurrentMatch()).deposit(amount);
+      }
+   }
+
    public AccountPO createBalanceCondition(double value)
    {
       new AttributeConstraint()
@@ -216,6 +298,52 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //      return this;
 //   }
    
+   public AccountPO createIsConnectedCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createIsConnectedAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getIsConnected()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).isIsConnected();
+      }
+      return false;
+   }
+   
+   public AccountPO withIsConnected(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setIsConnected(value);
+      }
+      return this;
+   }
+   
    public UserPO createOwnerPO()
    {
       UserPO result = new UserPO(new User[]{});
@@ -336,29 +464,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public void Account(double initialAmount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Account) getCurrentMatch()).Account(initialAmount);
-      }
-   }
-
-   
-   //==========================================================================
-   
-//   public boolean transferToUser(double amount, Account destinationAccount)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
-//      }
-//      return false;
-//   }
-//
-//
-//   //==========================================================================
-//
 //   public boolean myBankTransaction(double amount, Account destinationAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
@@ -367,10 +472,10 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //      }
 //      return false;
 //   }
-//
-//
-//   //==========================================================================
-//
+
+   
+   //==========================================================================
+   
 //   public boolean receiveFound(double amount, Account sourceAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
@@ -379,47 +484,61 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //      }
 //      return false;
 //   }
-//
-//
-//   //==========================================================================
-//
-//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
+
+   
+   //==========================================================================
+   
+//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
-//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, p0, p1, note);
 //      }
 //      return false;
 //   }
 
-   
-
-
-   
-   //==========================================================================
-   
-   public void withdraw(double amount)
+   public Date getCreationdate()
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Account) getCurrentMatch()).withdraw(amount);
+         return ((Account) getCurrentMatch()).getCreationdate();
       }
+      return null;
+   }
+   
+   public AccountPO withCreationdate(Date value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+   
+   
+   //==========================================================================
+   
+   public boolean receiveFunds(Account giver, double amount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
+      }
+      return false;
    }
 
    
    //==========================================================================
    
-   public void deposit(double amount)
+   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Account) getCurrentMatch()).deposit(amount);
+         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2, p3);
       }
+      return null;
    }
 
-
-
-   
    public AccountPO createCreationdateCondition(String value)
    {
       new AttributeConstraint()
@@ -463,28 +582,15 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public String getCreationdate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).getCreationdate();
-      }
-      return null;
-   }
    
-   public AccountPO withCreationdate(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Account) getCurrentMatch()).setCreationdate(value);
-      }
-      return this;
-   }
+   //==========================================================================
    
-   public AccountPO createIsConnectedCondition(boolean value)
+
+
+   public AccountPO createTypeCondition(AccountTypeEnum value)
    {
       new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withAttrName(Account.PROPERTY_TYPE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -495,10 +601,10 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public AccountPO createIsConnectedAssignment(boolean value)
+   public AccountPO createTypeAssignment(AccountTypeEnum value)
    {
       new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withAttrName(Account.PROPERTY_TYPE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(Pattern.CREATE)
@@ -509,72 +615,22 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public boolean getIsConnected()
+   public AccountTypeEnum getType()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).isIsConnected();
+         return ((Account) getCurrentMatch()).getType();
       }
-      return false;
+      return null;
    }
    
-   public AccountPO withIsConnected(boolean value)
+   public AccountPO withType(AccountTypeEnum value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Account) getCurrentMatch()).setIsConnected(value);
+         ((Account) getCurrentMatch()).setType(value);
       }
       return this;
    }
    
-   
-   //==========================================================================
-   
-//   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
-//      }
-//      return false;
-//   }
-
-
-   
-   
-   //==========================================================================
-   
-   public boolean transferToUser(double amount, Account destinationAccount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean receiveFunds(Account giver, double amount, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2, p3);
-      }
-      return null;
-   }
-
 }

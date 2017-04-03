@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,11 +26,11 @@ import org.sdmlib.openbank.User;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
 import java.util.Collections;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
-import de.uniks.networkparser.list.BooleanList;
-import de.uniks.networkparser.list.NumberList;
 
 public class UserSet extends SimpleSet<User>
 {
@@ -59,10 +59,10 @@ public class UserSet extends SimpleSet<User>
    public static final UserSet EMPTY_SET = new UserSet().withFlag(UserSet.READONLY);
 
 
-//   public UserPO createUserPO()
-//   {
-//      return new UserPO(this.toArray(new User[this.size()]));
-//   }
+   public UserPO createUserPO()
+   {
+      return new UserPO(this.toArray(new User[this.size()]));
+   }
 
 
    public String getEntryType()
@@ -109,94 +109,56 @@ public class UserSet extends SimpleSet<User>
       return this;
    }
 
-
-   /**
-    * Loop through the current set of User objects and collect a list of the name attribute values. 
-    * 
-    * @return List of String objects reachable via name attribute
-    */
-   public ObjectSet getName()
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList openAccount(User p0)
    {
-      ObjectSet result = new ObjectSet();
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
       
       for (User obj : this)
       {
-         result.add(obj.getName());
+         result.add( obj.openAccount(p0) );
       }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList login(String username, String password)
+   {
       
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add( obj.login(username, password) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList logout()
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (User obj : this)
+      {
+         result.add( obj.logout() );
+      }
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the name attribute matches the parameter value. 
+    * Loop through the current set of User objects and collect a list of the userID attribute values. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterName(String value)
-   {
-      UserSet result = new UserSet();
-      
-      for (User obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of User objects and collect those User objects where the name attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterName(String lower, String upper)
-   {
-      UserSet result = new UserSet();
-      
-      for (User obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of User objects and assign value to the name attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of User objects now with new attribute values.
-    */
-   public UserSet withName(String value)
-   {
-      for (User obj : this)
-      {
-         obj.setName(value);
-      }
-      
-      return this;
-   }
-
-
-   /**
-    * Loop through the current set of User objects and collect a list of the UserID attribute values. 
-    * 
-    * @return List of String objects reachable via UserID attribute
+    * @return List of String objects reachable via userID attribute
     */
    public ObjectSet getUserID()
    {
@@ -212,7 +174,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the UserID attribute matches the parameter value. 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute matches the parameter value. 
     * 
     * @param value Search value
     * 
@@ -235,7 +197,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the UserID attribute is between lower and upper. 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute is between lower and upper. 
     * 
     * @param lower Lower bound 
     * @param upper Upper bound 
@@ -259,7 +221,7 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and assign value to the UserID attribute of each of it. 
+    * Loop through the current set of User objects and assign value to the userID attribute of each of it. 
     * 
     * @param value New attribute value
     * 
@@ -273,101 +235,6 @@ public class UserSet extends SimpleSet<User>
       }
       
       return this;
-   }
-
-   /**
-    * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
-    * 
-    * @return Set of Account objects reachable via account
-    */
-   public AccountSet getAccount()
-   {
-      AccountSet result = new AccountSet();
-      
-      for (User obj : this)
-      {
-         result.with(obj.getAccount());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of User objects and collect all contained objects with reference account pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as account neighbor of the collected results. 
-    * 
-    * @return Set of Account objects referring to value via account
-    */
-   public UserSet filterAccount(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      UserSet answer = new UserSet();
-      
-      for (User obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAccount()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Account attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Account attributes.
-    */
-   public UserSet withAccount(Account value)
-   {
-      for (User obj : this)
-      {
-         obj.withAccount(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the User object passed as parameter from the Account attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public UserSet withoutAccount(Account value)
-   {
-      for (User obj : this)
-      {
-         obj.withoutAccount(value);
-      }
-      
-      return this;
-   }
-
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList openAccount(User p0)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (User obj : this)
-      {
-         result.add( obj.openAccount(p0) );
-      }
-      return result;
    }
 
 
@@ -507,6 +374,89 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.setPassword(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public ObjectSet getName()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (User obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterName(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterName(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withName(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setName(value);
       }
       
       return this;
@@ -737,84 +687,84 @@ public class UserSet extends SimpleSet<User>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList login(String username, String password)
+   /**
+    * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
+    * 
+    * @return Set of Account objects reachable via account
+    */
+   public AccountSet getAccount()
    {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      AccountSet result = new AccountSet();
       
       for (User obj : this)
       {
-         result.add( obj.login(username, password) );
+         result.with(obj.getAccount());
       }
+      
       return result;
    }
-
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList logout()
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (User obj : this)
-      {
-         result.add( obj.logout() );
-      }
-      return result;
-   }
-
-
-
-
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value. 
+    * Loop through the current set of User objects and collect all contained objects with reference account pointing to the object passed as parameter. 
     * 
-    * @param value Search value
+    * @param value The object required as account neighbor of the collected results. 
     * 
-    * @return Subset of User objects that match the parameter
+    * @return Set of Account objects referring to value via account
     */
-   public UserSet filterPhone(long value)
+   public UserSet filterAccount(Object value)
    {
-      UserSet result = new UserSet();
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
       
       for (User obj : this)
       {
-         if (value == obj.getPhone())
+         if ( ! Collections.disjoint(neighbors, obj.getAccount()))
          {
-            result.add(obj);
+            answer.add(obj);
          }
       }
       
-      return result;
+      return answer;
    }
 
-
    /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Account attribute of each of it. 
     * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of User objects that match the parameter
+    * @return The original set of ModelType objects now with the new neighbor attached to their Account attributes.
     */
-   public UserSet filterPhone(long lower, long upper)
+   public UserSet withAccount(Account value)
    {
-      UserSet result = new UserSet();
-      
       for (User obj : this)
       {
-         if (lower <= obj.getPhone() && obj.getPhone() <= upper)
-         {
-            result.add(obj);
-         }
+         obj.withAccount(value);
       }
       
-      return result;
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the User object passed as parameter from the Account attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public UserSet withoutAccount(Account value)
+   {
+      for (User obj : this)
+      {
+         obj.withoutAccount(value);
+      }
+      
+      return this;
    }
 
 }

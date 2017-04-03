@@ -19,7 +19,11 @@ public class Model {
     public static void main(String[] args) {
         //create class model
         ClassModel model = new ClassModel("org.sdmlib.openbank");
+        Clazz enumeration = model.createClazz("AccountTypeEnum").enableEnumeration();
 
+        enumeration.with(new Literal("SAVINGS"),
+                new Literal("CHECKING"));
+        enumeration.withMethod("toString", DataType.STRING);
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
         // create class user
         Clazz user = model.createClazz("User");
@@ -29,7 +33,6 @@ public class Model {
         user.withAttribute("userID",DataType.STRING);
         user.withAttribute("isAdmin", DataType.BOOLEAN);
         user.withAttribute("password", DataType.STRING);
-        user.withAttribute("name", DataType.STRING);
         user.withAttribute("email", DataType.STRING);
         user.withAttribute("LoggedIn", DataType.BOOLEAN);
         user.withAttribute("phone", DataType.INT);
@@ -67,8 +70,9 @@ public class Model {
         Clazz account = model.createClazz("Account");
         account.withAttribute("balance", DataType.DOUBLE);
         account.withAttribute("accountnum",DataType.INT);
-        account.withAttribute("creationdate", DataType.STRING);
+        account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
+        account.withAttribute("type", DataType.create(enumeration));
 
         //Account Methods
 
@@ -78,7 +82,8 @@ public class Model {
        //Transaction takes place between this and a user
         account.withMethod("transferToUser", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("destinationAccount"));
+                new Parameter(account).with("destinationAccount"),
+                new Parameter(DataType.STRING).with("note"));
 
         //transaction from my bank accounts
 //        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),

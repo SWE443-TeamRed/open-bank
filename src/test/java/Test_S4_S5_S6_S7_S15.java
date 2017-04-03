@@ -41,7 +41,7 @@ public class Test_S4_S5_S6_S7_S15 {
 
         //Setting the account information.
         CheckingAccount.Account(30.00);//Could not find a way to actually create a constructor.
-        CheckingAccount.withName("My Checking Account")
+        CheckingAccount
                 .withAccountnum(123456789)
                 .withDebit()
                 .withOwner(tina)
@@ -55,8 +55,7 @@ public class Test_S4_S5_S6_S7_S15 {
 
         //Setting the account information.
         SavingsAccount.Account(5.00);//Could not find a way to actually create a constructor.
-        SavingsAccount.withName("My Savings Account")
-                            .withAccountnum(123456789)
+        SavingsAccount.withAccountnum(123456789)
                             .withCreationdate(date)
                             .withDebit()
                             .withOwner(tina);
@@ -75,8 +74,7 @@ public class Test_S4_S5_S6_S7_S15 {
 
         //Setting the account information.
         CheckingSecondUser.Account(20.00);//Could not find a way to actually create a constructor.
-        CheckingSecondUser.withName("My Checking Account")
-                .withAccountnum(1234555555)
+        CheckingSecondUser.withAccountnum(1234555555)
                 .withCreationdate(date)
                 .withDebit()
                 .withOwner(nick);
@@ -110,7 +108,7 @@ public class Test_S4_S5_S6_S7_S15 {
 
         double initialCheckingBalance = CheckingAccount.getBalance();
         double initialSavingsBalance = SavingsAccount.getBalance();
-        CheckingAccount.myBankTransaction(10.00, SavingsAccount);
+       // CheckingAccount.myBankTransaction(10.00, SavingsAccount);
 
         //Making sure transfer works.
         storyboard.assertEquals("Checking Account reduced by $10.00: ",
@@ -176,8 +174,8 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.addObjectDiagram("Tina", tina, "CheckingTina", CheckingAccount, "Savings", SavingsAccount);
         storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
 
-        CheckingAccount.transferToUser(10.00, CheckingSecondUser);
-        CheckingSecondUser.receiveFound(10.00,CheckingAccount);
+        CheckingAccount.transferToUser(10.00, CheckingSecondUser,"message");
+       // CheckingSecondUser.receiveFound(10.00,CheckingAccount);
         storyboard.assertTrue("Tina logs in: ",tina.isLoggedIn());//Assert that they are logged in
         storyboard.assertTrue("NIck logs in: ", nick.isLoggedIn());
 
@@ -217,8 +215,8 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
 
         //Calling transferToUser()
-        CheckingAccount.transferToUser(10.00, CheckingSecondUser);
-        CheckingSecondUser.receiveFound(10.00,CheckingAccount);
+        CheckingAccount.transferToUser(10.00, CheckingSecondUser, "Transfer");
+        //CheckingSecondUser.receiveFound(10.00,CheckingAccount);
         storyboard.assertTrue("Tina logs in: ",tina.isLoggedIn());//Assert that they are logged in
         storyboard.assertTrue("NIck logs in: ", nick.isLoggedIn());
 
@@ -255,8 +253,16 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard = new Storyboard();
         storyboard.add("Tina wants to open a Checking account with Open Bank. She has no accounts");
 
-        CheckingAccount = new Account();
-        tina = new User();
+
+        tina = new User().withLoggedIn(true);
+        //Setting the account information
+        CheckingAccount = new Account()//Could not find a way to actually create a constructor.
+                .withAccountnum(123456789)
+                .withBalance(100.0)
+                .withDebit()
+                .withBalance(100.0)
+                .withOwner(tina)
+                .withCreationdate(new Date());
 
         //Setting date & time
         date = new Date(2017,03,31);
@@ -270,20 +276,13 @@ public class Test_S4_S5_S6_S7_S15 {
 
         storyboard.addObjectDiagram("Tina", tina);
 
-        //Setting the account information.
-        CheckingAccount.Account(30.00);//Could not find a way to actually create a constructor.
-        CheckingAccount.withName("My Checking Account")
-                .withAccountnum(123456789)
-                .withDebit()
-                .withOwner(tina)
-                .withCreationdate(date);
+
 
         //Tina logs in
         tina.login("Tina", "1234");
 
         //Asserting the account info is set correctly
-        storyboard.assertEquals("Name is correct: ",
-                CheckingAccount.getName(), "My Checking Account");
+
         storyboard.assertEquals("Account num is correct: ",
                 CheckingAccount.getAccountnum(), 123456789);
         storyboard.assertEquals("Name is correct: ",

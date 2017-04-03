@@ -19,6 +19,13 @@
    "nodes":[
       {
          "typ":"node",
+         "id":"AccountTypeEnum",
+         "methods":[
+            "toString() String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"User",
          "attributes":[
             "name : String",
@@ -51,12 +58,13 @@
          "attributes":[
             "balance : double",
             "accountnum : int",
-            "creationdate : String",
-            "IsConnected : boolean"
+            "creationdate : Date",
+            "IsConnected : boolean",
+            "type : AccountTypeEnum"
          ],
          "methods":[
             "Account(double initialAmount)",
-            "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
+            "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
             "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
             "recordTransaction(org.sdmlib.openbank.Account p0, boolean p1, double p2, String p3) org.sdmlib.openbank.Transaction",
             "withdraw(double amount)",

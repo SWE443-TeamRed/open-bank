@@ -13,6 +13,34 @@ import java.util.Date;
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
 
+    public TransactionSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      TransactionSet matches = new TransactionSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Transaction) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+
+
+   public TransactionPO(){
+      newInstance(null);
+   }
+
+   public TransactionPO(Transaction... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
+
    public TransactionPO(String modifier)
    {
       this.setModifier(modifier);
@@ -231,47 +259,6 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-
-
-   public TransactionPO createFromAccountLink(AccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT);
-   }
-
-   public TransactionPO createFromAccountLink(AccountPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT, modifier);
-   }
-
-   public Account getFromAccount()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) this.getCurrentMatch()).getFromAccount();
-      }
-      return null;
-   }
-
-
-   public TransactionPO createToAccountLink(AccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT);
-   }
-
-   public TransactionPO createToAccountLink(AccountPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT, modifier);
-   }
-
-   public Account getToAccount()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) this.getCurrentMatch()).getToAccount();
-      }
-      return null;
-   }
-
    public AccountPO createFromAccountPO()
    {
       AccountPO result = new AccountPO(new Account[]{});
@@ -292,6 +279,25 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return result;
    }
 
+   public TransactionPO createFromAccountLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT);
+   }
+
+   public TransactionPO createFromAccountLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT, modifier);
+   }
+
+   public Account getFromAccount()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getFromAccount();
+      }
+      return null;
+   }
+
    public AccountPO createToAccountPO()
    {
       AccountPO result = new AccountPO(new Account[]{});
@@ -310,6 +316,25 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
       
       return result;
+   }
+
+   public TransactionPO createToAccountLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT);
+   }
+
+   public TransactionPO createToAccountLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT, modifier);
+   }
+
+   public Account getToAccount()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getToAccount();
+      }
+      return null;
    }
 
 }
