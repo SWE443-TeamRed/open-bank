@@ -1,9 +1,5 @@
 import de.uniks.networkparser.DateTimeEntity;
-import de.uniks.networkparser.graph.Association;
-import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
@@ -16,9 +12,20 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
  * Created by FA on 3/23/2017.
  */
 public class Model {
+     /**
+    * 
+    * @see <a href='../../../doc/Model.html'>Model.html</a>
+ */
    public static void main(String[] args) {
        //create class model
        ClassModel model = new ClassModel("org.sdmlib.openbank");
+       Clazz enumeration = model.createClazz("TransactionTypeEnum").enableEnumeration();
+
+       enumeration.with(new Literal("Debit"),
+               new Literal("Credit"));
+
+       enumeration.withMethod("toString", DataType.STRING);
+
 
        // create class user
        Clazz user = model.createClazz("User");
@@ -44,6 +51,7 @@ public class Model {
        transaction.withAttribute("date",DataType.create(Date.class));
        transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
        transaction.withAttribute("note",DataType.STRING);
+       transaction.withAttribute("transType", DataType.create(enumeration));
        //transaction.withAttribute("transType",DataType.);
 
        // the account in user

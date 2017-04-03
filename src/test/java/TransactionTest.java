@@ -1,9 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.JsonPersistency;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.*;
 
 import java.util.Date;
 import static org.junit.Assert.*;
@@ -97,6 +94,53 @@ public class TransactionTest {
         // set note
         trans.setNote(nt);
         assertTrue(nt == trans.getNote());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeDebit(){
+       // set type
+        trans.setTransType(TransactionTypeEnum.Debit);
+
+        assertTrue(TransactionTypeEnum.Debit == trans.getTransType());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeCredit(){
+        // set type
+        trans.setTransType(TransactionTypeEnum.Credit);
+
+        assertTrue(TransactionTypeEnum.Credit == trans.getTransType());
+    }
+
+    @Test
+    // this test case testes the custom method(getTransactions) in transactions class
+    public void testGetTransactionHistory() {
+        Account accnt = new Account();
+        Account resultAccnt = new Account();
+        Transaction trans = new Transaction();
+
+        User usr1 = new User()
+                .withName("Tom")
+                .withUserID("tb12");
+
+        accnt = new Account()
+                .withOwner(usr1)
+                .withAccountnum(1);
+
+
+        resultAccnt = trans.getTransactions(accnt);
+
+        System.out.println();
+        System.out.println("*******************************fromJson*********************************");
+        System.out.println(resultAccnt.toString());
+        System.out.println("UserID: " + resultAccnt.getOwner().getUserID());
+        System.out.println("Name: " + resultAccnt.getOwner().getName());
+        System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getDate().toString());
+        System.out.println("Debit: " + resultAccnt.getDebit().toString());
+
+        System.out.println("Balance: " + resultAccnt.getBalance());
     }
 
     @Test
@@ -206,7 +250,7 @@ public class TransactionTest {
         trans.setNote("TEST Trans 2");
 
        json.toJson(accnt);
-        
+
 */
     }
 

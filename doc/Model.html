@@ -19,6 +19,13 @@
    "nodes":[
       {
          "typ":"node",
+         "id":"TransactionTypeEnum",
+         "methods":[
+            "toString() String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"User",
          "attributes":[
             "name : String",
@@ -41,7 +48,8 @@
             "amount : double",
             "date : Date",
             "time : Date",
-            "note : String"
+            "note : String",
+            "transType : TransactionTypeEnum"
          ]
       }
    ],

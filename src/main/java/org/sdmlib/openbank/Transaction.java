@@ -27,8 +27,8 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.Account;
-   /**
+
+/**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
@@ -348,4 +348,43 @@ import org.sdmlib.openbank.Account;
       withToAccount(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TRANSTYPE = "transType";
+   
+   private TransactionTypeEnum transType;
+
+   public TransactionTypeEnum getTransType()
+   {
+      return this.transType;
+   }
+   
+   public void setTransType(TransactionTypeEnum value)
+   {
+      if (this.transType != value) {
+
+         TransactionTypeEnum oldValue = this.transType;
+         this.transType = value;
+         this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
+      }
+   }
+   
+   public Transaction withTransType(TransactionTypeEnum value)
+   {
+      setTransType(value);
+      return this;
+   }
+
+   //*************** Custom Methods ****************//
+   public Account getTransactions(Account account){
+      JsonPersistency json = new JsonPersistency();
+
+      Account accnt = json.fromJson();
+
+      return accnt;
+   }
+
+
 }
