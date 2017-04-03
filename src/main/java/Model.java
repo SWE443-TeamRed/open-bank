@@ -1,5 +1,7 @@
 import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -72,29 +74,33 @@ public class Model {
 
         //void Account(double initialAmount), constructor
         account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
-        //boolean transferFounds(double amount, Account destinationAccount)
-        account.withMethod("transferToUser", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("destinationAccount"));
-        //boolean myBankTransaction(double amount, Account destinationAccount)
-        //transaction from my bank accounts
-        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
+
+       //Transaction takes place between this and a user
+        account.withMethod("transferToUser", DataType.BOOLEAN,
+                new Parameter(DataType.DOUBLE).with("amount"),
                 new Parameter(account).with("destinationAccount"));
 
-        //boolean receiveFound(double amount, Account sourceAccount)
-        //Receive found from another user
-        account.withMethod("receiveFound", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("sourceAccount"));
-        //boolean sendTransactionInfo(double amount, Transaction transaction)
-        //Send information from transaction to Transaction class
-        account.withMethod("sendTransactionInfo", DataType.BOOLEAN, new Parameter(transaction).with("transaction"),
+        //transaction from my bank accounts
+//        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
+//                new Parameter(account).with("destinationAccount"));
+
+        //this is given money either by deposit or someone trasnfered to them
+        account.withMethod("receiveFunds", DataType.BOOLEAN,
+                new Parameter(account).with("giver"),
                 new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(DataType.STRING).with("date"),
-                new Parameter(DataType.STRING).with("time"),
                 new Parameter(DataType.STRING).with("note"));
+
+        //Send information from transaction to Transaction class
+        account.withMethod("recordTransaction", DataType.create(Transaction.class),
+                new Parameter(account),
+                new Parameter(DataType.BOOLEAN),
+                new Parameter(DataType.DOUBLE),
+                new Parameter(DataType.STRING));
 
         //void withdraw(double amount)
         //Withdraw funds from account
-        account.withMethod("withdraw", DataType.VOID, new Parameter(DataType.DOUBLE).with("amount"));
+        account.withMethod("withdraw", DataType.VOID,
+                new Parameter(DataType.DOUBLE).with("amount"));
 
         //void deposit(double amount, Account account)
         //Deposit funds with account

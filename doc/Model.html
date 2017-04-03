@@ -57,9 +57,8 @@
          "methods":[
             "Account(double initialAmount)",
             "transferToUser(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
-            "myBankTransaction(double amount, org.sdmlib.openbank.Account destinationAccount) boolean",
-            "receiveFound(double amount, org.sdmlib.openbank.Account sourceAccount) boolean",
-            "sendTransactionInfo(org.sdmlib.openbank.Transaction transaction, double amount, String date, String time, String note) boolean",
+            "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
+            "recordTransaction(org.sdmlib.openbank.Account p0, boolean p1, double p2, String p3) org.sdmlib.openbank.Transaction",
             "withdraw(double amount)",
             "deposit(double amount)"
          ]

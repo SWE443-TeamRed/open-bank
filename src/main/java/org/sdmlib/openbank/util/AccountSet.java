@@ -573,63 +573,63 @@ public class AccountSet extends SimpleSet<Account>
 
    
    //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList transferToUser(double amount, Account destinationAccount)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.transferToUser(amount, destinationAccount) );
-      }
-      return result;
-   }
+//
+//   public de.uniks.networkparser.list.BooleanList transferToUser(double amount, Account destinationAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.transferToUser(amount, destinationAccount) );
+//      }
+//      return result;
+//   }
 
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.myBankTransaction(amount, destinationAccount) );
-      }
-      return result;
-   }
+//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.myBankTransaction(amount, destinationAccount) );
+//      }
+//      return result;
+//   }
 
    
    //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.receiveFound(amount, sourceAccount) );
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
-      }
-      return result;
-   }
+//
+//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.receiveFound(amount, sourceAccount) );
+//      }
+//      return result;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
+//      }
+//      return result;
+//   }
 
    
 
@@ -785,20 +785,65 @@ public class AccountSet extends SimpleSet<Account>
 
    
    //==========================================================================
+//
+//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
+//      }
+//      return result;
+//   }
+
+
+
+
    
-   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList transferToUser(double amount, Account destinationAccount)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
       
       for (Account obj : this)
       {
-         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
+         result.add( obj.transferToUser(amount, destinationAccount) );
       }
       return result;
    }
 
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList receiveFunds(Account giver, double amount, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.receiveFunds(giver, amount, note) );
+      }
+      return result;
+   }
 
-
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(Account p0, boolean p1, double p2, String p3)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2, p3) );
+      }
+      return result;
+   }
 
 }

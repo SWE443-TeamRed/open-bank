@@ -24,6 +24,7 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
@@ -117,11 +118,13 @@ public  class Account implements SendableEntity
 
    public void setBalance(double value)
    {
-      if (this.balance != value) {
+      if (value >0) {
 
          double oldValue = this.balance;
          this.balance = value;
          this.firePropertyChange(PROPERTY_BALANCE, oldValue, value);
+      }else{
+         throw new IllegalArgumentException("New balance falls below 0, cannot update existing balance to "+value);
       }
    }
 
@@ -457,61 +460,85 @@ public  class Account implements SendableEntity
 
     //User transfer founds to another user,
     // needs to connect and verify destinationAccount connection.
-    public boolean transferToUser(double amount, Account destinationAccount)
+    public boolean transferToUser(double amount, Account reciever, String note)
     {
-        if(amount < 0 || destinationAccount == null)
+       //Requested transfer funds cannot be negative value or undefined
+        if(amount < 0 ||reciever == null)
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
 
         if (amount <= this.getBalance()) {
+           //Check this account is connected to other account
             this.setIsConnected(true);
-            if (destinationAccount.IsConnected) {
+            if (reciever.IsConnected) {
+               //Update this balance to new balance
                 this.setBalance(this.getBalance() - amount);
-                destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-                return true;
+                //Request to receiver for a credit of amount
+                if(reciever.receiveFunds(this,amount,note)) {
+                   Transaction transaction = this.recordTransaction(reciever, true,amount, note);
+                   this.withDebit(transaction);
+                   return true;
+                }
             }
         }
         return false;//transferToUser did not work.
     }
 
-   //Simple transaction between same user bank accounts.
-   public boolean myBankTransaction( double amount, Account destinationAccount )
+    //Uneccessary method as a user transfering funds from his checking to savings can be done with method above
+//   //Simple transaction between same user bank accounts.
+//   public boolean myBankTransaction( double amount, Account destinationAccount )
+//   {
+//      if(amount<=0 || destinationAccount==null)
+//         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+//
+//      this.setBalance(this.getBalance()-amount);
+//      destinationAccount.receiveFunds(amount);
+//
+//      return true;
+//   }
+
+
+    //User wants to give money to this, recieve the funds if this is able to
+   public boolean receiveFunds(Account giver,  double amount, String note)
    {
-      if(amount<=0 || destinationAccount==null)
-         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+      Transaction transaction;
+      if(amount<=0)
+         throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
-      this.setBalance(this.getBalance()-amount);
-      destinationAccount.setBalance(destinationAccount.getBalance()+amount);
-
-      return true;
-   }
-
-
-   //This how the second user connects to get found from another user.
-   public boolean receiveFound( double amount, Account sourceAccount )
-   {
-      if(amount<=0 || sourceAccount==null)
-         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-
-      //Only connects if sourceAccount is connected.
-      if(sourceAccount.IsConnected)
+      //Verify the user is logged in and is connected to the other user
+      this.setIsConnected(true);
+      if(this.isIsConnected() && this.getOwner().isLoggedIn())
       {
-         this.setIsConnected(true);
-         return true;
+         Transaction trans = recordTransaction(giver, false,amount,note);
+         this.withCredit(trans);
+         this.setBalance(this.getBalance()+amount);
+         return  true;
+
       }
-      return false;//receiveFound did not work.
+      return false;//Cannot complete transaction.
    }
 
    //This sets the information of the transaction.
-   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note )
+   public Transaction recordTransaction(Account pair, Boolean debit, double amount, String note )
    {
-      if(transaction==null || date==null || time==null || amount==0)
-         throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
+      Transaction trans;
 
-      transaction.setAmount(amount);
-      transaction.setDate(date);
-      transaction.setTime(time);
-      transaction.setNote(note);
-      return false;
+         //Create transaction object
+         trans = new Transaction();
+         trans.setDate(new Date());
+         trans.setAmount(amount);
+         trans.setNote(note);
+         if(debit) {
+            //this is the account giving funds
+            trans.setFromAccount(this);
+            //pair is the account reciveing funds
+            trans.setToAccount(pair);
+         }else{
+            //pair is the accout giving funds
+            trans.setFromAccount(pair);
+            //this is the account recieving funds
+            trans.setToAccount(this);
+         }
+      return trans;
    }
 
 
@@ -520,26 +547,46 @@ public  class Account implements SendableEntity
     //To withdraw money from this account.
     public void withdraw(double amount)
     {
-        if(amount <= this.getBalance() && amount > 0)
+        if(amount <= this.getBalance() && amount > 0) {
+            Transaction trans = recordTransaction(this, true,amount, "Withdrawing "+amount);
+            this.withDebit(trans);
             this.setBalance(this.getBalance() - amount);
+        }
         else
             throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
                     "and greater than 0.");
     }
 
    //=========================================================================
-   public void deposit( double amount )
-   {
+   public void deposit( double amount ){
+       if(amount > 0) {
+           Transaction trans = recordTransaction(this, false,amount, "Depositing "+amount);
+           this.withCredit(trans);
+           this.setBalance(this.getBalance() + amount);
+       }
+       else
+           throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
+
       
    }
 
    
+
+
+   
+
+
+   
    //==========================================================================
-   public boolean sendTransactionInfo( Transaction transaction, double amount, String date, String time, String note )
+   public boolean transferToUser( double amount, Account destinationAccount )
    {
       return false;
    }
 
    
-
+   //==========================================================================
+   public Transaction recordTransaction( Account p0, boolean p1, double p2, String p3 )
+   {
+      return null;
+   }
 }

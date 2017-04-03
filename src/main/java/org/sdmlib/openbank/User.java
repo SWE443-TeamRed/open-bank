@@ -137,7 +137,9 @@ import org.sdmlib.openbank.Account;
            result.append(" ").append("userID: "+this.getUserID());
            result.append(" ").append("Password: " + this.getPassword());
            result.append(" ").append("Admin: " + this.isIsAdmin());
-           return result.substring(1);
+           result.append(" ").append(this.getEmail());
+      result.append(" ").append(this.getPhone());
+      return result.substring(1);
        }
 
 

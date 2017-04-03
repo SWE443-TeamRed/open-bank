@@ -347,50 +347,50 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean transferToUser(double amount, Account destinationAccount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean myBankTransaction(double amount, Account destinationAccount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).myBankTransaction(amount, destinationAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean receiveFound(double amount, Account sourceAccount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
-      }
-      return false;
-   }
+//   public boolean transferToUser(double amount, Account destinationAccount)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
+//      }
+//      return false;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public boolean myBankTransaction(double amount, Account destinationAccount)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).myBankTransaction(amount, destinationAccount);
+//      }
+//      return false;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public boolean receiveFound(double amount, Account sourceAccount)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
+//      }
+//      return false;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+//      }
+//      return false;
+//   }
 
    
 
@@ -530,15 +530,51 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+//   public boolean sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+//      }
+//      return false;
+//   }
+
+
+   
+   
+   //==========================================================================
+   
+   public boolean transferToUser(double amount, Account destinationAccount)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, date, time, note);
+         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount);
       }
       return false;
    }
 
+   
+   //==========================================================================
+   
+   public boolean receiveFunds(Account giver, double amount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
+      }
+      return false;
+   }
 
    
+   //==========================================================================
+   
+   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2, p3);
+      }
+      return null;
+   }
+
 }
