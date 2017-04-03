@@ -7,7 +7,7 @@ Related Scenario(s):
     None.
 
 Time Estimate(s):
-    7+ hrs
+    7 hrs
 
 Author(s):
     Cycielya Shultz
@@ -16,3 +16,7 @@ Assigned persons:
     Cycielya Shultz
 
 Log entries:
+    - 3/28, Cycielya 2 hr
+    - 3/30, Cycielya 1 hr
+    - 3/31, Cycielya 1 hr
+    - 4/2, Cycielya 1 hr
