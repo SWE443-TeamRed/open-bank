@@ -285,17 +285,7 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return List of java.util.Date objects reachable via creationdate attribute
     */
-   public ObjectSet getCreationdate()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (Account obj : this)
-      {
-         result.add(obj.getCreationdate());
-      }
-      
-      return result;
-   }
+
 
 
    /**
@@ -651,80 +641,6 @@ public class AccountSet extends SimpleSet<Account>
    }
 
 
-
-
-
-
-
-
-
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value.equals(obj.getCreationdate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String lower, String upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and assign value to the creationdate attribute of each of it. 
-    * 
-    * @param value New attribute value
-    * 
-    * @return Current set of Account objects now with new attribute values.
-    */
-   public AccountSet withCreationdate(String value)
-   {
-      for (Account obj : this)
-      {
-         obj.setCreationdate(value);
-      }
-      
-      return this;
-   }
-
-
    /**
     * Loop through the current set of Account objects and collect a list of the IsConnected attribute values. 
     * 
@@ -783,22 +699,146 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, String date, String time, String note)
+   /**
+    * Loop through the current set of Account objects and collect a list of the name attribute values. 
+    * 
+    * @return List of String objects reachable via name attribute
+    */
+   public ObjectSet getName()
    {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      ObjectSet result = new ObjectSet();
       
       for (Account obj : this)
       {
-         result.add( obj.sendTransactionInfo(transaction, amount, date, time, note) );
+         result.add(obj.getName());
       }
+      
       return result;
    }
 
 
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the name attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterName(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
 
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the name attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterName(String lower, String upper)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the name attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withName(String value)
+   {
+      for (Account obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the creationdate attribute values. 
+    * 
+    * @return List of java.util.Date objects reachable via creationdate attribute
+    */
+   public ObjectSet getCreationdate()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getCreationdate());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterCreationdate(Date value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getCreationdate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the creationdate attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withCreationdate(Date value)
+   {
+      for (Account obj : this)
+      {
+         obj.setCreationdate(value);
+      }
+      
+      return this;
+   }
 
 }

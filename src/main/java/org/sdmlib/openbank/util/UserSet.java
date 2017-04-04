@@ -59,10 +59,10 @@ public class UserSet extends SimpleSet<User>
    public static final UserSet EMPTY_SET = new UserSet().withFlag(UserSet.READONLY);
 
 
-   public UserPO createUserPO()
-   {
-      return new UserPO(this.toArray(new User[this.size()]));
-   }
+//   public UserPO createUserPO()
+//   {
+//      return new UserPO(this.toArray(new User[this.size()]));
+//   }
 
 
    public String getEntryType()
@@ -764,6 +764,56 @@ public class UserSet extends SimpleSet<User>
       {
          result.add( obj.logout() );
       }
+      return result;
+   }
+
+
+
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(long value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value == obj.getPhone())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(long lower, long upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower <= obj.getPhone() && obj.getPhone() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
       return result;
    }
 
