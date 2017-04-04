@@ -11,9 +11,9 @@ Description:
 
   Testing the Transaction class to verify its' functionality.
 
-
-   Note:
-   Each transaction should be related to at most two accounts. Suggest giving them the roles "sender" and "reciever".
+  Note:
+	- Each transaction should be related to at most two accounts. Suggest
+	  giving them the roles "sender" and "reciever".
   
 Related scenario(s):
 

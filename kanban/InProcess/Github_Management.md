@@ -1,22 +1,38 @@
-Title: Management of Github repository, merges to master and code reviews.
+Title: Github Management
 
 Description:
 
-    Review code from various branches before merging via pull request into master; Ensure clean working directories and prevent/correct insertion of unnecessary files, inconsistent code, errors and conflicts into master. Adjust permissions and code arrangements as necessary.
+	Manage Github. Review pull requests, address questions related to
+	Github, and teach beginners how to use Github.
+	Review code from various branches before merging via pull request into master;
+	Ensure clean working directories and prevent/correct insertion of unnecessary 
+	files, inconsistent code, errors and conflicts into master.
+	Adjust permissions and code arrangements as necessary.
+  
+Related scenario(s):
 
-Related Scenario(s):
-    None.
+  None
+  
+Time estimate(s):
 
-Time Estimate(s):
-    4 hrs
+	4 hrs
 
 Author(s):
-    Cycielya Shultz
 
-Assigned Person(s):
+  - Vincent
+
+Assigned persons (currently working on task):
+
+  - Cycielya
+  - Mitchell
+  - Vincent
+
+Log entries (who worked when and how long on this):
+
+
+Author(s):
+
     Cycielya Shultz
-    Mitchell Ly
-    Vincent Liu
 
 Log Entries:
 
