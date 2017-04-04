@@ -11,7 +11,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java' type='text/x-java'>TransferActivityPersistance</a></p>
+<p>Storyboard <a href='.././src/test/java/JsonPersistencyTest.java' type='text/x-java'>TransferActivityPersistance</a></p>
 <p>Tina logs in</p>
 <p>Precondition: Tina wants to transfer 10 dollars from her checking to nick's checking, Tina currently has 350, Nick has 100</p>
 <script>
@@ -666,7 +666,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D18 : Date"
+            "id":"D14 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -877,7 +877,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D18 : Date"
+            "id":"D14 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -1015,7 +1015,7 @@
       },
       {
          "typ":"clazz",
-         "id":"T24 : Transaction",
+         "id":"T25 : Transaction",
          "attributes":[
             "amount=100.0",
             "note=Tina transfers 100 from her checking to Nick's checking"
@@ -1035,11 +1035,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D20 : Date"
+         "id":"D22 : Date"
       },
       {
          "typ":"clazz",
-         "id":"D25 : Date"
+         "id":"D24 : Date"
       }
    ],
    "edges":[
@@ -1165,7 +1165,7 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
-            "id":"T24 : Transaction"
+            "id":"T25 : Transaction"
          },
          "target":{
             "cardinality":"one",
@@ -1256,7 +1256,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D20 : Date"
+            "id":"D22 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -1269,12 +1269,12 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D25 : Date"
+            "id":"D24 : Date"
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
-            "id":"T24 : Transaction"
+            "id":"T25 : Transaction"
          }
       }
    ]
@@ -1369,7 +1369,7 @@
       },
       {
          "typ":"clazz",
-         "id":"T24 : Transaction",
+         "id":"T25 : Transaction",
          "attributes":[
             "amount=100.0",
             "note=Tina transfers 100 from her checking to Nick's checking"
@@ -1389,11 +1389,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D20 : Date"
+         "id":"D22 : Date"
       },
       {
          "typ":"clazz",
-         "id":"D25 : Date"
+         "id":"D24 : Date"
       }
    ],
    "edges":[
@@ -1519,7 +1519,7 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
-            "id":"T24 : Transaction"
+            "id":"T25 : Transaction"
          },
          "target":{
             "cardinality":"one",
@@ -1610,7 +1610,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D20 : Date"
+            "id":"D22 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -1623,12 +1623,12 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D25 : Date"
+            "id":"D24 : Date"
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
-            "id":"T24 : Transaction"
+            "id":"T25 : Transaction"
          }
       }
    ]
@@ -1675,7 +1675,7 @@
       },
       {
          "typ":"clazz",
-         "id":"T22 : Transaction",
+         "id":"T23 : Transaction",
          "attributes":[
             "amount=100.0",
             "note=Tina transfers 100 from her checking to Nick's checking"
@@ -1708,11 +1708,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D23 : Date"
+         "id":"D24 : Date"
       },
       {
          "typ":"clazz",
-         "id":"D29 : Date"
+         "id":"D27 : Date"
       },
       {
          "typ":"clazz",
@@ -1792,7 +1792,7 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
-            "id":"T22 : Transaction"
+            "id":"T23 : Transaction"
          },
          "target":{
             "cardinality":"one",
@@ -1844,12 +1844,12 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D23 : Date"
+            "id":"D24 : Date"
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
-            "id":"T22 : Transaction"
+            "id":"T23 : Transaction"
          }
       },
       {
@@ -1857,7 +1857,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D29 : Date"
+            "id":"D27 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -1922,7 +1922,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D18 : Date"
+            "id":"D14 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -2009,7 +2009,7 @@
       },
       {
          "typ":"clazz",
-         "id":"T22 : Transaction",
+         "id":"T23 : Transaction",
          "attributes":[
             "amount=100.0",
             "note=Tina transfers 100 from her checking to Nick's checking"
@@ -2061,11 +2061,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D23 : Date"
+         "id":"D24 : Date"
       },
       {
          "typ":"clazz",
-         "id":"D29 : Date"
+         "id":"D27 : Date"
       },
       {
          "typ":"clazz",
@@ -2130,7 +2130,7 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
-            "id":"T22 : Transaction"
+            "id":"T23 : Transaction"
          },
          "target":{
             "cardinality":"one",
@@ -2221,12 +2221,12 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D23 : Date"
+            "id":"D24 : Date"
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
-            "id":"T22 : Transaction"
+            "id":"T23 : Transaction"
          }
       },
       {
@@ -2234,7 +2234,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D29 : Date"
+            "id":"D27 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -2247,7 +2247,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D18 : Date"
+            "id":"D14 : Date"
          },
          "target":{
             "cardinality":"one",

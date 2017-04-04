@@ -1,6 +1,8 @@
-package org.sdmlib.openbank;
-
 import org.junit.Test;
+import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.JsonPersistency;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -18,6 +20,7 @@ public class JsonPersistencyTest {
         User's account is persisted as is, without any tran
      * @see <a href='../../../../../../doc/UserActivityPersistance.html'>UserActivityPersistance.html</a>
  * @see <a href='../../../../../../doc/WithdrawDepositActivityPersistance.html'>WithdrawDepositActivityPersistance.html</a>
+ * @see <a href='../../../doc/WithdrawDepositActivityPersistance.html'>WithdrawDepositActivityPersistance.html</a>
  */
     @Test
     public void testWithdrawDepositActivityPersistance() throws Exception {
@@ -107,6 +110,7 @@ public class JsonPersistencyTest {
       /**
     * 
     * @see <a href='../../../../../../doc/TransferActivityPersistance.html'>TransferActivityPersistance.html</a>
+ * @see <a href='../../../doc/TransferActivityPersistance.html'>TransferActivityPersistance.html</a>
  */
    @Test
     public void testTransferActivityPersistance() throws Exception {
