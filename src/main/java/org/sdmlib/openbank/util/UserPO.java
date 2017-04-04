@@ -12,6 +12,33 @@ import org.sdmlib.openbank.util.AccountSet;
 public class UserPO extends PatternObject<UserPO, User>
 {
 
+    public UserSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      UserSet matches = new UserSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((User) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+
+
+   public UserPO(){
+      newInstance(null);
+   }
+
+   public UserPO(User... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(null, hostGraphObject);
+   }
 
    public UserPO(String modifier)
    {
@@ -53,67 +80,6 @@ public class UserPO extends PatternObject<UserPO, User>
       return false;
    }
 
-   public UserPO createNameCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public UserPO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public UserPO createNameAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
-   public UserPO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((User) getCurrentMatch()).setName(value);
-      }
-      return this;
-   }
-   
    public UserPO createUserIDCondition(String value)
    {
       new AttributeConstraint()
@@ -282,6 +248,67 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public UserPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public UserPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
    public UserPO createEmailCondition(String value)
    {
       new AttributeConstraint()
@@ -431,7 +458,15 @@ public class UserPO extends PatternObject<UserPO, User>
       
       return this;
    }
-
+   
+   public int getPhone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getPhone();
+      }
+      return 0;
+   }
    
    public UserPO withPhone(int value)
    {
@@ -481,15 +516,4 @@ public class UserPO extends PatternObject<UserPO, User>
       return null;
    }
 
-
-   public int getPhone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) getCurrentMatch()).getPhone();
-      }
-      return 0;
-   }
-
-   
 }

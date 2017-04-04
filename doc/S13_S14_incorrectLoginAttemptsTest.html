@@ -20,22 +20,27 @@
          "typ":"clazz",
          "id":"Initial scenario: Tina attempts to login with wrong credentials : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=1111",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -43,7 +48,7 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Initial scenario: Tina attempts to login with wrong credentials : User"
          }
       }
@@ -52,8 +57,7 @@
    json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest1", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Tina tries to login with wrong username false actual false</p>
-<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
+<p>Check: Tina is not logged in false actual false</p>
 <p>Tina tries to login with incorrect username</p>
 <script>
    var json = {
@@ -63,22 +67,27 @@
          "typ":"clazz",
          "id":"Initial scenario: Tina attempts to login with wrong credentials : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=1111",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -86,18 +95,17 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Initial scenario: Tina attempts to login with wrong credentials : User"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Tina tries to login with wrong password false actual false</p>
-<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 <p>Tina tries to login with incorrect passwrod</p>
+<p>Check: Tina tries to login with wrong password false actual false</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -106,22 +114,27 @@
          "typ":"clazz",
          "id":"Initial scenario: Tina attempts to login with wrong credentials : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=1111",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -129,18 +142,17 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Initial scenario: Tina attempts to login with wrong credentials : User"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest9", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Tina tries to login with wron username and password false actual false</p>
-<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 <p>Tina tries to login with incorrect username and password</p>
+<p>Check: Tina tries to login with wron username and password false actual false</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -149,22 +161,27 @@
          "typ":"clazz",
          "id":"Initial scenario: Tina attempts to login with wrong credentials : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=1111",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -172,13 +189,13 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Initial scenario: Tina attempts to login with wrong credentials : User"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest13", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS13_S14_incorrectLoginAttemptsTest10", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

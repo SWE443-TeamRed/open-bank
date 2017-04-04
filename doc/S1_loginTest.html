@@ -20,22 +20,27 @@
          "typ":"clazz",
          "id":"Tina : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=tinapass",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -43,7 +48,7 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Tina : User"
          }
       }
@@ -61,22 +66,27 @@
          "typ":"clazz",
          "id":"Tina : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=tinapass",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -84,7 +94,7 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Tina : User"
          }
       }
@@ -94,7 +104,6 @@
    g.layout(100,100);
 </script>
 <p>Check: Tina is currently not logged in to her checking account false actual false</p>
-<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 <p>1) Tina opens her banking app
 	2) Tina is at the login screen
 	3) Tina enters her username in the username field
@@ -107,22 +116,27 @@
          "typ":"clazz",
          "id":"Tina : User",
          "attributes":[
-            "name=Tina",
             "UserID=tina1",
             "isAdmin=false",
             "password=tinapass",
+            "name=Tina",
             "LoggedIn=false",
             "phone=0"
          ]
       },
       {
          "typ":"clazz",
-         "id":"A1 : Account"
+         "id":"A1 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
             "property":"account",
@@ -130,13 +144,13 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"user",
+            "property":"owner",
             "id":"Tina : User"
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS1_loginTest7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS1_loginTest6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5) (Post-Condition)  Tina has loged into her account and can now view her balance</p>

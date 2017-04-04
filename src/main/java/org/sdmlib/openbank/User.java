@@ -24,6 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
@@ -39,12 +41,18 @@ import org.sdmlib.openbank.Account;
 
         */
 
-       public boolean login(String username, String password) {
-           if (getUserID().equals(username) && getPassword().equals(password)) {
+       public boolean login(String userId, String password) {
+           if (getUserID().equals(userId) && getPassword().equals(password)) {
+               File jsonfile = new File(userId+".json");
+               if(jsonfile.exists()) {
+                   JsonPersistency jsonPersist = new JsonPersistency();
+                   Account userAccount = jsonPersist.fromJson(userId);
+                   this.withAccount(userAccount);
+               }
                this.setLoggedIn(true);
                return true;
            } else {
-               if (getUserID().equals(username))
+               if (getUserID().equals(userId))
                    System.out.println("Username is incorrect");
                if (getPassword().equals(password))
                    System.out.println("Username is incorrect");
@@ -366,6 +374,9 @@ import org.sdmlib.openbank.Account;
    //==========================================================================
    public boolean logout(  )
    {
+       Account usersAccount = this.getAccount().get(0);
+       JsonPersistency writeToJson = new JsonPersistency();
+       writeToJson.toJson(usersAccount);
       this.LoggedIn = false;
       return true;
    }
