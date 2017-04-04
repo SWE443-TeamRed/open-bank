@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "HOME_FRAGMENT");
-        transaction.addToBackStack("HOME_SOURCE_FRAGMENT_TAG").commit();
+//        transaction.addToBackStack("HOME_SOURCE_FRAGMENT_TAG").commit();
+        transaction.commit();
     }
 }
