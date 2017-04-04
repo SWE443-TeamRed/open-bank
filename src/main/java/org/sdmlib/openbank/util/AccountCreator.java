@@ -100,7 +100,11 @@ public class AccountCreator implements SendableEntityCreator
       return null;
    }
 
-   
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.openbank.util.AccountCreator.createIdMap(sessionID);
+   }
+
    //==========================================================================
       public void removeObject(Object entity)
    {
