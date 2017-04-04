@@ -16,54 +16,24 @@ import java.util.Date;
 
 
 public class Test_S4_S5_S6_S7_S15 {
-    Account CheckingAccount;
-    Account SavingsAccount;
-    Account CheckingSecondUser;
+    Account tinachecking;
+    Account tinasavings;
+    Account nickchecking;
     User tina;
     User nick;
     Date date;
     Storyboard storyboard;
 
     //Creating Checking Account to use in all tests.
-    public void creatingCheckingAccount() {
-        CheckingAccount = new Account();
+    public void createAccounts() {
+
         tina = new User();
 
-        //Setting date & time
-        date = new Date(2017,03,31);
-        date.setTime(12);
-
         //Setting user's information
-        tina.withEmail("myEmail@email.com")
-                .withName("Tina")
+        tina.withName("Tina")
                 .withPassword("1234")
                 .withUserID("Tina");
 
-        //Setting the account information.
-        CheckingAccount.Account(30.00);//Could not find a way to actually create a constructor.
-        CheckingAccount
-                .withAccountnum(123456789)
-                .withDebit()
-                .withOwner(tina)
-                .withCreationdate(date);
-    }
-
-    //Creating Savings Account
-    public void creatingSavingsAccount() {
-        creatingCheckingAccount(); //This test depends on first test.
-        SavingsAccount = new Account();
-
-        //Setting the account information.
-        SavingsAccount.Account(5.00);//Could not find a way to actually create a constructor.
-        SavingsAccount.withAccountnum(123456789)
-                            .withCreationdate(date)
-                            .withDebit()
-                            .withOwner(tina);
-    }
-
-    //Creating an account for a second user
-    public void creatingSecondUserAccount() {
-        CheckingSecondUser = new Account();
         nick = new User();
 
         //Setting user's information
@@ -71,12 +41,27 @@ public class Test_S4_S5_S6_S7_S15 {
                 .withName("Nick")
                 .withPassword("9876")
                 .withUserID("Nick");
-
+        
+        
         //Setting the account information.
-        CheckingSecondUser.Account(20.00);//Could not find a way to actually create a constructor.
-        CheckingSecondUser.withAccountnum(1234555555)
-                .withCreationdate(date)
+        tinachecking = new Account()
+                .withAccountnum(123456789)
+                .withBalance(30)
                 .withDebit()
+                .withOwner(tina)
+                .withCreationdate(date);
+
+        tinasavings = new Account()
+                .withCreationdate(date)
+                .withBalance(5)
+                .withOwner(tina);
+    
+
+    
+        nickchecking = new Account()
+                .withAccountnum(1234555555)
+                .withCreationdate(date)
+                .withBalance(15)
                 .withOwner(nick);
     }
 
@@ -95,29 +80,30 @@ public class Test_S4_S5_S6_S7_S15 {
 //      *(Post)* Tina now has  $20 in her Checking account and $15 in her Savings account.
 
     @Test//Testing myBankTransaction()
-    public void S4_myBankTransactionTest(){
+    public void S4_UserTransersBetweenTheirAccountsTest(){
         storyboard = new Storyboard();
-        creatingCheckingAccount();
-        creatingSavingsAccount();
+        //Initialzie Tina'as accounts
+        createAccounts();
 
         storyboard.add("Precondition: Tina has $30 on her checking account and $5 in her savings account");
-        storyboard.addObjectDiagram("Tina", tina, "Checking", CheckingAccount,"Savings", SavingsAccount);
+        storyboard.addObjectDiagram("Tina", tina, "Checking", tinachecking,"Savings",tinasavings);
 
+        //Tina Logs in
         tina.login("Tina","1234");
         storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());//Sign in before making transaction.
 
-        double initialCheckingBalance = CheckingAccount.getBalance();
-        double initialSavingsBalance = SavingsAccount.getBalance();
-       // CheckingAccount.myBankTransaction(10.00, SavingsAccount);
+        //Transfer 10 dollars
+        storyboard.assertTrue("Transfer was successfull",tinachecking.transferToAccount(10.00,tinasavings, "Tina transfers 10 from checking to savings"));
 
-        //Making sure transfer works.
+        //Checking is reduced
         storyboard.assertEquals("Checking Account reduced by $10.00: ",
-                CheckingAccount.getBalance(),initialCheckingBalance-10.00);
+                20.0,tinachecking.getBalance());
+        //Savings increased
         storyboard.assertEquals("Savings Account has $10.00 extra: ",
-                SavingsAccount.getBalance(), initialSavingsBalance+10.00);
+                15.0,tinasavings.getBalance());
 
         storyboard.add("Post-condition: Tina now has  $20 in her Checking account and $15 in her Savings account");
-        storyboard.addObjectDiagram("Tina", tina,"Checking", CheckingAccount,"Savings", SavingsAccount);
+        storyboard.addObjectDiagram("Tina", tina,"Checking", tinachecking,"Savings",tinasavings);
         storyboard.dumpHTML();
     }
 
@@ -134,18 +120,21 @@ public class Test_S4_S5_S6_S7_S15 {
     @Test
     public void S5_testWithdraw(){
         storyboard = new Storyboard();
-        creatingSavingsAccount();
-        SavingsAccount.setBalance(50.00);
+        createAccounts();
+        tinasavings.withBalance(30);
+        tina.login("Tina","1234");
         storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());
 
-        storyboard.add("Precondition: Tina has $50 in her Checking account and needs $30 to buy food.");
-        storyboard.addObjectDiagram("Tina", tina,"Savings", SavingsAccount, "Checking", CheckingAccount);
+        //Precondition, Tina has 50 in her chekcing account
+        storyboard.add("Precondition: Tina has $30 in her savings account and needs $10 to buy food.");
+        storyboard.assertEquals("Tina has 30 in her bank account ",30.0,tinasavings.getBalance());
+        storyboard.addObjectDiagram("Tina", tina,"Savings",tinasavings);
 
-        SavingsAccount.withdraw(30.00);//Making withdraw
-        storyboard.assertEquals("Tina makes transaction: ",
-                SavingsAccount.getBalance(),50.00-30.00);//Making sure it worked.
-        storyboard.add("Post-condition: Tina gets $30 cash and her checking now has $20");
-        storyboard.addObjectDiagram("Tina", tina, "Savings", SavingsAccount, "Checking", CheckingAccount);
+       tinasavings.withdraw(10.00);//Making withdraw
+        storyboard.assertEquals("Tina makes a withdraw of 10 ",
+               20.0, tinasavings.getBalance());//Making sure it worked.
+        storyboard.add("Post-condition: Tina gets $10 cash and her savings now has $20");
+        storyboard.addObjectDiagram("Tina", tina, "Savings",tinasavings);
         storyboard.dumpHTML();
 
     }
@@ -161,31 +150,28 @@ public class Test_S4_S5_S6_S7_S15 {
 //      4) Tina waits for Nick to select the other user option as well and connects to Nick's Phone.
 //      *(Post)* Tina is now connected to Nick's phone & Nick is connected to Tina's phone, a transaction can take place.
     @Test
-    public void S6_testTransferToUser1(){
+    public void S6_UserConnectsToAnotherUserTest(){
         storyboard = new Storyboard();
-        creatingSavingsAccount();//User Tina
-        creatingSecondUserAccount();//User Nick
+        createAccounts();
         tina.login("Tina","1234");
         nick.login("Nick","9876");
-        CheckingAccount.setBalance(30.00);
-        CheckingSecondUser.setBalance(5.00);
+
 
         storyboard.add("Precondition: Tina wants to connect her phone to Nick's phones so that they can make a p2p transaction.");
-        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", CheckingAccount, "Savings", SavingsAccount);
-        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
+        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", tinachecking, "Savings",tinasavings);
+        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", nickchecking);
 
-        CheckingAccount.transferToUser(10.00, CheckingSecondUser,"message");
-       // CheckingSecondUser.receiveFound(10.00,CheckingAccount);
         storyboard.assertTrue("Tina logs in: ",tina.isLoggedIn());//Assert that they are logged in
         storyboard.assertTrue("NIck logs in: ", nick.isLoggedIn());
 
-        //Assert each user is connected to their account.
-        storyboard.assertTrue("They are both connected: ",
-                CheckingAccount.isIsConnected() && CheckingSecondUser.isIsConnected());
+        /*
+            TODO: This scenario does not test an actual transfer but rather simply that tina's device is connected to Nick's device
+                This test should be implemented when Android is set up and we can establish connection between phones
+         */
 
         storyboard.add("Post-condition:: Tina is now connected to Nick's phone & Nick is connected to Tina's phone, a transaction can take place.");
-        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", CheckingAccount, "Savings", SavingsAccount);
-        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
+        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", tinachecking, "Savings",tinasavings);
+        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", nickchecking);
         storyboard.dumpHTML();
     }
 
@@ -202,37 +188,40 @@ public class Test_S4_S5_S6_S7_S15 {
     @Test
     public void S7_testTransferToUser2(){
         storyboard = new Storyboard();
-        creatingSavingsAccount();//User Tina
-        creatingSecondUserAccount();//User Nick
+        createAccounts();
+        //Two users login
         tina.login("Tina","1234");
         nick.login("Nick","9876");
-        CheckingAccount.setBalance(30.00);
-        CheckingSecondUser.setBalance(5.00);
-
-        storyboard.add("Precondition: Tina wants to give Nick $10 by connecting their accounts through phone." +
-                        " Tina has $50 in her Checking and Nick has $15.");
-        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", CheckingAccount, "Savings", SavingsAccount);
-        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
-
-        //Calling transferToUser()
-        CheckingAccount.transferToUser(10.00, CheckingSecondUser, "Transfer");
-        //CheckingSecondUser.receiveFound(10.00,CheckingAccount);
         storyboard.assertTrue("Tina logs in: ",tina.isLoggedIn());//Assert that they are logged in
         storyboard.assertTrue("NIck logs in: ", nick.isLoggedIn());
 
+        storyboard.add("Precondition: Tina wants to give Nick $10 by connecting their accounts through phone." +
+                        " Tina has $30 in her Checking and Nick has $15.");
+        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", tinachecking, "Savings",tinasavings);
+        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", nickchecking);
+        //Assert correct inital balance
+        storyboard.assertEquals("Tina has 30 in her account",30.0,tinachecking.getBalance());
+        storyboard.assertEquals("Tina has 5 in her account",15.0,nickchecking.getBalance());
+
+        //Calling transferToAccount()
+        tinachecking.transferToAccount(10.00, nickchecking, "Transfering 10 from tina's checking to nicks checking");
+
         //Assert each user is connected to their account.
-        storyboard.assertTrue("They are both connected",
-                CheckingAccount.isIsConnected() && CheckingSecondUser.isIsConnected());
+        /*
+            TODO: Add tests here ensuring user phones are connected (Android)
+         */
+//        storyboard.assertTrue("They are both connected",
+//                tinachecking.isIsConnected() && nickchecking.isIsConnected());
 
         //Assert that the amount did transfer
         storyboard.assertEquals("Tina's balance changed: ",
-                CheckingAccount.getBalance(), 30.00-10.00);
-        storyboard.assertEquals("Nick's balance changed: ",
-                CheckingSecondUser.getBalance(), 5.00+10.00);
+                20.0,tinachecking.getBalance());
+        storyboard.assertEquals("Nick's balance changed: "
+               ,25.0, nickchecking.getBalance());
 
         storyboard.add("Post-condition: Tina has transferred $10 to Nick between their accounts");
-        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", CheckingAccount, "Savings", SavingsAccount);
-        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", CheckingSecondUser);
+        storyboard.addObjectDiagram("Tina", tina, "CheckingTina", tinachecking, "Savings",tinasavings);
+        storyboard.addObjectDiagram("Nick", nick, "CheckingNick", nickchecking);
         storyboard.dumpHTML();
 
     }
@@ -241,7 +230,7 @@ public class Test_S4_S5_S6_S7_S15 {
 //    Title: Tina opens a Checking account.
 //      *(Pre)* Tina wants to open a Checking account with Open Bank, she has no accounts.
 //      1) Tina goes to her Open Bank app.
-//	    2) Tina logs in to her bank account.
+//	    2) Tina logs in to her bank account. -> see S1
 //	    3) Tina clicks on create a Checking account.
 //	    4) Tina enters information of her new Checking account.
 //      5) Tina named her Checking account as "My checking".
@@ -249,54 +238,43 @@ public class Test_S4_S5_S6_S7_S15 {
 //      *(Post)* Tina now has a Checking account.
 
     @Test//Creating Checking Account
-    public void S15_creatingCheckingAccount() {
+    public void S15_creatingtinachecking() {
         storyboard = new Storyboard();
-        storyboard.add("Tina wants to open a Checking account with Open Bank. She has no accounts");
+        storyboard.add("[[Tina wants to open a Checking account with Open Bank. She has no accounts]]");
 
-
-        tina = new User().withLoggedIn(true);
-        //Setting the account information
-        CheckingAccount = new Account()//Could not find a way to actually create a constructor.
-                .withAccountnum(123456789)
-                .withBalance(100.0)
-                .withDebit()
-                .withBalance(100.0)
-                .withOwner(tina)
-                .withCreationdate(new Date());
-
-        //Setting date & time
-        date = new Date(2017,03,31);
-        date.setTime(12);
-
-        //Setting user's information
-        tina.withEmail("myEmail@email.com")
+        tina = new User().withLoggedIn(true)
+                .withEmail("myEmail@email.com")
                 .withName("Tina")
                 .withPassword("1234")
                 .withUserID("Tina");
 
-        storyboard.addObjectDiagram("Tina", tina);
-
-
-
         //Tina logs in
         tina.login("Tina", "1234");
 
-        //Asserting the account info is set correctly
-
-        storyboard.assertEquals("Account num is correct: ",
-                CheckingAccount.getAccountnum(), 123456789);
-        storyboard.assertEquals("Name is correct: ",
-                CheckingAccount.getCreationdate(), date);
-        storyboard.assertEquals("Owner is Tina: ",
-                CheckingAccount.getOwner(),(tina));
-
         //Making sure login works
         storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());
-        storyboard.assertEquals("Balance is $30",
-                CheckingAccount.getBalance(),30.00);
 
-        storyboard.add("Tina now has a Checking account.");
-        storyboard.addObjectDiagram("Checking", CheckingAccount, "Tina", tina);
+
+        storyboard.add("Precondition) Tina wants to open a Checking account with Open Bank, she has 0 accounts.");
+        storyboard.assertEquals("Has 0 accounts in this bank",0,tina.getAccount().size());
+        storyboard.add("2) Tina opnes a checking account with balance of 100");
+        //Setting the account information
+        tinachecking = new Account()//Could not find a way to actually create a constructor.
+                .withBalance(100.0)
+                .withOwner(tina)
+                .withCreationdate(new Date());
+
+        //Asserting the account info is set correctly
+        storyboard.assertEquals("Owner is Tina: ",
+                tina,tinachecking.getOwner());
+
+        storyboard.assertEquals("Tina has one account open",1,tina.getAccount().size());
+        storyboard.assertEquals("Tina's checking account has a balance of 100",100.0,tina.getAccount().get(0).getBalance());
+
+        storyboard.addObjectDiagram("Tina", tina);
+
+        storyboard.add("Post) Tina now has a Checking account.");
+        storyboard.addObjectDiagram("Checking", tinachecking, "Tina", tina);
         storyboard.dumpHTML();
     }
 

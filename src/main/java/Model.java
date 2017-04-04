@@ -79,8 +79,8 @@ public class Model {
         //void Account(double initialAmount), constructor
         account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
 
-       //Transaction takes place between this and a user
-        account.withMethod("transferToUser", DataType.BOOLEAN,
+        //Transaction takes place between this and a user
+        account.withMethod("transferToAccount", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"),
                 new Parameter(account).with("destinationAccount"),
                 new Parameter(DataType.STRING).with("note"));

@@ -67,7 +67,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).transferToUser(amount, destinationAccount, note);
+         return ((Account) getCurrentMatch()).transferToAccount(amount, destinationAccount, note);
       }
       return false;
    }
@@ -633,4 +633,16 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
+   
+   //==========================================================================
+   
+   public boolean transferToAccount(double amount, Account destinationAccount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).transferToAccount(amount, destinationAccount, note);
+      }
+      return false;
+   }
+
 }

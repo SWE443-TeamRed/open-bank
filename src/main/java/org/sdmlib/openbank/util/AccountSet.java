@@ -133,7 +133,7 @@ public class AccountSet extends SimpleSet<Account>
 
       for (Account obj : this)
       {
-         result.add( obj.transferToUser(amount, destinationAccount, note) );
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
       }
       return result;
    }
@@ -911,6 +911,21 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+      }
+      return result;
    }
 
 }

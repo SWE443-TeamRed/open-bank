@@ -55,7 +55,7 @@ public class Test_S7_S8_S9 {
         this.precondition();
         tinachecking.withIsConnected(true);
         nickchecking.setIsConnected(true);
-        tinachecking.transferToUser(60, nickchecking, "Tina gives Nick 60");
+        tinachecking.transferToAccount(60, nickchecking, "Tina gives Nick 60");
 
         assertEquals(40, tinachecking.getBalance(), 0);
         assertEquals(160, nickchecking.getBalance(), 0);
@@ -95,6 +95,6 @@ public class Test_S7_S8_S9 {
         this.precondition();
         tinachecking.withBalance(30);
         nickchecking.withBalance(15).withIsConnected(true);
-        assertFalse(tinachecking.transferToUser(1000000, nickchecking, "Tina transfers too much money"));
+        assertFalse(tinachecking.transferToAccount(1000000, nickchecking, "Tina transfers too much money"));
     }
 }

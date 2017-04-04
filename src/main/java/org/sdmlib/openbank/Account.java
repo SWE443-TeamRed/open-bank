@@ -447,16 +447,18 @@ public  class Account implements SendableEntity
 
     //User transfer founds to another user,
     // needs to connect and verify destinationAccount connection.
-    public boolean transferToUser(double amount, Account reciever, String note)
+    public boolean transferToAccount(double amount, Account reciever, String note)
     {
        //Requested transfer funds cannot be negative value or undefined
-        if(amount < 0 ||reciever == null)
+        if(amount < 0)
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+        else if (reciever==null)
+           throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
         if (amount <= this.getBalance()) {
            //Check this account is connected to other account
-            this.setIsConnected(true);
-            if (reciever.IsConnected) {
+            /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
+            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
                //Update this balance to new balance
                 this.setBalance(this.getBalance() - amount);
                 //Request to receiver for a credit of amount
@@ -601,4 +603,7 @@ public  class Account implements SendableEntity
       setType(value);
       return this;
    } 
+
+   
+
 }

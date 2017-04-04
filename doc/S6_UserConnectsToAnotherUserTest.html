@@ -11,10 +11,8 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/Test_S4_S5_S6_S7_S15.java' type='text/x-java'>S7_testTransferToUser2</a></p>
-<p>Check: Tina logs in:  true</p>
-<p>Check: NIck logs in:  true</p>
-<p>Precondition: Tina wants to give Nick $10 by connecting their accounts through phone. Tina has $30 in her Checking and Nick has $15.</p>
+<p>Storyboard <a href='.././src/test/java/Test_S4_S5_S6_S7_S15.java' type='text/x-java'>S6_UserConnectsToAnotherUserTest</a></p>
+<p>Precondition: Tina wants to connect her phone to Nick's phones so that they can make a p2p transaction.</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -79,7 +77,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS7_testTransferToUser24", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -125,14 +123,12 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS7_testTransferToUser25", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Tina has 30 in her account 30.0 actual 30.0</p>
-<p>Check: Tina has 5 in her account 15.0 actual 15.0</p>
-<p>Check: Tina's balance changed:  20.0 actual 20.0</p>
-<p>Check: Nick's balance changed:  25.0 actual 25.0</p>
-<p>Post-condition: Tina has transferred $10 to Nick between their accounts</p>
+<p>Check: Tina logs in:  true</p>
+<p>Check: NIck logs in:  true</p>
+<p>Post-condition:: Tina is now connected to Nick's phone & Nick is connected to Tina's phone, a transaction can take place.</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -153,7 +149,7 @@
          "typ":"clazz",
          "id":"CheckingTina : Account",
          "attributes":[
-            "balance=20.0",
+            "balance=30.0",
             "accountnum=123456789",
             "IsConnected=false"
          ]
@@ -197,7 +193,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS7_testTransferToUser211", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -221,9 +217,9 @@
          "typ":"clazz",
          "id":"CheckingNick : Account",
          "attributes":[
-            "balance=25.0",
+            "balance=15.0",
             "accountnum=1234555555",
-            "IsConnected=true"
+            "IsConnected=false"
          ]
       }
    ],
@@ -243,7 +239,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS7_testTransferToUser212", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 
