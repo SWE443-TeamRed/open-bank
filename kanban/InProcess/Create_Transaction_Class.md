@@ -8,12 +8,22 @@ Description:
   (deposit, withdraw, transfer between accounts, or seeding), the amount of
   money being moved, a unique ID, and the accounts involved. There should be
   getters and setters for each attribute.
+<<<<<<< HEAD:kanban/ToDo/Create_Transaction_Class.md
+  
+  Test the method created to make sure the code works as intended
+  
+  Note:
+  - Each transaction should be related to at most two accounts. I suggest
+  giving them the roles "sender" and "reciever".
+ 
+=======
 
   Testing the Transaction class to verify its' functionality.
 
 
    Note:
    Each transaction should be related to at most two accounts. Suggest giving them the roles "sender" and "reciever".
+>>>>>>> refs/remotes/origin/master:kanban/InProcess/Create_Transaction_Class.md
   
 Related scenario(s):
 

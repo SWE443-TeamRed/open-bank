@@ -5,6 +5,8 @@ Description:
   Create an Database class for the open-bank. The Database class stores
   all the accounts and transactions of the open bank. 
   
+  Test the code to make sure it works as intended
+  
   Note:
   - We currently don't have any methods decided for this class yet
 	- We should probably create methods to add accounts and transactions

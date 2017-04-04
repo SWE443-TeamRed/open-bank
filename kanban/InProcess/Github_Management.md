@@ -1,3 +1,30 @@
+<<<<<<< HEAD
+Title: Github Management
+
+Description:
+
+	Manage Github. Review pull requests, address questions related to
+	Github, and teach beginners how to use Github.
+  
+Related scenario(s):
+
+  
+  
+Time estimate(s):
+
+
+
+Author(s):
+
+  - Vincent
+
+Assigned persons (currently working on task):
+
+  - Cycielya
+
+Log entries (who worked when and how long on this):
+
+=======
 Title: Management of Github repository, merges to master and code reviews.
 
 Description:
@@ -24,3 +51,4 @@ Log Entries:
     - 3/28, Cycielya 1hr
     - 3/30, Cycielya 1hr
     - 4/1, Cycielya 1 hr
+>>>>>>> refs/remotes/origin/master
