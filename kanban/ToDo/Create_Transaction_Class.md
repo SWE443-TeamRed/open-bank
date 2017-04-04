@@ -44,5 +44,12 @@ SetAmount method modified. Checks for negative value. if it is less than 0 thwro
 
 Spend about 3-4 hours.
 
+- Fatih: 4/1/2017--4/2/2017---4/3/2017; 
+There are few changes to Transaction class, date and time fields replaced by creationdate. 
+Also Transaction class has a new attribute "transType".
+Enum is used for transType
+New Enum class created
+
+Spend Total 4 hours
 
 
