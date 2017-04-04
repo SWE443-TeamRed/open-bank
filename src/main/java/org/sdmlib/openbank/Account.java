@@ -110,11 +110,7 @@ public  class Account implements SendableEntity
       /*
          If the user is not logged in, they should not be able to get balance
        */
-      if(getOwner()
-              .isLoggedIn()==true)
          return this.balance;
-      else
-         return 0.0;
    }
 
    public void setBalance(double value)
@@ -462,11 +458,12 @@ public  class Account implements SendableEntity
                //Update this balance to new balance
                 this.setBalance(this.getBalance() - amount);
                 //Request to receiver for a credit of amount
-                if(reciever.receiveFunds(this,amount,note)) {
-                   Transaction transaction = this.recordTransaction(reciever, true,amount, note);
-                   this.withDebit(transaction);
+                   //reciever.receiveFunds(amount,note);
+                reciever.setBalance(reciever.getBalance()+amount);
+                   recordTransaction(reciever,true,amount, note);
+                   recordTransaction(this, false,amount, note);
                    return true;
-                }
+
             }
         }
         return false;//transferToUser did not work.
@@ -474,7 +471,7 @@ public  class Account implements SendableEntity
 
 
     //User wants to give money to this, recieve the funds if this is able to
-   public boolean receiveFunds(Account giver,  double amount, String note)
+   public boolean receiveFunds(double amount, String note)
    {
       Transaction transaction;
       if(amount<=0)
@@ -484,8 +481,6 @@ public  class Account implements SendableEntity
       this.setIsConnected(true);
       if(this.isIsConnected() && this.getOwner().isLoggedIn())
       {
-         Transaction trans = recordTransaction(giver, false,amount,note);
-         this.withCredit(trans);
          this.setBalance(this.getBalance()+amount);
          return  true;
 
@@ -494,7 +489,7 @@ public  class Account implements SendableEntity
    }
 
    //This sets the information of the transaction.
-   public Transaction recordTransaction(Account pair, Boolean debit, double amount, String note )
+   public Transaction recordTransaction(Account recordforAccount, Boolean credit, double amount, String note )
    {
       Transaction trans;
 
@@ -503,16 +498,12 @@ public  class Account implements SendableEntity
          trans.setDate(new Date());
          trans.setAmount(amount);
          trans.setNote(note);
-         if(debit) {
-            //this is the account giving funds
-            trans.setFromAccount(this);
-            //pair is the account reciveing funds
-            trans.setToAccount(pair);
+         if(credit) {
+            //Credit transaction, Set who is getting amount
+            trans.setFromAccount(recordforAccount);
          }else{
-            //pair is the accout giving funds
-            trans.setFromAccount(pair);
-            //this is the account recieving funds
-            trans.setToAccount(this);
+             //Debit transaction, set who is recieving amount
+            trans.setToAccount(recordforAccount);
          }
       return trans;
    }
@@ -521,24 +512,25 @@ public  class Account implements SendableEntity
 
 
     //To withdraw money from this account.
-    public void withdraw(double amount)
+    public boolean withdraw(double amount)
     {
         if(amount <= this.getBalance() && amount > 0) {
-            Transaction trans = recordTransaction(this, true,amount, "Withdrawing "+amount);
-            this.withDebit(trans);
+            recordTransaction(this, false,amount, "Withdrawing ");
             this.setBalance(this.getBalance() - amount);
+            return true;
         }
         else
             throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
                     "and greater than 0.");
+
     }
 
    //=========================================================================
-   public void deposit( double amount ){
+   public boolean deposit( double amount ){
        if(amount > 0) {
-           Transaction trans = recordTransaction(this, false,amount, "Depositing "+amount);
-           this.withCredit(trans);
+           recordTransaction(this, true,amount, "Depositing ");
            this.setBalance(this.getBalance() + amount);
+           return true;
        }
        else
            throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
@@ -570,11 +562,7 @@ public  class Account implements SendableEntity
    }
 
    
-   //==========================================================================
-   public Transaction recordTransaction( Account p0, boolean p1, double p2, String p3 )
-   {
-      return null;
-   }
+
 
    
    //==========================================================================

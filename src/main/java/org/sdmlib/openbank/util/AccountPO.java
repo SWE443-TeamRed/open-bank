@@ -522,7 +522,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
+         return ((Account) getCurrentMatch()).receiveFunds(amount, note);
       }
       return false;
    }

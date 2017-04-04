@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/openbank/JsonPersistencyTest.java' type='text/x-java'>TransferActivityPersistance</a></p>
+<p>Tina logs in</p>
+<p>Precondition: Tina wants to transfer 10 dollars from her checking to nick's checking, Tina currently has 350, Nick has 100</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A2 : Account",
+         "attributes":[
+            "balance=350.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T5 : Transaction",
+         "attributes":[
+            "amount=300.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T6 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T7 : Transaction",
+         "attributes":[
+            "amount=20.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T8 : Transaction",
+         "attributes":[
+            "amount=30.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D10 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A2 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U1 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T4 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T5 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T6 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T7 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T8 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T4 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T5 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T6 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T7 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T8 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"A2 : Account",
+         "attributes":[
+            "balance=350.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T5 : Transaction",
+         "attributes":[
+            "amount=300.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T6 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T7 : Transaction",
+         "attributes":[
+            "amount=20.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T8 : Transaction",
+         "attributes":[
+            "amount=30.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D10 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U1 : User"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T4 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T5 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T6 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T7 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T8 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T4 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T5 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T6 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T7 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T8 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U11 : User",
+         "attributes":[
+            "UserID=nick1",
+            "isAdmin=false",
+            "password=nickpass",
+            "name=Nick",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A12 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D15 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T16 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T17 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T18 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A12 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A13 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D15 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T16 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T17 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T18 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T16 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T17 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T18 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"A12 : Account",
+         "attributes":[
+            "balance=100.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"U11 : User",
+         "attributes":[
+            "UserID=nick1",
+            "isAdmin=false",
+            "password=nickpass",
+            "name=Nick",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D15 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T16 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T17 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T18 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A13 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D15 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T16 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T17 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T18 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T16 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T17 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T18 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Tina has 350 350.0 actual 350.0</p>
+<p>Check: Nick has 100 100.0 actual 100.0</p>
+<p>Tina transfers 10 from her checking to Nick's checking</p>
+<p>Check: Tina lost 10 340.0 actual 340.0</p>
+<p>Check: Nick gained 10 110.0 actual 110.0</p>
+<p>Tina transfers 100 from her checking to Nick's checking</p>
+<p>Check: Tina lost 100 240.0 actual 240.0</p>
+<p>Check: Nick gained 100 210.0 actual 210.0</p>
+<p>Nick transfers 150 from his checking to Tina's checking</p>
+<p>Check: Nick lost 150 60.0 actual 60.0</p>
+<p>Check: Tina gained 150 390.0 actual 390.0</p>
+<p>Nick and Tina log out</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"A2 : Account",
+         "attributes":[
+            "balance=390.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T5 : Transaction",
+         "attributes":[
+            "amount=300.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T26 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T6 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T7 : Transaction",
+         "attributes":[
+            "amount=20.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T8 : Transaction",
+         "attributes":[
+            "amount=30.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T22 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T25 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D27 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D10 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D24 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U1 : User"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T4 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T5 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T26 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T6 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T7 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T8 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T22 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T25 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T4 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T5 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D27 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T26 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T6 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T7 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T8 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D21 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T22 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D24 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T25 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A2 : Account",
+         "attributes":[
+            "balance=390.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T5 : Transaction",
+         "attributes":[
+            "amount=300.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T26 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T6 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T7 : Transaction",
+         "attributes":[
+            "amount=20.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T8 : Transaction",
+         "attributes":[
+            "amount=30.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T22 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T25 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D27 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D10 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D24 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A2 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U1 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T4 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T5 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T26 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T6 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T7 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T8 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T22 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T25 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T4 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T5 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D27 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T26 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T6 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T7 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D10 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T8 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D21 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T22 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D24 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T25 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"A12 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"U11 : User",
+         "attributes":[
+            "UserID=nick1",
+            "isAdmin=false",
+            "password=nickpass",
+            "name=Nick",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T20 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T23 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T28 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D24 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D29 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D15 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T16 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T17 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T18 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T20 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T23 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T28 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A13 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D21 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T20 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D24 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T23 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D29 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T28 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D15 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T16 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T17 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T18 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T16 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T17 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T18 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance21", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"U11 : User",
+         "attributes":[
+            "UserID=nick1",
+            "isAdmin=false",
+            "password=nickpass",
+            "name=Nick",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A12 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"A13 : Account",
+         "attributes":[
+            "balance=60.0",
+            "accountnum=2",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T20 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T23 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T28 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D15 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T16 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T17 : Transaction",
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T18 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D24 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D29 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A12 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A13 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U11 : User"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T20 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T23 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T28 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A12 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D15 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T16 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T17 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T18 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A13 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D21 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T20 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D24 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T23 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D29 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T28 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T16 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T17 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D19 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T18 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance22", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Tina and Nick log back in</p>
+<p>Check: Tina has 1 account 1 actual 1</p>
+<p>Check: Nick has 1 account 1 actual 1</p>
+<p>Check: Tina has 3 credits from past transactions 3 actual 3</p>
+<p>Check: Tina has 5 debits from past transactions 5 actual 5</p>
+<p>Check: Tina has 340 dollars in the bank 390.0 actual 390.0</p>
+<p>Check: Nick has 2 credits from past transactions 2 actual 2</p>
+<p>Check: Nick has 1 debits from past transactions 1 actual 1</p>
+<p>Check: Nick has 210 dollars in the bank 60.0 actual 60.0</p>
+
+</body>
+</html>

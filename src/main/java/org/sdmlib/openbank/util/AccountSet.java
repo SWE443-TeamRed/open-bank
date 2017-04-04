@@ -804,7 +804,7 @@ public class AccountSet extends SimpleSet<Account>
       
       for (Account obj : this)
       {
-         result.add( obj.receiveFunds(giver, amount, note) );
+         result.add( obj.receiveFunds(amount, note) );
       }
       return result;
    }

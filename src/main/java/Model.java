@@ -97,19 +97,18 @@ public class Model {
 
         //Send information from transaction to Transaction class
         account.withMethod("recordTransaction", DataType.create(Transaction.class),
-                new Parameter(account),
                 new Parameter(DataType.BOOLEAN),
                 new Parameter(DataType.DOUBLE),
                 new Parameter(DataType.STRING));
 
         //void withdraw(double amount)
         //Withdraw funds from account
-        account.withMethod("withdraw", DataType.VOID,
+        account.withMethod("withdraw", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
         //void deposit(double amount, Account account)
         //Deposit funds with account
-        account.withMethod("deposit", DataType.VOID,
+        account.withMethod("deposit", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
 
