@@ -1,0 +1,14 @@
+﻿Edits:
+3/23/2017: Henry Lopez 
+4/01/2017: Kimberly Perez
+
+**6**
+Title: Tina connects her phone to Nick's phone.
+*(Pre)* Tina wants to connect her phone to Nick's phones so that they can make a p2p transaction.
+	1) Tina logs into her banking account -> See S1.
+	2) Tina selects the transfer funds option.
+	3) From transfer page, Tina selects the transfer-to-other user option.
+	4) Nick logs into his banking account --> See S1.
+	5) Nick selects the Receive Founds option, and connects to Tina's phone.
+	4) Tina waits for Nick to select the other user option as well and connects to Nick's Phone.
+*(Post)* Tina is now connected to Nick's phone & Nick is connected to Tina's phone, a transaction can take place.

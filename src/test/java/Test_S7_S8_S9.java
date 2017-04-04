@@ -7,24 +7,34 @@ import static org.junit.Assert.*;
  * author: Samuel Luu
  */
 
-public class TestScenario789 {
+public class Test_S7_S8_S9 {
     private User tina, nick;
     private Account t, n;
 
     public void precondition() {
         this.tina = new User()
                 .withName("Tina")
-                .withUserID("tina2017");
+                .withUserID("tina2017")
+                .withPassword("tinapass");
 
         this.nick = new User()
                 .withName("Nick")
-                .withUserID("nick2017");
+                .withUserID("nick2017")
+                .withPassword("nickpass");
         this.t = new Account()
                 .withOwner(tina)
-                .withAccountnum(1);
+                .withAccountnum(1)
+                .withBalance(100);
         this.n = new Account()
                 .withOwner(nick)
-                .withAccountnum(2);
+                .withAccountnum(2)
+                .withBalance(100);
+
+
+        //Tina and Nick successfully Log in
+        // see..scenarios/S1_SucessfulLogin
+        tina.login("tina2017","tinapass");
+        nick.login("nick2017","nickpass");
     }
 
     /**
@@ -66,7 +76,6 @@ public class TestScenario789 {
     @Test (expected = IllegalArgumentException.class)
     public void S8Test() {
         this.precondition();
-        this.t.withBalance(40);
         this.t.withdraw(1000000);   //This should throw an IllegalArgumentException
     }
 
