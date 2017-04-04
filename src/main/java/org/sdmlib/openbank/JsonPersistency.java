@@ -7,11 +7,16 @@ import org.sdmlib.openbank.util.AccountCreator;
 
 import java.io.*;
 import java.text.ParseException;
+import java.util.Date;
+
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 
 /**
  * Created by daniel on 3/29/17.
  */
 public class JsonPersistency {
+
+
 
     public void toJson(Account account){
         String jsonText = "";
@@ -30,7 +35,7 @@ public class JsonPersistency {
 
             // Write Json to textfile
             try {
-                FileWriter file = new FileWriter("jsonPersistencyTest.json");
+                FileWriter file = new FileWriter(account.getOwner().getUserID()+".json");
                 file.write(jsonText);
                 file.flush();
 
@@ -40,7 +45,7 @@ public class JsonPersistency {
         }
     }
 
-    public Account fromJson(){
+    public Account fromJson(String userId){
 
         BufferedReader br = null;
         FileReader fr = null;
@@ -49,7 +54,7 @@ public class JsonPersistency {
         try {
             String sCurrentLine;
 
-            br = new BufferedReader(new FileReader("jsonPersistencyTest.json"));
+            br = new BufferedReader(new FileReader(userId+".json"));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 jsonString += sCurrentLine + "\n";
@@ -80,4 +85,7 @@ public class JsonPersistency {
 
         return account;
     }
+
+
+
 }

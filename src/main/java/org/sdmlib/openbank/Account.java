@@ -24,12 +24,14 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.AccountTypeEnum;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -108,20 +110,18 @@ public  class Account implements SendableEntity
       /*
          If the user is not logged in, they should not be able to get balance
        */
-      if(getOwner()
-              .isLoggedIn()==true)
          return this.balance;
-      else
-         return 0.0;
    }
 
    public void setBalance(double value)
    {
-      if (this.balance != value) {
+      if (value >0) {
 
          double oldValue = this.balance;
          this.balance = value;
          this.firePropertyChange(PROPERTY_BALANCE, oldValue, value);
+      }else{
+         throw new IllegalArgumentException("New balance falls below 0, cannot update existing balance to "+value);
       }
    }
 
@@ -138,7 +138,7 @@ public  class Account implements SendableEntity
       StringBuilder result = new StringBuilder();
       result.append(" ").append(this.getBalance());
       result.append(" ").append(this.getAccountnum());
-      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getCreationdate());
       return result.substring(1);
    }
 
@@ -173,6 +173,17 @@ public  class Account implements SendableEntity
 
 
    //==========================================================================
+
+   public static final String PROPERTY_CREATIONDATE = "creationdate";
+
+   private Date creationdate;
+
+   public Date getCreationdate()
+   {
+      return this.creationdate;
+   }
+
+
 
 
    /********************************************************************
@@ -378,6 +389,14 @@ public  class Account implements SendableEntity
    }
 
 
+
+
+
+
+
+
+
+
    //==========================================================================
 
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
@@ -405,65 +424,12 @@ public  class Account implements SendableEntity
       return this;
    }
 
-   //==========================================================================
-
-   public static final String PROPERTY_NAME = "name";
-
-   private String name;
-
-   public String getName()
-   {
-      return this.name;
-   }
-
-   public void setName(String value)
-   {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
-
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-
-   public Account withName(String value)
-   {
-      setName(value);
-      return this;
-   }
-
-   //==========================================================================
-
-   public static final String PROPERTY_CREATIONDATE = "creationdate";
-
-   private Date creationdate;
-
-   public Date getCreationdate()
-   {
-      return this.creationdate;
-   }
-
-   public void setCreationdate(Date value)
-   {
-      if (this.creationdate != value) {
-
-         Date oldValue = this.creationdate;
-         this.creationdate = value;
-         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
-      }
-   }
-
-   public Account withCreationdate(Date value)
-   {
-      setCreationdate(value);
-      return this;
-   }
 
    /*
    *
    * Log:
    *     Kimberly 03/29/17
-   *
+   *     4/3 - Henry -> refactored and incorporated transaction serialization
    * /
 
    /*
@@ -476,75 +442,156 @@ public  class Account implements SendableEntity
 
 
     //User transfer founds to another user,
-    // needs to connect.
-    public boolean transferToUser(double amount, Account destinationAccount)
+    // needs to connect and verify destinationAccount connection.
+    public boolean transferToAccount(double amount, Account reciever, String note)
     {
-        if(amount < 0 || amount > this.getBalance() || destinationAccount == null)
-            throw new IllegalArgumentException("Can't have an amount less than 0, Greater than current" +
-                                                "balance,  or an undefined Account");
+       //Requested transfer funds cannot be negative value or undefined
+        if(amount < 0)
+            throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+        else if (reciever==null)
+           throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
-       this.setIsConnected(true);
-       if (this.IsConnected) {
-          this.setBalance(this.getBalance() - amount);
-          destinationAccount.setBalance(destinationAccount.getBalance() + amount);
-          return true;
+        if (amount <= this.getBalance()) {
+           //Check this account is connected to other account
+            /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
+            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
+               //Update this balance to new balance
+                this.setBalance(this.getBalance() - amount);
+                //Request to receiver for a credit of amount
+                   //reciever.receiveFunds(amount,note);
+                reciever.setBalance(reciever.getBalance()+amount);
+                   recordTransaction(reciever,true,amount, note);
+                   recordTransaction(this, false,amount, note);
+                   return true;
+
+            }
         }
         return false;//transferToUser did not work.
     }
 
-   //Simple transaction between same user bank accounts.
-   public boolean myBankTransaction( double amount, Account destinationAccount )
+
+    //User wants to give money to this, recieve the funds if this is able to
+   public boolean receiveFunds(double amount, String note)
    {
-      if(amount<=0 || destinationAccount==null)
-         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+      Transaction transaction;
+      if(amount<=0)
+         throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
-      this.setBalance(this.getBalance()-amount);
-      destinationAccount.setBalance(destinationAccount.getBalance()+amount);
-
-      return true;
-   }
-
-   //This how the second user connects to get found from another user.
-   public boolean receiveFound( double amount, Account sourceAccount )
-   {
-      if(amount<=0 || sourceAccount==null)
-         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-
-      //Only connects if sourceAccount is connected.
-      if(sourceAccount.IsConnected)
+      //Verify the user is logged in and is connected to the other user
+      this.setIsConnected(true);
+      if(this.isIsConnected() && this.getOwner().isLoggedIn())
       {
-         this.setIsConnected(true);
-         return true;
+         this.setBalance(this.getBalance()+amount);
+         return  true;
+
       }
-      return false;//receiveFound did not work.
+      return false;//Cannot complete transaction.
    }
 
    //This sets the information of the transaction.
-   public boolean sendTransactionInfo(Transaction transaction, double amount, Date date, Date time, String note )
+   public Transaction recordTransaction(Account recordforAccount, Boolean credit, double amount, String note )
    {
-      if(transaction==null || date==null || time==null || amount==0)
-         throw new IllegalArgumentException("Need an amount, a date, a time and a defined Transaction");
+      Transaction trans;
 
-      transaction.setAmount(amount);
-      transaction.setDate(date);
-      transaction.setTime(time);
-      transaction.setNote(note);
-      return false;
+         //Create transaction object
+         trans = new Transaction();
+         trans.setDate(new Date());
+         trans.setAmount(amount);
+         trans.setNote(note);
+         if(credit) {
+            //Credit transaction, Set who is getting amount
+            trans.setFromAccount(recordforAccount);
+         }else{
+             //Debit transaction, set who is recieving amount
+            trans.setToAccount(recordforAccount);
+         }
+      return trans;
    }
 
+
+
+
     //To withdraw money from this account.
-    public void withdraw(double amount)
+    public boolean withdraw(double amount)
     {
-        if(amount <= this.getBalance() && amount > 0)
+        if(amount <= this.getBalance() && amount > 0) {
+            recordTransaction(this, false,amount, "Withdrawing ");
             this.setBalance(this.getBalance() - amount);
+            return true;
+        }
         else
             throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
                     "and greater than 0.");
+
     }
 
-   public void deposit( double amount )
-   {
+   //=========================================================================
+   public boolean deposit( double amount ){
+       if(amount > 0) {
+           recordTransaction(this, true,amount, "Depositing ");
+           this.setBalance(this.getBalance() + amount);
+           return true;
+       }
+       else
+           throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
+
       
    }
+
+   
+
+
+
+   
+   //==========================================================================
+   
+   public void setCreationdate(Date value)
+   {
+      if (this.creationdate != value) {
+
+         Date oldValue = this.creationdate;
+         this.creationdate = value;
+         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
+      }
+   }
+   
+   public Account withCreationdate(Date value)
+   {
+      setCreationdate(value);
+      return this;
+   }
+
+   
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TYPE = "type";
+   
+   private AccountTypeEnum type;
+
+   public AccountTypeEnum getType()
+   {
+      return this.type;
+   }
+   
+   public void setType(AccountTypeEnum value)
+   {
+      if (this.type != value) {
+      
+         AccountTypeEnum oldValue = this.type;
+         this.type = value;
+         this.firePropertyChange(PROPERTY_TYPE, oldValue, value);
+      }
+   }
+   
+   public Account withType(AccountTypeEnum value)
+   {
+      setType(value);
+      return this;
+   } 
+
+   
 
 }
