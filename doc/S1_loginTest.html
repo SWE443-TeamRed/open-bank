@@ -32,7 +32,7 @@
          "typ":"clazz",
          "id":"A1 : Account",
          "attributes":[
-            "balance=0.0",
+            "balance=100.0",
             "accountnum=1",
             "IsConnected=false"
          ]
@@ -78,7 +78,7 @@
          "typ":"clazz",
          "id":"A1 : Account",
          "attributes":[
-            "balance=0.0",
+            "balance=100.0",
             "accountnum=1",
             "IsConnected=false"
          ]
@@ -104,7 +104,6 @@
    g.layout(100,100);
 </script>
 <p>Check: Tina is currently not logged in to her checking account false actual false</p>
-<p>Check: Tina cannot view her balance 0.0 actual 0.0</p>
 <p>1) Tina opens her banking app
 	2) Tina is at the login screen
 	3) Tina enters her username in the username field
@@ -129,7 +128,7 @@
          "typ":"clazz",
          "id":"A1 : Account",
          "attributes":[
-            "balance=0.0",
+            "balance=100.0",
             "accountnum=1",
             "IsConnected=false"
          ]
@@ -151,7 +150,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasS1_loginTest7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasS1_loginTest6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5) (Post-Condition)  Tina has loged into her account and can now view her balance</p>

@@ -33,7 +33,7 @@
          "typ":"clazz",
          "id":"Checking : Account",
          "attributes":[
-            "balance=0.0",
+            "balance=30.0",
             "accountnum=123456789",
             "IsConnected=false"
          ]
@@ -42,7 +42,7 @@
          "typ":"clazz",
          "id":"Savings : Account",
          "attributes":[
-            "balance=0.0",
+            "balance=5.0",
             "accountnum=0",
             "IsConnected=false"
          ]
@@ -116,8 +116,32 @@
          "attributes":[
             "balance=15.0",
             "accountnum=0",
-            "IsConnected=true"
+            "IsConnected=false"
          ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from checking to savings"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T1 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from checking to savings"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D2 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
       }
    ],
    "edges":[
@@ -145,6 +169,58 @@
             "cardinality":"one",
             "property":"owner",
             "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T3 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"Checking : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T1 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"Savings : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T3 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T1 : Transaction"
          }
       }
    ]

@@ -166,6 +166,22 @@
             "accountnum=0",
             "IsConnected=false"
          ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Transfering 10 from tina's checking to nicks checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D2 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
       }
    ],
    "edges":[
@@ -193,6 +209,32 @@
             "cardinality":"one",
             "property":"owner",
             "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T3 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"CheckingTina : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T3 : Transaction"
          }
       }
    ]
@@ -223,8 +265,24 @@
          "attributes":[
             "balance=25.0",
             "accountnum=1234555555",
-            "IsConnected=true"
+            "IsConnected=false"
          ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T1 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Transfering 10 from tina's checking to nicks checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D2 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
       }
    ],
    "edges":[
@@ -239,6 +297,32 @@
             "cardinality":"one",
             "property":"owner",
             "id":"Nick : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T1 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"CheckingNick : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T1 : Transaction"
          }
       }
    ]

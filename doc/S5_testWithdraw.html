@@ -117,6 +117,22 @@
             "accountnum=0",
             "IsConnected=false"
          ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T2 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
       }
    ],
    "edges":[
@@ -144,6 +160,32 @@
             "cardinality":"one",
             "property":"owner",
             "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T2 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"Savings : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T2 : Transaction"
          }
       }
    ]
