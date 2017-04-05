@@ -28,6 +28,7 @@ import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.TransactionTypeEnum;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -348,4 +349,32 @@ public  class Transaction implements SendableEntity
       withToAccount(value);
       return value;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TRANSTYPE = "transType";
+   
+   private TransactionTypeEnum transType;
+
+   public TransactionTypeEnum getTransType()
+   {
+      return this.transType;
+   }
+   
+   public void setTransType(TransactionTypeEnum value)
+   {
+      if (this.transType != value) {
+      
+         TransactionTypeEnum oldValue = this.transType;
+         this.transType = value;
+         this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
+      }
+   }
+   
+   public Transaction withTransType(TransactionTypeEnum value)
+   {
+      setTransType(value);
+      return this;
+   } 
 }

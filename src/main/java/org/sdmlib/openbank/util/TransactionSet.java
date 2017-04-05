@@ -31,6 +31,7 @@ import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -518,6 +519,65 @@ public class TransactionSet extends SimpleSet<Transaction>
       for (Transaction obj : this)
       {
          obj.withToAccount(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the transType attribute values. 
+    * 
+    * @return List of org.sdmlib.openbank.TransactionTypeEnum objects reachable via transType attribute
+    */
+   public TransactionTypeEnumSet getTransType()
+   {
+      TransactionTypeEnumSet result = new TransactionTypeEnumSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getTransType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the transType attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterTransType(TransactionTypeEnum value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getTransType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the transType attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withTransType(TransactionTypeEnum value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setTransType(value);
       }
       
       return this;

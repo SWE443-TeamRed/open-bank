@@ -9,6 +9,7 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.TransactionPO;
 
 import java.util.Date;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
@@ -337,4 +338,50 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
 
+   public TransactionPO createTransTypeCondition(TransactionTypeEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_TRANSTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createTransTypeAssignment(TransactionTypeEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_TRANSTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionTypeEnum getTransType()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getTransType();
+      }
+      return null;
+   }
+   
+   public TransactionPO withTransType(TransactionTypeEnum value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setTransType(value);
+      }
+      return this;
+   }
+   
 }
