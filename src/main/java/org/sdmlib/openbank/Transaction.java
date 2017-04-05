@@ -28,6 +28,7 @@ import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.TransactionTypeEnum;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -347,5 +348,74 @@ public  class Transaction implements SendableEntity
       Account value = new Account();
       withToAccount(value);
       return value;
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TRANSTYPE = "transType";
+   
+   private TransactionTypeEnum transType;
+
+   public TransactionTypeEnum getTransType()
+   {
+      return this.transType;
+   }
+   
+   public void setTransType(TransactionTypeEnum value)
+   {
+      if (this.transType != value) {
+      
+         TransactionTypeEnum oldValue = this.transType;
+         this.transType = value;
+         this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
+      }
+   }
+   
+   public Transaction withTransType(TransactionTypeEnum value)
+   {
+      setTransType(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CREATIONDATE = "creationdate";
+   
+   private Date creationdate;
+
+   public Date getCreationdate()
+   {
+      return this.creationdate;
+   }
+   
+   public void setCreationdate(Date value)
+   {
+      if (value ==null) {
+         throw new IllegalArgumentException("Creationdate is not valid!");
+      }
+
+      if (this.creationdate != value) {
+      
+         Date oldValue = this.creationdate;
+         this.creationdate = value;
+         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
+      }
+   }
+   
+   public Transaction withCreationdate(Date value)
+   {
+      setCreationdate(value);
+      return this;
+   }
+
+   //*************** Custom Methods ****************//
+   public Account getTransactions(String userID){
+      JsonPersistency json = new JsonPersistency();
+
+      Account accnt = json.fromJson(userID);
+
+      return accnt;
    }
 }
