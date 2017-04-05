@@ -408,5 +408,14 @@ public  class Transaction implements SendableEntity
    {
       setCreationdate(value);
       return this;
-   } 
+   }
+
+   //*************** Custom Methods ****************//
+   public Account getTransactions(String userID){
+      JsonPersistency json = new JsonPersistency();
+
+      Account accnt = json.fromJson(userID);
+
+      return accnt;
+   }
 }
