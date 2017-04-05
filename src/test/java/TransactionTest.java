@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.TransactionTypeEnum;
+
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -93,5 +95,23 @@ public class TransactionTest {
         // set note
         trans.setNote(nt);
         assertTrue(nt == trans.getNote());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeWithdraw(){
+        // set type
+        trans.setTransType(TransactionTypeEnum.Withdraw);
+
+        assertTrue(TransactionTypeEnum.Withdraw == trans.getTransType());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeDeposit(){
+        // set type
+        trans.setTransType(TransactionTypeEnum.Deposit);
+
+        assertTrue(TransactionTypeEnum.Deposit == trans.getTransType());
     }
 }

@@ -928,4 +928,19 @@ public class AccountSet extends SimpleSet<Account>
       return result;
    }
 
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2) );
+      }
+      return result;
+   }
+
 }
