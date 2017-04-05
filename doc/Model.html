@@ -26,6 +26,13 @@
       },
       {
          "typ":"node",
+         "id":"TransactionTypeEnum",
+         "methods":[
+            "toString() String"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"User",
          "attributes":[
             "name : String",
@@ -47,9 +54,9 @@
          "id":"Transaction",
          "attributes":[
             "amount : double",
-            "date : Date",
-            "time : Date",
-            "note : String"
+            "creationdate : Date",
+            "note : String",
+            "transType : TransactionTypeEnum"
          ]
       },
       {
@@ -66,7 +73,7 @@
             "Account(double initialAmount)",
             "transferToAccount(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
             "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
-            "recordTransaction(org.sdmlib.openbank.Account p0, boolean p1, double p2, String p3) org.sdmlib.openbank.Transaction",
+            "recordTransaction(boolean p0, double p1, String p2) org.sdmlib.openbank.Transaction",
             "withdraw(double amount) boolean",
             "deposit(double amount) boolean"
          ]

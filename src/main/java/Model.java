@@ -24,6 +24,14 @@ public class Model {
         enumeration.with(new Literal("SAVINGS"),
                 new Literal("CHECKING"));
         enumeration.withMethod("toString", DataType.STRING);
+
+        Clazz transTypeEnum = model.createClazz("TransactionTypeEnum").enableEnumeration();
+
+        transTypeEnum.with(new Literal("Deposit"),
+                new Literal("Withdraw"),new Literal("Delete"),new Literal("Create"),new Literal("Transfer"));
+
+        transTypeEnum.withMethod("toString", DataType.STRING);
+
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
         // create class user
         Clazz user = model.createClazz("User");
@@ -48,17 +56,17 @@ public class Model {
         user.withMethod("logout", DataType.BOOLEAN);
 
 
-/////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
         // create class Transaction
         Clazz transaction = model.createClazz("Transaction");
         transaction.withAttribute("amount", DataType.DOUBLE);
-        transaction.withAttribute("date",DataType.create(Date.class));
-        transaction.withAttribute("time", DataType.create(Date.class)); //DataType.STRING);
+        transaction.withAttribute("creationdate",DataType.create(Date.class));
         transaction.withAttribute("note",DataType.STRING);
+        transaction.withAttribute("transType", DataType.create(transTypeEnum));
 
         //Transaction Methods
 
-/////////Account////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////Account////////////////////////////////////////////////////////////////////////////////////////////////////////
        /*
         Account class:
         accountnum: account number ID
