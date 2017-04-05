@@ -392,6 +392,10 @@ public  class Transaction implements SendableEntity
    
    public void setCreationdate(Date value)
    {
+      if (value ==null) {
+         throw new IllegalArgumentException("Creationdate is not valid!");
+      }
+
       if (this.creationdate != value) {
       
          Date oldValue = this.creationdate;

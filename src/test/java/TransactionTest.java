@@ -38,8 +38,8 @@ public class TransactionTest {
         Date dt = new Date("03/19/2017");
 
         // set date
-        trans.setDate(dt);
-        assertTrue(dt == trans.getDate());
+        trans.setCreationdate(dt);
+        assertTrue(dt == trans.getCreationdate());
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -48,26 +48,7 @@ public class TransactionTest {
         Date dt = new Date(null);
 
         // set date with null
-        trans.setDate(dt);
-    }
-
-    @Test
-    // setTime and get the time to make sure you get the correct time
-    public void setgetTime(){
-        Date dt = new Date("03/19/2017 23:13:26");
-
-        // set time
-        trans.setTime(dt);
-        assertTrue(dt == trans.getTime());
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    // setTime with null to see if it will throw IllegalArgumentException
-    public void setgetTimeTestNULL(){
-        Date dt = new Date(null);
-
-        // set date with null
-        trans.setDate(dt);
+        trans.setCreationdate(dt);
     }
 
     @Test
