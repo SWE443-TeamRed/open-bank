@@ -40,6 +40,7 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_FROMACCOUNT,
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
+      Transaction.PROPERTY_CREATIONDATE,
    };
    
    @Override
@@ -99,6 +100,11 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getTransType();
       }
+
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getCreationdate();
+      }
       
       return null;
    }
@@ -106,6 +112,12 @@ public class TransactionCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setCreationdate((Date) value);
+         return true;
+      }
+
       if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setTransType(TransactionTypeEnum.valueOf((String) value));

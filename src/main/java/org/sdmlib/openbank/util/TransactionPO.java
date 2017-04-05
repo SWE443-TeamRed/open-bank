@@ -384,4 +384,50 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
+   public TransactionPO createCreationdateCondition(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createCreationdateAssignment(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public Date getCreationdate()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getCreationdate();
+      }
+      return null;
+   }
+   
+   public TransactionPO withCreationdate(Date value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+   
 }

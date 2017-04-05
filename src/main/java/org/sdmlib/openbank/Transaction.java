@@ -377,4 +377,32 @@ public  class Transaction implements SendableEntity
       setTransType(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CREATIONDATE = "creationdate";
+   
+   private Date creationdate;
+
+   public Date getCreationdate()
+   {
+      return this.creationdate;
+   }
+   
+   public void setCreationdate(Date value)
+   {
+      if (this.creationdate != value) {
+      
+         Date oldValue = this.creationdate;
+         this.creationdate = value;
+         this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
+      }
+   }
+   
+   public Transaction withCreationdate(Date value)
+   {
+      setCreationdate(value);
+      return this;
+   } 
 }
