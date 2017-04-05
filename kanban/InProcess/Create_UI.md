@@ -33,6 +33,8 @@ Author(s):
 
 Assigned persons (currently working on task):
 
+   - Kimberly
+   - Savindi
 
 
 Log entries (who worked when and how long on this):
