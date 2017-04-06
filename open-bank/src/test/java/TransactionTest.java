@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.TransactionTypeEnum;
+
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -36,8 +38,8 @@ public class TransactionTest {
         Date dt = new Date("03/19/2017");
 
         // set date
-        trans.setDate(dt);
-        assertTrue(dt == trans.getDate());
+        trans.setCreationdate(dt);
+        assertTrue(dt == trans.getCreationdate());
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -46,26 +48,7 @@ public class TransactionTest {
         Date dt = new Date(null);
 
         // set date with null
-        trans.setDate(dt);
-    }
-
-    @Test
-    // setTime and get the time to make sure you get the correct time
-    public void setgetTime(){
-        Date dt = new Date("03/19/2017 23:13:26");
-
-        // set time
-        trans.setTime(dt);
-        assertTrue(dt == trans.getTime());
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    // setTime with null to see if it will throw IllegalArgumentException
-    public void setgetTimeTestNULL(){
-        Date dt = new Date(null);
-
-        // set date with null
-        trans.setDate(dt);
+        trans.setCreationdate(dt);
     }
 
     @Test
@@ -93,5 +76,23 @@ public class TransactionTest {
         // set note
         trans.setNote(nt);
         assertTrue(nt == trans.getNote());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeWithdraw(){
+        // set type
+        trans.setTransType(TransactionTypeEnum.Withdraw);
+
+        assertTrue(TransactionTypeEnum.Withdraw == trans.getTransType());
+    }
+
+    @Test
+    // setTrans Type and get the type to make sure you get the correct type
+    public void setgetTransTypeDeposit(){
+        // set type
+        trans.setTransType(TransactionTypeEnum.Deposit);
+
+        assertTrue(TransactionTypeEnum.Deposit == trans.getTransType());
     }
 }
