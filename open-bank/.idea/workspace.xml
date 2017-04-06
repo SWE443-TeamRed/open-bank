@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1e64f15-53f0-4c02-a0fb-ee51a64d4175" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/ic_launcher_logo-web.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_bank_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_befor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_nav_back.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_next.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_transfer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_bank_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_befor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_nav_back.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_next.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_transfer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_bank_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_befor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_nav_back.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_next.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_transfer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_bank_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_befor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_nav_back.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_next.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_transfer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle/wrapper/gradle-wrapper.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Contacts.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Home.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Menu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Register.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/SignIn.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TranscationLog.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/gradle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/build.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/proguard-rules.pro" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/androidTest/java/com/app/swe443/openbankapp/ExampleInstrumentedTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/AndroidManifest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/Account.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/ContactsFrag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/CreatorCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/HomeFrag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/JsonPersistency.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/LoginActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/MainActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/NavDrawerItem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/NavDrawerListAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/Transaction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionFrag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransferFrag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/User.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/activity_login.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/activity_main.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_contacts.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_home.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_transaction.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_transfer.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/navigation_drawer_header.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/navigation_drawer_list_item.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/colors.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/dimens.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/strings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/styles.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/test/java/com/app/swe443/openbankapp/ExampleUnitTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/build.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradlew" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradlew.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/settings.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_uniks_NetworkParser_sources_4_4_311.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_sdmlib_SDMLib_2_2_1094.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_main.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_test.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/preferred-vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Deposit.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S13_S14_incorrectLoginAttemptsTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S15_creatingCheckingAccount.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S15_creatingtinachecking.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S1_loginTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S4_UserTransersBetweenTheirAccountsTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S4_myBankTransactionTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S5_testWithdraw.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S6_UserConnectsToAnotherUserTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S6_testTransferToUser1.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S7_testTransferToUser2.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/TinaLogsIntoHerBankingAccount.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/TransferActivityPersistance.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/UserActivityPersistance.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/WithdrawDepositActivityPersistance.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/dagre.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/diagramstyle.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/drawer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/graph.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/nv.d3.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/nv.d3.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/incorrectLoginAttemptsTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/loginTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/refs.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradlew" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradlew.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jsonPersistencyTest.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Create_Burndown_Chart.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Github_Repo_Setup.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Github_Setup.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Account_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Object_Diagrams_For_Scenarios.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Scenarios.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Test.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Transaction_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Cycielya_Git_Tutoring.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/GUI_Mockups.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Management.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Manage_Spreadsheet.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Task_Management.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/LogSheet.url" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Requirements_and_Tasks_Overview.url" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Research Documentation/placeholder.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Brainstorm_Features.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Code_UI.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Database_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Delete_Account.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_UI.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_Filtering.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_NFC.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_QR_Codes.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_SDMLIB_Android_Integration.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_Security.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Transaction_History.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nick1.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S10_ViewTransactions" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S11_ModifyTransactions" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S12_DepositMoney" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S13_ChecksBalanceAgainToMakeSureDataIsPersistent" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S13_LoginFailedByUserID" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S14_LoginFailedByPassword" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S15_CreateAccount" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S1_SucessfulLogin" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S2_AdminUserCreatesAnAccountForAnotherUser" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S3_ViewBalance" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S4_TransferBetweenUserAccounts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S5_WithdrawFromAccount" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S6_ConnectPhones" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S7_TransferBetweenUsers" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S8_WithdrawTooMuch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S9_TransferTooMuch" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/settings.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Model.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/AccountTypeEnum.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountTypeEnumSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPOCreator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/JsonPersistencyTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S12.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S1_S3_S13_S14.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S4_S5_S6_S7_S15.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S7_S8_S9.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tina1.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Contacts.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Home.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Menu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Register.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/SignIn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TranscationLog.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../build.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/JsonPersistency.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/util/UserPOCreator.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/Deposit.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/Model.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S13_S14_incorrectLoginAttemptsTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S15_creatingCheckingAccount.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S15_creatingtinachecking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S1_loginTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S4_UserTransersBetweenTheirAccountsTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S4_myBankTransactionTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S5_testWithdraw.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S6_UserConnectsToAnotherUserTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S6_testTransferToUser1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S7_testTransferToUser2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/TinaLogsIntoHerBankingAccount.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/TransferActivityPersistance.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/UserActivityPersistance.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/WithdrawDepositActivityPersistance.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/dagre.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/diagramstyle.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/drawer.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/graph.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/nv.d3.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/nv.d3.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/incorrectLoginAttemptsTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/loginTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/refs.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradlew" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradlew.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../jsonPersistencyTest.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Create_Burndown_Chart.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Github_Repo_Setup.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Github_Setup.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Account_Class.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Object_Diagrams_For_Scenarios.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Scenarios.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Test.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Transaction_Class.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Cycielya_Git_Tutoring.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/GUI_Mockups.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Github_Management.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/JSON_serialization.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Manage_Spreadsheet.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Markdown_Management.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Modelling.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Task_Management.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/LogSheet.url" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Requirements_and_Tasks_Overview.url" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Research Documentation/placeholder.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Brainstorm_Features.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Code_UI.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_Database_Class.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_Delete_Account.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_UI.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_Filtering.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_NFC.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_QR_Codes.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_SDMLIB_Android_Integration.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_Security.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Transaction_History.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../nick1.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S10_ViewTransactions" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S11_ModifyTransactions" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S12_DepositMoney" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S13_ChecksBalanceAgainToMakeSureDataIsPersistent" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S13_LoginFailedByUserID" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S14_LoginFailedByPassword" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S15_CreateAccount" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S1_SucessfulLogin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S2_AdminUserCreatesAnAccountForAnotherUser" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S3_ViewBalance" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S4_TransferBetweenUserAccounts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S5_WithdrawFromAccount" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S6_ConnectPhones" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S7_TransferBetweenUsers" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S8_WithdrawTooMuch" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S9_TransferTooMuch" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../settings.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/Model.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/Account.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/AccountTypeEnum.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/JsonPersistency.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/Transaction.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/User.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountPO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountPOCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountTypeEnumSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionPO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionPOCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserPO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserPOCreator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/JsonPersistencyTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S12.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S1_S3_S13_S14.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S4_S5_S6_S7_S15.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S7_S8_S9.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/TransactionTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../tina1.json" afterPath="" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="myGradleHomes">
+      <map>
+        <entry key="$PROJECT_DIR$" value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1" />
+      </map>
+    </option>
+    <option name="myGradleVersions">
+      <map>
+        <entry key="$PROJECT_DIR$" value="3.1" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="open-bank" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="open-bank" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="availableTasks">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by root project 'open-bank'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Gradle wrapper files. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wrapper" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of root project 'open-bank'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Initializes a new Gradle build. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of root project 'open-bank'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$" value="2982915192178" />
+        <entry key="$PROJECT_DIR$/../../../GitHubAssignments/SAStudyRightByHand" value="2974506750274" />
+      </map>
+    </option>
+    <option name="projectBuildClasspath">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <ExternalProjectBuildClasspathPojo>
+              <option name="modulesBuildClasspath">
+                <map>
+                  <entry key="$PROJECT_DIR$">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="path" value="$PROJECT_DIR$" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="name" value="open-bank" />
+              <option name="projectBuildClasspath">
+                <list>
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-base-services-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-model-core-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/ant-1.9.6.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-core-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-open-api-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-script-kotlin-0.3.2.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-docs-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-installation-beacon-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-wrapper-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-model-groovy-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-base-services-groovy-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/groovy-all-2.4.7.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-process-services-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-tooling-api-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-logging-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-resources-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-messaging-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-ui-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-launcher-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-cli-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-jvm-services-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/ant-launcher-1.9.6.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/gradle-native-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-ide-play-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-task-cache-http-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-language-scala-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-ivy-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-reporting-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-signing-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-ide-native-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-jacoco-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-javascript-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-platform-native-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-scala-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-diagnostics-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-build-init-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-jetty-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-plugin-use-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-build-comparison-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-resources-http-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-resources-sftp-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-platform-jvm-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-language-java-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-plugins-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-language-native-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-language-groovy-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-testing-jvm-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-testing-native-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-test-kit-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-osgi-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-ear-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-maven-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-platform-base-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-plugin-development-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-tooling-api-builders-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-platform-play-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-testing-base-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-code-quality-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-dependency-management-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-language-jvm-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-resources-s3-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-antlr-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-publish-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-ide-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-composite-builds-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/gradle-announce-3.1.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-3.1-bin/37qejo6a26ua35lyn7h1u9v2n/gradle-3.1/lib/plugins/ivy-2.2.0.jar" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
+                  <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
+                </list>
+              </option>
+            </ExternalProjectBuildClasspathPojo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="683" />
+    <option name="height" value="768" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="open-bank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="JUnit.All in open-bank_test">
+    <configuration default="false" name="All in open-bank_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="open-bank_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="ApexTest" factoryName="Apex Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="open-bank" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="executeSpecs" factoryName="Gauge Execution">
+      <setting name="environment" value="" />
+      <setting name="specsToExecute" value="" />
+      <setting name="tags" value="" />
+      <setting name="parallelNodes" value="" />
+      <setting name="execInParallel" value="false" />
+      <setting name="programParameters" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="moduleName" value="" />
+      <envMap />
+      <setting name="rowsRange" value="" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.All in open-bank_test" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.All in open-bank_test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1e64f15-53f0-4c02-a0fb-ee51a64d4175" name="Default" comment="" />
+      <created>1491457885692</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1491457885692</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="All_in_open-bank_test - 2017.04.06 at 01h 53m 43s.xml">
+      <configuration name="All in open-bank_test" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="683" height="768" extended-state="1" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5030303" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.4969697" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.64705884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+</project>
