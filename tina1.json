@@ -3,8 +3,7 @@
       "class":"org.sdmlib.openbank.Account",
       "id":"demo.A1",
       "prop":{
-         "balance":390,
-         "accountnum":1,
+         "balance":540,
          "creationdate":{
             "class":"java.util.Date",
             "id":"demo.D2"
@@ -21,32 +20,12 @@
             {
                "class":"org.sdmlib.openbank.Transaction",
                "id":"demo.T5"
-            },
-            {
-               "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T6"
             }
          ],
          "debit":[
             {
                "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T7"
-            },
-            {
-               "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T8"
-            },
-            {
-               "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T9"
-            },
-            {
-               "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T10"
-            },
-            {
-               "class":"org.sdmlib.openbank.Transaction",
-               "id":"demo.T11"
+               "id":"demo.T6"
             }
          ]
       }
@@ -57,10 +36,12 @@
       "id":"demo.U3",
       "prop":{
          "UserID":"tina1",
-         "password":"tinapass",
-         "name":"Tina",
-         "LoggedIn":true,
+         "name":"tina",
          "account":[
+            {
+               "class":"org.sdmlib.openbank.Account",
+               "id":"demo.A7"
+            },
             {
                "class":"org.sdmlib.openbank.Account",
                "id":"demo.A1"
@@ -72,15 +53,15 @@
       "class":"org.sdmlib.openbank.Transaction",
       "id":"demo.T4",
       "prop":{
-         "amount":10,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D12"
-         },
-         "note":"Depositing ",
+         "amount":50,
+         "note":"Deposit Trans 1",
          "fromAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
@@ -88,15 +69,15 @@
       "class":"org.sdmlib.openbank.Transaction",
       "id":"demo.T5",
       "prop":{
-         "amount":300,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D13"
-         },
-         "note":"Depositing ",
+         "amount":20,
+         "note":"Deposit Trans 2",
          "fromAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
@@ -104,103 +85,29 @@
       "class":"org.sdmlib.openbank.Transaction",
       "id":"demo.T6",
       "prop":{
-         "amount":150,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D14"
-         },
-         "note":"Nick transfers 150 from his checking to Tina's checking",
-         "fromAccount":{
+         "amount":40,
+         "note":"Withdraw Trans 3",
+         "toAccount":{
             "class":"org.sdmlib.openbank.Account",
             "id":"demo.A1"
+         },
+         "creationdate":{
+            "class":"java.util.Date",
+            "id":"demo.D2"
          }
       }
    },
    {
-      "class":"org.sdmlib.openbank.Transaction",
-      "id":"demo.T7",
+      "class":"org.sdmlib.openbank.Account",
+      "id":"demo.A7",
       "prop":{
-         "amount":10,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D13"
-         },
-         "note":"Withdrawing ",
-         "toAccount":{
-            "class":"org.sdmlib.openbank.Account",
-            "id":"demo.A1"
+         "accountnum":1,
+         "owner":{
+            "class":"org.sdmlib.openbank.User",
+            "id":"demo.U3"
          }
       }
    },
-   {
-      "class":"org.sdmlib.openbank.Transaction",
-      "id":"demo.T8",
-      "prop":{
-         "amount":20,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D15"
-         },
-         "note":"Withdrawing ",
-         "toAccount":{
-            "class":"org.sdmlib.openbank.Account",
-            "id":"demo.A1"
-         }
-      }
-   },
-   {
-      "class":"org.sdmlib.openbank.Transaction",
-      "id":"demo.T9",
-      "prop":{
-         "amount":30,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D15"
-         },
-         "note":"Withdrawing ",
-         "toAccount":{
-            "class":"org.sdmlib.openbank.Account",
-            "id":"demo.A1"
-         }
-      }
-   },
-   {
-      "class":"org.sdmlib.openbank.Transaction",
-      "id":"demo.T10",
-      "prop":{
-         "amount":10,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D16"
-         },
-         "note":"Tina transfers 10 from her checking to Nick's checking",
-         "toAccount":{
-            "class":"org.sdmlib.openbank.Account",
-            "id":"demo.A1"
-         }
-      }
-   },
-   {
-      "class":"org.sdmlib.openbank.Transaction",
-      "id":"demo.T11",
-      "prop":{
-         "amount":100,
-         "date":{
-            "class":"java.util.Date",
-            "id":"demo.D17"
-         },
-         "note":"Tina transfers 100 from her checking to Nick's checking",
-         "toAccount":{
-            "class":"org.sdmlib.openbank.Account",
-            "id":"demo.A1"
-         }
-      }
-   },
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
-   {"class":"java.util.Date"},
    {"class":"java.util.Date"},
    {"class":"java.util.Date"},
    {"class":"java.util.Date"}
