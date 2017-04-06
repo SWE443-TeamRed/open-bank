@@ -12,7 +12,7 @@ Related scenario(s):
   
 Time estimate(s):
 
-  
+  6H
 
 Author(s):
 
@@ -20,7 +20,7 @@ Author(s):
 
 Assigned persons (currently working on task):
 
-
+  - Daniel
 
 Log entries (who worked when and how long on this):
 

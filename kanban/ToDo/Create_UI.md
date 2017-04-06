@@ -24,7 +24,7 @@ Tina clicked banking app in her Android phone.
   
 Time estimate(s):
 
-  
+  5h
 
 Author(s):
 
@@ -33,7 +33,8 @@ Author(s):
 
 Assigned persons (currently working on task):
 
-
+  - Savindi
+  - Kimberly
 
 Log entries (who worked when and how long on this):
 
