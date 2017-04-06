@@ -239,4 +239,32 @@ public class UserTests {
         this.sam.login("sam2", "StudyRight");
         assertTrue(this.sam.isLoggedIn());
     }
+
+    /**
+     * Logout Test Cases
+     */
+    @Test
+    public void testLogout(){
+        this.sam = new User()
+                .withName("Sam")
+                .withUserID("sam2")
+                .withEmail("sl2@studyright.com")
+                .withPassword("SWE443")
+                .withPhone(123123123);
+        this.sam.setPassword("StudyRight");
+        assertFalse(this.sam.isLoggedIn());
+    }
+
+    @Test
+    public void testLogout2(){
+        this.sam = new User()
+                .withName("Sam")
+                .withUserID("sam2")
+                .withEmail("sl2@studyright.com")
+                .withPassword("SWE443")
+                .withPhone(123123123);
+        this.sam.login("sam2", "SWE443");
+        this.sam.logout();
+        assertFalse(this.sam.isLoggedIn());
+    }
 }
