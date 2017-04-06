@@ -2,361 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1e64f15-53f0-4c02-a0fb-ee51a64d4175" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/ic_launcher_logo-web.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_bank_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_befor.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_nav_back.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_next.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-hdpi/ic_action_transfer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_bank_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_befor.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_nav_back.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_next.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-mdpi/ic_action_transfer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_bank_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_befor.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_nav_back.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_next.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xhdpi/ic_action_transfer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_bank_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_befor.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_nav_back.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_next.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/drawable-xxhdpi/ic_action_transfer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle/wrapper/gradle-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Contacts.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Home.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Menu.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/Register.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/SignIn.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TranscationLog.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep3.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Mockups/TransferStep5.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario5.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test4-6_SequenceDiagrams/seq_diagram_scenario6.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/gradle.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/.idea/runConfigurations.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/build.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/proguard-rules.pro" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/androidTest/java/com/app/swe443/openbankapp/ExampleInstrumentedTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/AndroidManifest.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/Account.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/AccountSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/ContactsFrag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/CreatorCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/HomeFrag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/JsonPersistency.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/LoginActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/MainActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/NavDrawerItem.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/NavDrawerListAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/Transaction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionFrag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransactionSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/TransferFrag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/java/com/app/swe443/openbankapp/UserSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/activity_login.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/activity_main.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_contacts.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_home.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_transaction.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/fragment_transfer.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/navigation_drawer_header.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/layout/navigation_drawer_list_item.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/main/res/values/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/app/src/test/java/com/app/swe443/openbankapp/ExampleUnitTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/build.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradlew" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/gradlew.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../OpenBankApplication/settings.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_uniks_NetworkParser_sources_4_4_311.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_sdmlib_SDMLib_2_2_1094.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_main.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules/open-bank_test.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/preferred-vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Deposit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Model.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S13_S14_incorrectLoginAttemptsTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S15_creatingCheckingAccount.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S15_creatingtinachecking.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S1_loginTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S4_UserTransersBetweenTheirAccountsTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S4_myBankTransactionTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S5_testWithdraw.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S6_UserConnectsToAnotherUserTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S6_testTransferToUser1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/S7_testTransferToUser2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/TinaLogsIntoHerBankingAccount.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/TransferActivityPersistance.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/UserActivityPersistance.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/WithdrawDepositActivityPersistance.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/dagre.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/diagramstyle.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/drawer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/graph.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/nv.d3.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/includes/nv.d3.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/incorrectLoginAttemptsTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/loginTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/refs.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradlew" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gradlew.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jsonPersistencyTest.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Create_Burndown_Chart.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Github_Repo_Setup.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Done/Github_Setup.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Account_Class.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Object_Diagrams_For_Scenarios.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Scenarios.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Test.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Transaction_Class.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Cycielya_Git_Tutoring.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/GUI_Mockups.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Github_Management.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/JSON_serialization.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Manage_Spreadsheet.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Markdown_Management.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Modelling.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Task_Management.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/LogSheet.url" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Requirements_and_Tasks_Overview.url" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/Research Documentation/placeholder.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Brainstorm_Features.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Code_UI.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Database_Class.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_Delete_Account.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_UI.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_Filtering.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_NFC.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_QR_Codes.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_SDMLIB_Android_Integration.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_Security.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Transaction_History.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nick1.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S10_ViewTransactions" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S11_ModifyTransactions" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S12_DepositMoney" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S13_ChecksBalanceAgainToMakeSureDataIsPersistent" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S13_LoginFailedByUserID" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S14_LoginFailedByPassword" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S15_CreateAccount" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S1_SucessfulLogin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S2_AdminUserCreatesAnAccountForAnotherUser" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S3_ViewBalance" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S4_TransferBetweenUserAccounts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S5_WithdrawFromAccount" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S6_ConnectPhones" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S7_TransferBetweenUsers" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S8_WithdrawTooMuch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scenarios/S9_TransferTooMuch" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Model.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Account.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/AccountTypeEnum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/JsonPersistency.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/Transaction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/AccountTypeEnumSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/TransactionSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserPOCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/sdmlib/openbank/util/UserSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/JsonPersistencyTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S12.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S1_S3_S13_S14.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S4_S5_S6_S7_S15.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/Test_S7_S8_S9.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/TransactionTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tina1.json" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Contacts.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Home.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Menu.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/Register.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/SignIn.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TranscationLog.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Mockups/TransferStep5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Test4-6_SequenceDiagrams/seq_diagram_scenario6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/JsonPersistency.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/util/UserPOCreator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/Deposit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/Model.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S13_S14_incorrectLoginAttemptsTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S15_creatingCheckingAccount.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S15_creatingtinachecking.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S1_loginTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S4_UserTransersBetweenTheirAccountsTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S4_myBankTransactionTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S5_testWithdraw.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S6_UserConnectsToAnotherUserTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S6_testTransferToUser1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/S7_testTransferToUser2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/TinaLogsIntoHerBankingAccount.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/TransferActivityPersistance.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/UserActivityPersistance.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/WithdrawDepositActivityPersistance.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/dagre.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/diagramstyle.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/drawer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/graph.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/nv.d3.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/includes/nv.d3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/incorrectLoginAttemptsTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/loginTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/refs.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../doc/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradlew" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../gradlew.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../jsonPersistencyTest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Create_Burndown_Chart.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Github_Repo_Setup.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Done/Github_Setup.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Account_Class.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Object_Diagrams_For_Scenarios.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Scenarios.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Test.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Create_Transaction_Class.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Cycielya_Git_Tutoring.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/GUI_Mockups.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Github_Management.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/JSON_serialization.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Manage_Spreadsheet.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Markdown_Management.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Modelling.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/InProcess/Task_Management.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/LogSheet.url" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Requirements_and_Tasks_Overview.url" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/Research Documentation/placeholder.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Brainstorm_Features.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Code_UI.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_Database_Class.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_Delete_Account.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Create_UI.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_Filtering.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_NFC.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_QR_Codes.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_SDMLIB_Android_Integration.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Research_Security.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../kanban/ToDo/Transaction_History.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../nick1.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S10_ViewTransactions" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S11_ModifyTransactions" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S12_DepositMoney" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S13_ChecksBalanceAgainToMakeSureDataIsPersistent" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S13_LoginFailedByUserID" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S14_LoginFailedByPassword" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S15_CreateAccount" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S1_SucessfulLogin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S2_AdminUserCreatesAnAccountForAnotherUser" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S3_ViewBalance" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S4_TransferBetweenUserAccounts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S5_WithdrawFromAccount" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S6_ConnectPhones" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S7_TransferBetweenUsers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S8_WithdrawTooMuch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../scenarios/S9_TransferTooMuch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../settings.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/Model.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/Account.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/AccountTypeEnum.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/JsonPersistency.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/Transaction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/User.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountPO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountPOCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/AccountTypeEnumSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/CreatorCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionPO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionPOCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/TransactionSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserPO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserPOCreator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/main/java/org/sdmlib/openbank/util/UserSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/JsonPersistencyTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S12.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S1_S3_S13_S14.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S4_S5_S6_S7_S15.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/Test_S7_S8_S9.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../src/test/java/TransactionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../tina1.json" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_User_Class.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban/ToDo/Improve_Backend_Functionality.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/JsonPersistency.class" afterPath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/JsonPersistency.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/util/UserPOCreator.class" afterPath="$PROJECT_DIR$/../build/classes/main/org/sdmlib/openbank/util/UserPOCreator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/TransferActivityPersistance.html" afterPath="$PROJECT_DIR$/doc/TransferActivityPersistance.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/InProcess/Create_Account_Class.md" afterPath="$PROJECT_DIR$/kanban/InProcess/Create_Account_Class.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Create_UI.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Create_UI.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban/ToDo/Research_NFC.md" afterPath="$PROJECT_DIR$/kanban/ToDo/Research_NFC.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nick1.json" afterPath="$PROJECT_DIR$/nick1.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tina1.json" afterPath="$PROJECT_DIR$/tina1.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -656,8 +312,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="683" />
-    <option name="height" value="768" />
+    <option name="x" value="-4" />
+    <option name="y" value="-4" />
+    <option name="width" value="1374" />
+    <option name="height" value="758" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -675,8 +333,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -716,10 +373,6 @@
               <option name="myItemId" value="test" />
               <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -737,7 +390,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1024,41 +678,41 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="683" height="768" extended-state="1" />
+    <frame x="-4" y="-4" width="1374" height="758" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5030303" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5030303" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.4969697" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.64705884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.4969697" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3189394" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
