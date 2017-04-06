@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class Test_S7_S8_S9 {
     private User tina, nick;
-    private Account t, n;
+    private Account tinachecking, nickchecking;
 
     public void precondition() {
         this.tina = new User()
@@ -17,15 +17,15 @@ public class Test_S7_S8_S9 {
                 .withUserID("tina2017")
                 .withPassword("tinapass");
 
-        this.nick = new User()
+        nick = new User()
                 .withName("Nick")
                 .withUserID("nick2017")
                 .withPassword("nickpass");
-        this.t = new Account()
+        tinachecking = new Account()
                 .withOwner(tina)
                 .withAccountnum(1)
                 .withBalance(100);
-        this.n = new Account()
+        nickchecking = new Account()
                 .withOwner(nick)
                 .withAccountnum(2)
                 .withBalance(100);
@@ -53,12 +53,12 @@ public class Test_S7_S8_S9 {
     @Test //Test the Player functionality
     public void S7Test(){
         this.precondition();
-        this.t.withBalance(50);
-        this.n.withBalance(15).setIsConnected(true);
-        this.t.transferToUser(10, this.n);
+        tinachecking.withIsConnected(true);
+        nickchecking.setIsConnected(true);
+        tinachecking.transferToAccount(60, nickchecking, "Tina gives Nick 60");
 
-        assertEquals(40, this.t.getBalance(), 0);
-        assertEquals(25, this.n.getBalance(), 0);
+        assertEquals(40, tinachecking.getBalance(), 0);
+        assertEquals(160, nickchecking.getBalance(), 0);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Test_S7_S8_S9 {
     @Test (expected = IllegalArgumentException.class)
     public void S8Test() {
         this.precondition();
-        this.t.withdraw(1000000);   //This should throw an IllegalArgumentException
+        tinachecking.withdraw(1000000);   //This should throw an IllegalArgumentException
     }
 
     /**
@@ -93,8 +93,8 @@ public class Test_S7_S8_S9 {
     @Test
     public void S9Test() {
         this.precondition();
-        this.t.withBalance(30);
-        this.n.withBalance(15).withIsConnected(true);
-        assertFalse(this.t.transferToUser(1000000, this.n));
+        tinachecking.withBalance(30);
+        nickchecking.withBalance(15).withIsConnected(true);
+        assertFalse(tinachecking.transferToAccount(1000000, nickchecking, "Tina transfers too much money"));
     }
 }

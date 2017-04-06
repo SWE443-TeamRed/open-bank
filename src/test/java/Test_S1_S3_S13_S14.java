@@ -45,23 +45,27 @@ public class Test_S1_S3_S13_S14 {
 
         //Precondition
         storyboard.add("0. (Pre-condition) Tina has her phone and wants to log into her banking account. The app is installed on her phone but Tina is not logged in");
+        System.out.println("Tina is not logged in");
         storyboard.addObjectDiagram("Inital Tina", tina);
-                //Assert inital scenario
-                storyboard.assertEquals("Tina is currently not logged in to her checking account", false,tina.isLoggedIn());
-                storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
+        //Assert inital scenario
+        storyboard.assertEquals("Tina is currently not logged in to her checking account", false,tina.isLoggedIn());
+//        storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
+
         //Actions
-                //Tina correctly logs in
-                storyboard.add("1) Tina opens her banking app\n" +
-                        "\t2) Tina is at the login screen\n" +
-                        "\t3) Tina enters her username in the username field\n" +
-                        "\t4) Tina enters her password in the password field");
-                storyboard.addObjectDiagram("Logged in Tina", tina);
-                tina.login("tina1","tinapass");
+        //Tina correctly logs in
+        storyboard.add("1) Tina opens her banking app\n" +
+                "\t2) Tina is at the login screen\n" +
+                "\t3) Tina enters her username in the username field\n" +
+                "\t4) Tina enters her password in the password field");
+        storyboard.addObjectDiagram("Logged in Tina", tina);
+        System.out.println("Tina tries to login with username tina1, password tinapass");
+        tina.login("tina1","tinapass");
 
         //Post condition
-                storyboard.add("5) (Post-Condition)  Tina has loged into her account and can now view her balance");
-                storyboard.assertEquals("Tina is now logged in", true, tina.isLoggedIn());
-                storyboard.assertEquals("Tina can view the 100 dollars in her account", 100.0,checking.getBalance());
+        storyboard.add("5) (Post-Condition)  Tina has loged into her account and can now view her balance");
+        System.out.println("Tina is logged in");
+        storyboard.assertEquals("Tina is now logged in", true, tina.isLoggedIn());
+        storyboard.assertEquals("Tina can view the 100 dollars in her account", 100.0,checking.getBalance());
 
 
         System.out.println("Completed: loginTest \n\n ");
@@ -122,12 +126,10 @@ public class Test_S1_S3_S13_S14 {
             assertEquals("Tina's isAdmin:false",false,tina.isIsAdmin());
 
         //Actions
-            //Not logged in, cannot view
-            System.out.println("1) Tina tries to view balance when she is not logged in, gets balance of " + checking.getBalance());
-            assertEquals("Tina has not logged in, cannot view balance",0.0,checking.getBalance());
+
 
             //Login can view
-            System.out.println("2) Tina logins in, gets balance of " + checking.getBalance());
+            System.out.println("1) Tina logins in, gets balance of " + checking.getBalance());
                 tina.login("tina1","tinapass");
 
         //Post condition
@@ -190,27 +192,31 @@ public class Test_S1_S3_S13_S14 {
 
 
 
+        //Tina not logged in
+        System.out.println("Testing: Tina is not logged in, she cannot view her balance");
+        storyboard.assertEquals("Tina is not logged in", false,tina.isLoggedIn());
+       // storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
+
         //Incorrect username
-        tina.login("wrongusername","1111");
-        System.out.println("Testing: incorrect username");
-        storyboard.assertEquals("Tina tries to login with wrong username", false,tina.isLoggedIn());
-        storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
         storyboard.add("Tina tries to login with incorrect username");
+        System.out.println("Testing: login with incorrect username");
         storyboard.addObjectDiagram("Incorrect username", tina);
+        tina.login("wrongusername","1111");
 
         //Incorrect password
-        tina.login("tina1","wrongpassword");
         System.out.println("Testing incorrect password");
-        storyboard.assertEquals("Tina tries to login with wrong password", false,tina.isLoggedIn());
-        storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
         storyboard.add("Tina tries to login with incorrect passwrod");
+        tina.login("tina1","wrongpassword");
+        storyboard.assertEquals("Tina tries to login with wrong password", false,tina.isLoggedIn());
+        //storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
         storyboard.addObjectDiagram("Incorrect password", tina);
+
         //Incorrect username and password
-        tina.login("wrongusername","wrongpassword");
         System.out.println("Testing: incorrect username and password");
-        storyboard.assertEquals("Tina tries to login with wron username and password", false,tina.isLoggedIn());
-        storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
+        tina.login("wrongusername","wrongpassword");
         storyboard.add("Tina tries to login with incorrect username and password");
+        storyboard.assertEquals("Tina tries to login with wron username and password", false,tina.isLoggedIn());
+        //storyboard.assertEquals("Tina cannot view her balance", 0.0,checking.getBalance());
         storyboard.addObjectDiagram("Incorrect username and password", tina);
 
         storyboard.dumpHTML();

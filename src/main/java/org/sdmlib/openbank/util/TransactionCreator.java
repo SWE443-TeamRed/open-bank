@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -40,16 +40,19 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_TOACCOUNT,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Transaction();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -93,6 +96,7 @@ public class TransactionCreator implements SendableEntityCreator
       return null;
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attrName))

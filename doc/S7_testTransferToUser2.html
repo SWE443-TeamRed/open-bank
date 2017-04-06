@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/Test_S4_S5_S6_S7_S15.java' type='text/x-java'>S7_testTransferToUser2</a></p>
+<p>Check: Tina logs in:  true</p>
+<p>Check: NIck logs in:  true</p>
+<p>Precondition: Tina wants to give Nick $10 by connecting their accounts through phone. Tina has $30 in her Checking and Nick has $15.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingTina : Account",
+         "attributes":[
+            "balance=30.0",
+            "accountnum=123456789",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=5.0",
+            "accountnum=0",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingTina : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS7_testTransferToUser24", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Nick : User",
+         "attributes":[
+            "UserID=Nick",
+            "isAdmin=false",
+            "password=9876",
+            "name=Nick",
+            "email=secondEmail@email.com",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingNick : Account",
+         "attributes":[
+            "balance=15.0",
+            "accountnum=1234555555",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingNick : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Nick : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS7_testTransferToUser25", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Tina has 30 in her account 30.0 actual 30.0</p>
+<p>Check: Tina has 5 in her account 15.0 actual 15.0</p>
+<p>Check: Tina's balance changed:  20.0 actual 20.0</p>
+<p>Check: Nick's balance changed:  25.0 actual 25.0</p>
+<p>Post-condition: Tina has transferred $10 to Nick between their accounts</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "name=Tina",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingTina : Account",
+         "attributes":[
+            "balance=20.0",
+            "accountnum=123456789",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=5.0",
+            "accountnum=0",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Transfering 10 from tina's checking to nicks checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D2 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingTina : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T3 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"CheckingTina : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T3 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS7_testTransferToUser211", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Nick : User",
+         "attributes":[
+            "UserID=Nick",
+            "isAdmin=false",
+            "password=9876",
+            "name=Nick",
+            "email=secondEmail@email.com",
+            "LoggedIn=true",
+            "phone=0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingNick : Account",
+         "attributes":[
+            "balance=25.0",
+            "accountnum=1234555555",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T1 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Transfering 10 from tina's checking to nicks checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D2 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":" : Date"
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingNick : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Nick : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T1 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"CheckingNick : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D2 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T1 : Transaction"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS7_testTransferToUser212", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

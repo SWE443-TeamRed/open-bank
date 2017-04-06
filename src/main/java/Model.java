@@ -1,9 +1,10 @@
 import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
-import java.text.DateFormat;
 import java.util.Date;
 
 /**
@@ -18,7 +19,11 @@ public class Model {
     public static void main(String[] args) {
         //create class model
         ClassModel model = new ClassModel("org.sdmlib.openbank");
+        Clazz enumeration = model.createClazz("AccountTypeEnum").enableEnumeration();
 
+        enumeration.with(new Literal("SAVINGS"),
+                new Literal("CHECKING"));
+        enumeration.withMethod("toString", DataType.STRING);
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
         // create class user
         Clazz user = model.createClazz("User");
@@ -28,7 +33,6 @@ public class Model {
         user.withAttribute("userID",DataType.STRING);
         user.withAttribute("isAdmin", DataType.BOOLEAN);
         user.withAttribute("password", DataType.STRING);
-        user.withAttribute("name", DataType.STRING);
         user.withAttribute("email", DataType.STRING);
         user.withAttribute("LoggedIn", DataType.BOOLEAN);
         user.withAttribute("phone", DataType.INT);
@@ -64,43 +68,47 @@ public class Model {
         */
 
         Clazz account = model.createClazz("Account");
-        account.withAttribute("name", DataType.STRING);
         account.withAttribute("balance", DataType.DOUBLE);
         account.withAttribute("accountnum",DataType.INT);
         account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
+        account.withAttribute("type", DataType.create(enumeration));
 
         //Account Methods
 
         //void Account(double initialAmount), constructor
         account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
-        //boolean transferFounds(double amount, Account destinationAccount)
-        account.withMethod("transferToUser", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("destinationAccount"));
-        //boolean myBankTransaction(double amount, Account destinationAccount)
-        //transaction from my bank accounts
-        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("destinationAccount"));
 
-        //boolean receiveFound(double amount, Account sourceAccount)
-        //Receive found from another user
-        account.withMethod("receiveFound", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("sourceAccount"));
-        //boolean sendTransactionInfo(double amount, Transaction transaction)
-        //Send information from transaction to Transaction class
-        account.withMethod("sendTransactionInfo", DataType.BOOLEAN, new Parameter(transaction).with("transaction"),
+        //Transaction takes place between this and a user
+        account.withMethod("transferToAccount", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(DataType.create(Date.class)).with("date"),
-                new Parameter(DataType.create(Date.class)).with("time"),
+                new Parameter(account).with("destinationAccount"),
                 new Parameter(DataType.STRING).with("note"));
+
+        //transaction from my bank accounts
+//        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
+//                new Parameter(account).with("destinationAccount"));
+
+        //this is given money either by deposit or someone trasnfered to them
+        account.withMethod("receiveFunds", DataType.BOOLEAN,
+                new Parameter(account).with("giver"),
+                new Parameter(DataType.DOUBLE).with("amount"),
+                new Parameter(DataType.STRING).with("note"));
+
+        //Send information from transaction to Transaction class
+        account.withMethod("recordTransaction", DataType.create(Transaction.class),
+                new Parameter(DataType.BOOLEAN),
+                new Parameter(DataType.DOUBLE),
+                new Parameter(DataType.STRING));
 
         //void withdraw(double amount)
         //Withdraw funds from account
-        account.withMethod("withdraw", DataType.VOID, new Parameter(DataType.DOUBLE).with("amount"));
+        account.withMethod("withdraw", DataType.BOOLEAN,
+                new Parameter(DataType.DOUBLE).with("amount"));
 
         //void deposit(double amount, Account account)
         //Deposit funds with account
-        account.withMethod("deposit", DataType.VOID,
+        account.withMethod("deposit", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
 
@@ -119,7 +127,7 @@ public class Model {
         storyboard.add("This shows the class diagram.");
         storyboard.addClassDiagram(model);
         // add it to the storyboard
-//        storyboard.addObjectDiagram(user);
+        storyboard.addObjectDiagram(user);
         // show it in html
         storyboard.dumpHTML();
 
