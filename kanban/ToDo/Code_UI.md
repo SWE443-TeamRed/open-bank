@@ -13,7 +13,7 @@ Related scenario(s):
   
 Time estimate(s):
 
-
+ - 6h
 
 Author(s):
 
@@ -21,7 +21,7 @@ Author(s):
 
 Assigned persons (currently working on task):
 
-
+ - Henry
 
 Log entries (who worked when and how long on this):
 
