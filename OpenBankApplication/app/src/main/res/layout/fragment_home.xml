@@ -20,7 +20,8 @@
             android:text="Accounts"
             android:textColor="#ffffff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry" />
 
         <ListView
             android:layout_below="@id/accountText"
@@ -39,7 +40,8 @@
             android:text="Recent Transactions"
             android:textColor="#ffffff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry" />
 
         <ListView
             android:layout_below="@id/transactionText"

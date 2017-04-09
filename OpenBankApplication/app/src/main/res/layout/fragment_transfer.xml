@@ -17,7 +17,6 @@
         <RelativeLayout
             android:layout_marginTop="20dp"
             android:id="@+id/betweenUser"
-            android:background="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -25,7 +24,6 @@
                 android:id="@+id/texttransfer1"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
-                android:textColor="#000000"
                 android:gravity="center_horizontal"
                 android:text="Between Another User Account"
                 android:layout_width="match_parent"
@@ -37,8 +35,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Transfer"
-                android:textColor="#000000"/>
+                android:text="Start Transfer"/>
 
         </RelativeLayout>
 
@@ -46,7 +43,6 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/betweenUser"
             android:id="@+id/betweenAccount"
-            android:background="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -54,7 +50,6 @@
                 android:id="@+id/texttransfer2"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
-                android:textColor="#000000"
                 android:gravity="center_horizontal"
                 android:text="Betweet Your Open Bank Account"
                 android:layout_width="match_parent"
@@ -66,8 +61,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Transfer"
-                android:textColor="#000000"/>
+                android:text="Start Transfer"/>
 
         </RelativeLayout>
     </RelativeLayout>
