@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         android:textSize="30sp" />
     <LinearLayout
         android:id="@+id/sign_up_form4"
@@ -46,7 +47,7 @@
         <Button
             android:id="@+id/agreement"
             style="?android:textAppearanceSmall"
-            android:background="#d9b310"
+            android:background="#0b3c5d"
             android:layout_width="wrap_content"
             android:layout_height="88dp"
             android:layout_gravity="center"

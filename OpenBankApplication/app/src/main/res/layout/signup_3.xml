@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         android:textSize="30sp" />
     <LinearLayout
         android:id="@+id/sign_up_form3"
@@ -92,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#d9b310"
+            android:background="#0b3c5d"
             android:text="Back"
             android:id="@+id/back_button" />
 
@@ -100,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#d9b310"
+            android:background="#0b3c5d"
             android:text="Continue"
             android:id="@+id/continue_button2" />
 
