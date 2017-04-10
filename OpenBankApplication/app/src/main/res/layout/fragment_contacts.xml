@@ -14,15 +14,15 @@
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:layout_margin="20dp"
             android:id="@+id/contactText"
-            android:text="Contacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Contacts"
             android:textColor="@color/colorAccent"
-            android:textSize="30sp"
-            />
+            android:textSize="20sp" />
 
         <ListView
             android:layout_below="@id/contactText"
