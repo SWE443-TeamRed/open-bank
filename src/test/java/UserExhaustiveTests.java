@@ -1,6 +1,5 @@
 import org.junit.Test;
 import org.sdmlib.openbank.User;
-import java.util.Date;
 import static org.junit.Assert.*;
 
 /**
