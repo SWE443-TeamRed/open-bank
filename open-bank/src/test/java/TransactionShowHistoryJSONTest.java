@@ -35,7 +35,6 @@ public class TransactionShowHistoryJSONTest {
         System.out.println("Name: " + resultAccnt.getOwner().getName());
         System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getCreationdate().toString());
         System.out.println("Debit: " + resultAccnt.getDebit().toString());
-
         System.out.println("Balance: " + resultAccnt.getBalance());
     }
 
