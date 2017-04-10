@@ -3,5 +3,6 @@
     <color name="colorPrimary">#328cc1</color>
     <color name="colorPrimaryDark">#1d2731</color>
     <color name="colorAccent">#d9b310</color>
+    <color name="colorSecondaryDark">#0b3c5d </color>
     <color name="background_material_dark">#328cc1</color>
 </resources>

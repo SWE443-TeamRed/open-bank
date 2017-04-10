@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_bank_logo"/>
+                android:src="@drawable/ic_action_bank_logo"
+                android:tint="@color/colorAccent"/>
 
 
             <android.support.design.widget.TextInputLayout
@@ -76,13 +77,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:textAppearanceSmall"
-                android:textColor="#0645AD"
+                android:textColor="#0b3c5d"
                 android:text="Forgot Password"/>
 
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:background="#00AC9B"
+                android:background="#d9b310"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
