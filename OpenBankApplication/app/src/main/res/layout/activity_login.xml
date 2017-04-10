@@ -83,7 +83,7 @@
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:background="#d9b310"
+                android:background="#0b3c5d "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

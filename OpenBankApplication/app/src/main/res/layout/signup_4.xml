@@ -48,7 +48,7 @@
             style="?android:textAppearanceSmall"
             android:background="#d9b310"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="88dp"
             android:layout_gravity="center"
             android:paddingLeft="100dp"
             android:paddingRight="100dp"
