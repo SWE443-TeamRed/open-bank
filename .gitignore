@@ -1,5 +1,7 @@
 *.swp
 
+./idea/*
+
 open-bank/.idea/*
 open-bank/*.class
 open-bank/build/*
