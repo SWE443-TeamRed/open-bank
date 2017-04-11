@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void seeAccounts(View view){
         Intent intent = new Intent(this, Accounts.class);
-        startActivity(intent);
+        startActivity(new Intent(MainActivity.this, Accounts.class));
+
     }
 
 }
