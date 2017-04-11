@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
+import org.sdmlib.storyboards.Storyboard;
 
 import static org.junit.Assert.*;
 import java.util.Date;
@@ -181,4 +182,146 @@ public class TransactionJSONTestCases {
         assertEquals(usr1.getName().toString(),accountAfterJson.getOwner().getName().toString());
         assertTrue(540 == accountAfterJson.getBalance());
     }
+
+    //******** ACCOUNT Test Cases ***********************
+    User peter = new User()
+            .withName("Peter")
+            .withUserID("peter1")
+            .withPassword("password")
+            .withIsAdmin(false);
+    Account account1 = new Account()
+            .withAccountnum(1)
+            .withIsConnected(true)
+            .withOwner(peter)
+            .withBalance(100)
+            .withCreationdate(new Date())
+            .withCredit()
+            .withDebit();
+    Storyboard storyboard = new Storyboard();
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testwithBalance(){
+        Account accountWithNegative = new Account().withBalance(-100);
+    }
+    /**
+     *
+     * @see <a href='../../../doc/2.html'>2.html</a>
+     */
+    @Test
+    public void testgetBalanceAndSetBalance() {
+        System.out.println(account1.getBalance());
+        storyboard.assertEquals("Balance should be the same", 100.0, account1.getBalance());
+    }
+
+    @Test
+    public void testAccountToString(){
+        storyboard.assertEquals("Check for is the toString is correct","100.0 1 " + account1.getCreationdate(),account1.toString());
+    }
+
+    @Test
+    public void testgetAccountnum(){
+        storyboard.assertEquals("Check for if getAccountnum works", 1,account1.getAccountnum());
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testwithAccountnumAndsetAccountnum(){
+        Account accountNumWithNegatve = new Account().withAccountnum(-1);
+    }
+
+    /* @Test
+     public void testgetCreationDate(){
+         Date currentDate = new Date();
+         storyboard.assertEquals("Testing if date is working",new Date(),account1.getCreationdate());
+     }*/
+    @Test
+    public void testgetOwner(){
+        storyboard.assertEquals("Testing if proper owner is in account",peter,account1.getOwner());
+    }
+    @Test
+    public void testsetOwner(){
+        Account accountTestOwner = new Account();
+        storyboard.assertEquals("Setting owner with null value should return false",false,accountTestOwner.setOwner(null));
+    }
+    /* @Test
+     public void testCreateOwner(){
+         User accountTestCreateOwner = new Account().withOwner(peter).createOwner();
+         storyboard.assertEquals("Testing createOwner",peter.getName(),accountTestCreateOwner.getName());
+     }*/
+    @Test
+    public void testgetCredit(){
+
+        Account creditAccount = new Account().withCredit();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTransferToAccount(){
+        Account receivingAccount = new Account().withBalance(100);
+        account1.transferToAccount(-1,receivingAccount,"Testing negative");
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testTransferToAccount2(){
+        Account receivingAccount = new Account().withBalance(100);
+        account1.transferToAccount(100,null,"Testing null account");
+    }
+    /*@Test
+    public void testTransferToAccount3(){
+        User victor = new User()
+                .withName("Victor")
+                .withUserID("peter1")
+                .withPassword("password")
+                .withIsAdmin(false);
+        Account receivingAccount = new Account()
+                .withAccountnum(2)
+                .withIsConnected(true)
+                .withOwner(victor)
+                .withBalance(100)
+                .withCreationdate(new Date())
+                .withCredit()
+                .withDebit();
+        storyboard.assertEquals("This should return false, since balance in account1 is 100",
+                false,account1.transferToAccount(110,receivingAccount,"Testing amount greater than balance in account1"));
+    }*/
+
+    @Test
+    public void testTransferToAccount4(){
+        User victor = new User()
+                .withName("Victor")
+                .withUserID("peter1")
+                .withPassword("password")
+                .withIsAdmin(false);
+        Account receivingAccount = new Account()
+                .withAccountnum(2)
+                .withIsConnected(true)
+                .withOwner(victor)
+                .withBalance(100)
+                .withCreationdate(new Date())
+                .withCredit()
+                .withDebit();
+        User tina = new User()
+                .withName("Tina")
+                .withUserID("peter1")
+                .withPassword("password")
+                .withIsAdmin(false);
+        Account originAccount = new Account()
+                .withAccountnum(1)
+                .withIsConnected(true)
+                .withOwner(victor)
+                .withBalance(100)
+                .withCreationdate(new Date())
+                .withCredit()
+                .withDebit();
+        originAccount.transferToAccount(50,receivingAccount,"Testing balance after transfer amount account");
+        System.out.println(originAccount.getBalance());
+        System.out.println(receivingAccount.getBalance());
+    }
+    @Test
+    public void testReceiveFunds(){
+
+        //storyboard.assertEquals("Testing receive funds",true,account1.receiveFunds(100,"Testing receive funds"));
+
+    }
+    @Test
+    public void testRecordTransaction(){
+        Account recordAccount = new Account();
+    }
+
 }
