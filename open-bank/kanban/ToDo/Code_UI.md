@@ -3,7 +3,8 @@ Title: Code UI
 Description:
 
   Code the buttons, boxes, and other things in the UI for the
-  functions they were intended to accomplish.
+  functions they were intended to accomplish. UI to the backend components of
+  the open bank system.
 
   Be sure to test your code to make sure all bottons and such work as intended.
   
