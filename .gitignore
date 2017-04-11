@@ -1,6 +1,6 @@
 *.swp
 
-./idea/*
+.idea/*
 
 open-bank/.idea/*
 open-bank/*.class
