@@ -1,4 +1,4 @@
-Title: Research SDMLIB Android Integration 
+Title: Research SDMLIB Android Integration
 
 Description:
 
@@ -6,23 +6,23 @@ Description:
 	Android code to prepare for future steps in the open bank application.
 	Be sure to document your research so that others can understand how
 	to do this and pick up where you might have left off.
-	
+
 Related scenario(s):
 
-
-  
 Time estimate(s):
 
-  
+ - 7h
 
 Author(s):
 
-  - Vincent
+   -Daniel
 
 Assigned persons (currently working on task):
 
-  - Daniel
+   -Daniel
 
 Log entries (who worked when and how long on this):
 
-
+   -3/30 Daniel 1hr
+   -4/1 Daniel 2hr
+   -4/3 Daniel 4hr
