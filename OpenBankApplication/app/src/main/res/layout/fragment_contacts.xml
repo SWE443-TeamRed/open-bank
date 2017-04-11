@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.swe443.openbankapp.ContactsFrag">
+    tools:context="com.example.kimberly_93pc.openbanktemplate.ContactsFrag">
 
     <RelativeLayout
         android:id="@+id/content"
@@ -25,12 +25,14 @@
             android:textSize="20sp" />
 
         <ListView
-            android:layout_below="@id/contactText"
-            android:id="@+id/accounts"
-            android:padding="10dp"
-            android:layout_margin="10dp"
+            android:id="@+id/ContactAccounts"
             android:layout_width="wrap_content"
-            android:layout_height="400dp"/>
+            android:layout_height="400dp"
+            android:layout_below="@id/contactText"
+            android:layout_margin="10dp"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="1dp"
+            android:padding="10dp" />
 
         <ImageButton
             android:contentDescription="right"

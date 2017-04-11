@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.swe443.openbankapp.TransactionFrag">
+    tools:context="com.example.kimberly_93pc.openbanktemplate.TransactionFrag">
 
     <RelativeLayout
         android:id="@+id/content"
@@ -16,13 +16,15 @@
             android:id="@+id/transactionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Transactions Log"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Checking Account Transactions Log "
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/currentBalance"
+            android:id="@+id/balance_text"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/transactionText"
@@ -31,15 +33,18 @@
             android:padding="10dp"
             android:text="Current Balance: "
             android:textSize="20sp" />
+
         <ListView
-            android:id="@+id/accounts"
-            android:padding="10dp"
+            android:id="@+id/checkingTransactionList"
             android:layout_width="wrap_content"
             android:layout_height="400dp"
-            android:layout_below="@+id/currentBalance"
-            android:layout_alignLeft="@+id/currentBalance"
-            android:layout_alignStart="@+id/currentBalance"
-            android:layout_above="@+id/rightArrow" />
+            android:layout_above="@+id/rightArrow"
+            android:layout_alignLeft="@+id/balance_text"
+            android:layout_alignStart="@+id/balance_text"
+            android:layout_below="@+id/balance_text"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="1dp"
+            android:padding="10dp" />
 
         <ImageButton
             android:contentDescription="right"
@@ -63,7 +68,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/logBalance"
+        android:id="@+id/logCheckingBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="183dp"
