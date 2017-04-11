@@ -6,7 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TransactionFrag extends Fragment {
+/**
+ * Created by kimberly_93pc on 4/10/17.
+ */
+
+public class CheckingTransactionFrag extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,7 +21,7 @@ public class TransactionFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction, container, false);
+        return inflater.inflate(R.layout.fragment_transaction_checking, container, false);
     }
 
 }
