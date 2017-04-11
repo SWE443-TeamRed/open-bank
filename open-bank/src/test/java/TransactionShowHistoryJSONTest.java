@@ -1,6 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import src.*; // org.sdmlib.openbank.*;
+import org.sdmlib.openbank.*;
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -149,13 +149,13 @@ public class TransactionShowHistoryJSONTest {
         Account accountBeforeJson = new Account().withOwner(usr1)
                 .withBalance(550.00).withCreationdate(dt)
                 .withCredit(trans);
-
+/*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
 
         accountBeforeJson.withBalance(540.00).withCreationdate(dt);
         accountBeforeJson.withDebit(trans3);
-
+*/
         json.toJson(accountBeforeJson);
 
     }

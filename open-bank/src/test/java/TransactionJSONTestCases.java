@@ -1,8 +1,7 @@
-package java;
 import org.junit.Before;
 import org.junit.Test;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.TransactionTypeEnum;
+import org.sdmlib.openbank.*;
+
 import static org.junit.Assert.*;
 import java.util.Date;
 
@@ -83,7 +82,6 @@ public class TransactionJSONTestCases {
     public void setNullTransType(){
         // set type
         trans.setTransType(null);
-
     }
 
     @Test
@@ -138,13 +136,13 @@ public class TransactionJSONTestCases {
         Account accountBeforeJson = new Account().withOwner(usr1)
                 .withBalance(550.00).withCreationdate(dt)
                 .withCredit(trans);
-
+/*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
 
         accountBeforeJson.withBalance(540.00).withCreationdate(dt);
         accountBeforeJson.withDebit(trans3);
-
+*/
         json.toJson(accountBeforeJson);
 
     }
@@ -177,8 +175,10 @@ public class TransactionJSONTestCases {
 
         Account accountAfterJson = json.fromJson(usr1.getUserID());
 
-        assertTrue("tina1" == accountAfterJson.getOwner().getUserID());
-        assertTrue("tina" == accountAfterJson.getOwner().getName());
+        System.out.println("UserID: " + accountAfterJson.getOwner().getUserID().toString());
+        System.out.println("Name: " + accountAfterJson.getOwner().getName().toString());
+        assertEquals(usr1.getUserID().toString(),accountAfterJson.getOwner().getUserID().toString());
+        assertEquals(usr1.getName().toString(),accountAfterJson.getOwner().getName().toString());
         assertTrue(540 == accountAfterJson.getBalance());
     }
 }
