@@ -24,4 +24,6 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
 
+  - Daniel 4/10 (2 Hours)
+
 
