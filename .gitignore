@@ -13,7 +13,6 @@ OpenBankApplication/*.class
 OpenBankApplication/build/*
 OpenBankApplication/app/build/*
 OpenBankApplication/.gradle/*
-OpenBankApplication/app/build.gradle
 OpenBankApplication/.DS_Store
 
 OpenBankApplication/*.iml

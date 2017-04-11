@@ -1,8 +1,9 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.swe443.openbankapp.ContactsFrag">
+    tools:context="com.example.kimberly_93pc.openbanktemplate.ContactsFrag">
 
     <RelativeLayout
         android:id="@+id/content"
@@ -13,34 +14,39 @@
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:layout_marginTop="20dp"
             android:id="@+id/contactText"
-            android:paddingLeft="20dp"
-            android:text="Contacts"
-            android:textColor="#ffffff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Contacts"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
         <ListView
-            android:layout_below="@id/contactText"
-            android:id="@+id/accounts"
-            android:background="#ffffff"
-            android:padding="10dp"
-            android:layout_margin="10dp"
+            android:id="@+id/ContactAccounts"
             android:layout_width="wrap_content"
-            android:layout_height="400dp"/>
+            android:layout_height="400dp"
+            android:layout_below="@id/contactText"
+            android:layout_margin="10dp"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="1dp"
+            android:padding="10dp" />
 
         <ImageButton
+            android:contentDescription="right"
             android:id="@+id/rightArrow"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/ic_action_next"
             android:background="#00000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageButton
+            android:contentDescription="left"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/rightArrow"
             android:src="@drawable/ic_action_befor"
