@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/CreditPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Credit Account"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/creditDetails_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/CreditPage"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Account Details"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/creditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/creditDetails_txt"
+            android:layout_marginBottom="10dp"
+            android:text="Current Balance:" />
+
+        <TextView
+            android:id="@+id/creditBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/creditText"
+            android:layout_marginBottom="10dp"
+            android:text="$0.00" />
+
+        <TextView
+            android:id="@+id/accountNumber_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Number:"
+            android:layout_below="@+id/creditBalance"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/creditAccountNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="xxxx-xx-xxxx"
+            android:layout_below="@+id/creditBalance"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/creationDate_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creation Date:"
+            android:layout_below="@+id/creditAccountNumber"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/creditCreationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="04/01/2017"
+            android:layout_below="@+id/creationDate_txt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+</LinearLayout>
