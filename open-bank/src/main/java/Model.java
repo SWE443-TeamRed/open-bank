@@ -121,8 +121,11 @@ public class Model {
         account.withMethod("deposit", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
+        // ************* Bank class ************
+        Clazz bank = model.createClazz("Bank");
+        account.withAttribute("fee", DataType.DOUBLE);
 
-/////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
 
         // the account in user
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
