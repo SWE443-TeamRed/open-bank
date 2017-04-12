@@ -429,7 +429,8 @@ public class UserPO extends PatternObject<UserPO, User>
       
       return this;
    }
-   
+
+   /*
    public UserPO createPhoneCondition(int lower, int upper)
    {
       new AttributeConstraint()
@@ -444,7 +445,8 @@ public class UserPO extends PatternObject<UserPO, User>
       
       return this;
    }
-   
+   */
+
    public UserPO createPhoneAssignment(int value)
    {
       new AttributeConstraint()
@@ -459,16 +461,16 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
-   public int getPhone()
+   public String getPhone()
    {
       if (this.getPattern().getHasMatch())
       {
          return ((User) getCurrentMatch()).getPhone();
       }
-      return 0;
+      return null;
    }
    
-   public UserPO withPhone(int value)
+   public UserPO withPhone(String value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -516,4 +518,47 @@ public class UserPO extends PatternObject<UserPO, User>
       return null;
    }
 
+   public UserPO createPhoneCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
 }

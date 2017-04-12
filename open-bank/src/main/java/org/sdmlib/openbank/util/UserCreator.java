@@ -111,7 +111,7 @@ public class UserCreator implements SendableEntityCreator
    {
       if (User.PROPERTY_PHONE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setPhone(Integer.parseInt(value.toString()));
+         ((User) target).setPhone(value.toString());
          return true;
       }
 
