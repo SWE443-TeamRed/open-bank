@@ -29,3 +29,6 @@ Log entries (who worked when and how long on this):
         Scenarios 1,3,13,14 complete
         Ensured Scenarios 7,8,9 also passed with new login requirement
   - 03/31 Kimberly 4 hr
+  - 04/1 Savindi 4 hrs
+        Scenario 10, 11, 12 complete
+        
