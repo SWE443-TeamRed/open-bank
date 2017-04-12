@@ -38,6 +38,7 @@ public class UserCreator implements SendableEntityCreator
       User.PROPERTY_LOGGEDIN,
       User.PROPERTY_PHONE,
       User.PROPERTY_ACCOUNT,
+      User.PROPERTY_USERNAME,
    };
    
    @Override
@@ -102,6 +103,11 @@ public class UserCreator implements SendableEntityCreator
       {
          return ((User) target).getAccount();
       }
+
+      if (User.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getUsername();
+      }
       
       return null;
    }
@@ -109,6 +115,12 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (User.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setUsername((String) value);
+         return true;
+      }
+
       if (User.PROPERTY_PHONE.equalsIgnoreCase(attrName))
       {
          ((User) target).setPhone(value.toString());

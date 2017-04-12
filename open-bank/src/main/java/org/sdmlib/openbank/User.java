@@ -147,6 +147,7 @@ import org.sdmlib.openbank.Account;
            result.append(" ").append("Admin: " + this.isIsAdmin());
            result.append(" ").append(this.getEmail());
       result.append(" ").append(this.getPhone());
+      result.append(" ").append(this.getUsername());
       return result.substring(1);
        }
 
@@ -414,6 +415,34 @@ import org.sdmlib.openbank.Account;
    public User withPhone(String value)
    {
       setPhone(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_USERNAME = "username";
+   
+   private String username;
+
+   public String getUsername()
+   {
+      return this.username;
+   }
+   
+   public void setUsername(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.username, value)) {
+      
+         String oldValue = this.username;
+         this.username = value;
+         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+      }
+   }
+   
+   public User withUsername(String value)
+   {
+      setUsername(value);
       return this;
    } 
 }

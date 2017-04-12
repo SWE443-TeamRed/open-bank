@@ -561,4 +561,65 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public UserPO createUsernameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createUsernameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createUsernameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getUsername()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getUsername();
+      }
+      return null;
+   }
+   
+   public UserPO withUsername(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setUsername(value);
+      }
+      return this;
+   }
+   
 }
