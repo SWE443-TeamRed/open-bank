@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by kimberly_93pc on 4/9/17.
+ * Adapter for sliding ability.
  */
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
@@ -22,12 +23,8 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
                 return new CheckingFrag();
             case 2:
                 return new CreditFrag();
-            // The other sections of the app are dummy placeholders.
             default:
             Fragment fragment = new SavingsFrag();
-//            Bundle args = new Bundle();
-//            args.putInt(, position + 1);
-//            fragment.setArguments(args);
             return fragment;
         }
     }
@@ -40,6 +37,14 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "OBJECT " + (position + 1);
+        switch (position){
+            case 0:
+                return "Savings";
+            case 1:
+                return "Checking";
+            case 2:
+                return "Credit";
+        }
+        return "Savings";
     }
 }

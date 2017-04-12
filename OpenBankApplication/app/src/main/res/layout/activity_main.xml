@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:background="@color/colorSecondaryDarlk"
+            android:background="@color/colorSecondaryDark"
             android:minHeight="?attr/actionBarSize"
             style="@style/Theme.AppCompat.NoActionBar" />
 
@@ -35,7 +35,7 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:headerDividersEnabled="true"
-        android:background="@color/colorSecondaryDarlk"
+        android:background="@color/colorSecondaryDark"
         android:dividerHeight="1dp"
         android:divider="#ffffff"
         android:cacheColorHint="#00000000"
