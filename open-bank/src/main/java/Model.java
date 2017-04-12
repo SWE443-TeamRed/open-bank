@@ -43,7 +43,7 @@ public class Model {
         user.withAttribute("password", DataType.STRING);
         user.withAttribute("email", DataType.STRING);
         user.withAttribute("LoggedIn", DataType.BOOLEAN);
-        user.withAttribute("phone", DataType.INT);
+        user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustment made to te user related classes
 
         //User Methods
 

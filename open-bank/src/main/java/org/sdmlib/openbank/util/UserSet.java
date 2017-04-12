@@ -616,7 +616,7 @@ public class UserSet extends SimpleSet<User>
       
       for (User obj : this)
       {
-         result.add(obj.getPhone());
+         result.add(Integer.parseInt(obj.getPhone()));
       }
       
       return result;
@@ -630,7 +630,8 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterPhone(int value)
+   /*
+   public UserSet filterPhone(String value)
    {
       UserSet result = new UserSet();
       
@@ -644,7 +645,7 @@ public class UserSet extends SimpleSet<User>
       
       return result;
    }
-
+*/
 
    /**
     * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
@@ -654,6 +655,7 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Subset of User objects that match the parameter
     */
+  /*
    public UserSet filterPhone(int lower, int upper)
    {
       UserSet result = new UserSet();
@@ -669,7 +671,7 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-
+*/
    /**
     * Loop through the current set of User objects and assign value to the phone attribute of each of it. 
     * 
@@ -677,7 +679,8 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Current set of User objects now with new attribute values.
     */
-   public UserSet withPhone(int value)
+   /*
+   public UserSet withPhone(String value)
    {
       for (User obj : this)
       {
@@ -686,7 +689,7 @@ public class UserSet extends SimpleSet<User>
       
       return this;
    }
-
+*/
    /**
     * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
     * 
@@ -762,6 +765,71 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.withoutAccount(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getPhone()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the phone attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withPhone(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setPhone(value);
       }
       
       return this;
