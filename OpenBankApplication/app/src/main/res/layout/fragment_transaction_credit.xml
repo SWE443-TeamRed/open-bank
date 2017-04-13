@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kimberly_93pc.openbanktemplate.TransactionFrag">
+    tools:context="com.app.swe443.openbankapp.CreditFrag">
 
     <RelativeLayout
         android:id="@+id/content"
