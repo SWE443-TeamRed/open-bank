@@ -19,7 +19,7 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new SavingsFrag();
             case 1:
-                return new CheckingFrag();
+                return new AccountFrag();
             case 2:
                 return new CreditFrag();
             // The other sections of the app are dummy placeholders.

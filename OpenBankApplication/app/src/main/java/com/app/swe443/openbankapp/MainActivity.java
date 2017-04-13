@@ -17,7 +17,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements HomeFrag.OnAccountSelectedListener{
 
 
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public ActionBar actionBar;
 
     private Fragment home_fragment;
+    private Fragment account_fragment;
     private Fragment transfer_fragment;
     private Fragment savings_transaction_fragment;
     private Fragment checking_transaction_fragment;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
+    private ArrayList<Account> accounts = new ArrayList<Account>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
         drawerToggle.syncState();
 
+        //Create User's and Accounts as dummy data
+        JsonPersistency jsonp = new JsonPersistency();
+        User tina = new User().withUserID("tina1").withPassword("tinapass");
+        Account tinac = new Account().withBalance(100).withOwner(tina).withAccountnum(1).withType(AccountTypeEnum.SAVINGS);
+        Account tinas = new Account().withBalance(100).withOwner(tina).withAccountnum(2).withType(AccountTypeEnum.SAVINGS);
+        Account tinap = new Account().withBalance(100).withOwner(tina).withAccountnum(3).withType(AccountTypeEnum.CHECKING);
+        System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
+        tinac.withdraw(10);
+        tinac.withdraw(20);
+        tinac.withdraw(30);
+        accounts.addAll(tina.getAccount());
         addDrawerItems();
         initFragments();
+
+
     }
 
     private void addDrawerItems() {
@@ -144,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         /********Home Fragment********/
         home_fragment = new HomeFrag();
 
+        /********Account Fragment********/
+        account_fragment = new AccountFrag();
+
         /********Transfer Fragment********/
         transfer_fragment = new TransferFrag();
 
@@ -161,8 +180,36 @@ public class MainActivity extends AppCompatActivity {
     }
     public void seeAccounts(View view){
         Intent intent = new Intent(this, Accounts.class);
-        startActivity(new Intent(MainActivity.this, Accounts.class));
+        startActivity(intent);
+//        Intent intent = new Intent(this, Home.class);
+//        startActivity(new Intent(MainActivity.this, Home.class));
 
+    }
+
+    public void onAccountSelected(int accountID) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", accountID);
+        account_fragment.setArguments(bundle);
+        transaction = fm.beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.contentFragment, account_fragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+
+
+    }
+
+
+    public Account getAccount(int index){
+        return accounts.get(index);
+    }
+
+    public ArrayList<Account> getAccounts(){
+        return accounts;
     }
 
 }

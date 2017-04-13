@@ -1,20 +1,19 @@
-package com.app.swe443.openbankapp.Support;
-
+package com.app.swe443.openbankapp;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
 
-public class AccountPOCreator extends PatternObjectCreator
+public class TransactionPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new AccountPO(new Account[]{});
+         return new TransactionPO(new Transaction[]{});
       } else {
-          return new AccountPO();
+         return new TransactionPO();
       }
    }
-   
+
    public static IdMap createIdMap(String sessionID) {
       return CreatorCreator.createIdMap(sessionID);
    }

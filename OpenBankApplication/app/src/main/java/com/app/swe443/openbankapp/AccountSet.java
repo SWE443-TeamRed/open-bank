@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,14 +19,18 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+
 import java.util.Collections;
+import java.util.Date;
+
 
 public class AccountSet extends SimpleSet<Account>
 {
@@ -103,6 +107,91 @@ public class AccountSet extends SimpleSet<Account>
    {
       this.remove(value);
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public AccountSet Account(double initialAmount)
+   {
+      return AccountSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+
+
+   public BooleanList transferToUser(double amount, Account destinationAccount, String note)
+   {
+
+      BooleanList result = new BooleanList();
+
+      for (Account obj : this)
+      {
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+      }
+      return result;
+   }
+
+   
+//   //==========================================================================
+//
+//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.myBankTransaction(amount, destinationAccount) );
+//      }
+//      return result;
+//   }
+//
+//
+//   //==========================================================================
+//
+//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.receiveFound(amount, sourceAccount) );
+//      }
+//      return result;
+//   }
+
+   
+   //==========================================================================
+   
+//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.sendTransactionInfo(transaction, amount, p0, p1, note) );
+//      }
+//      return result;
+//   }
+
+   
+   //==========================================================================
+   
+   public AccountSet withdraw(double amount)
+   {
+      return AccountSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+   public AccountSet deposit(double amount)
+   {
+      return AccountSet.EMPTY_SET;
    }
 
 
@@ -275,7 +364,7 @@ public class AccountSet extends SimpleSet<Account>
    /**
     * Loop through the current set of Account objects and collect a list of the creationdate attribute values. 
     * 
-    * @return List of String objects reachable via creationdate attribute
+    * @return List of java.util.Date objects reachable via creationdate attribute
     */
    public ObjectSet getCreationdate()
    {
@@ -297,44 +386,20 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterCreationdate(String value)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (value.equals(obj.getCreationdate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Account objects that match the parameter
-    */
-   public AccountSet filterCreationdate(String lower, String upper)
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if (lower.compareTo(obj.getCreationdate()) <= 0 && obj.getCreationdate().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
+//   public AccountSet filterCreationdate(Date value)
+//   {
+//      AccountSet result = new AccountSet();
+//
+//      for (Account obj : this)
+//      {
+//         if (value == obj.getCreationdate())
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -344,11 +409,70 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Current set of Account objects now with new attribute values.
     */
-   public AccountSet withCreationdate(String value)
+//   public AccountSet withCreationdate(Date value)
+//   {
+//      for (Account obj : this)
+//      {
+//         obj.setCreationdate(value);
+//      }
+//
+//      return this;
+//   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the IsConnected attribute values. 
+    * 
+    * @return List of boolean objects reachable via IsConnected attribute
+    */
+   public BooleanList getIsConnected()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.isIsConnected());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the IsConnected attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterIsConnected(boolean value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.isIsConnected())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the IsConnected attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withIsConnected(boolean value)
    {
       for (Account obj : this)
       {
-         obj.setCreationdate(value);
+         obj.setIsConnected(value);
       }
       
       return this;
@@ -577,6 +701,241 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.myBankTransaction(amount, destinationAccount) );
+//      }
+//      return result;
+//   }
+
+   
+   //==========================================================================
+   
+//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.receiveFound(amount, sourceAccount) );
+//      }
+//      return result;
+//   }
+
+   
+   //==========================================================================
+   
+//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   {
+//
+//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+//
+//      for (Account obj : this)
+//      {
+//         result.add( obj.sendTransactionInfo(transaction, amount, p0, p1, note) );
+//      }
+//      return result;
+//   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterCreationdate(Date value)
+   {
+      AccountSet result = new AccountSet();
+
+      for (Account obj : this)
+      {
+         if (value == obj.getCreationdate())
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the creationdate attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withCreationdate(Date value)
+   {
+      for (Account obj : this)
+      {
+         obj.setCreationdate(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public BooleanList receiveFunds(Account giver, double amount, String note)
+   {
+      
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.receiveFunds(amount, note) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(Account p0, boolean p1, double p2, String p3)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2, p3) );
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the creationdate attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterCreationdate(String value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value.equals(obj.getCreationdate()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+
+
+   
+   //==========================================================================
+
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the type attribute values. 
+    * 
+    * @return List of org.sdmlib.openbank.AccountTypeEnum objects reachable via type attribute
+    */
+   public AccountTypeEnumSet getType()
+   {
+      AccountTypeEnumSet result = new AccountTypeEnumSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the type attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterType(AccountTypeEnum value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the type attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withType(AccountTypeEnum value)
+   {
+      for (Account obj : this)
+      {
+         obj.setType(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   {
+      
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2) );
+      }
+      return result;
    }
 
 }

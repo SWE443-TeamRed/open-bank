@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
@@ -28,8 +28,13 @@ public class UserCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      User.PROPERTY_NAME,
       User.PROPERTY_USERID,
+      User.PROPERTY_ISADMIN,
+      User.PROPERTY_PASSWORD,
+      User.PROPERTY_NAME,
+      User.PROPERTY_EMAIL,
+      User.PROPERTY_LOGGEDIN,
+      User.PROPERTY_PHONE,
       User.PROPERTY_ACCOUNT,
    };
    
@@ -56,14 +61,39 @@ public class UserCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
+      if (User.PROPERTY_USERID.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getUserID();
+      }
+
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).isIsAdmin();
+      }
+
+      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getPassword();
+      }
+
       if (User.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((User) target).getName();
       }
 
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attribute))
+      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getUserID();
+         return ((User) target).getEmail();
+      }
+
+      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).isLoggedIn();
+      }
+
+      if (User.PROPERTY_PHONE.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getPhone();
       }
 
       if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attribute))
@@ -77,15 +107,45 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
+      if (User.PROPERTY_PHONE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setUserID((String) value);
+         ((User) target).setPhone(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setLoggedIn((Boolean) value);
+         return true;
+      }
+
+      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setEmail((String) value);
          return true;
       }
 
       if (User.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((User) target).setName((String) value);
+         return true;
+      }
+
+      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setPassword((String) value);
+         return true;
+      }
+
+      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setIsAdmin((Boolean) value);
+         return true;
+      }
+
+      if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setUserID((String) value);
          return true;
       }
 

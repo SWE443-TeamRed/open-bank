@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,13 +19,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Date;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
+
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -191,7 +194,7 @@ public class TransactionSet extends SimpleSet<Transaction>
    /**
     * Loop through the current set of Transaction objects and collect a list of the date attribute values. 
     * 
-    * @return List of String objects reachable via date attribute
+    * @return List of java.util.Date objects reachable via date attribute
     */
    public ObjectSet getDate()
    {
@@ -213,37 +216,13 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterDate(String value)
+   public TransactionSet filterDate(Date value)
    {
       TransactionSet result = new TransactionSet();
       
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getDate()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterDate(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getDate()) <= 0 && obj.getDate().compareTo(upper) <= 0)
+         if (value == obj.getDate())
          {
             result.add(obj);
          }
@@ -260,7 +239,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withDate(String value)
+   public TransactionSet withDate(Date value)
    {
       for (Transaction obj : this)
       {
@@ -274,7 +253,7 @@ public class TransactionSet extends SimpleSet<Transaction>
    /**
     * Loop through the current set of Transaction objects and collect a list of the time attribute values. 
     * 
-    * @return List of String objects reachable via time attribute
+    * @return List of java.util.Date objects reachable via time attribute
     */
    public ObjectSet getTime()
    {
@@ -296,37 +275,13 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterTime(String value)
+   public TransactionSet filterTime(Date value)
    {
       TransactionSet result = new TransactionSet();
       
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getTime()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterTime(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getTime()) <= 0 && obj.getTime().compareTo(upper) <= 0)
+         if (value == obj.getTime())
          {
             result.add(obj);
          }
@@ -343,7 +298,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withTime(String value)
+   public TransactionSet withTime(Date value)
    {
       for (Transaction obj : this)
       {
@@ -561,6 +516,124 @@ public class TransactionSet extends SimpleSet<Transaction>
       for (Transaction obj : this)
       {
          obj.withToAccount(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the transType attribute values. 
+    * 
+    * @return List of org.sdmlib.openbank.TransactionTypeEnum objects reachable via transType attribute
+    */
+   public TransactionTypeEnumSet getTransType()
+   {
+      TransactionTypeEnumSet result = new TransactionTypeEnumSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getTransType());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the transType attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterTransType(TransactionTypeEnum value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getTransType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the transType attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withTransType(TransactionTypeEnum value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setTransType(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the creationdate attribute values. 
+    * 
+    * @return List of java.util.Date objects reachable via creationdate attribute
+    */
+   public ObjectSet getCreationdate()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getCreationdate());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the creationdate attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterCreationdate(Date value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getCreationdate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the creationdate attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withCreationdate(Date value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setCreationdate(value);
       }
       
       return this;
