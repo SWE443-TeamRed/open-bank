@@ -10,13 +10,10 @@ Description:
   the former most recent transaction and the new transaction will be come the 
   most recent transaction. The Bank class should also contain a fee attribute
   that will apply to some transactions that occur within the open-bank system.
-  The Bank class should contain getter/setters for each attribute and 
-  an appropriate constructor. The Bank class should contain
-  methods for  creating and closing users, creating transactions, and
-  creating and closing accounts. The Bank class should also have seperate sets
-  of Accounts and Transactions to be used by admins. Lastly there should be a
-  an Admin console that the admin can use to create users,transactions, and
-  accounts as well as close users and accounts.
+  The Bank class should contain getter/setters for each attribute.
+  The Bank class should contain methods for  creating and closing users, creating
+  transactions, and creating and closing accounts. The Bank class should also 
+  have seperate sets of Accounts and Transactions to be used by admins.
   
 Related scenario(s):
 
