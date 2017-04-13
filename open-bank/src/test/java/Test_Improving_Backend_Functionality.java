@@ -8,8 +8,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by FA on 4/11/2017.
@@ -329,9 +328,9 @@ public class Test_Improving_Backend_Functionality {
         Account recordAccount = new Account();
     }
 
-    // *************** USER Class test cases *************************
-    /*
-//Test for successful login
+    /*************** USER Class test cases *************************
+     */
+    //Test for successful login
     @Test
     public void testLogin1(){
         User bob = new User()
@@ -418,7 +417,7 @@ public class Test_Improving_Backend_Functionality {
                 .withPhone("7031234567");
         bob.login(null, null);
     }
-
+/*
     //Successful logout
     @Test
     public void testLogout(){
@@ -460,6 +459,7 @@ public class Test_Improving_Backend_Functionality {
         assertFalse(bob.isLoggedIn());
         assertFalse(bob.logout());
     }
+    */
 
     //SetName without logging in
     @Test (expected = Exception.class)
@@ -974,7 +974,4 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(bob.isLoggedIn());
         bob.setPhone("7031234567");
     }
-
-
-     */
 }
