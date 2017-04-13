@@ -1,17 +1,18 @@
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
 
-public class UserPOCreator extends PatternObjectCreator
+
+public class AccountPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new UserPO(new User[]{});
+          return new AccountPO(new Account[]{});
       } else {
-          return new UserPO();
+          return new AccountPO();
       }
    }
    
