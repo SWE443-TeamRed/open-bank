@@ -22,7 +22,7 @@
             android:paddingLeft="20dp"
             android:text="Home"
             android:textColor="@color/colorAccent"
-            android:textSize="20sp"
+            android:textSize="30sp"
             tools:ignore="RtlSymmetry"
             android:layout_marginBottom="10dp"
             />
@@ -37,13 +37,14 @@
                 android:id="@+id/homeSavingsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="57dp"
+                android:paddingLeft="20dp"
                 android:text="Saving Balance:"
                 android:textSize="18sp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/homeSavingsBalance"
@@ -52,23 +53,22 @@
                 android:padding="20dp"
                 android:text="$0.00"
                 tools:ignore="RtlSymmetry"
-                android:layout_above="@+id/homeCheckingText"
+                android:layout_below="@+id/homeSavingsText"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/homeCheckingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/hoemCheckingBalance"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="26dp"
+                android:paddingLeft="20dp"
                 android:text="Checking Balance:"
                 android:textSize="18sp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:layout_below="@+id/homeSavingsBalance"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
             <TextView
                 android:id="@+id/hoemCheckingBalance"
                 android:layout_width="match_parent"
@@ -76,48 +76,49 @@
                 android:padding="20dp"
                 android:text="$0.00"
                 tools:ignore="RtlSymmetry"
-                android:layout_above="@+id/homeChreditText"
+                android:layout_below="@+id/homeCheckingText"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:paddingLeft="20dp"
+                />
 
             <TextView
                 android:id="@+id/homeChreditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
                 android:text="Creadit Balance:"
+                android:paddingLeft="20dp"
                 android:textSize="18sp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:layout_marginTop="21dp"
+                android:layout_below="@+id/hoemCheckingBalance"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/homeCreditBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/homeChreditText"
+                android:paddingLeft="20dp"
                 android:padding="20dp"
                 android:text="$0.00"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:layout_below="@+id/homeChreditText"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:id="@+id/ButtonAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="53dp"
                 android:background="#0b3c5d"
                 android:onClick="seeAccounts"
-                android:text="Manage Accounts" />
+                android:text="Manage Accounts"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
     </RelativeLayout>

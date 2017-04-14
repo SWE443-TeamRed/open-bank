@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.app.swe443.openbankapp.Support.LogoutFrag;
+import com.app.swe443.openbankapp.Support.OpenAccountFrag;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
     public ActionBar actionBar;
 
     private Fragment home_fragment;
-    private Fragment transfer_fragment;
-    private Fragment savings_transaction_fragment;
-    private Fragment checking_transaction_fragment;
-    private Fragment credit_transaction_fragment;
+    private Fragment users_fragment;
+    private Fragment open_account_fragment;
+    private Fragment logout_fragment;
     private Fragment contacts_fragment;
 
     private FragmentManager fm;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //This sets the navigation drawer and the top actionbar.
         Drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private void addDrawerItems() {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        String[] navMenuTitles = {"Home", "Transfer Funds", "Savings Transaction Log",
-                "Checking Transaction Log", "Credit Transaction Log", "Contacts" };
+        String[] navMenuTitles = {"Home", "Contacts", "Update My Information", "Open Account", "Logout" };
 
         // adding nav drawer items to array
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0].toString()));
@@ -78,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4].toString()));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5].toString()));
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -100,31 +101,27 @@ public class MainActivity extends AppCompatActivity {
                         Drawer.closeDrawer(Gravity.LEFT);
                     case 2:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, transfer_fragment);
+                        transaction.replace(R.id.contentFragment, contacts_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 3:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, savings_transaction_fragment);
+                        transaction.replace(R.id.contentFragment, users_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 4:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, checking_transaction_fragment);
+                        transaction.replace(R.id.contentFragment, open_account_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 5:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, credit_transaction_fragment);
-                        transaction.commit();
-                        Drawer.closeDrawer(Gravity.LEFT);
-                        break;
-                    case 6:
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, contacts_fragment);
+                        transaction.replace(R.id.contentFragment, logout_fragment
+
+                        );
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
@@ -144,21 +141,28 @@ public class MainActivity extends AppCompatActivity {
         /********Home Fragment********/
         home_fragment = new HomeFrag();
 
-        /********Transfer Fragment********/
-        transfer_fragment = new TransferFrag();
-
-        /********Transaction Fragments********/
-        savings_transaction_fragment = new SavingsTransactionFrag();
-        checking_transaction_fragment = new CheckingTransactionFrag();
-        credit_transaction_fragment = new CreditTransactionFrag();
 
         /********Contacts Fragment********/
         contacts_fragment = new ContactsFrag();
+
+        /********Users Info Fragment********/
+        users_fragment = new UsersFrag();
+
+
+        /********Open Account Fragment********/
+        open_account_fragment = new OpenAccountFrag();
+
+
+        /********Logout Fragment********/
+        logout_fragment = new LogoutFrag();
+
 
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
         transaction.commit();
     }
+
+    //This sets the the home page view
     public void seeAccounts(View view){
         Intent intent = new Intent(this, Accounts.class);
         startActivity(new Intent(MainActivity.this, Accounts.class));

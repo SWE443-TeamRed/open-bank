@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:text="Transfer"
         android:textColor="@color/colorAccent"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:layout_alignTop="@+id/content"
         android:layout_alignLeft="@+id/content"
         android:layout_alignStart="@+id/content"

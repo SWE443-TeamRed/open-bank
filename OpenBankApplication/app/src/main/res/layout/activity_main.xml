@@ -35,10 +35,12 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:headerDividersEnabled="true"
-        android:background="@drawable/nav_selected_background"
+        android:background="@color/colorSecondaryDark"
         android:dividerHeight="1dp"
         android:divider="#ffffff"
+        android:cacheColorHint="@color/colorAccent"
         android:scrollingCache="false"
+        android:listSelector="@color/colorAccent"
         />
 
 </android.support.v4.widget.DrawerLayout>

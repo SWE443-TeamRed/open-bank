@@ -21,7 +21,7 @@
             android:layout_marginTop="20dp"
             android:text="Credit Account Transactions Log "
             android:textColor="@color/colorAccent"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/balance_text"
