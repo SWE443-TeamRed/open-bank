@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.swe443.openbankapp.CheckingFrag">
+    tools:context="com.app.swe443.openbankapp.Transfer">
 
     <RelativeLayout
         android:id="@+id/content"
@@ -19,7 +19,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:text="Checking Account Transactions Log "
+            android:text="Transactions Log "
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
@@ -38,33 +38,14 @@
             android:id="@+id/checkingTransactionList"
             android:layout_width="wrap_content"
             android:layout_height="400dp"
-            android:layout_above="@+id/rightArrow"
             android:layout_alignLeft="@+id/balance_text"
             android:layout_alignStart="@+id/balance_text"
             android:layout_below="@+id/balance_text"
             android:divider="@color/colorAccent"
             android:dividerHeight="1dp"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:layout_alignParentBottom="true" />
 
-        <ImageButton
-            android:contentDescription="right"
-            android:id="@+id/rightArrow"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_action_next"
-            android:background="#00000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:contentDescription="left"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/rightArrow"
-            android:src="@drawable/ic_action_befor"
-            android:background="#00000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <TextView
@@ -73,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="183dp"
         android:layout_marginStart="183dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="96dp"
         android:text="$0.00"
         android:textSize="20sp"
         android:layout_alignTop="@+id/content"

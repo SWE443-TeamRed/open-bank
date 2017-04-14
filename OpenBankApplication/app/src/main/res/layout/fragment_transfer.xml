@@ -2,88 +2,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.swe443.openbankapp.TransferFrag">
+    tools:context="com.app.swe443.openbankapp.Transfer">
 
     <RelativeLayout
         android:id="@+id/content"
-        android:layout_below="@id/toolbar"
-
-        android:layout_margin="20dp"
+        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/transfer_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transfer"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-        <RelativeLayout
-            android:layout_marginTop="20dp"
-            android:id="@+id/betweenUser"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_txt"
+            android:layout_marginTop="79dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawableTint="@color/colorAccent"
+            android:elevation="0dp"
+            android:gravity="center"
+            android:shadowColor="@color/colorAccent"
+            android:text="Start Transfer Between My Accounts"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/texttransfer1"
-                android:textSize="18sp"
-                android:layout_marginTop="72dp"
-                android:gravity="center_horizontal"
-                android:text="Between Another User Account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#0b3c5d"
-                android:text="Start Transfer"
-                android:layout_marginTop="17dp"
-                android:layout_below="@+id/texttransfer1"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/betweenUser"
-            android:id="@+id/betweenAccount"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <TextView
-                android:id="@+id/texttransfer2"
-                android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:text="Betweet Your Open Bank Account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/texttransfer2"
-                android:layout_marginTop="20dp"
-                android:background="#0b3c5d"
-                android:text="Start Transfer"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="Start Transfer Between Another User's Account"
+            android:layout_below="@+id/button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="81dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:shadowColor="@color/colorAccent"
+            />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/transfer_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Transfer"
-        android:textColor="@color/colorAccent"
-        android:textSize="30sp"
-        android:layout_alignTop="@+id/content"
-        android:layout_alignLeft="@+id/content"
-        android:layout_alignStart="@+id/content"
-        android:layout_marginTop="22dp"
-        android:layout_alignRight="@+id/content"
-        android:layout_alignEnd="@+id/content" />
+
 </RelativeLayout>
+
+
+

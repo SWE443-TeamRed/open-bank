@@ -18,13 +18,13 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new SavingsFrag();
+                return new CurrentBalance();
             case 1:
-                return new CheckingFrag();
+                return new Transfer();
             case 2:
-                return new CreditFrag();
+                return new TransactionsLog();
             default:
-            Fragment fragment = new SavingsFrag();
+            Fragment fragment = new CurrentBalance();
             return fragment;
         }
     }
@@ -39,12 +39,12 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Savings";
+                return "Account Basics";
             case 1:
-                return "Checking";
+                return "Transfer";
             case 2:
-                return "Credit";
+                return "Transaction Log";
         }
-        return "Savings";
+        return "Account Basics";
     }
 }
