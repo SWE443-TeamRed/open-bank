@@ -1,7 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
-
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -35,7 +34,6 @@ public class TransactionShowHistoryJSONTest {
         System.out.println("Name: " + resultAccnt.getOwner().getName());
         System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getCreationdate().toString());
         System.out.println("Debit: " + resultAccnt.getDebit().toString());
-
         System.out.println("Balance: " + resultAccnt.getBalance());
     }
 
@@ -115,6 +113,84 @@ public class TransactionShowHistoryJSONTest {
 
         System.out.println("Balance: " + accountAfterJson.getBalance());
 
+    }
+
+
+    @Test(expected=NullPointerException.class)
+    // set user with null should throws NullPointerException exception
+    public void testtoJsonWithNULL() {
+        Account accnt = new Account();
+        JsonPersistency json = new JsonPersistency();
+
+        Transaction trans = new Transaction();
+
+        User usr1 = null;
+        /*
+        new User()
+
+                .withName("tina")
+                .withUserID("tina1");
+*/
+        accnt = new Account()
+                .withOwner(usr1)
+                .withAccountnum(1);
+
+        Date dt = new Date("03/19/2017");
+        Date dtime = new Date("03/19/2017 13:13:26");
+
+        trans.setAmount(50.00);
+        // set date
+        trans.setCreationdate(dt);
+        // set time
+        //trans.setTime(dtime);
+        trans.setNote("Deposit Trans 1");
+
+
+        Account accountBeforeJson = new Account().withOwner(usr1)
+                .withBalance(550.00).withCreationdate(dt)
+                .withCredit(trans);
+/*
+        accountBeforeJson.withBalance(570.00).withCreationdate(dt);
+        accountBeforeJson.withCredit(trans2);
+
+        accountBeforeJson.withBalance(540.00).withCreationdate(dt);
+        accountBeforeJson.withDebit(trans3);
+*/
+        json.toJson(accountBeforeJson);
+
+    }
+
+
+    @Test(expected=NullPointerException.class)
+    // set user with null should throws NullPointerException exception
+    public void testFromJsonWithNULL() {
+        Account accnt = new Account();
+        JsonPersistency json = new JsonPersistency();
+
+        Transaction trans = new Transaction();
+
+        User usr1 = null;
+
+        Account accountAfterJson = json.fromJson(usr1.getUserID());
+    }
+
+    @Test
+    // set user with valid user should return account object
+    public void testFromJson() {
+        Account accnt = new Account();
+        JsonPersistency json = new JsonPersistency();
+
+        Transaction trans = new Transaction();
+
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+
+        Account accountAfterJson = json.fromJson(usr1.getUserID());
+
+        assertTrue("tina1" == accountAfterJson.getOwner().getUserID());
+        assertTrue("tina" == accountAfterJson.getOwner().getName());
+        assertTrue(540 == accountAfterJson.getBalance());
     }
 
 }
