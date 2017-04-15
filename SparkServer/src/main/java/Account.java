@@ -22,7 +22,6 @@
 package main.java;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-//import org.sdmlib.openbank.util.TransactionSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -153,6 +152,10 @@ public  class Account implements SendableEntity
 
    public void setAccountnum(int value)
    {
+      if (value <0) {
+         throw new IllegalArgumentException("Account number is not valid!");
+      }
+
       if (this.accountnum != value) {
 
          int oldValue = this.accountnum;

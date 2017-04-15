@@ -146,8 +146,11 @@ public  class User implements SendableEntity {
         result.append(" ").append("Admin: " + this.isIsAdmin());
         result.append(" ").append(this.getEmail());
    result.append(" ").append(this.getPhone());
+   result.append(" ").append(this.getUsername());
    return result.substring(1);
     }
+
+
 
 
     //==========================================================================
@@ -343,10 +346,10 @@ public  class User implements SendableEntity {
 
 
     //==========================================================================
-
+/*
     public static final String PROPERTY_PHONE = "phone";
 
-    private int phone;
+    private String phone;
 
     public int getPhone() {
         return this.phone;
@@ -366,7 +369,7 @@ public  class User implements SendableEntity {
         return this;
     }
 
-
+*/
 
 
 
@@ -387,4 +390,58 @@ public Account createAccount()
    return value;
 }
 
+
+
+//==========================================================================
+public static final String PROPERTY_PHONE = "phone";
+
+private String phone;
+
+public void setPhone(String value)
+{
+   if ( ! EntityUtil.stringEquals(this.phone, value)) {
+
+      String oldValue = this.phone;
+      this.phone = value;
+      this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
+   }
+}
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+public User withPhone(String value)
+{
+   setPhone(value);
+   return this;
+}
+
+
+//==========================================================================
+
+public static final String PROPERTY_USERNAME = "username";
+
+private String username;
+
+public String getUsername()
+{
+   return this.username;
+}
+
+public void setUsername(String value)
+{
+   if ( ! EntityUtil.stringEquals(this.username, value)) {
+
+      String oldValue = this.username;
+      this.username = value;
+      this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+   }
+}
+
+public User withUsername(String value)
+{
+   setUsername(value);
+   return this;
+}
 }

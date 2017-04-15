@@ -363,6 +363,10 @@ public  class Transaction implements SendableEntity
    
    public void setTransType(TransactionTypeEnum value)
    {
+      if (value ==null) {
+         throw new IllegalArgumentException("Transaction type is not valid!");
+      }
+
       if (this.transType != value) {
       
          TransactionTypeEnum oldValue = this.transType;
