@@ -369,15 +369,17 @@ import org.sdmlib.openbank.Account;
    
    //==========================================================================
    public boolean validateLogin( int accountID, String username, String password ) {
-      Account pulledAccount = this.findAccountByID(accountID);
-      User pulledUser = this.findUserByID(username);
-      if (pulledAccount != null && pulledUser != null){
-         if (pulledUser.getPassword().equals(password)){
-            //pulledUser.setLoggedIn(true);
-            return true;
-         }
-      }
-      return false;
+       if (username == null || password == null || accountID < 0)
+           throw new IllegalArgumentException("Invalid parameter(s)");
+       Account pulledAccount = this.findAccountByID(accountID);
+       User pulledUser = this.findUserByID(username);
+       if (pulledAccount != null && pulledUser != null){
+           if (pulledUser.getPassword().equals(password)){
+               //pulledUser.setLoggedIn(true);
+               return true;
+           }
+       }
+       return false;
    }
    //==========================================================================
    public Account findAccountByID( int accountID )
@@ -388,7 +390,13 @@ import org.sdmlib.openbank.Account;
    
    //==========================================================================
    public User findUserByID(String userID) {
-      return null;
+       /*
+       for (User i: ){
+           if (i.getUserID().equals(userID))
+               return i;
+       }
+       */
+       return null;
    }
 
    
