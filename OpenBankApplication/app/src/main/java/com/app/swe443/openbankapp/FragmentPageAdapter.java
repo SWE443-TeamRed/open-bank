@@ -17,14 +17,14 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new SavingsFrag();
+                return new WithdrawDepositFrag();
             case 1:
                 return new AccountFrag();
             case 2:
                 return new TransactionFrag();
             // The other sections of the app are dummy placeholders.
             default:
-            Fragment fragment = new SavingsFrag();
+            Fragment fragment = new WithdrawDepositFrag();
 //            Bundle args = new Bundle();
 //            args.putInt(, position + 1);
 //            fragment.setArguments(args);
