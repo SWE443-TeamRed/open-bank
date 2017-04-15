@@ -16,10 +16,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/contactText"
+            android:id="@+id/contact_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="Contacts"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
@@ -28,12 +29,13 @@
             android:id="@+id/ContactAccounts"
             android:layout_width="wrap_content"
             android:layout_height="400dp"
-            android:layout_below="@id/contactText"
-            android:layout_margin="10dp"
+            android:layout_below="@id/contact_text"
+            android:layout_marginTop="30dp"
             android:divider="@color/colorAccent"
             android:dividerHeight="1dp"
             android:padding="10dp" />
 
+        <!--Do not need this at  the moment.-->
         <!--<ImageButton-->
             <!--android:contentDescription="right"-->
             <!--android:id="@+id/rightArrow"-->

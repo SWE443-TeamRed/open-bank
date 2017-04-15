@@ -6,24 +6,23 @@
 
     <RelativeLayout
         android:id="@+id/content"
-        android:layout_marginTop="18dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+
         <TextView
-            android:id="@+id/transfer_txt"
-            android:layout_width="wrap_content"
+            android:id="@+id/transfer_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="Transfer"
             android:textColor="@color/colorAccent"
-            android:textSize="30sp"
-            android:layout_marginTop="18dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginStart="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/button"
@@ -33,7 +32,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/transfer_txt"
+            android:layout_below="@+id/transfer_text"
             android:layout_marginTop="79dp"
             android:background="@color/colorPrimaryDark"
             android:drawableTint="@color/colorAccent"
@@ -41,7 +40,7 @@
             android:gravity="center"
             android:shadowColor="@color/colorAccent"
             android:text="Start Transfer Between My Accounts"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
 
         <Button
@@ -55,7 +54,7 @@
             android:layout_marginTop="81dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:gravity="center"
             android:shadowColor="@color/colorAccent"
             />

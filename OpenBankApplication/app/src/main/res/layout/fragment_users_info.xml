@@ -14,11 +14,11 @@
         android:layout_marginTop="20dp">
 
         <TextView
-            android:id="@+id/UsersInfo"
+            android:id="@+id/transfer_text"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="My Information"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
@@ -29,7 +29,8 @@
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/UsersInfo"
+            android:layout_below="@+id/transfer_text"
+            android:layout_marginTop="43dp"
             android:ems="10"
             android:text="First Name:"
             android:textSize="20sp" />
@@ -43,7 +44,9 @@
             android:layout_below="@+id/first_name_txt"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Dummy name" />
+            android:text="Dummy name"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/last_name_txt"
@@ -54,7 +57,9 @@
             android:textSize="20sp"
             android:layout_below="@+id/first_name"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            />
 
         <EditText
             android:id="@+id/last_name"
@@ -65,7 +70,9 @@
             android:layout_below="@+id/last_name_txt"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Duammy Last Name" />
+            android:text="Duammy Last Name"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/email_txt"
@@ -76,7 +83,9 @@
             android:textSize="20sp"
             android:layout_below="@+id/last_name"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            />
 
         <EditText
             android:id="@+id/email"
@@ -87,7 +96,9 @@
             android:layout_below="@+id/email_txt"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Dummy email" />
+            android:text="Dummy email"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/phone_number_txt"
@@ -98,7 +109,9 @@
             android:textSize="20sp"
             android:layout_below="@+id/email"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            />
 
         <EditText
             android:id="@+id/phone_number"
@@ -109,7 +122,9 @@
             android:layout_below="@+id/phone_number_txt"
             android:ems="10"
             android:inputType="phone"
-            android:text="Phone Number Dummy" />
+            android:text="Dummy Phone Number"
+            android:textSize="15sp"
+            />
 
     </RelativeLayout>
 </LinearLayout>
