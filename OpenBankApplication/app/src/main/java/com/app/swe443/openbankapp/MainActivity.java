@@ -16,7 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity
         implements HomeFrag.OnAccountSelectedListener, AccountFrag.OnTransactionSelectedListener{
@@ -73,9 +76,15 @@ public class MainActivity extends AppCompatActivity
         Account tinas = new Account().withBalance(100).withOwner(tina).withAccountnum(2).withType(AccountTypeEnum.SAVINGS);
         Account tinap = new Account().withBalance(100).withOwner(tina).withAccountnum(3).withType(AccountTypeEnum.CHECKING);
         System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
-        tinac.withdraw(10);
-        tinac.withdraw(20);
-        tinac.withdraw(30);
+        tinac.withdraw(1); //90
+        tinac.withdraw(20);  //70
+        tinac.withdraw(30);  //40
+        tinac.deposit(1000);  //1040
+        tinac.deposit(500);  //1540
+        tinac.withdraw(400); // 1140
+        tinac.withdraw(800); // 340
+        tinac.withdraw(20);   //320
+
 //        System.out.println("TINA FIRST TRANS "+ tinac.getDebit().get(0) +" "+
 //                tinac.getDebit().get(0)
 //                        .getFromAccount()
@@ -213,6 +222,7 @@ public class MainActivity extends AppCompatActivity
         // Do something here to display that article
         Bundle bundle = new Bundle();
         bundle.putInt("id", accountID);
+        transaction_fragment = new TransactionFrag();
         transaction_fragment.setArguments(bundle);
         transaction = fm.beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
@@ -230,12 +240,17 @@ public class MainActivity extends AppCompatActivity
         return accounts.get(index);
     }
 
-    public ArrayList<Transaction> getTransactions(int index){
-        ArrayList<Transaction> trans = new ArrayList<Transaction>();
-        trans.addAll(accounts.get(index).getDebit());
-        trans.addAll(accounts.get(index).getCredit());
-        System.out.println("TRANSACTIONS COUNT IS "+trans.size() + " at index " + index);
-        return trans;
+    public LinkedList<Transaction> getTransactions(int index){
+//        ArrayList<Transaction> trans = new ArrayList<Transaction>();
+//        trans.addAll(accounts.get(index).getDebit());
+//        trans.addAll(accounts.get(index).getCredit());
+//        System.out.println("TRANSACTIONS COUNT IS "+trans.size() + " at index " + index);
+//        Collections.sort(trans, new Comparator<Transaction>() {
+//            public int compare(Transaction o1, Transaction o2) {
+//                return o1.getDate().compareTo(o2.getDate());
+//            }
+//        });
+        return accounts.get(index).getAccountTransactions();
     }
 
     public ArrayList<Account> getAccounts(){

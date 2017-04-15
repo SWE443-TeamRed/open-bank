@@ -21,7 +21,9 @@ package com.app.swe443.openbankapp;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  *
@@ -430,6 +432,17 @@ public  class Account implements SendableEntity
       this.setBalance(initialAmount);
    }
 
+    private LinkedList<Transaction> accountTransactions = new LinkedList<Transaction>();
+
+    public LinkedList<Transaction> getAccountTransactions()
+    {
+        if (this.accountTransactions == null)
+        {
+            return null;
+        }
+
+        return this.accountTransactions;
+    }
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
@@ -478,6 +491,7 @@ public  class Account implements SendableEntity
       return false;//Cannot complete transaction.
    }
 
+
    //This sets the information of the transaction.
    public Transaction recordTransaction(Account recordforAccount, Boolean credit, double amount, String note )
    {
@@ -487,6 +501,7 @@ public  class Account implements SendableEntity
       trans = new Transaction();
       trans.setDate(new Date());
       trans.setAmount(amount);
+
       trans.setNote(note);
        if(recordforAccount != this)
            trans.setTransType(TransactionTypeEnum.TRANSFER);
@@ -502,6 +517,7 @@ public  class Account implements SendableEntity
          trans.setToAccount(recordforAccount);
 
       }
+      accountTransactions.addFirst(trans);
       return trans;
    }
 
@@ -590,19 +606,4 @@ public  class Account implements SendableEntity
    }
 
 
-
-
-
-   //==========================================================================
-   public boolean receiveFunds( Account giver, double amount, String note )
-   {
-      return false;
-   }
-
-
-   //==========================================================================
-   public Transaction recordTransaction( boolean p0, double p1, String p2 )
-   {
-      return null;
-   }
 }
