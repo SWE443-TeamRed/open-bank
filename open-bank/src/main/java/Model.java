@@ -123,7 +123,15 @@ public class Model {
 
         // ************* Bank class ************
         Clazz bank = model.createClazz("Bank");
-        account.withAttribute("fee", DataType.DOUBLE);
+        bank.withAttribute("fee", DataType.DOUBLE);
+        bank.withAttribute("bankName", DataType.STRING);
+
+        bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
+
+        bank.withBidirectional(user, "bankUser", Cardinality.MANY, "bank", Cardinality.ONE);
+
+        bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
+        
 
         /////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
 
