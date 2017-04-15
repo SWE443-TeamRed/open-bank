@@ -29,6 +29,7 @@ import org.sdmlib.openbank.Transaction;
 
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
+import java.math.BigInteger;
 
 public class AccountCreator implements SendableEntityCreator
 {
@@ -42,6 +43,8 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
       Account.PROPERTY_TYPE,
+      Account.PROPERTY_BALANCEDOLLAR,
+      Account.PROPERTY_BALANCECENT,
    };
    
    @Override
@@ -106,6 +109,16 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getType();
       }
+
+      if (Account.PROPERTY_BALANCEDOLLAR.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getBalanceDollar();
+      }
+
+      if (Account.PROPERTY_BALANCECENT.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getBalanceCent();
+      }
       
       return null;
    }
@@ -113,6 +126,18 @@ public class AccountCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_BALANCECENT.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBalanceCent((BigInteger) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_BALANCEDOLLAR.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBalanceDollar((BigInteger) value);
+         return true;
+      }
+
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
          ((Account) target).setType(AccountTypeEnum.valueOf((String) value));

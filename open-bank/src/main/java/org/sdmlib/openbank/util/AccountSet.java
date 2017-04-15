@@ -36,6 +36,7 @@ import java.util.Date;
 
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.AccountTypeEnum;
+import java.math.BigInteger;
 
 public class AccountSet extends SimpleSet<Account>
 {
@@ -941,6 +942,124 @@ public class AccountSet extends SimpleSet<Account>
          result.add( obj.recordTransaction(p0, p1, p2) );
       }
       return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the balanceDollar attribute values. 
+    * 
+    * @return List of java.math.BigInteger objects reachable via balanceDollar attribute
+    */
+   public BigIntegerSet getBalanceDollar()
+   {
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getBalanceDollar());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the balanceDollar attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterBalanceDollar(BigInteger value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getBalanceDollar())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the balanceDollar attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withBalanceDollar(BigInteger value)
+   {
+      for (Account obj : this)
+      {
+         obj.setBalanceDollar(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the balanceCent attribute values. 
+    * 
+    * @return List of java.math.BigInteger objects reachable via balanceCent attribute
+    */
+   public BigIntegerSet getBalanceCent()
+   {
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.getBalanceCent());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the balanceCent attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterBalanceCent(BigInteger value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.getBalanceCent())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the balanceCent attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withBalanceCent(BigInteger value)
+   {
+      for (Account obj : this)
+      {
+         obj.setBalanceCent(value);
+      }
+      
+      return this;
    }
 
 }

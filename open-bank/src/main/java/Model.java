@@ -1,10 +1,8 @@
 import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -79,6 +77,8 @@ public class Model {
 
         Clazz account = model.createClazz("Account");
         account.withAttribute("balance", DataType.DOUBLE);
+        account.withAttribute("balanceDollar", DataType.create(BigInteger.class));
+        account.withAttribute("balanceCent", DataType.create(BigInteger.class));
         account.withAttribute("accountnum",DataType.INT);
         account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
@@ -106,7 +106,7 @@ public class Model {
                 new Parameter(DataType.STRING).with("note"));
 
         //Send information from transaction to Transaction class
-        account.withMethod("recordTransaction", DataType.create(Transaction.class),
+        account.withMethod("recordTransaction", DataType.create(transaction),
                 new Parameter(DataType.BOOLEAN),
                 new Parameter(DataType.DOUBLE),
                 new Parameter(DataType.STRING));

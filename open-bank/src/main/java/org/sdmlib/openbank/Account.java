@@ -32,6 +32,7 @@ import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.AccountTypeEnum;
+import java.math.BigInteger;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -612,4 +613,60 @@ public  class Account implements SendableEntity
    {
       return null;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_BALANCEDOLLAR = "balanceDollar";
+   
+   private BigInteger balanceDollar;
+
+   public BigInteger getBalanceDollar()
+   {
+      return this.balanceDollar;
+   }
+   
+   public void setBalanceDollar(BigInteger value)
+   {
+      if (this.balanceDollar != value) {
+      
+         BigInteger oldValue = this.balanceDollar;
+         this.balanceDollar = value;
+         this.firePropertyChange(PROPERTY_BALANCEDOLLAR, oldValue, value);
+      }
+   }
+   
+   public Account withBalanceDollar(BigInteger value)
+   {
+      setBalanceDollar(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_BALANCECENT = "balanceCent";
+   
+   private BigInteger balanceCent;
+
+   public BigInteger getBalanceCent()
+   {
+      return this.balanceCent;
+   }
+   
+   public void setBalanceCent(BigInteger value)
+   {
+      if (this.balanceCent != value) {
+      
+         BigInteger oldValue = this.balanceCent;
+         this.balanceCent = value;
+         this.firePropertyChange(PROPERTY_BALANCECENT, oldValue, value);
+      }
+   }
+   
+   public Account withBalanceCent(BigInteger value)
+   {
+      setBalanceCent(value);
+      return this;
+   } 
 }

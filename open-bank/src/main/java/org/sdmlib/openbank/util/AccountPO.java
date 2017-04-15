@@ -13,6 +13,7 @@ import org.sdmlib.openbank.util.TransactionSet;
 
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
+import java.math.BigInteger;
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -657,4 +658,96 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
+   public AccountPO createBalanceDollarCondition(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_BALANCEDOLLAR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createBalanceDollarAssignment(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_BALANCEDOLLAR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BigInteger getBalanceDollar()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).getBalanceDollar();
+      }
+      return null;
+   }
+   
+   public AccountPO withBalanceDollar(BigInteger value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setBalanceDollar(value);
+      }
+      return this;
+   }
+   
+   public AccountPO createBalanceCentCondition(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_BALANCECENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createBalanceCentAssignment(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_BALANCECENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BigInteger getBalanceCent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).getBalanceCent();
+      }
+      return null;
+   }
+   
+   public AccountPO withBalanceCent(BigInteger value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setBalanceCent(value);
+      }
+      return this;
+   }
+   
 }
