@@ -18,7 +18,7 @@ public class WithdrawDepositFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_withdraw_deposit,container,false);
+        final View v = inflater.inflate(R.layout.fragment_withdraw_deposit, container, false);
 
         //Main Activity reference, used to get account and transaction data through Main's methods
         activity = (MainActivity) getActivity();
@@ -26,8 +26,9 @@ public class WithdrawDepositFrag extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             //Account ID
-            accountID = bundle.getInt("id",-1);
-    }
+            accountID = bundle.getInt("id", -1);
+        }
 
         return v;
+    }
 }
