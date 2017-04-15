@@ -346,33 +346,6 @@ import org.sdmlib.openbank.Account;
        }
 
 
-       //==========================================================================
-/*
-       public static final String PROPERTY_PHONE = "phone";
-
-       private String phone;
-
-       public int getPhone() {
-           return this.phone;
-       }
-
-       public void setPhone(int value) {
-           if (this.phone != value) {
-
-               int oldValue = this.phone;
-               this.phone = value;
-               this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
-           }
-       }
-
-       public User withPhone(int value) {
-           setPhone(value);
-           return this;
-       }
-
-*/
-
-   
    
    //==========================================================================
    public boolean logout(  )

@@ -1,9 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.JsonPersistency;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.*;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -93,18 +90,18 @@ public class Test_Improving_Backend_Functionality {
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Withdraw);
+        trans.setTransType(TransactionTypeEnum.WITHDRAWL);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Withdraw == trans.getTransType());
+        assertTrue(TransactionTypeEnum.WITHDRAWL == trans.getTransType());
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeDeposit(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Deposit);
+        trans.setTransType(TransactionTypeEnum.DEPOSIT);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Deposit == trans.getTransType());
+        assertTrue(TransactionTypeEnum.DEPOSIT == trans.getTransType());
     }
 
     // JSON Test Case

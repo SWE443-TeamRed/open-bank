@@ -91,17 +91,17 @@ public class TransactionTest {
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
         // set type
-        trans.setTransType(TransactionTypeEnum.Withdraw);
+        trans.setTransType(TransactionTypeEnum.WITHDRAWL);
 
-        assertTrue(TransactionTypeEnum.Withdraw == trans.getTransType());
+        assertTrue(TransactionTypeEnum.WITHDRAWL == trans.getTransType());
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeDeposit(){
         // set type
-        trans.setTransType(TransactionTypeEnum.Deposit);
+        trans.setTransType(TransactionTypeEnum.DEPOSIT);
 
-        assertTrue(TransactionTypeEnum.Deposit == trans.getTransType());
+        assertTrue(TransactionTypeEnum.DEPOSIT == trans.getTransType());
     }
 }
