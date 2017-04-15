@@ -33,6 +33,7 @@ public class Model {
         transTypeEnum.withMethod("toString", DataType.STRING);
 
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         // create class user
         Clazz user = model.createClazz("User");
 
@@ -43,7 +44,8 @@ public class Model {
         user.withAttribute("password", DataType.STRING);
         user.withAttribute("email", DataType.STRING);
         user.withAttribute("LoggedIn", DataType.BOOLEAN);
-        user.withAttribute("phone", DataType.INT);
+        user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
+        user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
 
         //User Methods
 
