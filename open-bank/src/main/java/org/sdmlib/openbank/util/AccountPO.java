@@ -13,6 +13,8 @@ import org.sdmlib.openbank.util.TransactionSet;
 
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.util.BankPO;
+import org.sdmlib.openbank.Bank;
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -653,6 +655,45 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       if (this.getPattern().getHasMatch())
       {
          return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
+      }
+      return null;
+   }
+
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public AccountPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_BANK);
+   }
+
+   public AccountPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getBank();
       }
       return null;
    }

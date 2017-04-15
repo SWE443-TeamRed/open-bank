@@ -36,6 +36,8 @@ import java.util.Date;
 
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.util.BankSet;
+import org.sdmlib.openbank.Bank;
 
 public class AccountSet extends SimpleSet<Account>
 {
@@ -941,6 +943,71 @@ public class AccountSet extends SimpleSet<Account>
          result.add( obj.recordTransaction(p0, p1, p2) );
       }
       return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via bank
+    */
+   public AccountSet filterBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
+    */
+   public AccountSet withBank(Bank value)
+   {
+      for (Account obj : this)
+      {
+         obj.withBank(value);
+      }
+      
+      return this;
    }
 
 }

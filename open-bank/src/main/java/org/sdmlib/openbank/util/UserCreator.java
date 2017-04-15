@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.openbank.User;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.Bank;
 
 public class UserCreator implements SendableEntityCreator
 {
@@ -39,6 +40,7 @@ public class UserCreator implements SendableEntityCreator
       User.PROPERTY_PHONE,
       User.PROPERTY_ACCOUNT,
       User.PROPERTY_USERNAME,
+      User.PROPERTY_BANK,
    };
    
    @Override
@@ -107,6 +109,11 @@ public class UserCreator implements SendableEntityCreator
       if (User.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
       {
          return ((User) target).getUsername();
+      }
+
+      if (User.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getBank();
       }
       
       return null;
@@ -177,6 +184,12 @@ public class UserCreator implements SendableEntityCreator
       if ((User.PROPERTY_ACCOUNT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((User) target).withoutAccount((Account) value);
+         return true;
+      }
+
+      if (User.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setBank((Bank) value);
          return true;
       }
       

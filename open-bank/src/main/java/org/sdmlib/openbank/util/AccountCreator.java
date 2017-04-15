@@ -29,6 +29,7 @@ import org.sdmlib.openbank.Transaction;
 
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.Bank;
 
 public class AccountCreator implements SendableEntityCreator
 {
@@ -42,6 +43,7 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
       Account.PROPERTY_TYPE,
+      Account.PROPERTY_BANK,
    };
    
    @Override
@@ -105,6 +107,11 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getType();
+      }
+
+      if (Account.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getBank();
       }
       
       return null;
@@ -175,6 +182,12 @@ public class AccountCreator implements SendableEntityCreator
       if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutDebit((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBank((Bank) value);
          return true;
       }
       

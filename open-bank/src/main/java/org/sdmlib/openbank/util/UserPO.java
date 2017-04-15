@@ -8,6 +8,8 @@ import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.UserPO;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.BankPO;
+import org.sdmlib.openbank.Bank;
 
 public class UserPO extends PatternObject<UserPO, User>
 {
@@ -622,4 +624,43 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public UserPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_BANK);
+   }
+
+   public UserPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) this.getCurrentMatch()).getBank();
+      }
+      return null;
+   }
+
 }
