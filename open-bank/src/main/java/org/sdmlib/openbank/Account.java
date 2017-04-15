@@ -157,6 +157,10 @@ public  class Account implements SendableEntity
 
    public void setAccountnum(int value)
    {
+      if (value <0) {
+         throw new IllegalArgumentException("Account number is not valid!");
+      }
+
       if (this.accountnum != value) {
 
          int oldValue = this.accountnum;
