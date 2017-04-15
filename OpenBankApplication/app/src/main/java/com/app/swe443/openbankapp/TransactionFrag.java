@@ -1,6 +1,5 @@
 package com.app.swe443.openbankapp;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,56 +12,69 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Created by kimberly_93pc on 4/9/17.
+ */
 
-
-public class HomeFrag extends Fragment {
-
+public class TransactionFrag extends Fragment {
     private RecyclerView mRecyclerView;
-    private TextView homepageHeaderName;
+    private TextView transactionHeaderName;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Account> mDataset;
-    private OnAccountSelectedListener  mCallback;
-
+    private ArrayList<Transaction> mDataset;
+    //private TransactionFrag.OnTransactionSelectedListener mCallback;
+    private int accountID;
+    private ArrayList<Transaction> transactions;
 
     // Container Activity must implement this interface
-    public interface OnAccountSelectedListener {
-        public void onAccountSelected(int accountID);
+    /*
+    TODO interface will only be used if clicking a transaction requires us to go to another fragment and pass data
+     */
+    public interface OnTransactionSelectedListener {
+        public void onTransactionSelected(int accountID);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnAccountSelectedListener ) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnAccountSelectedListener ");
-        }
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//
+//        // This makes sure that the container activity has implemented
+//        // the callback interface. If not, it throws an exception
+//        try {
+//            mCallback = (TransactionFrag.OnTransactionSelectedListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnTransactionSelectedListener ");
+//        }
+//    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            accountID = bundle.getInt("id",-1);
+            transactions = activity.getTransactions(accountID);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.fragment_home, container, false);
+        final View v = inflater.inflate(R.layout.fragment_transaction, container, false);
 //Get RecyclerView instance from the layout
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
-        homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
-        homepageHeaderName.setText("Welcome " + "Nick");
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.trans_recycler_view);
+        transactionHeaderName = (TextView) v.findViewById(R.id.welcomeText);
+        transactionHeaderName.setText("Transactions");
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         //mRecyclerView.setHasFixedSize(true);
@@ -77,31 +89,28 @@ public class HomeFrag extends Fragment {
         //Account tinaa = jsonp.fromJson(tina.getUserID());
 
         //Set data and send it to the Adapter
-        ArrayList<Account> data = new ArrayList<Account>();
-        MainActivity activity = (MainActivity) getActivity();
-        data.addAll(activity.getAccounts());
-        rViewAdapter = new MyAdapter(data, getContext());
+        rViewAdapter = new TransactionFrag.MyAdapter(transactions, getContext());
         mRecyclerView.setAdapter(rViewAdapter);
 
         return v;
     }
 
-    public void goToAccount(int id) {
-        mCallback.onAccountSelected(id);
-
-
-    }
+//    public void goToTransaction(int id) {
+//        mCallback.onTransactionSelected(id);
+//
+//
+//    }
 
 
 //The adapter provides access to the items in your data set, creates views for items, and replaces the content of some of the views with new data items when the original item is no longer visible. The following code example shows a simple implementation for a data set that consists of an array of strings displayed using TextView widgets:
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    class MyAdapter extends RecyclerView.Adapter<TransactionFrag.MyAdapter.ViewHolder> {
 
         private AdapterView.OnItemClickListener mItemClickListener;
         private Context mContext;
         private FragmentManager fm;
         private FragmentTransaction transaction;
-        private Fragment home_fragment;
+        private Fragment transaction_fragment;
 
 
 
@@ -110,22 +119,24 @@ public class HomeFrag extends Fragment {
         // you provide access to all the views for a data item in a view holder
         class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public TextView accountnameText;
-            public TextView accountnumText;
+            public TextView fromText;
+            public TextView noteText;
             public TextView balanceText;
+            public TextView amountText;
 
 
             public ViewHolder(View v) {
                 super(v);
-                accountnameText = (TextView) v.findViewById(R.id.accountnameText);
-                accountnumText = (TextView) v.findViewById(R.id.accountnumText);
+                fromText = (TextView) v.findViewById(R.id.fromText);
+                noteText = (TextView) v.findViewById(R.id.noteText);
                 balanceText = (TextView) v.findViewById(R.id.balanceText);
+                amountText = (TextView) v.findViewById(R.id.amountText);
 
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(ArrayList<Account> myDataset, Context context) {
+        public MyAdapter(ArrayList<Transaction> myDataset, Context context) {
 
             mDataset = myDataset;
             this.mContext = context;
@@ -135,19 +146,19 @@ public class HomeFrag extends Fragment {
 
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                             int viewType) {
-            // Get accountnameText from layout
+        public TransactionFrag.MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                int viewType) {
+            // Get fromText from layout
             View v = (View) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.account_card_view, parent, false);
+                    .inflate(R.layout.transaction_card_view, parent, false);
             // set the view's size, margins, paddings and layout parameters
 
-            ViewHolder vh = new ViewHolder(v);
+            TransactionFrag.MyAdapter.ViewHolder vh = new TransactionFrag.MyAdapter.ViewHolder(v);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("CLICKED ON ITEM " + vh.getAdapterPosition());
-                    goToAccount(vh.getAdapterPosition());
+                    System.out.println("CLICKED ON Transaction" + vh.getAdapterPosition());
+                    //goToTransaction(vh.getAdapterPosition());
 
                 }
 
@@ -158,12 +169,16 @@ public class HomeFrag extends Fragment {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(TransactionFrag.MyAdapter.ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.accountnameText.setText(String.valueOf(String.valueOf(mDataset.get(position).getType())));
-            holder.accountnumText.setText(String.valueOf(mDataset.get(position).getAccountnum()));
-            holder.balanceText.setText(String.valueOf(mDataset.get(position).getBalance()));
+            if(mDataset.get(position).getTransType().equals(TransactionTypeEnum.TRANSFER))
+                holder.fromText.setText(String.valueOf(String.valueOf(mDataset.get(position).getFromAccount().getOwner().getName())));
+            else
+                holder.fromText.setText(String.valueOf("Self"));
+            holder.noteText.setText(String.valueOf(mDataset.get(position).getNote()));
+            holder.balanceText.setText(String.valueOf(mDataset.get(position).getToAccount().getBalance()));
+            holder.amountText.setText(String.valueOf(mDataset.get(position).getAmount()));
 
 
         }
@@ -178,12 +193,10 @@ public class HomeFrag extends Fragment {
         public void initFragments() {
 
             /********Home Fragment********/
-            home_fragment = new HomeFrag();
+            transaction_fragment = new TransactionFrag();
             transaction = fm.beginTransaction();
-            transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
+            transaction.replace(R.id.contentFragment, transaction_fragment, "TRANSACTION_FRAGMENT");
             transaction.commit();
         }
     }
-
 }
-

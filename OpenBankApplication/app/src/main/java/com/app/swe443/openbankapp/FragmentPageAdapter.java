@@ -21,7 +21,7 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new AccountFrag();
             case 2:
-                return new CreditFrag();
+                return new TransactionFrag();
             // The other sections of the app are dummy placeholders.
             default:
             Fragment fragment = new SavingsFrag();

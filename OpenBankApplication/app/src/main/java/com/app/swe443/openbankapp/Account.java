@@ -488,12 +488,19 @@ public  class Account implements SendableEntity
       trans.setDate(new Date());
       trans.setAmount(amount);
       trans.setNote(note);
+       if(recordforAccount != this)
+           trans.setTransType(TransactionTypeEnum.TRANSFER);
+       else if (credit == true)
+           trans.setTransType(TransactionTypeEnum.DEPOSIT);
+       else
+           trans.setTransType(TransactionTypeEnum.WITHDRAW);
       if(credit) {
          //Credit transaction, Set who is getting amount
          trans.setFromAccount(recordforAccount);
       }else{
          //Debit transaction, set who is recieving amount
          trans.setToAccount(recordforAccount);
+
       }
       return trans;
    }

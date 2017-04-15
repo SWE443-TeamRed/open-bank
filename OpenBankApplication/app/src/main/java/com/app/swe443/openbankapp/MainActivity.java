@@ -16,9 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnAccountSelectedListener{
+        implements HomeFrag.OnAccountSelectedListener, AccountFrag.OnTransactionSelectedListener{
 
 
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment home_fragment;
     private Fragment account_fragment;
     private Fragment transfer_fragment;
-    private Fragment savings_transaction_fragment;
+    private Fragment transaction_fragment;
     private Fragment checking_transaction_fragment;
     private Fragment credit_transaction_fragment;
     private Fragment contacts_fragment;
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity
         tinac.withdraw(10);
         tinac.withdraw(20);
         tinac.withdraw(30);
+//        System.out.println("TINA FIRST TRANS "+ tinac.getDebit().get(0) +" "+
+//                tinac.getDebit().get(0)
+//                        .getFromAccount()
+//                        .getOwner()
+//                        .getName());
+
         accounts.addAll(tina.getAccount());
         addDrawerItems();
         initFragments();
@@ -122,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case 3:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, savings_transaction_fragment);
+                        transaction.replace(R.id.contentFragment, transaction_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
@@ -167,9 +174,7 @@ public class MainActivity extends AppCompatActivity
         transfer_fragment = new TransferFrag();
 
         /********Transaction Fragments********/
-        savings_transaction_fragment = new SavingsTransactionFrag();
-        checking_transaction_fragment = new CheckingTransactionFrag();
-        credit_transaction_fragment = new CreditTransactionFrag();
+        transaction_fragment = new TransactionFrag();
 
         /********Contacts Fragment********/
         contacts_fragment = new ContactsFrag();
@@ -203,9 +208,34 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void onTransactionSelected(int accountID) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", accountID);
+        transaction_fragment.setArguments(bundle);
+        transaction = fm.beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.contentFragment, transaction_fragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+
+
+    }
+
 
     public Account getAccount(int index){
         return accounts.get(index);
+    }
+
+    public ArrayList<Transaction> getTransactions(int index){
+        ArrayList<Transaction> trans = new ArrayList<Transaction>();
+        trans.addAll(accounts.get(index).getDebit());
+        trans.addAll(accounts.get(index).getCredit());
+        System.out.println("TRANSACTIONS COUNT IS "+trans.size() + " at index " + index);
+        return trans;
     }
 
     public ArrayList<Account> getAccounts(){
