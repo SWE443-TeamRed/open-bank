@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.TransactionTypeEnum;
 
+
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -76,6 +77,14 @@ public class TransactionTest {
         // set note
         trans.setNote(nt);
         assertTrue(nt == trans.getNote());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    // setTrans Type with null should throws IllegalArgumentException exception
+    public void setNullTransType(){
+        // set type
+        trans.setTransType(null);
+
     }
 
     @Test
