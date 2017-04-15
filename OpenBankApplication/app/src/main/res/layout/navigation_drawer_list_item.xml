@@ -23,6 +23,6 @@
         android:layout_marginTop="15dp"
         android:textSize="18sp"
         android:textColorHighlight="@color/colorAccent"
-        android:textSelectHandle="@drawable/drawer_image"
+        android:textSelectHandle="@color/colorSecondaryDark"
         />
 </LinearLayout>

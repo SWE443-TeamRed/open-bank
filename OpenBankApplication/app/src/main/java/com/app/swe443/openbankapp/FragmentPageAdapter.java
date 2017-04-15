@@ -39,7 +39,7 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Account Basics";
+                return "Account Details";
             case 1:
                 return "Transfer";
             case 2:
