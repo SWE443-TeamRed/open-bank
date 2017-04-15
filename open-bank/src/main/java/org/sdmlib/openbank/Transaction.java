@@ -29,6 +29,7 @@ import java.util.Date;
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import java.math.BigInteger;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -422,4 +423,60 @@ public  class Transaction implements SendableEntity
 
       return accnt;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_AMOUNTDOLLAR = "amountDollar";
+   
+   private BigInteger amountDollar;
+
+   public BigInteger getAmountDollar()
+   {
+      return this.amountDollar;
+   }
+   
+   public void setAmountDollar(BigInteger value)
+   {
+      if (this.amountDollar != value) {
+      
+         BigInteger oldValue = this.amountDollar;
+         this.amountDollar = value;
+         this.firePropertyChange(PROPERTY_AMOUNTDOLLAR, oldValue, value);
+      }
+   }
+   
+   public Transaction withAmountDollar(BigInteger value)
+   {
+      setAmountDollar(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_AMOUNTCENT = "amountCent";
+   
+   private BigInteger amountCent;
+
+   public BigInteger getAmountCent()
+   {
+      return this.amountCent;
+   }
+   
+   public void setAmountCent(BigInteger value)
+   {
+      if (this.amountCent != value) {
+      
+         BigInteger oldValue = this.amountCent;
+         this.amountCent = value;
+         this.firePropertyChange(PROPERTY_AMOUNTCENT, oldValue, value);
+      }
+   }
+   
+   public Transaction withAmountCent(BigInteger value)
+   {
+      setAmountCent(value);
+      return this;
+   } 
 }

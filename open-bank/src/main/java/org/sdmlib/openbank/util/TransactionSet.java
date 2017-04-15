@@ -32,6 +32,7 @@ import de.uniks.networkparser.list.ObjectSet;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import java.math.BigInteger;
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -637,6 +638,124 @@ public class TransactionSet extends SimpleSet<Transaction>
       for (Transaction obj : this)
       {
          obj.setCreationdate(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the amountDollar attribute values. 
+    * 
+    * @return List of java.math.BigInteger objects reachable via amountDollar attribute
+    */
+   public BigIntegerSet getAmountDollar()
+   {
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getAmountDollar());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the amountDollar attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterAmountDollar(BigInteger value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getAmountDollar())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the amountDollar attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withAmountDollar(BigInteger value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setAmountDollar(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the amountCent attribute values. 
+    * 
+    * @return List of java.math.BigInteger objects reachable via amountCent attribute
+    */
+   public BigIntegerSet getAmountCent()
+   {
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Transaction obj : this)
+      {
+         result.add(obj.getAmountCent());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the amountCent attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterAmountCent(BigInteger value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getAmountCent())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the amountCent attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withAmountCent(BigInteger value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setAmountCent(value);
       }
       
       return this;

@@ -60,6 +60,8 @@ public class Model {
         // create class Transaction
         Clazz transaction = model.createClazz("Transaction");
         transaction.withAttribute("amount", DataType.DOUBLE);
+        transaction.withAttribute("amountDollar", DataType.create(BigInteger.class));
+        transaction.withAttribute("amountCent", DataType.create(BigInteger.class));
         transaction.withAttribute("creationdate",DataType.create(Date.class));
         transaction.withAttribute("note",DataType.STRING);
         transaction.withAttribute("transType", DataType.create(transTypeEnum));

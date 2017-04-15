@@ -28,6 +28,7 @@ import org.sdmlib.openbank.Account;
 
 import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import java.math.BigInteger;
 
 public class TransactionCreator implements SendableEntityCreator
 {
@@ -41,6 +42,8 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
       Transaction.PROPERTY_CREATIONDATE,
+      Transaction.PROPERTY_AMOUNTDOLLAR,
+      Transaction.PROPERTY_AMOUNTCENT,
    };
    
    @Override
@@ -105,6 +108,16 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getCreationdate();
       }
+
+      if (Transaction.PROPERTY_AMOUNTDOLLAR.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getAmountDollar();
+      }
+
+      if (Transaction.PROPERTY_AMOUNTCENT.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getAmountCent();
+      }
       
       return null;
    }
@@ -112,6 +125,18 @@ public class TransactionCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Transaction.PROPERTY_AMOUNTCENT.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setAmountCent((BigInteger) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_AMOUNTDOLLAR.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setAmountDollar((BigInteger) value);
+         return true;
+      }
+
       if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setCreationdate((Date) value);

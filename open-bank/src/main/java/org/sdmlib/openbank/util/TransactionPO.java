@@ -10,6 +10,7 @@ import org.sdmlib.openbank.util.TransactionPO;
 
 import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import java.math.BigInteger;
 
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
@@ -426,6 +427,98 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       if (this.getPattern().getHasMatch())
       {
          ((Transaction) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+   
+   public TransactionPO createAmountDollarCondition(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNTDOLLAR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createAmountDollarAssignment(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNTDOLLAR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BigInteger getAmountDollar()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getAmountDollar();
+      }
+      return null;
+   }
+   
+   public TransactionPO withAmountDollar(BigInteger value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setAmountDollar(value);
+      }
+      return this;
+   }
+   
+   public TransactionPO createAmountCentCondition(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNTCENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createAmountCentAssignment(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNTCENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BigInteger getAmountCent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getAmountCent();
+      }
+      return null;
+   }
+   
+   public TransactionPO withAmountCent(BigInteger value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setAmountCent(value);
       }
       return this;
    }
