@@ -368,12 +368,17 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   public boolean validateLogin( int accountID, String username, String password )
-   {
+   public boolean validateLogin( int accountID, String username, String password ) {
+      Account pulledAccount = this.findAccountByID(accountID);
+      User pulledUser = this.findUserByID(username);
+      if (pulledAccount != null && pulledUser != null){
+         if (pulledUser.getPassword().equals(password)){
+            //pulledUser.setLoggedIn(true);
+            return true;
+         }
+      }
       return false;
    }
-
-   
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
@@ -382,8 +387,7 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   public User findUserByID( String userID )
-   {
+   public User findUserByID(String userID) {
       return null;
    }
 
