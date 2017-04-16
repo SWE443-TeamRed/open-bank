@@ -977,6 +977,7 @@ public class Test_Improving_Backend_Functionality {
     //******* BANK CLASS TEST CASES ************
 
     @Test
+    // test findAccountByID with a valid account number
     public void testfindAccountByID() {
         User usr1 = new User()
                 .withName("tina")
@@ -998,6 +999,7 @@ public class Test_Improving_Backend_Functionality {
     }
 
     @Test
+    // test findAccountByID with empty account abject, should return null
     public void testfindAccountByIDWithNull() {
 
         Bank bnk = new Bank();
