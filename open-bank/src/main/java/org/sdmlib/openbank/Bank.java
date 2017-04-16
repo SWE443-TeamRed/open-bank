@@ -384,6 +384,17 @@ import org.sdmlib.openbank.Account;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      AccountSet accountSets = this.getCustomerAccounts();
+
+      System.out.println("acnt.getAccountnum().Size:" + accountSets.size());
+
+      for (Account acnt : accountSets) {
+         System.out.println("acnt.getAccountnum():" + acnt.getAccountnum());
+         if(acnt.getAccountnum()==accountID){
+            //System.out.println("FOUND");
+            return acnt;
+         }
+      }
       return null;
    }
 

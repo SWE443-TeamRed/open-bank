@@ -1,9 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.JsonPersistency;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.*;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -22,6 +19,7 @@ public class Test_Improving_Backend_Functionality {
         trans = new org.sdmlib.openbank.Transaction();
     }
 
+    //******** TRANSACTION CLASS TESTS *****************
     @Test(expected=IllegalArgumentException.class)
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
@@ -973,5 +971,41 @@ public class Test_Improving_Backend_Functionality {
         bob.login("bobby17", "BillyB$b1");
         assertTrue(bob.isLoggedIn());
         bob.setPhone("7031234567");
+    }
+
+
+    //******* BANK CLASS TEST CASES ************
+
+    @Test
+    public void testfindAccountByID() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+
+        Account checking = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(checking);
+
+        Account acntGet = bnk.findAccountByID(1);
+        //System.out.println("acntGet" + acntGet);
+        assertTrue(1==acntGet.getAccountnum());
+    }
+
+    @Test
+    public void testfindAccountByIDWithNull() {
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(null);
+
+        Account acntGet = bnk.findAccountByID(1);
+        //System.out.println("acntGet" + acntGet);
+        assertTrue(null==acntGet);
     }
 }
