@@ -1010,4 +1010,119 @@ public class Test_Improving_Backend_Functionality {
         //System.out.println("acntGet" + acntGet);
         assertTrue(null==acntGet);
     }
+
+    @Test
+    public void testvalidateLogin() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1")
+                .withPassword("Th3C@pt");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Account checking2 = new Account()
+                .withAccountnum(2)
+                .withOwner(usr2)
+                .withBalance(1000);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerAccounts(checking2);
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+
+        assertTrue("Did not successfully validate karli's login", bnk.validateLogin(1, "karli25", "StudyRight"));
+        assertFalse("Validated account 2 with incorrect userID", bnk.validateLogin(2, "steverog2", "Th3C@pt"));
+        assertTrue("Did not successfully validate steve's login" ,bnk.validateLogin(2, "steverog1", "Th3C@pt"));
+        assertFalse("Validated login of an nonexisting account", bnk.validateLogin(3, "ksludo", "zhipan"));
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of an account with a negative ID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNegativeAccountID() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(-1, "karli25", "StudyRight");
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of null UserID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNullUserID() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(1, null, "StudyRight");
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of null UserID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNullPassword() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(1, "karli25", null);
+    }
+
+    // Tests if findUserByID can find all users associated with the bank
+    // Also tests for the case in which the user cannot be found
+    @Test
+    public void testfindUserByID() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1");
+        Bank bnk = new Bank();
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+
+        User usr = bnk.findUserByID("steverog1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("tina1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("tina1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("noone");
+        assertTrue("User does not exist", usr == null);
+    }
+
+    @Test
+    public void testfindUserByIDWithNull() {
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(null);
+
+        User usrGet = bnk.findUserByID("steverog1");
+        assertTrue(usrGet == null);
+    }
 }

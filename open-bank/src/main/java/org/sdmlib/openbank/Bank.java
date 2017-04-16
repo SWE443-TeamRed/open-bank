@@ -375,7 +375,6 @@ import org.sdmlib.openbank.Account;
        User pulledUser = this.findUserByID(username);
        if (pulledAccount != null && pulledUser != null){
            if (pulledUser.getPassword().equals(password)){
-               //pulledUser.setLoggedIn(true);
                return true;
            }
        }
@@ -386,12 +385,8 @@ import org.sdmlib.openbank.Account;
    {
       AccountSet accountSets = this.getCustomerAccounts();
 
-      System.out.println("acnt.getAccountnum().Size:" + accountSets.size());
-
       for (Account acnt : accountSets) {
-         System.out.println("acnt.getAccountnum():" + acnt.getAccountnum());
          if(acnt.getAccountnum()==accountID){
-            //System.out.println("FOUND");
             return acnt;
          }
       }
@@ -401,12 +396,12 @@ import org.sdmlib.openbank.Account;
    
    //==========================================================================
    public User findUserByID(String userID) {
-       /*
-       for (User i: ){
-           if (i.getUserID().equals(userID))
+       UserSet pulledUsers = this.getCustomerUser();
+       for (User i : pulledUsers) {
+           if (i.getUserID() != null && i.getUserID().equals(userID)) {
                return i;
+           }
        }
-       */
        return null;
    }
 
