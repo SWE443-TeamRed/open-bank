@@ -162,7 +162,8 @@
             android:text="How much do you want to deposit?"
             android:textAlignment="center"
             android:textSize="15sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
 
         <EditText
             android:id="@+id/depositamountText"
@@ -173,15 +174,33 @@
             android:ems="10"
             android:gravity="center_horizontal"
             android:inputType="numberDecimal"
-            android:visibility="gone"/>
-
-        <Button
-            android:id="@+id/confirmdeposit"
-            android:layout_width="200dp"
+            android:visibility="gone"
+            />
+        <LinearLayout
+            android:layout_width="450dp"
             android:layout_height="wrap_content"
-            android:background="#0b3c5d"
-            android:text="Confirm Deposit"
-            android:visibility="gone"/>
+            android:id="@+id/depositButtons"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/canceldeposit"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmdeposit"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#0b3c5d"
+                android:text="Confirm" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/withdrawamounttitleText"
@@ -203,13 +222,31 @@
             android:inputType="numberDecimal"
             android:visibility="gone"/>
 
-        <Button
-            android:id="@+id/confirmwithdraw"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="450dp"
+            android:id="@+id/withdrawButtons"
             android:layout_height="wrap_content"
-            android:background="#0b3c5d"
-            android:text="Confirm Withdraw"
-            android:visibility="gone" />
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelwithdraw"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmwithdraw"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#0b3c5d"
+                android:text="Confirm" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

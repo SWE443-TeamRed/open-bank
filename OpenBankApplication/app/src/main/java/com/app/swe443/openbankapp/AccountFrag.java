@@ -1,15 +1,19 @@
 package com.app.swe443.openbankapp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
@@ -19,14 +23,14 @@ import java.text.SimpleDateFormat;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     private Account account;
-    private int accountID;
+    private int accountIndex;
     private TextView accountnameText;
     private TextView accountnumText;
     private TextView balanceText;
     private TextView ownerText;
     private TextView typeText;
     private TextView creationText;
-
+    private MainActivity activity;
     private OnMainActivityCallbackListener mCallback;
 
 
@@ -36,11 +40,16 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private TextView depositamounttitleText;
     private EditText depositamountText;
     private Button confirmDeposit;
+    private Button cancelDeposit;
+    private LinearLayout depositButtons;
+
 
     //Withdraw UI fields
     private TextView withdrawamounttitleText;
     private EditText withdrawamountText;
     private Button confirmWithdraw;
+    private Button cancelWithdraw;
+    private LinearLayout withdrawButtons;
 
 
     public AccountFrag(){
@@ -49,8 +58,9 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     // Container Activity must implement this interface
     public interface OnMainActivityCallbackListener {
-        public void onWithdrawSelected(int accountID);
-        public void onDepositSelected(int accountID);
+        public void onWithdrawSelected(int amount);
+        public void onDepositSelected(int ammount);
+
     }
 
 
@@ -73,27 +83,39 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         final View v =  inflater.inflate(R.layout.fragment_account,container,false);
 
-        MainActivity activity = (MainActivity) getActivity();
+        activity = (MainActivity) getActivity();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            accountID = bundle.getInt("id",-1);
+            accountIndex = bundle.getInt("id",-1);
             account = activity.getAccount(bundle.getInt("id",-1));
+            System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ account.getAccountnum() + " AT INDEX "+accountIndex);
+
         }
 
         depositButton = (Button) v.findViewById(R.id.deposit);
         depositamounttitleText = (TextView) v.findViewById(R.id.depositamounttitleText);
         depositamountText = (EditText) v.findViewById(R.id.depositamountText);
         confirmDeposit = (Button) v.findViewById(R.id.confirmdeposit);
+        cancelDeposit = (Button) v.findViewById(R.id.canceldeposit);
+        depositButtons = (LinearLayout) v.findViewById(R.id.depositButtons);
+
         withdrawButton = (Button) v.findViewById(R.id.withdraw);
         withdrawamounttitleText = (TextView) v.findViewById(R.id.withdrawamounttitleText);
         withdrawamountText = (EditText) v.findViewById(R.id.withdrawamountText);
         confirmWithdraw = (Button) v.findViewById(R.id.confirmwithdraw);
+        cancelWithdraw = (Button) v.findViewById(R.id.cancelwithdraw);
+        withdrawButtons = (LinearLayout) v.findViewById(R.id.withdrawButtons);
+
+
 
 
         depositButton.setOnClickListener(this);
         withdrawButton.setOnClickListener(this);
         confirmWithdraw.setOnClickListener(this);
+        cancelWithdraw.setOnClickListener(this);
+        cancelDeposit.setOnClickListener(this);
         confirmDeposit.setOnClickListener(this);
+
 
         accountnameText = (TextView) v.findViewById(R.id.accountnameText);
         accountnumText = (TextView) v.findViewById(R.id.accountnumText);
@@ -141,18 +163,91 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 break;
             case R.id.confirmdeposit:
                 System.out.println("Confirmation for Deposit Requested");
-                setDepositFieldsVisability(0);
-                depositButton.setVisibility(View.VISIBLE);
-                withdrawButton.setVisibility(View.VISIBLE);
+                if (depositamountText.getText().toString().equals("")) {
+                    //Alert User that he must have an amount
+                    Toast.makeText(getContext(), "Please enter a value",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    int amount = Integer.valueOf(depositamountText.getText().toString());
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    mCallback.onDepositSelected(Integer.valueOf(depositamountText.getText().toString()));
+                                    setDepositFieldsVisability(0);
+                                    depositButton.setVisibility(View.VISIBLE);
+                                    withdrawButton.setVisibility(View.VISIBLE);
+                                    balanceText.setText(String.valueOf(account.getBalance()));
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Are you sure you want to deposit " + amount + " into your " + account.getType().toString() + " account?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+                }
+
                 //Show withdraw fields
                 //mCallback.onDepositSelected(accountID);
                 break;
             case R.id.confirmwithdraw:
                 System.out.println("Confirmation for Withdraw Requested");
-                setWithdrawFieldsVisability(0);
+
+                if (withdrawamountText.getText().toString().equals("")) {
+                    //Alert User that he must have an amount
+                    Toast.makeText(getContext(), "Please enter a value",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    int amount = Integer.valueOf(withdrawamountText.getText().toString());
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    mCallback.onWithdrawSelected(Integer.valueOf(withdrawamountText.getText().toString()));
+                                    setWithdrawFieldsVisability(0);
+                                    depositButton.setVisibility(View.VISIBLE);
+                                    withdrawButton.setVisibility(View.VISIBLE);
+                                    balanceText.setText(String.valueOf(account.getBalance()));
+
+
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Are you sure you want to withdraw " + amount + " from your " + account.getType().toString() + " account?")
+                            .setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+
+                }
+                break;
+            case R.id.canceldeposit:
+                System.out.println("Cancel Withdraw Requested");
                 depositButton.setVisibility(View.VISIBLE);
                 withdrawButton.setVisibility(View.VISIBLE);
                 //Show withdraw fields
+                setDepositFieldsVisability(0);
+
+                //mCallback.onWithdrawSelected(accountID);
+                break;
+            case R.id.cancelwithdraw:
+                System.out.println("Cancel Deposit Requested");
+                depositButton.setVisibility(View.VISIBLE);
+                withdrawButton.setVisibility(View.VISIBLE);
+                //Show withdraw fields
+                setWithdrawFieldsVisability(0);
                 //mCallback.onDepositSelected(accountID);
                 break;
         }
@@ -163,11 +258,13 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         if(value==0) {
             depositamounttitleText.setVisibility(View.GONE);
             depositamountText.setVisibility(View.GONE);
-            confirmDeposit.setVisibility(View.GONE);
+            depositButtons.setVisibility(View.GONE);
         }else{
             depositamounttitleText.setVisibility(View.VISIBLE);
             depositamountText.setVisibility(View.VISIBLE);
-            confirmDeposit.setVisibility(View.VISIBLE);
+            if(!depositamountText.getText().equals(""))
+                depositamountText.setText("");
+            depositButtons.setVisibility(View.VISIBLE);
         }
 
 
@@ -177,13 +274,16 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         if (value == 0) {
             withdrawamounttitleText.setVisibility(View.GONE);
             withdrawamountText.setVisibility(View.GONE);
-            confirmWithdraw.setVisibility(View.GONE);
+            withdrawButtons.setVisibility(View.GONE);
         } else {
             withdrawamounttitleText.setVisibility(View.VISIBLE);
             withdrawamountText.setVisibility(View.VISIBLE);
-            confirmWithdraw.setVisibility(View.VISIBLE);
+            if(!withdrawamountText.getText().equals(""))
+                withdrawamountText.setText("");
+            withdrawButtons.setVisibility(View.VISIBLE);
         }
     }
+
 
 
 }

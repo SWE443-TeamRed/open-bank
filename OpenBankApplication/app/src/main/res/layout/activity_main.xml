@@ -49,9 +49,6 @@
         android:visibility="invisible"
         android:id="@+id/tabsView"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
-
         android:layout_height="match_parent"
         tools:context="com.app.swe443.openbankapp.MainActivity">
 

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
     private DrawerLayout Drawer;
     private ActionBarDrawerToggle drawerToggle;
     private ListView drawerList;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     public ActionBar actionBar;
 
     private Fragment home_fragment;
+    private Fragment newhome_fragment;
+
     private Fragment account_fragment;
     private Fragment transfer_fragment;
     private Fragment users_fragment;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
     private ArrayList<Account> accounts = new ArrayList<Account>();
-
+    private User currentUser;
     //Accounts tabs
     ViewPager viewerPager;
     FragmentPageAdapter fragmentPagerAdapter;
@@ -63,6 +66,11 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbartabs;
     public ActionBar actionBartabs;
     private int accountID;
+
+    //Main Activity Stores the FragmentPageAdapter
+    //Displays the three tabs, AccountFrag as the first tab (See FragmentPageAdapter for the strucutre)
+    private RelativeLayout tabsView;
+    private RelativeLayout mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +130,13 @@ public class MainActivity extends AppCompatActivity
             ArrayList<Account> needed for account list in homepage
          */
         accounts.addAll(tina.getAccount());
+
+        currentUser = tina;
         addDrawerItems();
         initFragments();
 
-
+        mainView = (RelativeLayout) findViewById(R.id.mainView);
+        tabsView = (RelativeLayout) findViewById(R.id.tabsView);
 
 
     }
@@ -153,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-
+                System.out.println("NAV ITEM PRESSED AT POSITION "+position);
                 switch (position) {
                     case 1:
                         transaction = fm.beginTransaction();
@@ -192,6 +203,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void backNavigation(View view){
+        System.out.println("BACKNAVIGATION FOR HEADER");
         Drawer.closeDrawer(Gravity.START);
     }
 
@@ -223,37 +235,30 @@ public class MainActivity extends AppCompatActivity
         users_fragment = new UsersFrag();
 
 
-        //Initiate the Homepage fragment
+        //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
+        transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
     /*
         An account was clicked in the homepage, change the screen to display account specific tabs
      */
-    public void onAccountSelected(int accountID) {
+    public void onAccountSelected(int id) {
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("id", accountID);
-//        account_fragment.setArguments(bundle);
- //         transaction = fm.beginTransaction();
-//        // Replace whatever is in the fragment_container view with this fragment,
-//        // and add the transaction to the back stack so the user can navigate back
-     //      transaction.replace(R.id.contentFragment, account_fragment);
-//        transaction.addToBackStack(null);
-//        // Commit the transaction
-//        transaction.commit();
+
+        this.accountID = id;
         getFragmentManager().popBackStack();
-        RelativeLayout mainView = (RelativeLayout) findViewById(R.id.mainView);
-        RelativeLayout tabsView = (RelativeLayout) findViewById(R.id.tabsView);
+
 
         mainView.setVisibility(View.INVISIBLE);
         tabsView.setVisibility(View.VISIBLE);
 
 
-        System.out.println("ACCOUNT SELECTED");
+        System.out.println("ACCOUNT SELECTED ID IS "+ accountID);
         fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountID);
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
@@ -273,41 +278,39 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    public void onDepositSelected(int accountID) {
+    public void onDepositSelected(int amount) {
+        System.out.println("onDepositSelected mathod initiated, initial balance of account is "+ accounts.get(accountID).getBalance());
+
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", accountID);
-        transaction_fragment = new TransactionFrag();
-        transaction_fragment.setArguments(bundle);
-        transaction = fm.beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.contentFragment, transaction_fragment);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
 
+        accounts.clear();
+        currentUser.getAccount().get(accountID).deposit(amount);
+
+        accounts.addAll(currentUser.getAccount());
+        System.out.println("Balance after deposit "+accounts.get(accountID).getBalance());
+
+        fragmentPagerAdapter.notifyDataSetChanged();
+        viewerPager.invalidate();
 
     }
 
-    public void onWithdrawSelected(int accountID) {
+    public void onWithdrawSelected(int amount) {
+        System.out.println("onWithdrawSelected mathod initiated, initial balance of account is "+ accounts.get(accountID).getBalance());
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", accountID);
-        transaction_fragment = new TransactionFrag();
-        transaction_fragment.setArguments(bundle);
-        transaction = fm.beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.contentFragment, transaction_fragment);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
 
+        accounts.clear();
+        currentUser.getAccount().get(accountID).withdraw(amount);
+        accounts.addAll(currentUser.getAccount());
+        System.out.println("Balance after withdraw "+accounts.get(accountID).getBalance());
+        fragmentPagerAdapter.notifyDataSetChanged();
+        viewerPager.invalidate();
 
     }
+
+
+
 
 
     public Account getAccount(int index){
@@ -315,15 +318,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public LinkedList<Transaction> getTransactions(int index){
-//        ArrayList<Transaction> trans = new ArrayList<Transaction>();
-//        trans.addAll(accounts.get(index).getDebit());
-//        trans.addAll(accounts.get(index).getCredit());
-//        System.out.println("TRANSACTIONS COUNT IS "+trans.size() + " at index " + index);
-//        Collections.sort(trans, new Comparator<Transaction>() {
-//            public int compare(Transaction o1, Transaction o2) {
-//                return o1.getDate().compareTo(o2.getDate());
-//            }
-//        });
         return accounts.get(index).getAccountTransactions();
     }
 
@@ -333,20 +327,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
+        System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
+        //Do not create a new Intent for Main Activity here as this will destory all data being tracked
+        //Set the (Account Details, Transfer, Transaction) view to invisible and the mainView to visible to display homepage
+        //Initiate the Homepage fragment
+        transaction = fm.beginTransaction();
+        newhome_fragment = new HomeFrag();
+        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+        transaction.addToBackStack(null);
+        transaction.commit();
+        mainView.setVisibility(View.VISIBLE);
+        tabsView.setVisibility(View.INVISIBLE);
+
         return true;
 
     }
 
     @Override
     public void onBackPressed() {
-        Log.d("LOGOUT", "Logout by back press");
-        RelativeLayout mainview = (RelativeLayout) findViewById(R.id.mainView);
-        RelativeLayout tabsview = (RelativeLayout) findViewById(R.id.tabsView);
-        if(mainview.getVisibility()==View.INVISIBLE) {
-            mainview.setVisibility(View.VISIBLE);
-            tabsview.setVisibility(View.INVISIBLE);
+
+        System.out.println("Logout by back press");
+
+        if(mainView.getVisibility()==View.INVISIBLE) {
+            transaction = fm.beginTransaction();
+            newhome_fragment = new HomeFrag();
+            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+            transaction.addToBackStack(null);
+            transaction.commit();
+            mainView.setVisibility(View.VISIBLE);
+            tabsView.setVisibility(View.INVISIBLE);
         }else{
             finish();
         }

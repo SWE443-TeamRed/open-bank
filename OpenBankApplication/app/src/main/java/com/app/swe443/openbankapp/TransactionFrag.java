@@ -64,6 +64,7 @@ public class TransactionFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("INSIDE ONCREATE IN TRANSACTION");
 
         //Clear local transactions after every fragemnt load
         if(transactions.size()!=0){
@@ -112,6 +113,7 @@ public class TransactionFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        System.out.println("INSIDE ONCREATEVIEW IN TRANSACTION");
         final View v = inflater.inflate(R.layout.fragment_transaction, container, false);
 //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.trans_recycler_view);
