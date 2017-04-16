@@ -3,11 +3,12 @@ package main.java; /**
  */
 
 import com.google.gson.Gson;
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.json.JsonArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -18,27 +19,27 @@ public class SparkServer {
     private static final Logger logger = Logger.getLogger(SparkServer.class.getName());
     private static final Gson GSON = new Gson();
 
-    static User user = null;
-    static Account account = null;
     static Transaction transaction = null;
-    static JSONObject responseJSON;
+    static int i = 1;
+    static int j = 1;
+
+    static Map<Integer, Account> accountMap;
+    static Map<String, User> userMap;
 
     public static void main(String[] args) {
-        try {
-            FileHandler fh;
-            fh = new FileHandler("api.log");
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            logger.addHandler(fh);
-        } catch (IOException ioe) {};
 
-        before("/*", (q, a) -> {
-            responseJSON = new JSONObject();
-            logger.info("Received api call: " + q.pathInfo()
-                    + "\n\tcontentType: " + q.contentType()
-                    + "\n\theaders: " + q.headers().toString()
-                    + "\n\tquery params: " + q.queryParams().toString());
-        });
+        Runtime.getRuntime().addShutdownHook(new ShutdownThread());
+
+        apiLogSetup();
+        accountMapSetup();
+        userMapSetup();
+
+        before("/*", (q, a) -> logger.info("Received api call from ip: " + q.ip()
+                + "\n\t" + q.pathInfo()
+                + "\n\tMessage Content"
+                + "\n\tcontentType: " + q.contentType()
+                + "\n\theaders: " + q.headers().toString()
+                + "\n\tquery params: " + q.queryParams().toString()));
 
         get("/admin", (request, response) -> {return "<HTML>\n" +
                 "<HEAD>\n" +
@@ -61,27 +62,72 @@ public class SparkServer {
             path("/login", () -> {
                 post("", (request, response) -> {
 
+                    JSONObject responseJSON = new JSONObject();
+
                     String username = request.queryParams("username");
                     String password = request.queryParams("password");
 
                     if(username != null & password != null) {
-                        if (username.equals(account.getOwner().getUsername())) {
+                        if(userMap.containsKey(username)) {
                             logger.info("Correct username");
-                            if (password.equals(account.getOwner().getPassword())) {
+                            if (password.equals(userMap.get(username).getPassword())) {
                                 logger.info("Correct password");
-                                responseJSON.put("Authentication", true);
+                                responseJSON.put("authentication", true);
+                                responseJSON.put("accountNumber", userMap.get(username).getAccount().getAccountnum());
+
+                                return responseJSON;
                             } else {
                                 logger.info("Incorrect password");
-                                responseJSON.put("Authentication", false);
                             }
-                        }else {
+                        } else {
                             logger.info("Incorrect username");
-                            responseJSON.put("Authentication", false);
                         }
-                    }else{
-                        logger.info("Null username and/or password");
-                        responseJSON.put("Authentication", false);
                     }
+
+                    responseJSON.put("authentication", false);
+                    return responseJSON;
+                });
+            });
+
+            path("/user", () -> {
+                get("", (request, response) -> {return "";});
+
+                post("", (request, response) -> {
+
+                    JSONObject responseJSON = new JSONObject();
+
+                    String name = "";
+                    String username = "";
+                    String password = "";
+                    String phoneNumber = "";
+                    boolean isAdmin = false;
+
+
+                    if(request.queryParams().contains("name"))
+                        name = request.queryParams("name");
+                    if(request.queryParams().contains("username"))
+                        username = request.queryParams("username");
+                    if(request.queryParams().contains("password"))
+                        password = request.queryParams("password");
+                    if(request.queryParams().contains("isAdmin"))
+                        isAdmin = Boolean.parseBoolean(request.queryParams("isAdmin").toString());
+                    if(request.queryParams().contains("phoneNumber"))
+                        phoneNumber = request.queryParams("phoneNumber").toString();
+
+                    User user = null;
+
+                    user = new User()
+                            .withName(name)
+                            .withUsername(username)
+                            .withPhone(phoneNumber)
+                            .withUserID(""+j)
+                            .withPassword(password)
+                            .withIsAdmin(isAdmin);
+                    userMap.put(username, user);
+                    j++;
+
+                    responseJSON.put("request","successful");
+
                     return responseJSON;
                 });
             });
@@ -90,29 +136,50 @@ public class SparkServer {
 
                 get("", (request, response) -> {
 
-                    String jsonText = "";
+                    JSONArray jsonArray = new JSONArray();
+                    JSONObject accountJson = new JSONObject();
 
-                    IdMap idMap = AccountCreator.createIdMap("demo");
-                    JsonArray jsonArray = idMap.toJsonArray(account);
+                    if(request.queryParams().contains("username")) {
+                        String useranme = request.queryParams("username");
+
+                        if(userMap.containsKey(useranme)) {
+                            accountJson.put("accountNumber", userMap.get(useranme).getAccount().getAccountnum());
+                            accountJson.put("balance", userMap.get(useranme).getAccount().getBalance());
+                        }
+                    }
+
+                    jsonArray.add(accountJson);
 
                     return jsonArray;
                 });
                 post("", (request, response) -> {
 
-                    user = new User()
-                            .withName("Tina")
-                            .withUsername("tinaUser")
-                            .withUserID("tina1")
-                            .withPassword("tinapass")
-                            .withIsAdmin(false);
-                    account = new Account()
-                            .withAccountnum(1)
-                            .withOwner(user)
-                            .withBalance(100);
-                    logger.info("User: " + user.toString());
-                    logger.info("Account: " + account.toString());
+                    JSONObject responseJSON = new JSONObject();
 
-                    responseJSON.put("Request","Successful");
+                    String username = "";
+
+                    if(request.queryParams().contains("username")) {
+
+                        username = request.queryParams("username");
+                        Account account = null;
+
+                        if (userMap.containsKey(username)) {
+                            account = new Account()
+                                    .withAccountnum(i)
+                                    .withOwner(userMap.get(username))
+                                    .withBalance(100);
+                        } else {
+                            responseJSON.put("request", "failure");
+                            return responseJSON;
+                        }
+
+                        accountMap.put(i, account);
+                        i++;
+
+                        responseJSON.put("request", "successful");
+                    }else{
+                        responseJSON.put("request", "failure");
+                    }
 
                     return responseJSON;
                 });
@@ -139,5 +206,33 @@ public class SparkServer {
                 });
             });
         });
+    }
+
+    private static void accountMapSetup() {
+        accountMap = new HashMap<>();
+    }
+
+    private static void userMapSetup() {
+        userMap = new HashMap<>();
+    }
+
+    private static void apiLogSetup() {
+        try {
+            FileHandler fh;
+            fh = new FileHandler("api.log", true);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            logger.addHandler(fh);
+
+            logger.info("*************************************New session started*************************************");
+        } catch (IOException ioe) {};
+    }
+
+    static class ShutdownThread extends Thread {
+        ShutdownThread() {}
+
+        public void run() {
+            logger.info("*************************************Shutting Down Session*************************************");
+        }
     }
 }
