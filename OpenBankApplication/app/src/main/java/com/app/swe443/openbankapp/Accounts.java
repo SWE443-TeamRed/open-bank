@@ -26,6 +26,7 @@ public class Accounts extends AppCompatActivity {
     private ListView drawerList;
     private Toolbar toolbar;
     public ActionBar actionBar;
+    private int accountID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,14 @@ public class Accounts extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accounts);
-        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager());
+
+        Intent myIntent = getIntent(); // gets the previously created intent
+        String accountIDs = myIntent.getStringExtra("accountID");
+        System.out.println("ACCOUNT ID IS "+accountIDs);
+        accountID = Integer.valueOf(accountIDs);
+
+
+        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountID);
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
 

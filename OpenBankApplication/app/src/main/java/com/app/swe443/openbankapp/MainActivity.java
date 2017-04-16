@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,9 +38,11 @@ public class MainActivity extends AppCompatActivity
     private Fragment home_fragment;
     private Fragment account_fragment;
     private Fragment transfer_fragment;
+    private Fragment users_fragment;
+
     private Fragment transaction_fragment;
-    private Fragment checking_transaction_fragment;
-    private Fragment credit_transaction_fragment;
+    private Fragment open_account_fragment;
+    private Fragment logout_fragment;
     private Fragment contacts_fragment;
 
     private FragmentManager fm;
@@ -46,6 +51,16 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
     private ArrayList<Account> accounts = new ArrayList<Account>();
+
+    //Accounts tabs
+    ViewPager viewerPager;
+    FragmentPageAdapter fragmentPagerAdapter;
+
+    private DrawerLayout Drawertabs;
+    private ListView drawerListtabs;
+    private Toolbar toolbartabs;
+    public ActionBar actionBartabs;
+    private int accountID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +111,14 @@ public class MainActivity extends AppCompatActivity
         initFragments();
 
 
+
+
     }
 
     private void addDrawerItems() {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        String[] navMenuTitles = {"Home", "Transfer Funds", "Savings Transaction Log",
-                "Checking Transaction Log", "Credit Transaction Log", "Contacts" };
+        String[] navMenuTitles = {"Home", "Contacts", "Update My Information", "Open Account", "Logout" };
 
         // adding nav drawer items to array
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0].toString()));
@@ -110,7 +126,6 @@ public class MainActivity extends AppCompatActivity
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4].toString()));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5].toString()));
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -132,31 +147,27 @@ public class MainActivity extends AppCompatActivity
                         Drawer.closeDrawer(Gravity.LEFT);
                     case 2:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, transfer_fragment);
+                        transaction.replace(R.id.contentFragment, contacts_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 3:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, transaction_fragment);
+                        transaction.replace(R.id.contentFragment, users_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 4:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, checking_transaction_fragment);
+                        transaction.replace(R.id.contentFragment, open_account_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 5:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, credit_transaction_fragment);
-                        transaction.commit();
-                        Drawer.closeDrawer(Gravity.LEFT);
-                        break;
-                    case 6:
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, contacts_fragment);
+                        transaction.replace(R.id.contentFragment, logout_fragment
+
+                        );
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
@@ -165,9 +176,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public void backNavigation(View view){
-        Drawer.closeDrawer(Gravity.START);
-    }
+//    public void backNavigation(View view){
+//        Drawer.closeDrawer(Gravity.START);
+//    }
 
     public void initFragments() {
 
@@ -179,14 +190,24 @@ public class MainActivity extends AppCompatActivity
         /********Account Fragment********/
         account_fragment = new AccountFrag();
 
+        /********Open Account Fragment********/
+        open_account_fragment = new OpenAccountFrag();
+
+
+        /********Logout Fragment********/
+        logout_fragment = new LogoutFrag();
+
+
         /********Transfer Fragment********/
         transfer_fragment = new TransferFrag();
 
         /********Transaction Fragments********/
         transaction_fragment = new TransactionFrag();
 
-        /********Contacts Fragment********/
-        contacts_fragment = new ContactsFrag();
+        /********Transaction Fragments********/
+        users_fragment = new UsersFrag();
+
+
 
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
@@ -203,16 +224,38 @@ public class MainActivity extends AppCompatActivity
     public void onAccountSelected(int accountID) {
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", accountID);
-        account_fragment.setArguments(bundle);
-        transaction = fm.beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.contentFragment, account_fragment);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("id", accountID);
+//        account_fragment.setArguments(bundle);
+ //         transaction = fm.beginTransaction();
+//        // Replace whatever is in the fragment_container view with this fragment,
+//        // and add the transaction to the back stack so the user can navigate back
+     //      transaction.replace(R.id.contentFragment, account_fragment);
+//        transaction.addToBackStack(null);
+//        // Commit the transaction
+//        transaction.commit();
+        getFragmentManager().popBackStack();
+        RelativeLayout mainView = (RelativeLayout) findViewById(R.id.mainView);
+        RelativeLayout tabsView = (RelativeLayout) findViewById(R.id.tabsView);
+
+        mainView.setVisibility(View.INVISIBLE);
+        tabsView.setVisibility(View.VISIBLE);
+
+
+        System.out.println("ACCOUNT SELECTED");
+        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountID);
+        viewerPager = (ViewPager)findViewById(R.id.pager);
+        viewerPager.setAdapter(fragmentPagerAdapter);
+
+        Drawertabs = (DrawerLayout) findViewById(R.id.drawer_layouttabs);
+        drawerListtabs = (ListView) findViewById(R.id.left_drawertabs);
+        toolbartabs = (Toolbar) findViewById(R.id.toolbartabs);
+
+        setSupportActionBar(toolbar);
+        actionBartabs = getSupportActionBar();
+        actionBartabs.setDisplayHomeAsUpEnabled(true);
+        actionBartabs.setHomeButtonEnabled(true);
+
 
 
     }
@@ -255,6 +298,29 @@ public class MainActivity extends AppCompatActivity
 
     public ArrayList<Account> getAccounts(){
         return accounts;
+    }
+
+
+    public void backNavigation(View view){
+        Drawer.closeDrawer(Gravity.START);
+        RelativeLayout mainview = (RelativeLayout) findViewById(R.id.mainView);
+        RelativeLayout tabsview = (RelativeLayout) findViewById(R.id.tabsView);
+
+        if(mainview.getVisibility()==View.INVISIBLE) {
+            mainview.setVisibility(View.VISIBLE);
+            tabsview.setVisibility(View.INVISIBLE);
+        }else{
+            finish();
+        }
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        startActivity(intent);
+//        finish();
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 
 }

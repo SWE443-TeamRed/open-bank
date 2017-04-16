@@ -21,6 +21,9 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private TextView balanceText;
     private OnTransactionSelectedListener mCallback;
 
+    public AccountFrag(){
+
+    }
 
     // Container Activity must implement this interface
     public interface OnTransactionSelectedListener {

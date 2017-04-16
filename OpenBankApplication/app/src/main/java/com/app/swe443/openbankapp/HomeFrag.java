@@ -90,6 +90,7 @@ public class HomeFrag extends Fragment {
         mCallback.onAccountSelected(id);
 
 
+
     }
 
 
@@ -149,6 +150,8 @@ public class HomeFrag extends Fragment {
                     System.out.println("CLICKED ON ITEM " + vh.getAdapterPosition());
                     goToAccount(vh.getAdapterPosition());
 
+
+
                 }
 
 
@@ -186,4 +189,6 @@ public class HomeFrag extends Fragment {
     }
 
 }
+
+
 

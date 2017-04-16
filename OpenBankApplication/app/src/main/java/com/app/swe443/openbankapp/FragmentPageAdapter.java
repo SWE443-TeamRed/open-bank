@@ -1,34 +1,46 @@
 package com.app.swe443.openbankapp;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by kimberly_93pc on 4/9/17.
+ * Adapter for sliding ability.
  */
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
-    public FragmentPageAdapter(FragmentManager fm) {
+
+    private int accountID;
+    public FragmentPageAdapter(FragmentManager fm, int accountID) {
         super(fm);
+        this.accountID = accountID;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new WithdrawDepositFrag();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", accountID);
+                Fragment account_fragment = new AccountFrag();
+                account_fragment.setArguments(bundle);
+                return account_fragment;
             case 1:
-                return new AccountFrag();
+                return new TransferFrag();
             case 2:
-                return new TransactionFrag();
-            // The other sections of the app are dummy placeholders.
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("id", accountID);
+                Fragment trans_fragment = new AccountFrag();
+                trans_fragment.setArguments(bundle1);
+                return trans_fragment;
             default:
-            Fragment fragment = new WithdrawDepositFrag();
-//            Bundle args = new Bundle();
-//            args.putInt(, position + 1);
-//            fragment.setArguments(args);
-            return fragment;
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("id", accountID);
+                Fragment account2_fragment = new AccountFrag();
+                account2_fragment.setArguments(bundle2);
+                return account2_fragment;
         }
     }
 
@@ -40,6 +52,14 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "OBJECT " + (position + 1);
+        switch (position){
+            case 0:
+                return "Account";
+            case 1:
+                return "Transfer";
+            case 2:
+                return "Transactions";
+        }
+        return "Account Basics";
     }
 }
