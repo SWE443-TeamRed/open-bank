@@ -22,21 +22,18 @@
             app:layout_constraintLeft_toLeftOf="@+id/my_recycler_view"
             tools:layout_constraintBottom_creator="1"
             tools:layout_constraintLeft_creator="1"
-            android:layout_marginLeft="26dp"
+            android:layout_marginTop="18dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="18dp" />
+            android:layout_alignLeft="@+id/my_recycler_view"
+            android:layout_alignStart="@+id/my_recycler_view" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="323dp"
         android:layout_below="@+id/welcomeText"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
         android:scrollbars="vertical"
 

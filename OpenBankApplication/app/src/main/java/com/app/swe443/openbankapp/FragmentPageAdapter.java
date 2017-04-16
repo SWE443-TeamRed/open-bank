@@ -28,13 +28,13 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
                 account_fragment.setArguments(bundle);
                 return account_fragment;
             case 1:
-                return new TransferFrag();
-            case 2:
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("id", accountID);
-                Fragment trans_fragment = new AccountFrag();
+                Fragment trans_fragment = new TransactionFrag();
                 trans_fragment.setArguments(bundle1);
                 return trans_fragment;
+            case 2:
+                return new TransferFrag();
             default:
                 Bundle bundle2 = new Bundle();
                 bundle2.putInt("id", accountID);
@@ -56,9 +56,9 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return "Account";
             case 1:
-                return "Transfer";
-            case 2:
                 return "Transactions";
+            case 2:
+                return "Transfer";
         }
         return "Account Basics";
     }

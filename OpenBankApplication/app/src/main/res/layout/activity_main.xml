@@ -48,6 +48,8 @@
         android:layout_width="match_parent"
         android:visibility="invisible"
         android:id="@+id/tabsView"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
 
 
         android:layout_height="match_parent"
@@ -55,34 +57,39 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbartabs"
-            style="@style/Theme.AppCompat.NoActionBar"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@color/colorSecondaryDarlk"
-            android:minHeight="?attr/actionBarSize" />
+            android:layout_height="58dp"
+            android:background="@color/colorSecondaryDark"
+            android:minHeight="?attr/actionBarSize"
+            style="@style/Theme.AppCompat.NoActionBar" />
 
         <FrameLayout
             android:id="@+id/contentFragmenttabs"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_below="@id/toolbartabs"
             android:layout_weight="1" />
 
-        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/contentFragmenttabs"></android.support.v4.view.ViewPager>
+            android:layout_below="@id/toolbartabs"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:tabIndicatorColor="@color/colorAccent"
+                />
+        </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 
 
 
 </android.support.v4.widget.DrawerLayout>
+
 
 

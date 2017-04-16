@@ -11,10 +11,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -25,7 +27,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnAccountSelectedListener, AccountFrag.OnTransactionSelectedListener{
+        implements HomeFrag.OnAccountSelectedListener, AccountFrag.OnMainActivityCallbackListener{
 
 
 
@@ -87,9 +89,24 @@ public class MainActivity extends AppCompatActivity
         //Create User's and Accounts as dummy data
         JsonPersistency jsonp = new JsonPersistency();
         User tina = new User().withUserID("tina1").withPassword("tinapass");
-        Account tinac = new Account().withBalance(100).withOwner(tina).withAccountnum(1).withType(AccountTypeEnum.SAVINGS);
-        Account tinas = new Account().withBalance(100).withOwner(tina).withAccountnum(2).withType(AccountTypeEnum.SAVINGS);
-        Account tinap = new Account().withBalance(100).withOwner(tina).withAccountnum(3).withType(AccountTypeEnum.CHECKING);
+        Account tinac = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(1)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withCreationdate(new Date());
+        Account tinas = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(2)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withCreationdate(new Date());
+        Account tinap = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(3)
+                .withType(AccountTypeEnum.CHECKING)
+                .withCreationdate(new Date());
         System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
         tinac.withdraw(1); //90
         tinac.withdraw(20);  //70
@@ -100,12 +117,10 @@ public class MainActivity extends AppCompatActivity
         tinac.withdraw(800); // 340
         tinac.withdraw(20);   //320
 
-//        System.out.println("TINA FIRST TRANS "+ tinac.getDebit().get(0) +" "+
-//                tinac.getDebit().get(0)
-//                        .getFromAccount()
-//                        .getOwner()
-//                        .getName());
-
+        /*
+            Add Tina's account set to MainActivity Accounts data structure
+            ArrayList<Account> needed for account list in homepage
+         */
         accounts.addAll(tina.getAccount());
         addDrawerItems();
         initFragments();
@@ -176,9 +191,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-//    public void backNavigation(View view){
-//        Drawer.closeDrawer(Gravity.START);
-//    }
+    public void backNavigation(View view){
+        Drawer.closeDrawer(Gravity.START);
+    }
 
     public void initFragments() {
 
@@ -208,19 +223,15 @@ public class MainActivity extends AppCompatActivity
         users_fragment = new UsersFrag();
 
 
-
+        //Initiate the Homepage fragment
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
         transaction.commit();
     }
-    public void seeAccounts(View view){
-        Intent intent = new Intent(this, Accounts.class);
-        startActivity(intent);
-//        Intent intent = new Intent(this, Home.class);
-//        startActivity(new Intent(MainActivity.this, Home.class));
 
-    }
-
+    /*
+        An account was clicked in the homepage, change the screen to display account specific tabs
+     */
     public void onAccountSelected(int accountID) {
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
@@ -251,7 +262,7 @@ public class MainActivity extends AppCompatActivity
         drawerListtabs = (ListView) findViewById(R.id.left_drawertabs);
         toolbartabs = (Toolbar) findViewById(R.id.toolbartabs);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbartabs);
         actionBartabs = getSupportActionBar();
         actionBartabs.setDisplayHomeAsUpEnabled(true);
         actionBartabs.setHomeButtonEnabled(true);
@@ -260,7 +271,27 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void onTransactionSelected(int accountID) {
+
+
+    public void onDepositSelected(int accountID) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", accountID);
+        transaction_fragment = new TransactionFrag();
+        transaction_fragment.setArguments(bundle);
+        transaction = fm.beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.contentFragment, transaction_fragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+
+
+    }
+
+    public void onWithdrawSelected(int accountID) {
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
         Bundle bundle = new Bundle();
@@ -296,31 +327,31 @@ public class MainActivity extends AppCompatActivity
         return accounts.get(index).getAccountTransactions();
     }
 
+    //Give fragments arrayList of accounts
     public ArrayList<Account> getAccounts(){
         return accounts;
     }
 
-
-    public void backNavigation(View view){
-        Drawer.closeDrawer(Gravity.START);
-        RelativeLayout mainview = (RelativeLayout) findViewById(R.id.mainView);
-        RelativeLayout tabsview = (RelativeLayout) findViewById(R.id.tabsView);
-
-        if(mainview.getVisibility()==View.INVISIBLE) {
-            mainview.setVisibility(View.VISIBLE);
-            tabsview.setVisibility(View.INVISIBLE);
-        }else{
-            finish();
-        }
-//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//        startActivity(intent);
-//        finish();
-    }
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("LOGOUT", "Logout by back press");
+        RelativeLayout mainview = (RelativeLayout) findViewById(R.id.mainView);
+        RelativeLayout tabsview = (RelativeLayout) findViewById(R.id.tabsView);
+        if(mainview.getVisibility()==View.INVISIBLE) {
+            mainview.setVisibility(View.VISIBLE);
+            tabsview.setVisibility(View.INVISIBLE);
+        }else{
+            finish();
+        }
+    }
+
+
 
 }
