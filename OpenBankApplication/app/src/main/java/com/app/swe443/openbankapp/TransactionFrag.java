@@ -3,22 +3,19 @@ package com.app.swe443.openbankapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
-import org.sdmlib.models.classes.util.ArrayListCreator;
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by kimberly_93pc on 4/9/17.

@@ -16,12 +16,11 @@
  */
 
 
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 

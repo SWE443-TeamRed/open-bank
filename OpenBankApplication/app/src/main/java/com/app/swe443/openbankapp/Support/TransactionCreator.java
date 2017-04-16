@@ -19,23 +19,25 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 
-public class UserCreator implements SendableEntityCreator
+import java.util.Date;
+
+public class TransactionCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      User.PROPERTY_USERID,
-      User.PROPERTY_ISADMIN,
-      User.PROPERTY_PASSWORD,
-      User.PROPERTY_NAME,
-      User.PROPERTY_EMAIL,
-      User.PROPERTY_LOGGEDIN,
-      User.PROPERTY_PHONE,
-      User.PROPERTY_ACCOUNT,
+      Transaction.PROPERTY_AMOUNT,
+      Transaction.PROPERTY_DATE,
+      Transaction.PROPERTY_TIME,
+      Transaction.PROPERTY_NOTE,
+      Transaction.PROPERTY_FROMACCOUNT,
+      Transaction.PROPERTY_TOACCOUNT,
+      Transaction.PROPERTY_TRANSTYPE,
+      Transaction.PROPERTY_CREATIONDATE,
    };
    
    @Override
@@ -47,7 +49,7 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new User();
+      return new Transaction();
    }
    
    @Override
@@ -61,44 +63,44 @@ public class UserCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getUserID();
+         return ((Transaction) target).getAmount();
       }
 
-      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).isIsAdmin();
+         return ((Transaction) target).getDate();
       }
 
-      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getPassword();
+         return ((Transaction) target).getTime();
       }
 
-      if (User.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getName();
+         return ((Transaction) target).getNote();
       }
 
-      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getEmail();
+         return ((Transaction) target).getFromAccount();
       }
 
-      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attribute))
       {
-         return ((User) target).isLoggedIn();
+         return ((Transaction) target).getToAccount();
       }
 
-      if (User.PROPERTY_PHONE.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getPhone();
+         return ((Transaction) target).getTransType();
       }
 
-      if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attribute))
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getAccount();
+         return ((Transaction) target).getCreationdate();
       }
       
       return null;
@@ -107,45 +109,39 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (User.PROPERTY_PHONE.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setPhone(Integer.parseInt(value.toString()));
+         ((Transaction) target).setCreationdate((Date) value);
          return true;
       }
 
-      if (User.PROPERTY_LOGGEDIN.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setLoggedIn((Boolean) value);
+         ((Transaction) target).setTransType(TransactionTypeEnum.valueOf((String) value));
          return true;
       }
 
-      if (User.PROPERTY_EMAIL.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setEmail((String) value);
+         ((Transaction) target).setNote((String) value);
          return true;
       }
 
-      if (User.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attrName))
       {
-         ((User) target).setName((String) value);
+         ((Transaction) target).setTime((Date) value);
          return true;
       }
 
-      if (User.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attrName))
       {
-         ((User) target).setPassword((String) value);
+         ((Transaction) target).setDate((Date) value);
          return true;
       }
 
-      if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attrName))
       {
-         ((User) target).setIsAdmin((Boolean) value);
-         return true;
-      }
-
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
-      {
-         ((User) target).setUserID((String) value);
+         ((Transaction) target).setAmount(Double.parseDouble(value.toString()));
          return true;
       }
 
@@ -154,15 +150,15 @@ public class UserCreator implements SendableEntityCreator
          attrName = attrName + type;
       }
 
-      if (User.PROPERTY_ACCOUNT.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attrName))
       {
-         ((User) target).withAccount((Account) value);
+         ((Transaction) target).setFromAccount((Account) value);
          return true;
       }
-      
-      if ((User.PROPERTY_ACCOUNT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+
+      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
       {
-         ((User) target).withoutAccount((Account) value);
+         ((Transaction) target).setToAccount((Account) value);
          return true;
       }
       
@@ -176,6 +172,6 @@ public class UserCreator implements SendableEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((User) entity).removeYou();
+      ((Transaction) entity).removeYou();
    }
 }

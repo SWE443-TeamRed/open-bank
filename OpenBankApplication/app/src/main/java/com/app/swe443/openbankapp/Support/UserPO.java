@@ -1,4 +1,4 @@
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.AttributeConstraint;

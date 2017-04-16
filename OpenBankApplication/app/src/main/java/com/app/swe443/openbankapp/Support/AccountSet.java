@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;

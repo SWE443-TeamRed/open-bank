@@ -3,7 +3,6 @@ package com.app.swe443.openbankapp;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.transition.Visibility;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -14,6 +13,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.app.swe443.openbankapp.Support.Account;
 
 import java.text.SimpleDateFormat;
 

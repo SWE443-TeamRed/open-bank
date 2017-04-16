@@ -19,7 +19,9 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
+
+import com.app.swe443.openbankapp.JsonPersistency;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;

@@ -1,4 +1,4 @@
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
 import de.uniks.networkparser.IdMap;
 

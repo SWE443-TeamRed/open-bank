@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 hlope
+   Copyright (c) 2017 FA
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,18 +19,38 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package com.app.swe443.openbankapp;
+package com.app.swe443.openbankapp.Support;
 
-import org.sdmlib.models.modelsets.SDMSet;
-
-public class AccountTypeEnumSet extends SDMSet<AccountTypeEnum>
+public enum TransactionTypeEnum
 {
+		DEPOSIT,
+		WITHDRAW,
+		DELETE,
+		CREATE,
+		TRANSFER;
 
-   public static final AccountTypeEnumSet EMPTY_SET = new AccountTypeEnumSet().withFlag(AccountTypeEnumSet.READONLY);
-
-
-   public String getEntryType()
+   
+   //==========================================================================
+   public String toString()
    {
-      return "org.sdmlib.openbank.AccountTypeEnum";
+        switch(this) {
+            case DEPOSIT:
+                return "Deposit";
+            case WITHDRAW:
+                return "Withdraw";
+            case CREATE:
+                return "Create";
+            case DELETE:
+                return "Delete";
+            case TRANSFER:
+                return "Transfer";
+        }
+       return null;
+   }
+
+   
+   //==========================================================================
+     TransactionTypeEnum(  )
+   {
    }
 }

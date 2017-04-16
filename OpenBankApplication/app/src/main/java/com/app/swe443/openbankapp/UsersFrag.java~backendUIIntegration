@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by kimberly_93pc on 4/10/17.
+ * Created by kimberly_93pc on 4/13/17.
  */
 
-public class CreditTransactionFrag extends Fragment {
+public class UsersFrag extends Fragment {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,6 @@ public class CreditTransactionFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction_credit, container, false);
+        return inflater.inflate(R.layout.fragment_user_info, container, false);
     }
 }
