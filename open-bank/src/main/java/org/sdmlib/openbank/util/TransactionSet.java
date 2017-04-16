@@ -33,6 +33,7 @@ import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import java.math.BigInteger;
+import org.sdmlib.openbank.util.TransactionSet;
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -756,6 +757,198 @@ public class TransactionSet extends SimpleSet<Transaction>
       for (Transaction obj : this)
       {
          obj.setAmountCent(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via prev. 
+    * 
+    * @return Set of Transaction objects reachable via prev
+    */
+   public TransactionSet getPrev()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getPrev());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference prev pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as prev neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via prev
+    */
+   public TransactionSet filterPrev(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getPrev()) || (neighbors.isEmpty() && obj.getPrev() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow prev reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via prev transitively (including the start set)
+    */
+   public TransactionSet getPrevTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getPrev()))
+            {
+               todo.with(current.getPrev());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Prev attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Prev attributes.
+    */
+   public TransactionSet withPrev(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withPrev(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via next. 
+    * 
+    * @return Set of Transaction objects reachable via next
+    */
+   public TransactionSet getNext()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getNext());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference next pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as next neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via next
+    */
+   public TransactionSet filterNext(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getNext()) || (neighbors.isEmpty() && obj.getNext() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow next reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via next transitively (including the start set)
+    */
+   public TransactionSet getNextTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getNext()))
+            {
+               todo.with(current.getNext());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Next attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Next attributes.
+    */
+   public TransactionSet withNext(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withNext(value);
       }
       
       return this;

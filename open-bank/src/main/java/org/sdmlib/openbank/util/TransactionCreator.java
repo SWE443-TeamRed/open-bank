@@ -44,6 +44,8 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_CREATIONDATE,
       Transaction.PROPERTY_AMOUNTDOLLAR,
       Transaction.PROPERTY_AMOUNTCENT,
+      Transaction.PROPERTY_PREV,
+      Transaction.PROPERTY_NEXT,
    };
    
    @Override
@@ -118,6 +120,16 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getAmountCent();
       }
+
+      if (Transaction.PROPERTY_PREV.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getPrev();
+      }
+
+      if (Transaction.PROPERTY_NEXT.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getNext();
+      }
       
       return null;
    }
@@ -187,6 +199,18 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setToAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_PREV.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setPrev((Transaction) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setNext((Transaction) value);
          return true;
       }
       

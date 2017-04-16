@@ -123,6 +123,19 @@
             "cardinality":"one",
             "property":"toAccount"
          }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"next"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"prev"
+         }
       }
    ]
 }   ;

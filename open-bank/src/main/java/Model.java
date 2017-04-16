@@ -132,7 +132,8 @@ public class Model {
         account.withBidirectional(transaction, "credit",Cardinality.MANY,"fromAccount",Cardinality.ONE);
         //transactions fromAccount
         account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
-
+        // transactions next/previous
+        transaction.withBidirectional(transaction,"next",Cardinality.ONE,"prev",Cardinality.ONE);
 /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Storyboard storyboard = new Storyboard();

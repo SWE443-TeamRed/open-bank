@@ -30,6 +30,7 @@ import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import java.math.BigInteger;
+import org.sdmlib.openbank.util.TransactionSet;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -91,6 +92,8 @@ public  class Transaction implements SendableEntity
    {
       setFromAccount(null);
       setToAccount(null);
+      setPrev(null);
+      setNext(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -478,5 +481,135 @@ public  class Transaction implements SendableEntity
    {
       setAmountCent(value);
       return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              next                   prev
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PREV = "prev";
+
+   private Transaction prev = null;
+
+   public Transaction getPrev()
+   {
+      return this.prev;
+   }
+   public TransactionSet getPrevTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getPrevTransitive();
+   }
+
+
+   public boolean setPrev(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.prev != value)
+      {
+         Transaction oldValue = this.prev;
+         
+         if (this.prev != null)
+         {
+            this.prev = null;
+            oldValue.setNext(null);
+         }
+         
+         this.prev = value;
+         
+         if (value != null)
+         {
+            value.withNext(this);
+         }
+         
+         firePropertyChange(PROPERTY_PREV, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withPrev(Transaction value)
+   {
+      setPrev(value);
+      return this;
+   } 
+
+   public Transaction createPrev()
+   {
+      Transaction value = new Transaction();
+      withPrev(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              prev                   next
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXT = "next";
+
+   private Transaction next = null;
+
+   public Transaction getNext()
+   {
+      return this.next;
+   }
+   public TransactionSet getNextTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getNextTransitive();
+   }
+
+
+   public boolean setNext(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.next != value)
+      {
+         Transaction oldValue = this.next;
+         
+         if (this.next != null)
+         {
+            this.next = null;
+            oldValue.setPrev(null);
+         }
+         
+         this.next = value;
+         
+         if (value != null)
+         {
+            value.withPrev(this);
+         }
+         
+         firePropertyChange(PROPERTY_NEXT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withNext(Transaction value)
+   {
+      setNext(value);
+      return this;
+   } 
+
+   public Transaction createNext()
+   {
+      Transaction value = new Transaction();
+      withNext(value);
+      return value;
    } 
 }

@@ -523,4 +523,82 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
+   public TransactionPO createPrevPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public TransactionPO createPrevPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public TransactionPO createPrevLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_PREV);
+   }
+
+   public TransactionPO createPrevLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_PREV, modifier);
+   }
+
+   public Transaction getPrev()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getPrev();
+      }
+      return null;
+   }
+
+   public TransactionPO createNextPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public TransactionPO createNextPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public TransactionPO createNextLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_NEXT);
+   }
+
+   public TransactionPO createNextLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_NEXT, modifier);
+   }
+
+   public Transaction getNext()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getNext();
+      }
+      return null;
+   }
+
 }
