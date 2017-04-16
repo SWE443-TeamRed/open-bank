@@ -30,8 +30,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private TextView ownerText;
     private TextView typeText;
     private TextView creationText;
-    private MainActivity activity;
-    private OnMainActivityCallbackListener mCallback;
+    private Accounts activity;
+    private OnAccountsCallbackListener mCallback;
 
 
     private Button depositButton;
@@ -57,7 +57,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
     // Container Activity must implement this interface
-    public interface OnMainActivityCallbackListener {
+    public interface OnAccountsCallbackListener {
         public void onWithdrawSelected(int amount);
         public void onDepositSelected(int ammount);
 
@@ -71,10 +71,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnMainActivityCallbackListener) activity;
+            mCallback = (OnAccountsCallbackListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnMainActivityCallbackListener ");
+                    + " must implement OnAccountsCallbackListener ");
         }
     }
 
@@ -83,11 +83,11 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         final View v =  inflater.inflate(R.layout.fragment_account,container,false);
 
-        activity = (MainActivity) getActivity();
+        activity = (Accounts) getActivity();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accountIndex = bundle.getInt("id",-1);
-            account = activity.getAccount(bundle.getInt("id",-1));
+            account = activity.getAccount();
             System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ account.getAccountnum() + " AT INDEX "+accountIndex);
 
         }

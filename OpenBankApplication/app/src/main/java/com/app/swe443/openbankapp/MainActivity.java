@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnAccountSelectedListener, AccountFrag.OnMainActivityCallbackListener{
+        implements HomeFrag.OnAccountSelectedListener{
 
 
 
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity
     private Fragment home_fragment;
     private Fragment newhome_fragment;
 
-    private Fragment account_fragment;
-    private Fragment transfer_fragment;
     private Fragment users_fragment;
 
     private Fragment transaction_fragment;
@@ -56,43 +54,34 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
     private ArrayList<Account> accounts = new ArrayList<Account>();
-    private User currentUser;
-    //Accounts tabs
-    ViewPager viewerPager;
-    FragmentPageAdapter fragmentPagerAdapter;
 
-    private DrawerLayout Drawertabs;
-    private ListView drawerListtabs;
-    private Toolbar toolbartabs;
-    public ActionBar actionBartabs;
-    private int accountID;
 
-    //Main Activity Stores the FragmentPageAdapter
-    //Displays the three tabs, AccountFrag as the first tab (See FragmentPageAdapter for the strucutre)
-    private RelativeLayout tabsView;
-    private RelativeLayout mainView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //INITIALIZE LEFT ACTIONBAR
+        //This sets the navigation drawer and the top actionbar.
         Drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-
         drawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         drawerToggle.setDrawerIndicatorEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
         Drawer.addDrawerListener(drawerToggle);
-
         drawerToggle.syncState();
+
+        //Initlaize all necessary fragments for MainActivity
+        initFragments();
+        //Draw the actionbar
+        addDrawerItems();
 
         //Create User's and Accounts as dummy data
         JsonPersistency jsonp = new JsonPersistency();
@@ -130,15 +119,6 @@ public class MainActivity extends AppCompatActivity
             ArrayList<Account> needed for account list in homepage
          */
         accounts.addAll(tina.getAccount());
-
-        currentUser = tina;
-        addDrawerItems();
-        initFragments();
-
-        mainView = (RelativeLayout) findViewById(R.id.mainView);
-        tabsView = (RelativeLayout) findViewById(R.id.tabsView);
-
-
     }
 
     private void addDrawerItems() {
@@ -164,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                System.out.println("NAV ITEM PRESSED AT POSITION "+position);
+
                 switch (position) {
                     case 1:
                         transaction = fm.beginTransaction();
@@ -214,8 +194,6 @@ public class MainActivity extends AppCompatActivity
         /********Home Fragment********/
         home_fragment = new HomeFrag();
 
-        /********Account Fragment********/
-        account_fragment = new AccountFrag();
 
         /********Open Account Fragment********/
         open_account_fragment = new OpenAccountFrag();
@@ -224,12 +202,8 @@ public class MainActivity extends AppCompatActivity
         /********Logout Fragment********/
         logout_fragment = new LogoutFrag();
 
-
-        /********Transfer Fragment********/
-        transfer_fragment = new TransferFrag();
-
-        /********Transaction Fragments********/
-        transaction_fragment = new TransactionFrag();
+        /********Logout Fragment********/
+        contacts_fragment = new ContactsFrag();
 
         /********Transaction Fragments********/
         users_fragment = new UsersFrag();
@@ -249,79 +223,14 @@ public class MainActivity extends AppCompatActivity
     public void onAccountSelected(int id) {
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
-
-        this.accountID = id;
         getFragmentManager().popBackStack();
-
-
-        mainView.setVisibility(View.INVISIBLE);
-        tabsView.setVisibility(View.VISIBLE);
-
-
-        System.out.println("ACCOUNT SELECTED ID IS "+ accountID);
-        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountID);
-        viewerPager = (ViewPager)findViewById(R.id.pager);
-        viewerPager.setAdapter(fragmentPagerAdapter);
-
-        Drawertabs = (DrawerLayout) findViewById(R.id.drawer_layouttabs);
-        drawerListtabs = (ListView) findViewById(R.id.left_drawertabs);
-        toolbartabs = (Toolbar) findViewById(R.id.toolbartabs);
-
-        setSupportActionBar(toolbartabs);
-        actionBartabs = getSupportActionBar();
-        actionBartabs.setDisplayHomeAsUpEnabled(true);
-        actionBartabs.setHomeButtonEnabled(true);
-
-
-
+        Intent intent = new Intent(this, Accounts.class);
+        intent.putExtra("accountid",id);
+        startActivity(intent);
     }
 
 
-
-    public void onDepositSelected(int amount) {
-        System.out.println("onDepositSelected mathod initiated, initial balance of account is "+ accounts.get(accountID).getBalance());
-
-        // The user selected the headline of an article from the HeadlinesFragment
-        // Do something here to display that article
-
-        accounts.clear();
-        currentUser.getAccount().get(accountID).deposit(amount);
-
-        accounts.addAll(currentUser.getAccount());
-        System.out.println("Balance after deposit "+accounts.get(accountID).getBalance());
-
-        fragmentPagerAdapter.notifyDataSetChanged();
-        viewerPager.invalidate();
-
-    }
-
-    public void onWithdrawSelected(int amount) {
-        System.out.println("onWithdrawSelected mathod initiated, initial balance of account is "+ accounts.get(accountID).getBalance());
-        // The user selected the headline of an article from the HeadlinesFragment
-        // Do something here to display that article
-
-        accounts.clear();
-        currentUser.getAccount().get(accountID).withdraw(amount);
-        accounts.addAll(currentUser.getAccount());
-        System.out.println("Balance after withdraw "+accounts.get(accountID).getBalance());
-        fragmentPagerAdapter.notifyDataSetChanged();
-        viewerPager.invalidate();
-
-    }
-
-
-
-
-
-    public Account getAccount(int index){
-        return accounts.get(index);
-    }
-
-    public LinkedList<Transaction> getTransactions(int index){
-        return accounts.get(index).getAccountTransactions();
-    }
-
-    //Give fragments arrayList of accounts
+    //Give Home fragments arrayList of accounts
     public ArrayList<Account> getAccounts(){
         return accounts;
     }
@@ -329,15 +238,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
         //Do not create a new Intent for Main Activity here as this will destory all data being tracked
-        //Set the (Account Details, Transfer, Transaction) view to invisible and the mainView to visible to display homepage
+        //Set the (Account Details, Transfer, Transaction) view to gone and the mainView to visible to display homepage
         //Initiate the Homepage fragment
-        transaction = fm.beginTransaction();
-        newhome_fragment = new HomeFrag();
-        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-        transaction.addToBackStack(null);
-        transaction.commit();
-        mainView.setVisibility(View.VISIBLE);
-        tabsView.setVisibility(View.INVISIBLE);
+//
+//        adapter.notifyDataSetChanged();
+//        transaction = fm.beginTransaction();
+//        newhome_fragment = new HomeFrag();
+//        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+
 
         return true;
 
@@ -345,22 +255,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
         System.out.println("Logout by back press");
+        finish();
+//            adapter.notifyDataSetChanged();
+//            Drawer.invalidate();
+//            actionBar.invalidateOptionsMenu();
+//
+//
+//            transaction = fm.beginTransaction();
+//            newhome_fragment = new HomeFrag();
+//            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+//            transaction.addToBackStack(null);
+//            transaction.commit();
 
-        if(mainView.getVisibility()==View.INVISIBLE) {
-            transaction = fm.beginTransaction();
-            newhome_fragment = new HomeFrag();
-            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-            transaction.addToBackStack(null);
-            transaction.commit();
-            mainView.setVisibility(View.VISIBLE);
-            tabsView.setVisibility(View.INVISIBLE);
-        }else{
-            finish();
-        }
     }
-
-
 
 }

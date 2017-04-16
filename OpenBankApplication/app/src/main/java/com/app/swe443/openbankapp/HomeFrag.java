@@ -29,7 +29,7 @@ public class HomeFrag extends Fragment {
     private OnAccountSelectedListener  mCallback;
 
 
-    // Container Activity must implement this interface
+    // Main Activity must implement this interface in order to communicate with HomeFrag
     public interface OnAccountSelectedListener {
         public void onAccountSelected(int accountID);
     }
@@ -59,19 +59,18 @@ public class HomeFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_home, container, false);
-//Get RecyclerView instance from the layout
+        //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
         homepageHeaderName.setText("Welcome " + "Nick");
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        //mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
 
         //jsonp.toJson(tinac);
         //Account tinaa = jsonp.fromJson(tina.getUserID());

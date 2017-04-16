@@ -26,62 +26,58 @@ import java.util.LinkedList;
 
 public class TransactionFrag extends Fragment {
     private RecyclerView mRecyclerView;
-    private TextView transactionHeaderName;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    //private TransactionFrag.OnTransactionSelectedListener mCallback;
-    private int accountID;
-    MainActivity activity;
-    private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-    private ArrayList<Double> transactionBalances = new ArrayList<Double>();
 
+    //UI fields
+    private TextView transactionHeaderName;
+    private int accountID;
+    private Account account;
+
+    //Parent activity which stores data
+    Accounts activity;
+    private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
+    //Calculate each change in balance as a result of each transaction. Display this with each transaction
+    private ArrayList<Double> transactionBalances = new ArrayList<Double>();
     //Total money changed due to all transactinos in the current accout. Used to calc dec or inc balance in transaction list
     private  double transCost = 0;
 
     // Container Activity must implement this interface
     /*
-    TODO interface will only be used if clicking a transaction requires us to go to another fragment and pass data
+    TODO Handle callback if requirements need a transaction to be changed. Change it when it is clicked in list
      */
+    //private TransactionFrag.OnTransactionSelectedListener mCallback;
     public interface OnTransactionSelectedListener {
         public void onTransactionSelected(int accountID);
     }
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//
-//        // This makes sure that the container activity has implemented
-//        // the callback interface. If not, it throws an exception
-//        try {
-//            mCallback = (TransactionFrag.OnTransactionSelectedListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnTransactionSelectedListener ");
-//        }
-//    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("INSIDE ONCREATE IN TRANSACTION");
+        System.out.println("Creating transaction fragment");
 
-        //Clear local transactions after every fragemnt load
+        //Clear local transactions after every fragement load
         if(transactions.size()!=0){
             transactions.clear();
         }
-        //Main Activity reference, used to get account and transaction data through Main's methods
-        activity = (MainActivity) getActivity();
+        //Accounts Activity reference, used to get account and transaction data through Main's methods
+        activity = (Accounts) getActivity();
         //Grab Account ID from the passed in argument
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             //Account ID
             accountID = bundle.getInt("id",-1);
-            //Call to Main Activity to get transactions of specific account
-            transactions.addAll(activity.getTransactions(accountID));
-            //Tracker, calculates the updated balance after each transaction occurs
-            transCost = activity.getAccount(accountID).getBalance();
-            System.out.println("Inital balance "+ transCost);
+            account = activity.getAccount();
+            //Call to Accounts Activity to get transactions of specific account
+            transactions.addAll(activity.getTransactions());
+
+            /*
+                Calculate the updated balance after each transaction occurs
+             */
+            transCost = account.getBalance();
             //For every transaction in the account, calculate the account balance as a result of the trasaction, store for display
             for(int i=0;i<transactions.size();i++){
                 if(i==0)
@@ -113,21 +109,19 @@ public class TransactionFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("INSIDE ONCREATEVIEW IN TRANSACTION");
+        System.out.println("CreateView for Transaction");
         final View v = inflater.inflate(R.layout.fragment_transaction, container, false);
-//Get RecyclerView instance from the layout
+        //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.trans_recycler_view);
         transactionHeaderName = (TextView) v.findViewById(R.id.welcomeText);
         transactionHeaderName.setText("Transactions");
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        //mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
 
         //jsonp.toJson(tinac);
         //Account tinaa = jsonp.fromJson(tina.getUserID());
@@ -139,24 +133,10 @@ public class TransactionFrag extends Fragment {
         return v;
     }
 
-//    public void goToTransaction(int id) {
-//        mCallback.onTransactionSelected(id);
-//
-//
-//    }
-
 
 //The adapter provides access to the items in your data set, creates views for items, and replaces the content of some of the views with new data items when the original item is no longer visible. The following code example shows a simple implementation for a data set that consists of an array of strings displayed using TextView widgets:
 
     class MyAdapter extends RecyclerView.Adapter<TransactionFrag.MyAdapter.ViewHolder> {
-
-        private AdapterView.OnItemClickListener mItemClickListener;
-        private Context mContext;
-        private FragmentManager fm;
-        private FragmentTransaction transaction;
-        private Fragment transaction_fragment;
-
-
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -187,7 +167,6 @@ public class TransactionFrag extends Fragment {
         public MyAdapter(ArrayList<Transaction> myDataset, Context context) {
 
             transactions = myDataset;
-            this.mContext = context;
 
         }
 
@@ -205,12 +184,9 @@ public class TransactionFrag extends Fragment {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("CLICKED ON Transaction" + vh.getAdapterPosition());
+                    System.out.println("Clicked Transaction" + vh.getAdapterPosition());
                     //goToTransaction(vh.getAdapterPosition());
-
                 }
-
-
             });
             return vh;
         }
@@ -241,10 +217,7 @@ public class TransactionFrag extends Fragment {
                 holder.balanceText.setText(String.valueOf(transactionBalances.get(position)));
 
             }
-
-
         }
-
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
@@ -257,13 +230,5 @@ public class TransactionFrag extends Fragment {
             return position;
         }
 
-        public void initFragments() {
-
-            /********Home Fragment********/
-            transaction_fragment = new TransactionFrag();
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.contentFragment, transaction_fragment, "TRANSACTION_FRAGMENT");
-            transaction.commit();
-        }
     }
 }
