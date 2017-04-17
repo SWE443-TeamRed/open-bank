@@ -10,28 +10,36 @@ import java.io.*;
  */
 public class JsonPersistency {
 
+
+
     public void toJson(Account account){
         String jsonText = "";
 
-        IdMap idMap = AccountCreator.createIdMap("demo");
+        if(account == null){
+            throw new NullPointerException();
+        }
+        else {
 
-        JsonArray jsonArray = idMap.toJsonArray(account);
-        jsonText = jsonArray.toString(3);
+            IdMap idMap = AccountCreator.createIdMap("demo");
 
-        System.out.println(jsonText); //For testing
+            JsonArray jsonArray = idMap.toJsonArray(account);
+            jsonText = jsonArray.toString(3);
 
-        // Write Json to textfile
-        try{
-            FileWriter file = new FileWriter("jsonPersistencyTest.json");
-            file.write(jsonText);
-            file.flush();
+            System.out.println(jsonText); //For testing
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Write Json to textfile
+            try {
+                FileWriter file = new FileWriter(account.getOwner().getUserID()+".json");
+                file.write(jsonText);
+                file.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public Account fromJson(){
+    public Account fromJson(String userId){
 
         BufferedReader br = null;
         FileReader fr = null;
@@ -40,7 +48,7 @@ public class JsonPersistency {
         try {
             String sCurrentLine;
 
-            br = new BufferedReader(new FileReader("jsonPersistencyTest.json"));
+            br = new BufferedReader(new FileReader(userId+".json"));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 jsonString += sCurrentLine + "\n";
@@ -71,4 +79,7 @@ public class JsonPersistency {
 
         return account;
     }
+
+
+
 }

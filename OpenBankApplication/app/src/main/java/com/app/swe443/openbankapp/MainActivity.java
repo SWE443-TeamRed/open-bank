@@ -1,7 +1,9 @@
 package com.app.swe443.openbankapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,9 +16,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import com.app.swe443.openbankapp.Support.LogoutFrag;
-import com.app.swe443.openbankapp.Support.OpenAccountFrag;
 
 import java.util.ArrayList;
 
@@ -41,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

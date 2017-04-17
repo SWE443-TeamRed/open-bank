@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.example.shelby.appforsdmlib"
+        applicationId "app.swe443.openbankapp"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -13,11 +13,13 @@ android {
         jackOptions {
             enabled true
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexKeepFile file ('multidex-config.txt')
         }
     }
     dexOptions {
@@ -39,4 +41,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.0'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.android.support:multidex:1.0.1'
 }

@@ -1,4 +1,4 @@
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

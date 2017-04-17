@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.app.swe443.openbankapplication", appContext.getPackageName());
+        assertEquals("app.swe443.openbankapp", appContext.getPackageName());
     }
 }
