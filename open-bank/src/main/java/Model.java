@@ -121,8 +121,44 @@ public class Model {
         account.withMethod("deposit", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
+        // ************* Bank class ************
+        Clazz bank = model.createClazz("Bank");
+        bank.withAttribute("fee", DataType.DOUBLE);
+        bank.withAttribute("bankName", DataType.STRING);
 
-/////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ************* Bank Bidirectionals ****************
+        bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
+        bank.withBidirectional(user, "customerUser", Cardinality.MANY, "bank", Cardinality.ONE);
+        bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
+
+        bank.withBidirectional(account, "adminAccounts", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        bank.withBidirectional(user, "adminUsers", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        // ********** Bank Methods **********
+        // validateLogin method
+        bank.withMethod("validateLogin", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("accountID"),
+                new Parameter(DataType.STRING).with("username"),
+                new Parameter(DataType.STRING).with("password"));
+
+        // findAccountByID method
+        bank.withMethod("findAccountByID", DataType.create(Account.class),
+                new Parameter(DataType.INT).with("accountID"));
+
+
+        // findUserByID method
+        bank.withMethod("findUserByID", DataType.create(User.class),
+                new Parameter(DataType.STRING).with("userID"));
+
+
+        // confirmTransaction method
+        bank.withMethod("confirmTransaction", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("toAcctID"),
+                new Parameter(DataType.INT).with("fromAcctID"),
+                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
+                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+
+        /////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
 
         // the account in user
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
