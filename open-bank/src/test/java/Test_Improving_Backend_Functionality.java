@@ -1011,6 +1011,13 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(null==acntGet);
     }
 
+    /**
+     * 1. Test login validation of all customerAccounts given correct credentials
+     * 2. Test login validation of all AdminAccounts given correct credentials
+     * 3. Test login validation given incorrect userID
+     * 4. Test login validation given incorrect password
+     * 5. Test login validation given invalid accountNum
+     */
     @Test
     public void testvalidateLogin() {
         User usr1 = new User()
@@ -1021,6 +1028,10 @@ public class Test_Improving_Backend_Functionality {
                 .withName("steve")
                 .withUserID("steverog1")
                 .withPassword("Th3C@pt");
+        User usr3 = new User()
+                .withName("kevin")
+                .withUserID("ksludo")
+                .withPassword("Zh1p@n");
         Account checking1 = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
@@ -1029,16 +1040,24 @@ public class Test_Improving_Backend_Functionality {
                 .withAccountnum(2)
                 .withOwner(usr2)
                 .withBalance(1000);
+        Account checking3 = new Account()
+                .withAccountnum(3)
+                .withOwner(usr3)
+                .withBalance(12300000);
         Bank bnk = new Bank();
         bnk.withCustomerAccounts(checking1);
         bnk.withCustomerAccounts(checking2);
+        bnk.withAdminAccounts(checking3);
         bnk.withCustomerUser(usr1);
         bnk.withCustomerUser(usr2);
+        bnk.withAdminUsers(usr3);
 
+        assertFalse("Validated karli's login with incorrect password", bnk.validateLogin(1, "karli25", "SDML1b"));
         assertTrue("Did not successfully validate karli's login", bnk.validateLogin(1, "karli25", "StudyRight"));
         assertFalse("Validated account 2 with incorrect userID", bnk.validateLogin(2, "steverog2", "Th3C@pt"));
         assertTrue("Did not successfully validate steve's login" ,bnk.validateLogin(2, "steverog1", "Th3C@pt"));
-        assertFalse("Validated login of an nonexisting account", bnk.validateLogin(3, "ksludo", "zhipan"));
+        assertTrue("Did not validate admin login", bnk.validateLogin(3, "ksludo", "Zh1p@n"));
+        assertFalse("Validated login of an nonexisting account", bnk.validateLogin(4, "ulnoSDM", "SDML1b"));
     }
 
     // Should throw an IllegalArgument Exception when trying to validate login of an account with a negative ID

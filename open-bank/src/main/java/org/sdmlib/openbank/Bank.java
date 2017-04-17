@@ -404,6 +404,12 @@ import org.sdmlib.openbank.Account;
                return i;
            }
        }
+      pulledUsers = this.getAdminUsers();
+      for (User i : pulledUsers) {
+         if (i.getUserID() != null && i.getUserID().equals(userID)) {
+            return i;
+         }
+      }
        return null;
    }
 
