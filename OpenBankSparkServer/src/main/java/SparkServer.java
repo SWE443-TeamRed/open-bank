@@ -71,7 +71,7 @@ public class SparkServer {
                         responseJSON.put("request","successful");
                     else
                         responseJSON.put("request","failure");
-                    
+
                     return responseJSON;
                 });
             });
