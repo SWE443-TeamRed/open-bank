@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.FileHandler;
@@ -140,11 +141,11 @@ public class SparkServer {
                     JSONObject accountJson = new JSONObject();
 
                     if(request.queryParams().contains("username")) {
-                        String useranme = request.queryParams("username");
+                        String username = request.queryParams("username");
 
-                        if(userMap.containsKey(useranme)) {
-                            accountJson.put("accountNumber", userMap.get(useranme).getAccount().getAccountnum());
-                            accountJson.put("balance", userMap.get(useranme).getAccount().getBalance());
+                        if(userMap.containsKey(username)) {
+                            accountJson.put("accountNumber", userMap.get(username).getAccount().getAccountnum());
+                            accountJson.put("balance", userMap.get(username).getAccount().getBalance());
                         }
                     }
 
@@ -168,15 +169,19 @@ public class SparkServer {
                                     .withAccountnum(i)
                                     .withOwner(userMap.get(username))
                                     .withBalance(100);
+                            accountMap.put(i, account);
+                            if(accountMap.get(i) != null) {
+                                responseJSON.put("request", "successful");
+                                responseJSON.put("account", accountMap.get(i).toString());
+                                i++;
+                            } else{
+                                responseJSON.put("request", "failure");
+                            }
+
                         } else {
                             responseJSON.put("request", "failure");
                             return responseJSON;
                         }
-
-                        accountMap.put(i, account);
-                        i++;
-
-                        responseJSON.put("request", "successful");
                     }else{
                         responseJSON.put("request", "failure");
                     }
@@ -187,22 +192,73 @@ public class SparkServer {
             });
             path("/transaction", () -> {
 
-                get("/", (request, response) -> {
-                    return "TransactionInfo";
+                get("", (request, response) -> {
+
+                    String id = "";
+                    JSONObject responseJSON = new JSONObject();
+
+                    if(request.queryParams().contains("id"))
+                    {
+                        id = request.queryParams("id");
+                    } else {
+                        responseJSON.put("request", "failure");
+                        return responseJSON;
+                    }
+
+                    return responseJSON.put("request", "success");
                 });
 
                 post("", (request, response) -> {
 
-                    String name = "No name";
+                    JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("owner"))
-                        name = request.queryParams("owner");
+                    double amount = 0;
+                    int fromAccountId = 0;
+                    int toAccountId = 0;
+                    String transferType = "";
 
-//                    JSONParser parser = new JSONParser();
-//                    Object obj = parser.parse(request.body());
-//                    JSONArray array = (JSONArray)obj;
+                    if(request.queryParams().contains("amount")
+                            && request.queryParams().contains("fromAccountId")
+                            && request.queryParams().contains("toAccountId")
+                            && request.queryParams().contains("transferType")) {
+                        amount = Double.parseDouble(request.queryParams("amount"));
+                        fromAccountId = Integer.parseInt(request.queryParams("fromAccountId"));
+                        toAccountId = Integer.parseInt(request.queryParams("toAccountId"));
+                        transferType = request.queryParams("transferType");
 
-                    return name;
+                        TransactionTypeEnum transactionTypeEnum = TransactionTypeEnum.valueOf(transferType);
+
+                        logger.info("fromAccount: " + accountMap.get(fromAccountId).toString());
+                        logger.info("toAccount: " + accountMap.get(toAccountId).toString());
+
+//                        Transaction transaction = new Transaction()
+//                                .withAmount(amount)
+//                                .withCreationdate(new Date())
+//                                .withFromAccount(accountMap.get(fromAccountId))
+//                                .withToAccount(accountMap.get(toAccountId))
+//                                .withTransType(transactionTypeEnum)
+//                                .withTime(new Date());
+
+                        Transaction transaction = accountMap.get(fromAccountId).createCredit()
+                                .withAmount(amount)
+                                .withCreationdate(new Date())
+                                .withFromAccount(accountMap.get(fromAccountId))
+                                .withToAccount(accountMap.get(toAccountId))
+                                .withTransType(transactionTypeEnum)
+                                .withTime(new Date());;
+
+                        accountMap.get(fromAccountId).transferToAccount(amount, accountMap.get(toAccountId), "");
+
+                        responseJSON.put("request", "successful");
+                        responseJSON.put("transaction", transaction.toString());
+                        responseJSON.put("transactionFrom", transaction.getFromAccount().toString());
+                        responseJSON.put("transactionTo", transaction.getToAccount().toString());
+
+                        return responseJSON;
+                    }
+
+                    responseJSON.put("request", "failure");
+                    return responseJSON;
                 });
             });
         });
