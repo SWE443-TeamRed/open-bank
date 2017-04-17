@@ -12,10 +12,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
 
-    private int accountID;
-    public FragmentPageAdapter(FragmentManager fm, int accountID) {
+    private int accountIndex;
+    public FragmentPageAdapter(FragmentManager fm, int accountIndex) {
         super(fm);
-        this.accountID = accountID;
+        this.accountIndex = accountIndex;
     }
 
     @Override
@@ -23,13 +23,13 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", accountID);
+                bundle.putInt("id", accountIndex);
                 Fragment account_fragment = new AccountFrag();
                 account_fragment.setArguments(bundle);
                 return account_fragment;
             case 1:
                 Bundle bundle1 = new Bundle();
-                bundle1.putInt("id", accountID);
+                bundle1.putInt("id", accountIndex);
                 Fragment trans_fragment = new TransactionFrag();
                 trans_fragment.setArguments(bundle1);
                 return trans_fragment;
@@ -37,7 +37,7 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
                 return new TransferFrag();
             default:
                 Bundle bundle2 = new Bundle();
-                bundle2.putInt("id", accountID);
+                bundle2.putInt("id", accountIndex);
                 Fragment account2_fragment = new AccountFrag();
                 account2_fragment.setArguments(bundle2);
                 return account2_fragment;

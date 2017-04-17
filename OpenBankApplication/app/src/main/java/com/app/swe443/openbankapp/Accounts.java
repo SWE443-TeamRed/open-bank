@@ -43,6 +43,7 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         accountIndex = extras.getInt("accountIndex");
+        System.out.println("Obtained Account Index "+accountIndex);
 
         //Set of the Pager fragments
         fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountIndex);

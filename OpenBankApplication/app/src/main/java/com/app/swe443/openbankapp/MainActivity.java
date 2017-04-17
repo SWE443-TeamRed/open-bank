@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity
         // Do something here to display that article
         getFragmentManager().popBackStack();
         Intent intent = new Intent(this, Accounts.class);
-        intent.putExtra("accountid",id);
+        intent.putExtra("accountIndex",id);
         startActivity(intent);
     }
 
