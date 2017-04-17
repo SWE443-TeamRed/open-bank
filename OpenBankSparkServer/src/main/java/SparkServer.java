@@ -40,21 +40,43 @@ public class SparkServer {
                 + "\n\theaders: " + q.headers().toString()
                 + "\n\tquery params: " + q.queryParams().toString()));
 
-        get("/admin", (request, response) -> {return "<HTML>\n" +
-                "<HEAD>\n" +
-                "<TITLE>Admin Page Place Holder</TITLE>\n" +
-                "</HEAD>\n" +
-                "<BODY BGCOLOR=\"FFFFFF\">\n" +
-                "<HR>\n" +
-                "This is a place holder for the admin page\n" +
-                "<H1>Header Example</H1>\n" +
-                "<H2>Medium Header Example</H2>\n" +
-                "<P>Paragraph Example\n" +
-                "<P><B>Bold Paragraph Example</B>\n" +
-                "<BR><B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>\n" +
-                "<HR>\n" +
-                "</BODY>\n" +
-                "</HTML>";});
+        path("/admin", () -> {
+            get("", (request, response) -> {return "<HTML>\n" +
+                    "<HEAD>\n" +
+                    "<TITLE>Admin Page Place Holder</TITLE>\n" +
+                    "</HEAD>\n" +
+                    "<BODY BGCOLOR=\"FFFFFF\">\n" +
+                    "<HR>\n" +
+                    "This is a place holder for the admin page\n" +
+                    "<H1>Header Example</H1>\n" +
+                    "<H2>Medium Header Example</H2>\n" +
+                    "<P>Paragraph Example\n" +
+                    "<P><B>Bold Paragraph Example</B>\n" +
+                    "<BR><B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>\n" +
+                    "<HR>\n" +
+                    "</BODY>\n" +
+                    "</HTML>";
+            });
+
+            path("/passwordReset", () -> {
+                post("", (request, response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    String username = request.queryParams("username");
+                    String newPassword = request.queryParams("newPassword");
+
+                    userMap.get(username).withPassword(newPassword);
+
+                    if(userMap.get(username).getPassword().equals(newPassword))
+                        responseJSON.put("request","successful");
+                    else
+                        responseJSON.put("request","failure");
+                    
+                    return responseJSON;
+                });
+            });
+        });
+
 
         path("/api", () -> {
 
