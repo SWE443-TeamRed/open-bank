@@ -361,6 +361,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
 
+
    public TransactionTypeEnum getTransType()
    {
       if (this.getPattern().getHasMatch())
@@ -393,14 +394,15 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
 
+
    public TransactionPO createCreationdateAssignment(Date value)
    {
       new AttributeConstraint()
-              .withAttrName(Transaction.PROPERTY_CREATIONDATE)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(Pattern.CREATE)
-              .withPattern(this.getPattern());
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
 
       super.filterAttr();
 
@@ -424,5 +426,4 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       }
       return this;
    }
-
 }

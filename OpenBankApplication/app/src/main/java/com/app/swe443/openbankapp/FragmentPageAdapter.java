@@ -1,5 +1,6 @@
 package com.app.swe443.openbankapp;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,25 +11,44 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
-    public FragmentPageAdapter(FragmentManager fm) {
+
+    private int accountIndex;
+    public FragmentPageAdapter(FragmentManager fm, int accountIndex) {
         super(fm);
+        this.accountIndex = accountIndex;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new CurrentBalance();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", accountIndex);
+                Fragment account_fragment = new AccountFrag();
+                account_fragment.setArguments(bundle);
+                return account_fragment;
             case 1:
-                return new Transfer();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("id", accountIndex);
+                Fragment trans_fragment = new TransactionFrag();
+                trans_fragment.setArguments(bundle1);
+                return trans_fragment;
             case 2:
-                return new TransactionsLog();
+                return new Transfer();
             default:
-            Fragment fragment = new CurrentBalance();
-            return fragment;
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("id", accountIndex);
+                Fragment account2_fragment = new AccountFrag();
+                account2_fragment.setArguments(bundle2);
+                return account2_fragment;
         }
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+// POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
+    }
     @Override
     public int getCount() {
 
@@ -39,11 +59,11 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Account Details";
+                return "Account";
             case 1:
-                return "Transfer";
+                return "Transactions";
             case 2:
-                return "Transaction Log";
+                return "Transfer";
         }
         return "Account Basics";
     }

@@ -1,17 +1,26 @@
 /*
    Copyright (c) 2017 FA
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software
    and associated documentation files (the "Software"), to deal in the Software without restriction,
    including without limitation the rights to use, copy, modify, merge, publish, distribute,
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
    furnished to do so, subject to the following conditions:
+<<<<<<< HEAD
 
    The above copyright notice and this permission notice shall be included in all copies or
    substantial portions of the Software.
 
    The Software shall be used for Good, not Evil.
 
+=======
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
+   The Software shall be used for Good, not Evil.
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -25,6 +34,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
+
 /*
    Copyright (c) 2017 FA
 
@@ -45,6 +55,9 @@ import java.util.Date;
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+import java.util.LinkedList;
+
 
 public  class Account implements SendableEntity
 {
@@ -445,7 +458,6 @@ public  class Account implements SendableEntity
    *     Kimberly 03/29/17
    *     4/3 - Henry -> refactored and incorporated transaction serialization
    * /
-
    /*
       Constructor setting the initial amount
    */
@@ -454,6 +466,17 @@ public  class Account implements SendableEntity
       this.setBalance(initialAmount);
    }
 
+    private LinkedList<Transaction> accountTransactions = new LinkedList<Transaction>();
+
+    public LinkedList<Transaction> getAccountTransactions()
+    {
+        if (this.accountTransactions == null)
+        {
+            return null;
+        }
+
+        return this.accountTransactions;
+    }
 
    //User transfer founds to another user,
    // needs to connect and verify destinationAccount connection.
@@ -512,13 +535,24 @@ public  class Account implements SendableEntity
       trans.setDate(new Date());
       trans.setAmount(amount);
       trans.setNote(note);
+
+       if(recordforAccount != this)
+           trans.setTransType(TransactionTypeEnum.TRANSFER);
+       else if (credit == true)
+           trans.setTransType(TransactionTypeEnum.DEPOSIT);
+       else
+           trans.setTransType(TransactionTypeEnum.WITHDRAW);
+
       if(credit) {
          //Credit transaction, Set who is getting amount
          trans.setFromAccount(recordforAccount);
       }else{
          //Debit transaction, set who is recieving amount
          trans.setToAccount(recordforAccount);
+
+
       }
+      accountTransactions.addFirst(trans);
       return trans;
    }
 
@@ -551,11 +585,6 @@ public  class Account implements SendableEntity
 
 
    }
-
-
-
-
-
 
    //==========================================================================
 
@@ -606,10 +635,6 @@ public  class Account implements SendableEntity
       return this;
    }
 
-
-
-
-
    //==========================================================================
    public boolean receiveFunds( Account giver, double amount, String note )
    {
@@ -623,3 +648,4 @@ public  class Account implements SendableEntity
       return null;
    }
 }
+

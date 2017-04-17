@@ -18,8 +18,10 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package com.app.swe443.openbankapp.Support;
+
+import com.app.swe443.openbankapp.JsonPersistency;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
@@ -47,6 +49,7 @@ import de.uniks.networkparser.EntityUtil;
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 
 public  class Transaction implements SendableEntity
 {
@@ -365,10 +368,11 @@ public  class Transaction implements SendableEntity
       return value;
    }
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_TRANSTYPE = "transType";
+   
 
    private TransactionTypeEnum transType;
 
@@ -377,6 +381,7 @@ public  class Transaction implements SendableEntity
       return this.transType;
    }
 
+
    public void setTransType(TransactionTypeEnum value)
    {
       if (value ==null) {
@@ -384,12 +389,12 @@ public  class Transaction implements SendableEntity
       }
 
       if (this.transType != value) {
-
          TransactionTypeEnum oldValue = this.transType;
          this.transType = value;
          this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
       }
    }
+
 
    public Transaction withTransType(TransactionTypeEnum value)
    {
@@ -397,9 +402,9 @@ public  class Transaction implements SendableEntity
       return this;
    }
 
-
+   
    //==========================================================================
-
+   
    public static final String PROPERTY_CREATIONDATE = "creationdate";
 
    private Date creationdate;

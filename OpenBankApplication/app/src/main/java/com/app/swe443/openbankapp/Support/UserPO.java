@@ -1,8 +1,8 @@
 package com.app.swe443.openbankapp.Support;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class UserPO extends PatternObject<UserPO, User>
 {

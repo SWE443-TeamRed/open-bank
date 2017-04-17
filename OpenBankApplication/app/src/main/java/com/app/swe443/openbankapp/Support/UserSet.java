@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 CShultz
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,8 +27,9 @@ import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
 import java.util.Collections;
-
 /*
    Copyright (c) 2017 hlope
 
@@ -85,7 +86,7 @@ public class UserSet extends SimpleSet<User>
 
    public String getEntryType()
    {
-      return "User";
+      return "org.sdmlib.openbank.User";
    }
 
 

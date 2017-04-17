@@ -1,5 +1,3 @@
-package com.app.swe443.openbankapp.Support;
-
 /*
    Copyright (c) 2017 FA
 
@@ -21,6 +19,8 @@ package com.app.swe443.openbankapp.Support;
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package com.app.swe443.openbankapp.Support;
+
 import org.sdmlib.models.modelsets.SDMSet;
 
 public class TransactionTypeEnumSet extends SDMSet<TransactionTypeEnum>
@@ -34,4 +34,3 @@ public class TransactionTypeEnumSet extends SDMSet<TransactionTypeEnum>
         return "TransactionTypeEnum";
     }
 }
-

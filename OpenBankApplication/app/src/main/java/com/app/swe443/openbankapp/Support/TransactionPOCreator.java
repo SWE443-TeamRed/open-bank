@@ -1,5 +1,4 @@
 package com.app.swe443.openbankapp.Support;
-
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -49,6 +49,7 @@ import de.uniks.networkparser.list.ObjectSet;
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -212,8 +213,13 @@ public class TransactionSet extends SimpleSet<Transaction>
 
 
    /**
+<<<<<<< HEAD
     * Loop through the current set of Transaction objects and collect a list of the date attribute values.
     *
+=======
+    * Loop through the current set of Transaction objects and collect a list of the date attribute values.
+    *
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
     * @return List of java.util.Date objects reachable via date attribute
     */
    public ObjectSet getDate()
@@ -273,6 +279,7 @@ public class TransactionSet extends SimpleSet<Transaction>
    /**
     * Loop through the current set of Transaction objects and collect a list of the time attribute values.
     *
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
     * @return List of java.util.Date objects reachable via time attribute
     */
    public ObjectSet getTime()
@@ -600,9 +607,8 @@ public class TransactionSet extends SimpleSet<Transaction>
       return this;
    }
 
-
    /**
-    * Loop through the current set of Transaction objects and collect a list of the creationdate attribute values.
+    * Loop through the current set of Transaction objects and collect a list of the creationdate attribute values. 
     *
     * @return List of java.util.Date objects reachable via creationdate attribute
     */
@@ -620,7 +626,7 @@ public class TransactionSet extends SimpleSet<Transaction>
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the creationdate attribute matches the parameter value.
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the creationdate attribute matches the parameter value. 
     *
     * @param value Search value
     *
@@ -643,7 +649,7 @@ public class TransactionSet extends SimpleSet<Transaction>
 
 
    /**
-    * Loop through the current set of Transaction objects and assign value to the creationdate attribute of each of it.
+    * Loop through the current set of Transaction objects and assign value to the creationdate attribute of each of it. 
     *
     * @param value New attribute value
     *

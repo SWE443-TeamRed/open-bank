@@ -1,9 +1,13 @@
-package com.app.swe443.openbankapp.Support;
+package com.app.swe443.openbankapp;
+
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.AccountCreator;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonArray;
 
 import java.io.*;
+
 
 /**
  * Created by daniel on 3/29/17.

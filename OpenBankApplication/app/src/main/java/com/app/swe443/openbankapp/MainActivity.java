@@ -1,9 +1,7 @@
 package com.app.swe443.openbankapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,13 +11,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.User;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity
+        implements HomeFrag.OnAccountSelectedListener{
+
 
 
 
@@ -30,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
     public ActionBar actionBar;
 
     private Fragment home_fragment;
+    private Fragment newhome_fragment;
+
     private Fragment users_fragment;
+
+    private Fragment transaction_fragment;
     private Fragment open_account_fragment;
     private Fragment logout_fragment;
     private Fragment contacts_fragment;
@@ -40,18 +50,17 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
+    private ArrayList<Account> accounts = new ArrayList<Account>();
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //INITIALIZE LEFT ACTIONBAR
         //This sets the navigation drawer and the top actionbar.
         Drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -59,19 +68,54 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-
         drawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         drawerToggle.setDrawerIndicatorEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
         Drawer.addDrawerListener(drawerToggle);
-
         drawerToggle.syncState();
 
-        addDrawerItems();
+        //Initlaize all necessary fragments for MainActivity
         initFragments();
+        //Draw the actionbar
+        addDrawerItems();
+
+        //Create User's and Accounts as dummy data
+        JsonPersistency jsonp = new JsonPersistency();
+        User tina = new User().withUserID("tina1").withPassword("tinapass");
+        Account tinac = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(1)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withCreationdate(new Date());
+        Account tinas = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(2)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withCreationdate(new Date());
+        Account tinap = new Account()
+                .withBalance(100)
+                .withOwner(tina)
+                .withAccountnum(3)
+                .withType(AccountTypeEnum.CHECKING)
+                .withCreationdate(new Date());
+        System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
+        tinac.withdraw(1); //90
+        tinac.withdraw(20);  //70
+        tinac.withdraw(30);  //40
+        tinac.deposit(1000);  //1040
+        tinac.deposit(500);  //1540
+        tinac.withdraw(400); // 1140
+        tinac.withdraw(800); // 340
+        tinac.withdraw(20);   //320
+
+        /*
+            Add Tina's account set to MainActivity Accounts data structure
+            ArrayList<Account> needed for account list in homepage
+         */
+        accounts.addAll(tina.getAccount());
     }
 
     private void addDrawerItems() {
@@ -136,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void backNavigation(View view){
+        System.out.println("BACKNAVIGATION FOR HEADER");
         Drawer.closeDrawer(Gravity.START);
     }
 
@@ -147,13 +192,6 @@ public class MainActivity extends AppCompatActivity {
         home_fragment = new HomeFrag();
 
 
-        /********Contacts Fragment********/
-        contacts_fragment = new ContactsFrag();
-
-        /********Users Info Fragment********/
-        users_fragment = new UsersFrag();
-
-
         /********Open Account Fragment********/
         open_account_fragment = new OpenAccountFrag();
 
@@ -161,16 +199,71 @@ public class MainActivity extends AppCompatActivity {
         /********Logout Fragment********/
         logout_fragment = new LogoutFrag();
 
+        /********Logout Fragment********/
+        contacts_fragment = new ContactsFrag();
 
+        /********Transaction Fragments********/
+        users_fragment = new UsersFrag();
+
+
+        //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
+        transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
-    //This sets the the home page view
-    public void seeAccounts(View view){
+    /*
+        An account was clicked in the homepage, change the screen to display account specific tabs
+     */
+    public void onAccountSelected(int id) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        getFragmentManager().popBackStack();
         Intent intent = new Intent(this, Accounts.class);
-        startActivity(new Intent(MainActivity.this, Accounts.class));
+        intent.putExtra("accountIndex",id);
+        startActivity(intent);
+    }
+
+
+    //Give Home fragments arrayList of accounts
+    public ArrayList<Account> getAccounts(){
+        return accounts;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
+        //Do not create a new Intent for Main Activity here as this will destory all data being tracked
+        //Set the (Account Details, Transfer, Transaction) view to gone and the mainView to visible to display homepage
+        //Initiate the Homepage fragment
+//
+//        adapter.notifyDataSetChanged();
+//        transaction = fm.beginTransaction();
+//        newhome_fragment = new HomeFrag();
+//        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+
+
+        return true;
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println("Logout by back press");
+        finish();
+//            adapter.notifyDataSetChanged();
+//            Drawer.invalidate();
+//            actionBar.invalidateOptionsMenu();
+//
+//
+//            transaction = fm.beginTransaction();
+//            newhome_fragment = new HomeFrag();
+//            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
+//            transaction.addToBackStack(null);
+//            transaction.commit();
 
     }
 

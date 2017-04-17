@@ -1,10 +1,12 @@
 package com.app.swe443.openbankapp.Support;
 
 import org.sdmlib.models.pattern.PatternObject;
+
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 
 import java.util.Date;
+
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -42,8 +44,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       this.setModifier(modifier);
    }
 
-   //==========================================================================
-
    public void Account(double initialAmount)
    {
       if (this.getPattern().getHasMatch())
@@ -51,7 +51,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
          ((Account) getCurrentMatch()).Account(initialAmount);
       }
    }
-
 
    //==========================================================================
 
@@ -63,7 +62,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       }
       return false;
    }
-
 
    //==========================================================================
 //
@@ -101,6 +99,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //   }
 
 
+
    //==========================================================================
 
    public void withdraw(double amount)
@@ -113,6 +112,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 
 
    //==========================================================================
+
 
    public void deposit(double amount)
    {
@@ -261,16 +261,35 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    public AccountPO createCreationdateAssignment(Date value)
    {
       new AttributeConstraint()
-              .withAttrName(Account.PROPERTY_CREATIONDATE)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(Pattern.CREATE)
-              .withPattern(this.getPattern());
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
 
       super.filterAttr();
 
       return this;
    }
+
+//   public Date getCreationdate()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Account) getCurrentMatch()).getCreationdate();
+//      }
+//      return null;
+//   }
+
+//   public AccountPO withCreationdate(Date value)
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         ((Account) getCurrentMatch()).setCreationdate(value);
+//      }
+//      return this;
+//   }
+
 
 //   public Date getCreationdate()
 //   {
@@ -304,19 +323,21 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
 
+
    public AccountPO createIsConnectedAssignment(boolean value)
    {
       new AttributeConstraint()
-              .withAttrName(Account.PROPERTY_ISCONNECTED)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(Pattern.CREATE)
-              .withPattern(this.getPattern());
+      .withAttrName(Account.PROPERTY_ISCONNECTED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
 
       super.filterAttr();
 
       return this;
    }
+
 
    public boolean getIsConnected()
    {
@@ -454,8 +475,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
 
-   //==========================================================================
-
 //   public boolean myBankTransaction(double amount, Account destinationAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
@@ -466,8 +485,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //   }
 
 
-   //==========================================================================
-
 //   public boolean receiveFound(double amount, Account sourceAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
@@ -476,9 +493,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //      }
 //      return false;
 //   }
-
-
-   //==========================================================================
 
 //   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
@@ -507,9 +521,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
 
-
-   //==========================================================================
-
    public boolean receiveFunds(Account giver, double amount, String note)
    {
       if (this.getPattern().getHasMatch())
@@ -519,9 +530,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
-
-   //==========================================================================
-
    public Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
    {
       if (this.getPattern().getHasMatch())
@@ -529,20 +537,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
          return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2, p3);
       }
       return null;
-   }
-
-   public AccountPO createCreationdateCondition(String value)
-   {
-      new AttributeConstraint()
-              .withAttrName(Account.PROPERTY_CREATIONDATE)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(this.getPattern().getModifier())
-              .withPattern(this.getPattern());
-
-      super.filterAttr();
-
-      return this;
    }
 
    public AccountPO createCreationdateCondition(String lower, String upper)
@@ -560,14 +554,43 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
 
+//   public AccountPO createCreationdateAssignment(String value)
+//   {
+//      new AttributeConstraint()
+//      .withAttrName(Account.PROPERTY_CREATIONDATE)
+//      .withTgtValue(value)
+//      .withSrc(this)
+//      .withModifier(this.getPattern().getModifier())
+//      .withPattern(this.getPattern());
+//
+//      super.filterAttr();
+//
+//      return this;
+//   }
+
+//   public AccountPO createCreationdateCondition(String lower, String upper)
+//   {
+//      new AttributeConstraint()
+//      .withAttrName(Account.PROPERTY_CREATIONDATE)
+//      .withTgtValue(lower)
+//      .withUpperTgtValue(upper)
+//      .withSrc(this)
+//      .withModifier(this.getPattern().getModifier())
+//      .withPattern(this.getPattern());
+//
+//      super.filterAttr();
+//
+//      return this;
+//   }
+
    public AccountPO createCreationdateAssignment(String value)
    {
       new AttributeConstraint()
-              .withAttrName(Account.PROPERTY_CREATIONDATE)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(Pattern.CREATE)
-              .withPattern(this.getPattern());
+      .withAttrName(Account.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
 
       super.filterAttr();
 
@@ -593,14 +616,15 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
 
+
    public AccountPO createTypeAssignment(AccountTypeEnum value)
    {
       new AttributeConstraint()
-              .withAttrName(Account.PROPERTY_TYPE)
-              .withTgtValue(value)
-              .withSrc(this)
-              .withModifier(Pattern.CREATE)
-              .withPattern(this.getPattern());
+      .withAttrName(Account.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
 
       super.filterAttr();
 
@@ -626,6 +650,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
 
+
    //==========================================================================
 
    public boolean transferToAccount(double amount, Account destinationAccount, String note)
@@ -638,6 +663,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
 
+
    //==========================================================================
 
    public Transaction recordTransaction(boolean p0, double p1, String p2)
@@ -648,5 +674,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       }
       return null;
    }
+
 
 }

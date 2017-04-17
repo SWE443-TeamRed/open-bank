@@ -1,7 +1,6 @@
 package com.app.swe443.openbankapp;
 
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +47,9 @@ public class OpenAccountFrag extends Fragment implements AdapterView.OnItemSelec
                 .withCreationdate(new Date())
                 .withCredit()
                 .withDebit();
-        tina.login("tina1","tinapass");
+        tina.login("tina1", "tinapass");
 
-        tina.logout();
+//        tina.logout();
 
         ///////////////////////////////////////////////////////////////////
         account = jsonPersistency.fromJson(tina.getUserID());
@@ -92,3 +91,4 @@ public class OpenAccountFrag extends Fragment implements AdapterView.OnItemSelec
 
     }
 }
+
