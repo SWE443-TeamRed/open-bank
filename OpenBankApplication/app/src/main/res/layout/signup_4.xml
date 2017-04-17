@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="50dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
     android:paddingTop="50dp"
-    android:weightSum="0.8">
+    android:weightSum="0.8"
+    tools:context="com.app.swe443.openbankapp.SignUp1Activity">
 
     <TextView
         android:layout_margin="20dp"
@@ -20,43 +22,98 @@
         android:textStyle="bold"
         android:textSize="30sp" />
 
-    <RelativeLayout
-        android:id="@+id/sign_up_form3"
+    <TextView
+        android:id="@+id/account_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.22"
-        android:orientation="vertical">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
+        android:text="Select the account you want to create:"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:id="@+id/radio_group"
+        android:layout_height="118dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/account_type"
+        android:layout_above="@+id/intial_value_txt"
+        android:weightSum="1">
 
-        <EditText
-            android:id="@+id/editText"
+        <RadioButton
+            android:id="@+id/radioButton7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Checking Account" />
 
-        <Button
-            android:id="@+id/agreement"
-            style="?android:textAppearanceSmall"
+        <RadioButton
+            android:id="@+id/radioButton5"
             android:layout_width="wrap_content"
-            android:layout_height="88dp"
-            android:layout_gravity="center"
-            android:background="#0b3c5d"
-            android:paddingLeft="100dp"
-            android:paddingRight="100dp"
-            android:text="Agree and Create Account"
-            android:textStyle="bold"
-            android:layout_below="@+id/editText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="282dp" />
+            android:layout_height="wrap_content"
+            android:text="Saving Account" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/intial_value_txt"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Enter the initial amount:"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/initail_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:id="@+id/sign_up_form4"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="31dp">
+
+        </android.support.design.widget.TextInputLayout>
 
 
     </RelativeLayout>
 
-
+    <Button
+        android:id="@+id/agreement"
+        style="?android:textAppearanceSmall"
+        android:layout_width="302dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:background="#0b3c5d"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:text="Create Account"
+        android:textStyle="bold"
+        android:layout_weight="0.13" />
 </LinearLayout>

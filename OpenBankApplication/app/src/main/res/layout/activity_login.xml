@@ -94,7 +94,7 @@
         android:text="@string/action_sign_in"
         android:textStyle="bold" />
     <Button
-        android:id="@+id/email_sign_up_button"
+        android:id="@+id/sign_up_button"
         style="?android:textAppearanceSmall"
         android:background="#0b3c5d"
         android:layout_width="wrap_content"
