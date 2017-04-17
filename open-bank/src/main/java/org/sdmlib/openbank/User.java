@@ -110,6 +110,7 @@ import org.sdmlib.openbank.Bank;
        public void removeYou() {
            withoutAccount(this.getAccount().toArray(new Account[this.getAccount().size()]));
            setBank(null);
+      setEmployingBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
        }
 
@@ -504,6 +505,65 @@ import org.sdmlib.openbank.Bank;
    {
       Bank value = new Bank();
       withBank(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * User ----------------------------------- Bank
+    *              adminUsers                   employingBank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_EMPLOYINGBANK = "employingBank";
+
+   private Bank employingBank = null;
+
+   public Bank getEmployingBank()
+   {
+      return this.employingBank;
+   }
+
+   public boolean setEmployingBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.employingBank != value)
+      {
+         Bank oldValue = this.employingBank;
+         
+         if (this.employingBank != null)
+         {
+            this.employingBank = null;
+            oldValue.withoutAdminUsers(this);
+         }
+         
+         this.employingBank = value;
+         
+         if (value != null)
+         {
+            value.withAdminUsers(this);
+         }
+         
+         firePropertyChange(PROPERTY_EMPLOYINGBANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public User withEmployingBank(Bank value)
+   {
+      setEmployingBank(value);
+      return this;
+   } 
+
+   public Bank createEmployingBank()
+   {
+      Bank value = new Bank();
+      withEmployingBank(value);
       return value;
    } 
 }

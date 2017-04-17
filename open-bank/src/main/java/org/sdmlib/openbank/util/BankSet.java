@@ -563,4 +563,164 @@ public class BankSet extends SimpleSet<Bank>
       return result;
    }
 
+   /**
+    * Loop through the current set of Bank objects and collect a set of the User objects reached via adminUsers. 
+    * 
+    * @return Set of User objects reachable via adminUsers
+    */
+   public UserSet getAdminUsers()
+   {
+      UserSet result = new UserSet();
+      
+      for (Bank obj : this)
+      {
+         result.with(obj.getAdminUsers());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Bank objects and collect all contained objects with reference adminUsers pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as adminUsers neighbor of the collected results. 
+    * 
+    * @return Set of User objects referring to value via adminUsers
+    */
+   public BankSet filterAdminUsers(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BankSet answer = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAdminUsers()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Bank object passed as parameter to the AdminUsers attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their AdminUsers attributes.
+    */
+   public BankSet withAdminUsers(User value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withAdminUsers(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Bank object passed as parameter from the AdminUsers attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public BankSet withoutAdminUsers(User value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withoutAdminUsers(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Bank objects and collect a set of the Account objects reached via adminAccounts. 
+    * 
+    * @return Set of Account objects reachable via adminAccounts
+    */
+   public AccountSet getAdminAccounts()
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Bank obj : this)
+      {
+         result.with(obj.getAdminAccounts());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Bank objects and collect all contained objects with reference adminAccounts pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as adminAccounts neighbor of the collected results. 
+    * 
+    * @return Set of Account objects referring to value via adminAccounts
+    */
+   public BankSet filterAdminAccounts(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BankSet answer = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAdminAccounts()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Bank object passed as parameter to the AdminAccounts attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their AdminAccounts attributes.
+    */
+   public BankSet withAdminAccounts(Account value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withAdminAccounts(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Bank object passed as parameter from the AdminAccounts attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public BankSet withoutAdminAccounts(Account value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withoutAdminAccounts(value);
+      }
+      
+      return this;
+   }
+
 }

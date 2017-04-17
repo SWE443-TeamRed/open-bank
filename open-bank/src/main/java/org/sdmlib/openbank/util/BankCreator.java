@@ -37,6 +37,8 @@ public class BankCreator implements SendableEntityCreator
       Bank.PROPERTY_CUSTOMERUSER,
       Bank.PROPERTY_TRANSACTION,
       Bank.PROPERTY_CUSTOMERACCOUNTS,
+      Bank.PROPERTY_ADMINUSERS,
+      Bank.PROPERTY_ADMINACCOUNTS,
    };
    
    @Override
@@ -85,6 +87,16 @@ public class BankCreator implements SendableEntityCreator
       if (Bank.PROPERTY_CUSTOMERACCOUNTS.equalsIgnoreCase(attribute))
       {
          return ((Bank) target).getCustomerAccounts();
+      }
+
+      if (Bank.PROPERTY_ADMINUSERS.equalsIgnoreCase(attribute))
+      {
+         return ((Bank) target).getAdminUsers();
+      }
+
+      if (Bank.PROPERTY_ADMINACCOUNTS.equalsIgnoreCase(attribute))
+      {
+         return ((Bank) target).getAdminAccounts();
       }
       
       return null;
@@ -137,6 +149,30 @@ public class BankCreator implements SendableEntityCreator
       if ((Bank.PROPERTY_CUSTOMERACCOUNTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Bank) target).withoutCustomerAccounts((Account) value);
+         return true;
+      }
+
+      if (Bank.PROPERTY_ADMINUSERS.equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withAdminUsers((User) value);
+         return true;
+      }
+      
+      if ((Bank.PROPERTY_ADMINUSERS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withoutAdminUsers((User) value);
+         return true;
+      }
+
+      if (Bank.PROPERTY_ADMINACCOUNTS.equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withAdminAccounts((Account) value);
+         return true;
+      }
+      
+      if ((Bank.PROPERTY_ADMINACCOUNTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withoutAdminAccounts((Account) value);
          return true;
       }
       

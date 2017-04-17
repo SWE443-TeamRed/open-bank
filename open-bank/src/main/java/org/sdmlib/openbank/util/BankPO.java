@@ -336,4 +336,82 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return false;
    }
 
+   public UserPO createAdminUsersPO()
+   {
+      UserPO result = new UserPO(new User[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_ADMINUSERS, result);
+      
+      return result;
+   }
+
+   public UserPO createAdminUsersPO(String modifier)
+   {
+      UserPO result = new UserPO(new User[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_ADMINUSERS, result);
+      
+      return result;
+   }
+
+   public BankPO createAdminUsersLink(UserPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_ADMINUSERS);
+   }
+
+   public BankPO createAdminUsersLink(UserPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_ADMINUSERS, modifier);
+   }
+
+   public UserSet getAdminUsers()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) this.getCurrentMatch()).getAdminUsers();
+      }
+      return null;
+   }
+
+   public AccountPO createAdminAccountsPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_ADMINACCOUNTS, result);
+      
+      return result;
+   }
+
+   public AccountPO createAdminAccountsPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_ADMINACCOUNTS, result);
+      
+      return result;
+   }
+
+   public BankPO createAdminAccountsLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_ADMINACCOUNTS);
+   }
+
+   public BankPO createAdminAccountsLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_ADMINACCOUNTS, modifier);
+   }
+
+   public AccountSet getAdminAccounts()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) this.getCurrentMatch()).getAdminAccounts();
+      }
+      return null;
+   }
+
 }

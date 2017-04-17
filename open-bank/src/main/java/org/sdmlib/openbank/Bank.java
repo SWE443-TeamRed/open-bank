@@ -92,6 +92,8 @@ import org.sdmlib.openbank.Account;
       withoutCustomerUser(this.getCustomerUser().toArray(new User[this.getCustomerUser().size()]));
       setTransaction(null);
       withoutCustomerAccounts(this.getCustomerAccounts().toArray(new Account[this.getCustomerAccounts().size()]));
+      withoutAdminUsers(this.getAdminUsers().toArray(new User[this.getAdminUsers().size()]));
+      withoutAdminAccounts(this.getAdminAccounts().toArray(new Account[this.getAdminAccounts().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -411,4 +413,148 @@ import org.sdmlib.openbank.Account;
    {
       return false;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Bank ----------------------------------- User
+    *              bank                   adminUsers
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ADMINUSERS = "adminUsers";
+
+   private UserSet adminUsers = null;
+   
+   public UserSet getAdminUsers()
+   {
+      if (this.adminUsers == null)
+      {
+         return UserSet.EMPTY_SET;
+      }
+   
+      return this.adminUsers;
+   }
+
+   public Bank withAdminUsers(User... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (User item : value)
+      {
+         if (item != null)
+         {
+            if (this.adminUsers == null)
+            {
+               this.adminUsers = new UserSet();
+            }
+            
+            boolean changed = this.adminUsers.add (item);
+
+            if (changed)
+            {
+               item.withBank(this);
+               firePropertyChange(PROPERTY_ADMINUSERS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Bank withoutAdminUsers(User... value)
+   {
+      for (User item : value)
+      {
+         if ((this.adminUsers != null) && (item != null))
+         {
+            if (this.adminUsers.remove(item))
+            {
+               item.setBank(null);
+               firePropertyChange(PROPERTY_ADMINUSERS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public User createAdminUsers()
+   {
+      User value = new User();
+      withAdminUsers(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Bank ----------------------------------- Account
+    *              bank                   adminAccounts
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ADMINACCOUNTS = "adminAccounts";
+
+   private AccountSet adminAccounts = null;
+   
+   public AccountSet getAdminAccounts()
+   {
+      if (this.adminAccounts == null)
+      {
+         return AccountSet.EMPTY_SET;
+      }
+   
+      return this.adminAccounts;
+   }
+
+   public Bank withAdminAccounts(Account... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Account item : value)
+      {
+         if (item != null)
+         {
+            if (this.adminAccounts == null)
+            {
+               this.adminAccounts = new AccountSet();
+            }
+            
+            boolean changed = this.adminAccounts.add (item);
+
+            if (changed)
+            {
+               item.withBank(this);
+               firePropertyChange(PROPERTY_ADMINACCOUNTS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Bank withoutAdminAccounts(Account... value)
+   {
+      for (Account item : value)
+      {
+         if ((this.adminAccounts != null) && (item != null))
+         {
+            if (this.adminAccounts.remove(item))
+            {
+               item.setBank(null);
+               firePropertyChange(PROPERTY_ADMINACCOUNTS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Account createAdminAccounts()
+   {
+      Account value = new Account();
+      withAdminAccounts(value);
+      return value;
+   } 
 }

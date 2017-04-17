@@ -112,6 +112,19 @@
          "typ":"ASSOCIATION",
          "source":{
             "id":"User",
+            "cardinality":"many",
+            "property":"adminUsers"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
             "cardinality":"one",
             "property":"owner"
          },
@@ -171,6 +184,19 @@
             "id":"Bank",
             "cardinality":"one",
             "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"adminAccounts"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
          }
       }
    ]

@@ -132,7 +132,8 @@ public class Model {
         bank.withBidirectional(user, "customerUser", Cardinality.MANY, "bank", Cardinality.ONE);
         bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
 
-
+        bank.withBidirectional(account, "adminAccounts", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        bank.withBidirectional(user, "adminUsers", Cardinality.MANY, "employingBank", Cardinality.ONE);
         // ********** Bank Methods **********
         // validateLogin method
         bank.withMethod("validateLogin", DataType.BOOLEAN,

@@ -698,4 +698,43 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
+   public BankPO createEmployingBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public BankPO createEmployingBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public AccountPO createEmployingBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_EMPLOYINGBANK);
+   }
+
+   public AccountPO createEmployingBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_EMPLOYINGBANK, modifier);
+   }
+
+   public Bank getEmployingBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getEmployingBank();
+      }
+      return null;
+   }
+
 }

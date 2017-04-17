@@ -97,6 +97,7 @@ public  class Account implements SendableEntity
       withoutCredit(this.getCredit().toArray(new Transaction[this.getCredit().size()]));
       withoutDebit(this.getDebit().toArray(new Transaction[this.getDebit().size()]));
       setBank(null);
+      setEmployingBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -671,6 +672,65 @@ public  class Account implements SendableEntity
    {
       Bank value = new Bank();
       withBank(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Account ----------------------------------- Bank
+    *              adminAccounts                   employingBank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_EMPLOYINGBANK = "employingBank";
+
+   private Bank employingBank = null;
+
+   public Bank getEmployingBank()
+   {
+      return this.employingBank;
+   }
+
+   public boolean setEmployingBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.employingBank != value)
+      {
+         Bank oldValue = this.employingBank;
+         
+         if (this.employingBank != null)
+         {
+            this.employingBank = null;
+            oldValue.withoutAdminAccounts(this);
+         }
+         
+         this.employingBank = value;
+         
+         if (value != null)
+         {
+            value.withAdminAccounts(this);
+         }
+         
+         firePropertyChange(PROPERTY_EMPLOYINGBANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Account withEmployingBank(Bank value)
+   {
+      setEmployingBank(value);
+      return this;
+   } 
+
+   public Bank createEmployingBank()
+   {
+      Bank value = new Bank();
+      withEmployingBank(value);
       return value;
    } 
 }
