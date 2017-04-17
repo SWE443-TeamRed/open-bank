@@ -1,0 +1,56 @@
+Apr 17, 2017 12:38:42 AM SparkServer apiLogSetup
+INFO: *************************************New session started*************************************
+Apr 17, 2017 12:38:42 AM SparkServer$ShutdownThread run
+INFO: *************************************Shutting Down Session*************************************
+Apr 17, 2017 12:50:21 AM SparkServer apiLogSetup
+INFO: *************************************New session started*************************************
+Apr 17, 2017 12:50:35 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/user
+	Message Content
+	contentType: application/x-www-form-urlencoded
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Content-Length, Content-Type, Host, Origin, Postman-Token, User-Agent]
+	query params: [name, password, isAdmin, username]
+Apr 17, 2017 12:50:43 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/account
+	Message Content
+	contentType: application/x-www-form-urlencoded
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Content-Length, Content-Type, Host, Origin, Postman-Token, User-Agent]
+	query params: [username]
+Apr 17, 2017 12:50:46 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/account
+	Message Content
+	contentType: application/x-www-form-urlencoded
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Content-Length, Content-Type, Host, Origin, Postman-Token, User-Agent]
+	query params: [username]
+Apr 17, 2017 12:50:49 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/login
+	Message Content
+	contentType: application/x-www-form-urlencoded
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Content-Length, Content-Type, Host, Origin, Postman-Token, User-Agent]
+	query params: [password, username]
+Apr 17, 2017 12:50:49 AM SparkServer lambda$null$2
+INFO: Correct username
+Apr 17, 2017 12:50:49 AM SparkServer lambda$null$2
+INFO: Correct password
+Apr 17, 2017 12:50:51 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/transaction
+	Message Content
+	contentType: application/x-www-form-urlencoded
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Content-Length, Content-Type, Host, Origin, Postman-Token, User-Agent]
+	query params: [toAccountId, transferType, amount, fromAccountId]
+Apr 17, 2017 12:50:51 AM SparkServer lambda$null$11
+INFO: fromAccount: 100.0 1 null
+Apr 17, 2017 12:50:51 AM SparkServer lambda$null$11
+INFO: toAccount: 100.0 2 null
+Apr 17, 2017 12:50:55 AM SparkServer lambda$main$0
+INFO: Received api call from ip: 127.0.0.1
+	/api/transaction
+	Message Content
+	contentType: null
+	headers: [Accept, Accept-Encoding, Accept-Language, Cache-Control, Connection, Host, Postman-Token, User-Agent]
+	query params: [id]
