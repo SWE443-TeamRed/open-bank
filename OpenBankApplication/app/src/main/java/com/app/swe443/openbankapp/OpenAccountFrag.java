@@ -52,7 +52,7 @@ public class OpenAccountFrag extends Fragment implements AdapterView.OnItemSelec
 //        tina.logout();
 
         ///////////////////////////////////////////////////////////////////
-        account = jsonPersistency.fromJson(tina.getUserID());
+//        account = jsonPersistency.fromJson(tina.getUserID());
 
         Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
