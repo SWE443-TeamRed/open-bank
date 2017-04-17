@@ -9,7 +9,6 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.Date;
 
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 
 /**
  * Created by daniel on 3/29/17.

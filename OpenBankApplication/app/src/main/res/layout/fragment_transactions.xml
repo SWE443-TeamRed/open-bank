@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.app.swe443.openbankapp.Transfer">
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/transaction_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Transaction Log"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/balance_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transaction_text"
+            android:text="Current Balance: "
+            android:textSize="20sp"
+            android:layout_marginTop="43dp"/>
+        <TextView
+            android:id="@+id/logCheckingBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transaction_text"
+            android:layout_marginTop="43dp"
+            android:layout_marginLeft="170sp"
+            android:text="$0.00"
+            android:textSize="20sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ListView
+            android:id="@+id/checkingTransactionList"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:layout_alignLeft="@+id/balance_text"
+            android:layout_alignStart="@+id/balance_text"
+            android:layout_below="@+id/balance_text"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="1dp"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -175,7 +175,7 @@
          "amount":150,
          "date":{
             "class":"java.util.Date",
-            "id":"demo.D15"
+            "id":"demo.D16"
          },
          "note":"Nick transfers 150 from his checking to Tina's checking",
          "toAccount":{

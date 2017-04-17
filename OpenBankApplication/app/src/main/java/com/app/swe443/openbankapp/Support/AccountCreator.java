@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,42 +18,52 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package com.app.swe443.openbankapp.Support;
+
+import java.util.Date;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 
+
+
+import java.util.Date;
+
+
 public class AccountCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
-   {
-      Account.PROPERTY_BALANCE,
-      Account.PROPERTY_ACCOUNTNUM,
-      Account.PROPERTY_CREATIONDATE,
-      Account.PROPERTY_OWNER,
-      Account.PROPERTY_CREDIT,
-      Account.PROPERTY_DEBIT,
-   };
-   
+  {
+          Account.PROPERTY_BALANCE,
+          Account.PROPERTY_ACCOUNTNUM,
+          Account.PROPERTY_CREATIONDATE,
+          Account.PROPERTY_ISCONNECTED,
+          Account.PROPERTY_OWNER,
+          Account.PROPERTY_CREDIT,
+          Account.PROPERTY_DEBIT,
+          Account.PROPERTY_TYPE,
+  };
+
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Account();
    }
-   
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -74,6 +84,11 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getCreationdate();
       }
 
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsConnected();
+      }
+
       if (Account.PROPERTY_OWNER.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getOwner();
@@ -88,16 +103,32 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getDebit();
       }
-      
+
+      if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getType();
+      }
       return null;
    }
-   
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setType(AccountTypeEnum.valueOf((String) value));
+         return true;
+      }
+
+      if (Account.PROPERTY_ISCONNECTED.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsConnected((Boolean) value);
+         return true;
+      }
+
       if (Account.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
       {
-         ((Account) target).setCreationdate((String) value);
+         ((Account) target).setCreationdate((Date) value);
          return true;
       }
 
@@ -129,7 +160,7 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withCredit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutCredit((Transaction) value);
@@ -141,22 +172,22 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).withDebit((Transaction) value);
          return true;
       }
-      
+
       if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutDebit((Transaction) value);
          return true;
       }
-      
+
       return false;
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+     return CreatorCreator.createIdMap(sessionID);
    }
-   
+
    //==========================================================================
-      public void removeObject(Object entity)
+   public void removeObject(Object entity)
    {
       ((Account) entity).removeYou();
    }

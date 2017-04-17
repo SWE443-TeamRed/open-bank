@@ -22,4 +22,5 @@
     <string name="title_activity_sign_up2">SignUp2Activity</string>
     <string name="title_activity_sign_up3">SignUp3Activity</string>
     <string name="title_activity_sign_up4">SignUp4Activity</string>
+    <string name="title_activity_home">Home</string>
 </resources>
