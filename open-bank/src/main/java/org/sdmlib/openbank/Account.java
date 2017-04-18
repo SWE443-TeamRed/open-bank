@@ -32,6 +32,7 @@ import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.Bank;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -95,6 +96,8 @@ public  class Account implements SendableEntity
       setOwner(null);
       withoutCredit(this.getCredit().toArray(new Transaction[this.getCredit().size()]));
       withoutDebit(this.getDebit().toArray(new Transaction[this.getDebit().size()]));
+      setBank(null);
+      setEmployingBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -612,4 +615,122 @@ public  class Account implements SendableEntity
    {
       return null;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Account ----------------------------------- Bank
+    *              customerAccounts                   bank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BANK = "bank";
+
+   private Bank bank = null;
+
+   public Bank getBank()
+   {
+      return this.bank;
+   }
+
+   public boolean setBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.bank != value)
+      {
+         Bank oldValue = this.bank;
+         
+         if (this.bank != null)
+         {
+            this.bank = null;
+            oldValue.withoutCustomerAccounts(this);
+         }
+         
+         this.bank = value;
+         
+         if (value != null)
+         {
+            value.withCustomerAccounts(this);
+         }
+         
+         firePropertyChange(PROPERTY_BANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Account withBank(Bank value)
+   {
+      setBank(value);
+      return this;
+   } 
+
+   public Bank createBank()
+   {
+      Bank value = new Bank();
+      withBank(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Account ----------------------------------- Bank
+    *              adminAccounts                   employingBank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_EMPLOYINGBANK = "employingBank";
+
+   private Bank employingBank = null;
+
+   public Bank getEmployingBank()
+   {
+      return this.employingBank;
+   }
+
+   public boolean setEmployingBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.employingBank != value)
+      {
+         Bank oldValue = this.employingBank;
+         
+         if (this.employingBank != null)
+         {
+            this.employingBank = null;
+            oldValue.withoutAdminAccounts(this);
+         }
+         
+         this.employingBank = value;
+         
+         if (value != null)
+         {
+            value.withAdminAccounts(this);
+         }
+         
+         firePropertyChange(PROPERTY_EMPLOYINGBANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Account withEmployingBank(Bank value)
+   {
+      setEmployingBank(value);
+      return this;
+   } 
+
+   public Bank createEmployingBank()
+   {
+      Bank value = new Bank();
+      withEmployingBank(value);
+      return value;
+   } 
 }
