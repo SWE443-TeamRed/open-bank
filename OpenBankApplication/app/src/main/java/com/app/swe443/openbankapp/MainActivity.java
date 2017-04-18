@@ -201,10 +201,12 @@ public class MainActivity extends AppCompatActivity
 
 
         //Initiate homepage Fragment when app opens
-        transaction = fm.beginTransaction();
+       transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
         transaction.addToBackStack(null);
         transaction.commit();
+        /*Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent); */
     }
 
     /*
