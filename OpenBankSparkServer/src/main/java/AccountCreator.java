@@ -19,8 +19,8 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
 
 import java.util.Date;
 
@@ -36,6 +36,8 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_CREDIT,
       Account.PROPERTY_DEBIT,
       Account.PROPERTY_TYPE,
+      Account.PROPERTY_BANK,
+      Account.PROPERTY_EMPLOYINGBANK,
    };
    
    @Override
@@ -99,6 +101,16 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getType();
+      }
+
+      if (Account.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getBank();
+      }
+
+      if (Account.PROPERTY_EMPLOYINGBANK.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getEmployingBank();
       }
       
       return null;
@@ -169,6 +181,18 @@ public class AccountCreator implements SendableEntityCreator
       if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Account) target).withoutDebit((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setBank((Bank) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_EMPLOYINGBANK.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setEmployingBank((Bank) value);
          return true;
       }
       

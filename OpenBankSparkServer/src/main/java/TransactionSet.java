@@ -636,4 +636,69 @@ public class TransactionSet extends SimpleSet<Transaction>
       return this;
    }
 
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via bank
+    */
+   public TransactionSet filterBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
+    */
+   public TransactionSet withBank(Bank value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withBank(value);
+      }
+      
+      return this;
+   }
+
 }

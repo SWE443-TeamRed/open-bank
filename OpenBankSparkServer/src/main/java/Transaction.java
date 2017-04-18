@@ -25,7 +25,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
-
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -87,6 +86,7 @@ public  class Transaction implements SendableEntity
    {
       setFromAccount(null);
       setToAccount(null);
+      setBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -419,4 +419,63 @@ public  class Transaction implements SendableEntity
 
       return accnt;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Bank
+    *              transaction                   bank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BANK = "bank";
+
+   private Bank bank = null;
+
+   public Bank getBank()
+   {
+      return this.bank;
+   }
+
+   public boolean setBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.bank != value)
+      {
+         Bank oldValue = this.bank;
+         
+         if (this.bank != null)
+         {
+            this.bank = null;
+            oldValue.setTransaction(null);
+         }
+         
+         this.bank = value;
+         
+         if (value != null)
+         {
+            value.withTransaction(this);
+         }
+         
+         firePropertyChange(PROPERTY_BANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withBank(Bank value)
+   {
+      setBank(value);
+      return this;
+   } 
+
+   public Bank createBank()
+   {
+      Bank value = new Bank();
+      withBank(value);
+      return value;
+   } 
 }

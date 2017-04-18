@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/Test_S4_S5_S6_S7_S15.java' type='text/x-java'>S6_UserConnectsToAnotherUserTest</a></p>
+<p>Precondition: Tina wants to connect her phone to Nick's phones so that they can make a p2p transaction.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "name=Tina",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingTina : Account",
+         "attributes":[
+            "balance=30.0",
+            "accountnum=123456789",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=5.0",
+            "accountnum=0",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingTina : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest2", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Nick : User",
+         "attributes":[
+            "UserID=Nick",
+            "isAdmin=false",
+            "password=9876",
+            "name=Nick",
+            "email=secondEmail@email.com",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingNick : Account",
+         "attributes":[
+            "balance=15.0",
+            "accountnum=1234555555",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingNick : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Nick : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Check: Tina logs in:  true</p>
+<p>Check: NIck logs in:  true</p>
+<p>Post-condition:: Tina is now connected to Nick's phone & Nick is connected to Tina's phone, a transaction can take place.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Tina : User",
+         "attributes":[
+            "UserID=Tina",
+            "isAdmin=false",
+            "password=1234",
+            "name=Tina",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingTina : Account",
+         "attributes":[
+            "balance=30.0",
+            "accountnum=123456789",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"Savings : Account",
+         "attributes":[
+            "balance=5.0",
+            "accountnum=0",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingTina : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"Savings : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Tina : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest7", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"Nick : User",
+         "attributes":[
+            "UserID=Nick",
+            "isAdmin=false",
+            "password=9876",
+            "name=Nick",
+            "email=secondEmail@email.com",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"CheckingNick : Account",
+         "attributes":[
+            "balance=15.0",
+            "accountnum=1234555555",
+            "IsConnected=false"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"CheckingNick : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"Nick : User"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasS6_UserConnectsToAnotherUserTest8", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

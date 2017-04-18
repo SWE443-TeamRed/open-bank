@@ -95,24 +95,24 @@ public class UserSet extends SimpleSet<User>
       {
          this.add((User) value);
       }
-
+      
       return this;
    }
-
+   
    public UserSet without(User value)
    {
       this.remove(value);
       return this;
    }
 
-
+   
    //==========================================================================
-
+   
    public BooleanList openAccount(User p0)
    {
-
+      
       BooleanList result = new BooleanList();
-
+      
       for (User obj : this)
       {
          result.add( obj.openAccount(p0) );
@@ -120,14 +120,14 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-
+   
    //==========================================================================
-
+   
    public BooleanList login(String username, String password)
    {
-
+      
       BooleanList result = new BooleanList();
-
+      
       for (User obj : this)
       {
          result.add( obj.login(username, password) );
@@ -135,12 +135,12 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-
+   
    //==========================================================================
-
+   
    public BooleanList logout()
    {
-
+      
       BooleanList result = new BooleanList();
       
       for (User obj : this)
@@ -909,6 +909,136 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.setUsername(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (User obj : this)
+      {
+         result.with(obj.getBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via bank
+    */
+   public UserSet filterBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
+    */
+   public UserSet withBank(Bank value)
+   {
+      for (User obj : this)
+      {
+         obj.withBank(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect a set of the Bank objects reached via employingBank. 
+    * 
+    * @return Set of Bank objects reachable via employingBank
+    */
+   public BankSet getEmployingBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (User obj : this)
+      {
+         result.with(obj.getEmployingBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect all contained objects with reference employingBank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as employingBank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via employingBank
+    */
+   public UserSet filterEmployingBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (neighbors.contains(obj.getEmployingBank()) || (neighbors.isEmpty() && obj.getEmployingBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the EmployingBank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their EmployingBank attributes.
+    */
+   public UserSet withEmployingBank(Bank value)
+   {
+      for (User obj : this)
+      {
+         obj.withEmployingBank(value);
       }
       
       return this;
