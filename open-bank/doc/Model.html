@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/main/java/Model.java' type='text/x-java'>Model</a></p>
+<p>This shows the class diagram.</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"AccountTypeEnum",
+         "methods":[
+            "toString() String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TransactionTypeEnum",
+         "methods":[
+            "toString() String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"User",
+         "attributes":[
+            "name : String",
+            "userID : String",
+            "isAdmin : boolean",
+            "password : String",
+            "email : String",
+            "LoggedIn : boolean",
+            "phone : String",
+            "username : String"
+         ],
+         "methods":[
+            "openAccount(org.sdmlib.openbank.User p0) boolean",
+            "login(String username, String password) boolean",
+            "logout() boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Transaction",
+         "attributes":[
+            "amount : double",
+            "creationdate : Date",
+            "note : String",
+            "transType : TransactionTypeEnum"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Account",
+         "attributes":[
+            "balance : double",
+            "accountnum : int",
+            "creationdate : Date",
+            "IsConnected : boolean",
+            "type : AccountTypeEnum"
+         ],
+         "methods":[
+            "Account(double initialAmount)",
+            "transferToAccount(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
+            "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
+            "recordTransaction(boolean p0, double p1, String p2) org.sdmlib.openbank.Transaction",
+            "withdraw(double amount) boolean",
+            "deposit(double amount) boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Bank",
+         "attributes":[
+            "fee : double",
+            "bankName : String"
+         ],
+         "methods":[
+            "validateLogin(int accountID, String username, String password) boolean",
+            "findAccountByID(int accountID) org.sdmlib.openbank.Account",
+            "findUserByID(String userID) org.sdmlib.openbank.User",
+            "confirmTransaction(int toAcctID, int fromAcctID, java.lang.Integer dollarValue, java.lang.Integer decimalValue) boolean"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"many",
+            "property":"customerUser"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"many",
+            "property":"adminUsers"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"one",
+            "property":"owner"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"transaction"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"credit"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"fromAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"many",
+            "property":"debit"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"toAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"customerAccounts"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"adminAccounts"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasModelClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":null
+}   ;
+   json["options"]={"canvasid":"canvasModel3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>
