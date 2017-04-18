@@ -28,6 +28,7 @@ import org.sdmlib.openbank.Account;
 
 import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
+import org.sdmlib.openbank.Bank;
 
 public class TransactionCreator implements SendableEntityCreator
 {
@@ -41,6 +42,7 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
       Transaction.PROPERTY_CREATIONDATE,
+      Transaction.PROPERTY_BANK,
    };
    
    @Override
@@ -105,6 +107,11 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getCreationdate();
       }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getBank();
+      }
       
       return null;
    }
@@ -162,6 +169,12 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setToAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setBank((Bank) value);
          return true;
       }
       
