@@ -215,6 +215,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }else{
                 if(!isPasswordValid(username, password)) {
                     mPasswordView.setError("Incorrect Password");
+                    focusView = mPasswordView;
                     cancel = true;
                 }
 
