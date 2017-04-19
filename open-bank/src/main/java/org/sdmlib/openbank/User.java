@@ -42,6 +42,7 @@ import org.sdmlib.openbank.Bank;
 
         */
 
+       /*
        public String login(String userName, String password) {
            if (getName().equals(userName) && getPassword().equals(password)) {
                File jsonfile = new File(getUserID()+".json");
@@ -60,7 +61,9 @@ import org.sdmlib.openbank.Bank;
                return null;
            }
        }
-       /*
+
+       */
+
        public boolean login(String userId, String password) {
            if (getUserID().equals(userId) && getPassword().equals(password)) {
                File jsonfile = new File(userId+".json");
@@ -79,7 +82,7 @@ import org.sdmlib.openbank.Bank;
                return false;
            }
        }
-       */
+       
        //==========================================================================
 
        protected PropertyChangeSupport listeners = null;
