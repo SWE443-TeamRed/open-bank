@@ -108,31 +108,50 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.confirmCreateAccount:
+                boolean incomplete = false;
                 System.out.println("Create Account Requested");
-                if(nameOfUserInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Missing your name",
-                            Toast.LENGTH_SHORT).show();
-                if(phoneInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Missing Phone",
-                            Toast.LENGTH_SHORT).show();
-                if(emailInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Missing Email",
-                            Toast.LENGTH_SHORT).show();
-                if(usernameInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Missing Username",
-                            Toast.LENGTH_SHORT).show();
-                if(passwordInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Missing Password",
-                            Toast.LENGTH_SHORT).show();
-                if(confirmpasswordInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Confirm your passwrod",
-                            Toast.LENGTH_SHORT).show();
-                if(initalBalanceInput.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Please enter an initial balance of your first account",
-                            Toast.LENGTH_SHORT).show();
-                if(!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString())))
-                    Toast.makeText(getContext(), "Passwords dont match",
-                            Toast.LENGTH_SHORT).show();
+                if (nameOfUserInput.getText().toString().equals("")) {
+                    nameOfUserInput.setError("Missing your name");
+                    //Toast.makeText(getContext(), "Missing your name", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (phoneInput.getText().toString().equals("")) {
+                    phoneInput.setError("Missing phone number");
+                    //Toast.makeText(getContext(), "Missing Phone", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (emailInput.getText().toString().equals("")) {
+                    emailInput.setError("Missing Email");
+                    //Toast.makeText(getContext(), "Missing Email", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (usernameInput.getText().toString().equals("")) {
+                   usernameInput.setError("Missing Username");
+                    //Toast.makeText(getContext(), "Missing Username",Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (passwordInput.getText().toString().equals("")){
+                   passwordInput.setError("Missing Password");
+                    // Toast.makeText(getContext(), "Missing Password",Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (confirmpasswordInput.getText().toString().equals("")) {
+                   confirmpasswordInput.setError("Confirm your password");
+                    // Toast.makeText(getContext(), "Confirm your passwrod",                            Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (initalBalanceInput.getText().toString().equals("")) {
+                   initalBalanceInput.setError("Please enter an initial balance");
+                    // Toast.makeText(getContext(), "Please enter an initial balance of your first account", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString()))) {
+                    //Toast.makeText(getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
+                    passwordInput.setError("Passwords don't match");
+                    incomplete = true;
+                }
+                if(incomplete)
+                    break;
                 /*
 
                     TODO CONTACT SERVER AND REQUEST A NEW USER WITH ACCOUNT BE CREATED
