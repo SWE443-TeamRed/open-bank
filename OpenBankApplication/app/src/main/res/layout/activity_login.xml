@@ -90,7 +90,7 @@
 
 
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/sign_in_button"
         style="?android:textAppearanceSmall"
         android:background="#0b3c5d"
         android:layout_width="wrap_content"
