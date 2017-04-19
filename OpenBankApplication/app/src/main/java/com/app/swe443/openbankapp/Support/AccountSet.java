@@ -22,15 +22,22 @@
 package com.app.swe443.openbankapp.Support;
 
 import de.uniks.networkparser.list.SimpleSet;
+import com.app.swe443.openbankapp.Support.Account;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import com.app.swe443.openbankapp.Support.Transaction;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.BooleanList;
-
+import com.app.swe443.openbankapp.Support.UserSet;
+import com.app.swe443.openbankapp.Support.User;
 import java.util.Collections;
 import java.util.Date;
 
+import com.app.swe443.openbankapp.Support.TransactionSet;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.BankSet;
+import com.app.swe443.openbankapp.Support.Bank;
 
 public class AccountSet extends SimpleSet<Account>
 {
@@ -67,7 +74,7 @@ public class AccountSet extends SimpleSet<Account>
 
    public String getEntryType()
    {
-      return "org.sdmlib.openbank.Account";
+      return "com.app.swe443.openbankapp.Support.Account";
    }
 
 
@@ -853,7 +860,7 @@ public class AccountSet extends SimpleSet<Account>
    /**
     * Loop through the current set of Account objects and collect a list of the type attribute values. 
     * 
-    * @return List of org.sdmlib.openbank.AccountTypeEnum objects reachable via type attribute
+    * @return List of com.app.swe443.openbankapp.Support.AccountTypeEnum objects reachable via type attribute
     */
    public AccountTypeEnumSet getType()
    {
@@ -924,6 +931,148 @@ public class AccountSet extends SimpleSet<Account>
    }
 
    
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2) );
+      }
+      return result;
+   }
 
+   /**
+    * Loop through the current set of Account objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via bank
+    */
+   public AccountSet filterBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
+    */
+   public AccountSet withBank(Bank value)
+   {
+      for (Account obj : this)
+      {
+         obj.withBank(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Bank objects reached via employingBank. 
+    * 
+    * @return Set of Bank objects reachable via employingBank
+    */
+   public BankSet getEmployingBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getEmployingBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference employingBank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as employingBank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via employingBank
+    */
+   public AccountSet filterEmployingBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (neighbors.contains(obj.getEmployingBank()) || (neighbors.isEmpty() && obj.getEmployingBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the EmployingBank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their EmployingBank attributes.
+    */
+   public AccountSet withEmployingBank(Bank value)
+   {
+      for (Account obj : this)
+      {
+         obj.withEmployingBank(value);
+      }
+      
+      return this;
+   }
 
 }

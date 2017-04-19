@@ -26,6 +26,7 @@ import de.uniks.networkparser.IdMap;
 
 import java.util.Date;
 
+
 public class TransactionCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
@@ -38,6 +39,7 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
       Transaction.PROPERTY_CREATIONDATE,
+      Transaction.PROPERTY_BANK,
    };
    
    @Override
@@ -102,6 +104,11 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getCreationdate();
       }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getBank();
+      }
       
       return null;
    }
@@ -159,6 +166,12 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setToAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setBank((Bank) value);
          return true;
       }
       

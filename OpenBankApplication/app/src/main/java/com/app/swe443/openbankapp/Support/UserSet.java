@@ -29,6 +29,7 @@ import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import java.util.Collections;
 
+
 public class UserSet extends SimpleSet<User>
 {
 	protected Class<?> getTypClass() {
@@ -613,7 +614,7 @@ public class UserSet extends SimpleSet<User>
       
       for (User obj : this)
       {
-         result.add(obj.getPhone());
+         result.add(Integer.parseInt(obj.getPhone()));
       }
       
       return result;
@@ -627,7 +628,8 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterPhone(int value)
+   /*
+   public UserSet filterPhone(String value)
    {
       UserSet result = new UserSet();
       
@@ -641,7 +643,7 @@ public class UserSet extends SimpleSet<User>
       
       return result;
    }
-
+*/
 
    /**
     * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
@@ -651,6 +653,7 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Subset of User objects that match the parameter
     */
+  /*
    public UserSet filterPhone(int lower, int upper)
    {
       UserSet result = new UserSet();
@@ -666,7 +669,7 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-
+*/
    /**
     * Loop through the current set of User objects and assign value to the phone attribute of each of it. 
     * 
@@ -674,7 +677,8 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Current set of User objects now with new attribute values.
     */
-   public UserSet withPhone(int value)
+   /*
+   public UserSet withPhone(String value)
    {
       for (User obj : this)
       {
@@ -683,7 +687,7 @@ public class UserSet extends SimpleSet<User>
       
       return this;
    }
-
+*/
    /**
     * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
     * 
@@ -759,6 +763,284 @@ public class UserSet extends SimpleSet<User>
       for (User obj : this)
       {
          obj.withoutAccount(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getPhone()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the phone attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withPhone(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setPhone(value);
+      }
+      
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect a list of the username attribute values. 
+    * 
+    * @return List of String objects reachable via username attribute
+    */
+   public ObjectSet getUsername()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (User obj : this)
+      {
+         result.add(obj.getUsername());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the username attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterUsername(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getUsername()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the username attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterUsername(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the username attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withUsername(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setUsername(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (User obj : this)
+      {
+         result.with(obj.getBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as bank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via bank
+    */
+   public UserSet filterBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Bank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
+    */
+   public UserSet withBank(Bank value)
+   {
+      for (User obj : this)
+      {
+         obj.withBank(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect a set of the Bank objects reached via employingBank. 
+    * 
+    * @return Set of Bank objects reachable via employingBank
+    */
+   public BankSet getEmployingBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (User obj : this)
+      {
+         result.with(obj.getEmployingBank());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of User objects and collect all contained objects with reference employingBank pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as employingBank neighbor of the collected results. 
+    * 
+    * @return Set of Bank objects referring to value via employingBank
+    */
+   public UserSet filterEmployingBank(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UserSet answer = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (neighbors.contains(obj.getEmployingBank()) || (neighbors.isEmpty() && obj.getEmployingBank() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the EmployingBank attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their EmployingBank attributes.
+    */
+   public UserSet withEmployingBank(Bank value)
+   {
+      for (User obj : this)
+      {
+         obj.withEmployingBank(value);
       }
       
       return this;

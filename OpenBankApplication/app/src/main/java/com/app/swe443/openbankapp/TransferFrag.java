@@ -1,5 +1,6 @@
 package com.app.swe443.openbankapp;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,12 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
 
+    private MockServerSingleton mockserver;
+
+    private TransferFrag.OnTransferCallbackListener mCallback;
+
+
+
 
 
 
@@ -40,11 +47,33 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
+    // Container Activity must implement this interface
+    public interface OnTransferCallbackListener {
+        public void onTransferSelected();
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (TransferFrag.OnTransferCallbackListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnTransferSelectedListener ");
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
+
+
+        mockserver = MockServerSingleton.getInstance();
 
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
@@ -75,6 +104,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 System.out.println("Transfer between two users requested");
 
                     setOptionsVisibility(0);
+                    betweenAccountForm.setVisibility(GONE);
                     betweenUserForm.setVisibility(View.VISIBLE);
 
                 break;
@@ -82,15 +112,21 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 System.out.println("Transfer between a user's accounts requested");
                 setOptionsVisibility(0);
                 betweenAccountForm.setVisibility(View.VISIBLE);
+                betweenUserForm.setVisibility(GONE);
                 break;
             case R.id.cancelTransfer:
                 System.out.println("Cancel Transfer Requested");
-                betweenAccountForm.setVisibility(View.GONE);
                 setOptionsVisibility(1);
                 break;
             case R.id.confirmTransfer:
                 System.out.println("Confirmation of Transfer requested");
-                if(accountTo.getText().equals("") || amount.getText().equals("")|| accountToConfirm.getText().equals("")){
+                /*
+                    TODO CHECK IF TOACCOUNT EXISTS, NEED TO GET ALL ACCOUNTS IN SERVER
+                 */
+                if(mockserver.doesAccountExists(Integer.valueOf(accountTo.getText().toString())))
+                    Toast.makeText(getContext(), "You are trying to transfer to a non existent account",
+                            Toast.LENGTH_SHORT).show();
+                if(accountTo.getText().toString().equals("") || amount.getText().toString().equals("")|| accountToConfirm.getText().toString().equals("")){
                     Toast.makeText(getContext(), "Required field is missing",
                             Toast.LENGTH_SHORT).show();
                 }else if(!(accountTo.getText().toString().equals(accountToConfirm.getText().toString()))){
@@ -98,8 +134,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                             Toast.LENGTH_SHORT).show();
                 }else {
                         checkIfInputsAreFilled();
-                        setOptionsVisibility(0);
-                        betweenAccountForm.setVisibility(View.VISIBLE);
+
                 }
                 break;
         }
@@ -113,10 +148,16 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
                             /*
-                                TODO handle transfer info
+                                TODO SERVER HANDLES TRASNFER OCCURING
                              */
+                            mockserver.transfer(Integer.valueOf(accountTo.getText().toString())
+                                    ,Double.valueOf(amount.getText().toString()));
                             Toast.makeText(getContext(), "Sending....COMPLETE!",
                                     Toast.LENGTH_SHORT).show();
+                            //Contact Accounts activity that it needs to refresh the tabs with new trasnfer info
+                            mCallback.onTransferSelected();
+
+                            setOptionsVisibility(1);
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
@@ -127,7 +168,8 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to account  " + accountTo.getText() + "?").setPositiveButton("Yes", dialogClickListener)
+            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "
+                    + mockserver.getRecieverInfo(Integer.valueOf(accountTo.getText().toString()))+ "?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         }
 
@@ -140,6 +182,8 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             case 1:
                 betweenAccountButtonLayout.setVisibility(View.VISIBLE);
                 betweenUserButtonLayout.setVisibility(View.VISIBLE);
+                betweenUserForm.setVisibility(GONE);
+                betweenAccountForm.setVisibility(GONE);
         }
     }
 

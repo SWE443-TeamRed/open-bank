@@ -21,8 +21,6 @@
 
 package com.app.swe443.openbankapp.Support;
 
-import com.app.swe443.openbankapp.JsonPersistency;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
@@ -91,6 +89,7 @@ public  class Transaction implements SendableEntity
    {
       setFromAccount(null);
       setToAccount(null);
+      setBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -351,46 +350,50 @@ public  class Transaction implements SendableEntity
       return value;
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_TRANSTYPE = "transType";
-   
+
    private TransactionTypeEnum transType;
 
    public TransactionTypeEnum getTransType()
    {
       return this.transType;
    }
-   
+
    public void setTransType(TransactionTypeEnum value)
    {
+      if (value ==null) {
+         throw new IllegalArgumentException("Transaction type is not valid!");
+      }
+
       if (this.transType != value) {
-      
+
          TransactionTypeEnum oldValue = this.transType;
          this.transType = value;
          this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
       }
    }
-   
+
    public Transaction withTransType(TransactionTypeEnum value)
    {
       setTransType(value);
       return this;
-   } 
+   }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_CREATIONDATE = "creationdate";
-   
+
    private Date creationdate;
 
    public Date getCreationdate()
    {
       return this.creationdate;
    }
-   
+
    public void setCreationdate(Date value)
    {
       if (value ==null) {
@@ -398,13 +401,13 @@ public  class Transaction implements SendableEntity
       }
 
       if (this.creationdate != value) {
-      
+
          Date oldValue = this.creationdate;
          this.creationdate = value;
          this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
       }
    }
-   
+
    public Transaction withCreationdate(Date value)
    {
       setCreationdate(value);
@@ -418,5 +421,64 @@ public  class Transaction implements SendableEntity
       Account accnt = json.fromJson(userID);
 
       return accnt;
+   }
+
+
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Bank
+    *              transaction                   bank
+    * </pre>
+    */
+
+   public static final String PROPERTY_BANK = "bank";
+
+   private Bank bank = null;
+
+   public Bank getBank()
+   {
+      return this.bank;
+   }
+
+   public boolean setBank(Bank value)
+   {
+      boolean changed = false;
+
+      if (this.bank != value)
+      {
+         Bank oldValue = this.bank;
+
+         if (this.bank != null)
+         {
+            this.bank = null;
+            oldValue.setTransaction(null);
+         }
+
+         this.bank = value;
+
+         if (value != null)
+         {
+            value.withTransaction(this);
+         }
+
+         firePropertyChange(PROPERTY_BANK, oldValue, value);
+         changed = true;
+      }
+
+      return changed;
+   }
+
+   public Transaction withBank(Bank value)
+   {
+      setBank(value);
+      return this;
+   }
+
+   public Bank createBank()
+   {
+      Bank value = new Bank();
+      withBank(value);
+      return value;
    }
 }

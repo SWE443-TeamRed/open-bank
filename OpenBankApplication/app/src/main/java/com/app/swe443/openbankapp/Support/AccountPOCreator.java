@@ -2,7 +2,7 @@ package com.app.swe443.openbankapp.Support;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
-
+import com.app.swe443.openbankapp.Support.Account;
 
 public class AccountPOCreator extends PatternObjectCreator
 {
@@ -17,6 +17,6 @@ public class AccountPOCreator extends PatternObjectCreator
    }
    
    public static IdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return com.app.swe443.openbankapp.Support.CreatorCreator.createIdMap(sessionID);
    }
 }

@@ -21,14 +21,13 @@
    
 package com.app.swe443.openbankapp.Support;
 
-import com.app.swe443.openbankapp.JsonPersistency;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import de.uniks.networkparser.EntityUtil;
+
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -108,7 +107,9 @@ import de.uniks.networkparser.EntityUtil;
 
        public void removeYou() {
            withoutAccount(this.getAccount().toArray(new Account[this.getAccount().size()]));
-           firePropertyChange("REMOVE_YOU", this, null);
+           setBank(null);
+      setEmployingBank(null);
+      firePropertyChange("REMOVE_YOU", this, null);
        }
 
 
@@ -147,8 +148,11 @@ import de.uniks.networkparser.EntityUtil;
            result.append(" ").append("Admin: " + this.isIsAdmin());
            result.append(" ").append(this.getEmail());
       result.append(" ").append(this.getPhone());
+      result.append(" ").append(this.getUsername());
       return result.substring(1);
        }
+
+
 
 
        //==========================================================================
@@ -344,10 +348,10 @@ import de.uniks.networkparser.EntityUtil;
 
 
        //==========================================================================
-
+/*
        public static final String PROPERTY_PHONE = "phone";
 
-       private int phone;
+       private String phone;
 
        public int getPhone() {
            return this.phone;
@@ -367,7 +371,7 @@ import de.uniks.networkparser.EntityUtil;
            return this;
        }
 
-
+*/
 
    
    
@@ -388,4 +392,176 @@ import de.uniks.networkparser.EntityUtil;
       return value;
    } 
 
+
+   
+   //==========================================================================
+   public static final String PROPERTY_PHONE = "phone";
+
+   private String phone;
+
+   public void setPhone(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.phone, value)) {
+      
+         String oldValue = this.phone;
+         this.phone = value;
+         this.firePropertyChange(PROPERTY_PHONE, oldValue, value);
+      }
+   }
+
+       public String getPhone() {
+           return this.phone;
+       }
+
+   public User withPhone(String value)
+   {
+      setPhone(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_USERNAME = "username";
+   
+   private String username;
+
+   public String getUsername()
+   {
+      return this.username;
+   }
+   
+   public void setUsername(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.username, value)) {
+      
+         String oldValue = this.username;
+         this.username = value;
+         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+      }
+   }
+   
+   public User withUsername(String value)
+   {
+      setUsername(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * User ----------------------------------- Bank
+    *              customerUser                   bank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BANK = "bank";
+
+   private Bank bank = null;
+
+   public Bank getBank()
+   {
+      return this.bank;
+   }
+
+   public boolean setBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.bank != value)
+      {
+         Bank oldValue = this.bank;
+         
+         if (this.bank != null)
+         {
+            this.bank = null;
+            oldValue.withoutCustomerUser(this);
+         }
+         
+         this.bank = value;
+         
+         if (value != null)
+         {
+            value.withCustomerUser(this);
+         }
+         
+         firePropertyChange(PROPERTY_BANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public User withBank(Bank value)
+   {
+      setBank(value);
+      return this;
+   } 
+
+   public Bank createBank()
+   {
+      Bank value = new Bank();
+      withBank(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * User ----------------------------------- Bank
+    *              adminUsers                   employingBank
+    * </pre>
+    */
+   
+   public static final String PROPERTY_EMPLOYINGBANK = "employingBank";
+
+   private Bank employingBank = null;
+
+   public Bank getEmployingBank()
+   {
+      return this.employingBank;
+   }
+
+   public boolean setEmployingBank(Bank value)
+   {
+      boolean changed = false;
+      
+      if (this.employingBank != value)
+      {
+         Bank oldValue = this.employingBank;
+         
+         if (this.employingBank != null)
+         {
+            this.employingBank = null;
+            oldValue.withoutAdminUsers(this);
+         }
+         
+         this.employingBank = value;
+         
+         if (value != null)
+         {
+            value.withAdminUsers(this);
+         }
+         
+         firePropertyChange(PROPERTY_EMPLOYINGBANK, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public User withEmployingBank(Bank value)
+   {
+      setEmployingBank(value);
+      return this;
+   } 
+
+   public Bank createEmployingBank()
+   {
+      Bank value = new Bank();
+      withEmployingBank(value);
+      return value;
+   } 
 }

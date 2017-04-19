@@ -1,13 +1,20 @@
 package com.app.swe443.openbankapp.Support;
 
 import org.sdmlib.models.pattern.PatternObject;
-
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.Transaction;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-
+import com.app.swe443.openbankapp.Support.UserPO;
+import com.app.swe443.openbankapp.Support.User;
+import com.app.swe443.openbankapp.Support.AccountPO;
+import com.app.swe443.openbankapp.Support.TransactionPO;
+import com.app.swe443.openbankapp.Support.TransactionSet;
 
 import java.util.Date;
-
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.BankPO;
+import com.app.swe443.openbankapp.Support.Bank;
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -525,7 +532,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
+   public com.app.swe443.openbankapp.Support.Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -641,6 +648,93 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
    
+   //==========================================================================
+   
+   public com.app.swe443.openbankapp.Support.Transaction recordTransaction(boolean p0, double p1, String p2)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
+      }
+      return null;
+   }
 
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public AccountPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_BANK);
+   }
+
+   public AccountPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getBank();
+      }
+      return null;
+   }
+
+   public BankPO createEmployingBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public BankPO createEmployingBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public AccountPO createEmployingBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_EMPLOYINGBANK);
+   }
+
+   public AccountPO createEmployingBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_EMPLOYINGBANK, modifier);
+   }
+
+   public Bank getEmployingBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getEmployingBank();
+      }
+      return null;
+   }
 
 }

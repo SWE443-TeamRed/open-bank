@@ -7,6 +7,7 @@ import org.sdmlib.models.pattern.Pattern;
 
 import java.util.Date;
 
+
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
 
@@ -426,4 +427,43 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public TransactionPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_BANK);
+   }
+
+   public TransactionPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getBank();
+      }
+      return null;
+   }
+
 }
