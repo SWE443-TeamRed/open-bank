@@ -200,14 +200,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else {
+        }
+        else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+        else
+         {
             if (!doesUserExist(username)) {
                 mUsernameView.setError("This username is not registered");
                 focusView = mUsernameView;
                 cancel = true;
             }else{
-                if(!isPasswordValid(username, password))
+                if(!isPasswordValid(username, password)) {
                     mPasswordView.setError("Incorrect Password");
+                    cancel = true;
+                }
 
             }
         }
