@@ -1144,4 +1144,52 @@ public class Test_Improving_Backend_Functionality {
         User usrGet = bnk.findUserByID("steverog1");
         assertTrue(usrGet == null);
     }
+
+    @Test
+    public void testBankLogin() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1")
+                .withPassword("testtina");
+
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1")
+                .withPassword("teststeve");
+
+        Bank bnk = new Bank();
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+
+
+        System.out.println(bnk.Login("tina","testtina"));
+
+        String usrID = bnk.Login("tina","testtina");
+
+        assertTrue("tina1"==usrID);
+    }
+
+    @Test
+    public void testBankLoginNull() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1")
+                .withPassword("testtina");
+
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1")
+                .withPassword("teststeve");
+
+        Bank bnk = new Bank();
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+
+
+        System.out.println(bnk.Login("tina","testtina1"));
+
+        String usrID = bnk.Login("tina","testtina1");
+
+        assertTrue(null==usrID);
+    }
 }

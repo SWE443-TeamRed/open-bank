@@ -82,7 +82,7 @@ import org.sdmlib.openbank.Bank;
                return false;
            }
        }
-       
+
        //==========================================================================
 
        protected PropertyChangeSupport listeners = null;
