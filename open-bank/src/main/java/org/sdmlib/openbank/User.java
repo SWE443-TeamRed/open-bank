@@ -38,10 +38,29 @@ import org.sdmlib.openbank.Bank;
 
 
        /*
-            User login varification
+            User login verification
 
         */
 
+       public String login(String userName, String password) {
+           if (getName().equals(userName) && getPassword().equals(password)) {
+               File jsonfile = new File(getUserID()+".json");
+               if(jsonfile.exists()) {
+                   JsonPersistency jsonPersist = new JsonPersistency();
+                   Account userAccount = jsonPersist.fromJson(getUserID());
+                   this.withAccount(userAccount);
+               }
+               this.setLoggedIn(true);
+               return getUserID();
+           } else {
+               if (getName().equals(userName))
+                   System.out.println("Username is incorrect");
+               if (getPassword().equals(password))
+                   System.out.println("Password is incorrect");
+               return null;
+           }
+       }
+       /*
        public boolean login(String userId, String password) {
            if (getUserID().equals(userId) && getPassword().equals(password)) {
                File jsonfile = new File(userId+".json");
@@ -60,6 +79,7 @@ import org.sdmlib.openbank.Bank;
                return false;
            }
        }
+       */
        //==========================================================================
 
        protected PropertyChangeSupport listeners = null;

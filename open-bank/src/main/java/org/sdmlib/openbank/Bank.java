@@ -392,6 +392,7 @@ import org.sdmlib.openbank.Account;
             return acnt;
          }
       }
+
       return null;
    }
 
@@ -562,5 +563,27 @@ import org.sdmlib.openbank.Account;
       Account value = new Account();
       withAdminAccounts(value);
       return value;
-   } 
+   }
+
+   public String Login(String username, String password ) {
+      if (username == null || password == null) {
+         return null;
+      }
+
+      UserSet custUserSet = this.getCustomerUser();
+      for (User custUsr : custUserSet) {
+         if (custUsr.getName() != null && custUsr.getName().equals(username) && custUsr.getPassword().equals(password)) {
+            return custUsr.getUserID();
+         }
+      }
+
+      UserSet admnUserSet = this.getAdminUsers();
+      for (User admUsr : admnUserSet) {
+         if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            return admUsr.getUserID();
+         }
+      }
+
+      return null;
+   }
 }
