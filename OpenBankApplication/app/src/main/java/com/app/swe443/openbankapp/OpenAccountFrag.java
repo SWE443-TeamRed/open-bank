@@ -177,13 +177,15 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                     TODO AS THE SIZE OF ALL THE ACCOUNTS+1
                  */
                 int newAccountNum= mockserver.getUniqueAccountNum();
-                user.withAccount(new Account()
+                //user.withAccount();
+                Account userAccount = new Account()
                     .withAccountnum(newAccountNum)
                         .withType(type)
                         .withOwner(user)
                         .withCreationdate(new Date())
-                        .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
-
+                        .withBalance(Double.valueOf("0.0"));//Double.valueOf(initalBalanceInput.getText().toString())));
+                user.withAccount(userAccount);
+                userAccount.deposit(Double.valueOf(initalBalanceInput.getText().toString()));
 
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);

@@ -112,7 +112,7 @@ public  class Account implements SendableEntity
 
    public void setBalance(double value)
    {
-      if (value >0) {
+      if (value >=0) {
 
          double oldValue = this.balance;
          this.balance = value;

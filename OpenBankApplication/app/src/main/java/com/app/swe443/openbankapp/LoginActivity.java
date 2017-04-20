@@ -109,10 +109,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .withType(AccountTypeEnum.SAVINGS)
               .withOwner(user)
                .withCreationdate(new Date())
-                .withBalance(Double.valueOf("15.0")));
+                .withBalance(Double.valueOf("10.0")));
 
 
         mockBankServer.getBank().withCustomerUser(user);
+        User user2 = new User()
+                .withName("Admin2")
+                .withPassword("b")
+                .withPhone("Whatever")
+                .withEmail("docare")
+                .withUserID("b")
+                .withIsAdmin(false)
+                .withBank(mockBankServer.getBank())
+                .withUsername("b");
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+        int newAccountNum2= mockBankServer.getUniqueAccountNum();
+        user2.withAccount(new Account()
+                .withAccountnum(newAccountNum2)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withOwner(user)
+                .withCreationdate(new Date())
+                .withBalance(Double.valueOf("500.0")));
+
+
+        mockBankServer.getBank().withCustomerUser(user2);
         //=======================================================
 
         // Set up the login form.
@@ -268,6 +291,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //mAuthTask.execute((Void) null);
 
            // setContentView(R.layout.activity_accounts);
+
+            mockBankServer.setLoggedInUser( mockBankServer.getBank().getCustomerUser().filterUsername(username).get(0).getEmail());
             Intent main = new Intent(LoginActivity.this, MainActivity.class);
 
             startActivity(main);
