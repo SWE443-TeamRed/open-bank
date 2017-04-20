@@ -2,7 +2,6 @@
  * Created by daniel on 4/11/17.
  */
 
-import de.uniks.networkparser.list.BooleanList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import spark.Request;
@@ -21,7 +20,7 @@ import static spark.Spark.*;
 public class SparkServer {
     private static final Logger logger = Logger.getLogger(SparkServer.class.getName());
 
-    static boolean BANKMODE = false;
+    static boolean BANKMODE = true;
 
     static Transaction transaction = null;
     static int i = 1;
@@ -51,7 +50,7 @@ public class SparkServer {
                 + "\n\tquery params: " + q.queryParams().toString()));
 
         path("/admin", () -> {
-            get("", (request, response) -> {return "<HTML>\n" +
+            get("", (Request request, Response response) -> {return "<HTML>\n" +
                     "<HEAD>\n" +
                     "<TITLE>Admin Page Place Holder</TITLE>\n" +
                     "</HEAD>\n" +
@@ -69,7 +68,7 @@ public class SparkServer {
             });
 
             path("/passwordReset", () -> {
-                post("", (request, response) -> {
+                post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
                     String username = request.queryParams("username");
@@ -91,48 +90,50 @@ public class SparkServer {
         path("/api", () -> {
 
             path("/login", () -> {
+
+                get("", (Request request, Response response) -> {
+
+                    JSONObject responseJSON = new JSONObject();
+
+                    if(request.queryParams().contains("id")) {
+                        String id = request.queryParams("id");
+
+                        responseJSON.put("isUserLoggedIn", bank.findUserByID(id).isLoggedIn());
+                    }
+
+                    return responseJSON;
+                });
+
                 post("", (Request request, Response response) -> {
 
                     JSONObject responseJSON = new JSONObject();
 
-                    String username = request.queryParams("username");
-                    String password = request.queryParams("password");
-                    String id = request.queryParams("id");
+                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
 
-                    if(BANKMODE) {
-                        if (username != null & password != null) {
-                            BooleanList login = bank.getCustomerUser().login(id, password);
-                            if (bank.findUserByID(id).isLoggedIn())
+                        String username = request.queryParams("username");
+                        String password = request.queryParams("password");
+
+                        String id = bank.Login(username, password);
+
+                        if(id != null) {
+                            bank.findUserByID(id).login(id, password);
+                            if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
-                            else
-                                responseJSON.put("authentication", false);
-                        } else {
-                            responseJSON.put("authentication", false);
-                            logger.info("Incorrect password");
-                        }
-                    }
-
-                    if(!BANKMODE){
-                        if (id != null & password != null) {
-                            if (userMap.containsKey(username)) {
-                                logger.info("Correct username");
-                                if (userMap.get(username).login(id, password)) {
-                                    logger.info("Correct password");
-                                    responseJSON.put("authentication", true);
-                                } else {
-                                    responseJSON.put("authentication", false);
-                                    logger.info("Incorrect password");
-                                    logger.info("Correct Password: " + userMap.get(username).getPassword());
-                                }
+                                responseJSON.put("userID", id);
                             } else {
                                 responseJSON.put("authentication", false);
-                                logger.info("Incorrect username");
+                                responseJSON.put("reason", "failed to login the user");
                             }
                         } else {
                             responseJSON.put("authentication", false);
-                            logger.info("Username or Password not found");
+                            responseJSON.put("reason", "user could not be found");
                         }
+
+                    } else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason","missing required parameters in body");
                     }
+
                     return responseJSON;
                 });
             });
@@ -141,46 +142,41 @@ public class SparkServer {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    String username = request.queryParams("username");
-                    String id = request.queryParams("id");
+                    if(request.queryParams().contains("id")) {
+                        String id = request.queryParams("id");
 
-                    if(BANKMODE) {
                         if (id != null) {
                             if (bank.findUserByID(id).logout())
-                                responseJSON.put("request","successful");
-                            else
-                                responseJSON.put("request","failed");
-                        } else {
-                            responseJSON.put("request","failed");
-                        }
-                    }
-
-                    if(!BANKMODE){
-                        if (id != null & username != null) {
-                            if (userMap.containsKey(username)) {
-                                logger.info("Correct username");
-                                if (userMap.get(username).logout()) {
-                                    logger.info("Correct password");
-                                    responseJSON.put("request","successful");
-                                    return responseJSON;
-                                } else {
-                                    responseJSON.put("request","failed");
-                                }
-                            } else {
-                                responseJSON.put("request","failed");
-
+                                responseJSON.put("request", "successful");
+                            else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason", "failed to logout the user");
                             }
                         } else {
-                            responseJSON.put("request","failed");
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "null user id");
                         }
+                    }else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason","missing required parameters in body");
                     }
+
                     return responseJSON;
                 });
             });
 
             path("/user", () -> {
 
-                post("", (request, response) -> {
+                get("", (Request request, Response response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    responseJSON.put("userList", bank.getCustomerUser());
+
+                    return responseJSON;
+                });
+
+
+                post("", (Request request, Response response) -> {
 
                     JSONObject responseJSON = new JSONObject();
 
@@ -191,35 +187,41 @@ public class SparkServer {
                     boolean isAdmin = false;
 
 
-                    if(request.queryParams().contains("name"))
+                    if(request.queryParams().contains("name")
+                            && request.queryParams().contains("username")
+                            && request.queryParams().contains("password")
+                            && request.queryParams().contains("isAdmin")
+                            && request.queryParams().contains("phoneNumber")) {
                         name = request.queryParams("name");
-                    if(request.queryParams().contains("username"))
                         username = request.queryParams("username");
-                    if(request.queryParams().contains("password"))
                         password = request.queryParams("password");
-                    if(request.queryParams().contains("isAdmin"))
-                        isAdmin = Boolean.parseBoolean(request.queryParams("isAdmin").toString());
-                    if(request.queryParams().contains("phoneNumber"))
-                        phoneNumber = request.queryParams("phoneNumber").toString();
+                        isAdmin = Boolean.parseBoolean(request.queryParams("isAdmin"));
+                        phoneNumber = request.queryParams("phoneNumber");
 
-                    User user = bank.createCustomerUser()
-                            .withAccount()
-                            .withName(name)
-                            .withUsername(username)
-                            .withPhone(phoneNumber)
-                            .withUserID("" + j)
-                            .withPassword(password)
-                            .withIsAdmin(isAdmin);
-                    userMap.put(username, user);
-                    j++;
+                        User user = new User()
+                                .withAccount()
+                                .withName(name)
+                                .withUsername(username)
+                                .withPhone(phoneNumber)
+                                .withUserID("" + j)
+                                .withPassword(password)
+                                .withIsAdmin(isAdmin);
+                        bank.withCustomerUser(user);
+                        j++;
 
-                    if(user != null) {
-                        logger.info("Added User: " + user.toString());
-                        responseJSON.put("request", "successful");
-                        responseJSON.put("userID", user.getUserID());
-                    }
-                    else
+                        if(bank.findUserByID(user.getUserID()) != null) {
+                            logger.info("Added User: " + user.toString());
+                            responseJSON.put("request", "successful");
+                            responseJSON.put("userID", bank.findUserByID(user.getUserID()).getUserID());
+                        }
+                        else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason","bank failed to create user");
+                        }
+                    }else {
                         responseJSON.put("request","failed");
+                        responseJSON.put("reason","missing required parameters in body");
+                    }
 
                     return responseJSON;
                 });
@@ -227,7 +229,7 @@ public class SparkServer {
 
             path("/account", () -> {
 
-                get("", (request, response) -> {
+                get("", (Request request, Response response) -> {
 
                     JSONArray jsonArray = new JSONArray();
                     JSONObject accountJson = new JSONObject();
@@ -273,7 +275,7 @@ public class SparkServer {
                     jsonArray.add(accountJson);
                     return jsonArray;
                 });
-                post("", (request, response) -> {
+                post("", (Request request, Response response) -> {
 
                     JSONObject responseJSON = new JSONObject();
 
@@ -338,7 +340,7 @@ public class SparkServer {
             });
             path("/transaction", () -> {
 
-                get("", (request, response) -> {
+                get("", (Request request, Response response) -> {
 
                     String id = "";
                     JSONObject responseJSON = new JSONObject();
@@ -354,7 +356,7 @@ public class SparkServer {
                     return responseJSON.put("request", "success");
                 });
 
-                post("", (request, response) -> {
+                post("", (Request request, Response response) -> {
 
                     JSONObject responseJSON = new JSONObject();
 

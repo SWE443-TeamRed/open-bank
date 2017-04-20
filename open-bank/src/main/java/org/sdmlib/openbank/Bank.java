@@ -21,17 +21,14 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.util.Date;
-
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.UserSet;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Date;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -592,7 +589,7 @@ import org.sdmlib.openbank.Account;
 
       UserSet custUserSet = this.getCustomerUser();
       for (User custUsr : custUserSet) {
-         if (custUsr.getName() != null && custUsr.getName().equals(username) && custUsr.getPassword().equals(password)) {
+         if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
             return custUsr.getUserID();
          }
       }

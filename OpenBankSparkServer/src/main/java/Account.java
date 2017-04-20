@@ -24,6 +24,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
+
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>

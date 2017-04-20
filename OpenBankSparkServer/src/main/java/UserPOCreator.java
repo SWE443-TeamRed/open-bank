@@ -1,5 +1,5 @@
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
 public class UserPOCreator extends PatternObjectCreator
 {

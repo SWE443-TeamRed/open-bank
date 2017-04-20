@@ -95,24 +95,24 @@ public class UserSet extends SimpleSet<User>
       {
          this.add((User) value);
       }
-      
+
       return this;
    }
-   
+
    public UserSet without(User value)
    {
       this.remove(value);
       return this;
    }
 
-   
+
    //==========================================================================
-   
+
    public BooleanList openAccount(User p0)
    {
-      
+
       BooleanList result = new BooleanList();
-      
+
       for (User obj : this)
       {
          result.add( obj.openAccount(p0) );
@@ -120,14 +120,14 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-   
+
    //==========================================================================
-   
+
    public BooleanList login(String username, String password)
    {
-      
+
       BooleanList result = new BooleanList();
-      
+
       for (User obj : this)
       {
          result.add( obj.login(username, password) );
@@ -135,12 +135,12 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-   
+
    //==========================================================================
-   
+
    public BooleanList logout()
    {
-      
+
       BooleanList result = new BooleanList();
       
       for (User obj : this)

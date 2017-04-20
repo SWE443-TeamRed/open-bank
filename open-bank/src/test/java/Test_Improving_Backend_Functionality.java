@@ -1148,12 +1148,14 @@ public class Test_Improving_Backend_Functionality {
     @Test
     public void testBankLogin() {
         User usr1 = new User()
-                .withName("tina")
+                .withName("Tina")
+                .withUsername("tina")
                 .withUserID("tina1")
                 .withPassword("testtina");
 
         User usr2 = new User()
-                .withName("steve")
+                .withName("Steve")
+                .withUsername("steve")
                 .withUserID("steverog1")
                 .withPassword("teststeve");
 
@@ -1172,12 +1174,14 @@ public class Test_Improving_Backend_Functionality {
     @Test
     public void testBankLoginNull() {
         User usr1 = new User()
-                .withName("tina")
+                .withName("Tina")
+                .withUsername("tina")
                 .withUserID("tina1")
                 .withPassword("testtina");
 
         User usr2 = new User()
-                .withName("steve")
+                .withName("Steve")
+                .withUsername("steve")
                 .withUserID("steverog1")
                 .withPassword("teststeve");
 
