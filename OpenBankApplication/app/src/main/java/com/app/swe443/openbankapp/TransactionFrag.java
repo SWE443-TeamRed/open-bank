@@ -207,7 +207,11 @@ public class TransactionFrag extends Fragment {
             holder.dateText.setText(String.valueOf(newDateFormat));
             holder.typeText.setText(String.valueOf(transactions.get(position).getTransType()));
 
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit)) {
+            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit)||
+                    transactions.get(position).getTransType().equals(TransactionTypeEnum.Create)||
+                    (transactions.get(position).getTransType().equals(TransactionTypeEnum.Transfer) &&
+                            transactions.get(position).getFromAccount().getAccountnum() ==
+                                    (mockBankServer.getLoggedInUser().getAccount().get(mockBankServer.getAccountIndex()).getAccountnum()))) {
                  holder.amountText.setText(String.valueOf(transactions.get(position).getAmount()));
                  holder.balanceText.setText(String.valueOf(transactionBalances.get(position)));
 
