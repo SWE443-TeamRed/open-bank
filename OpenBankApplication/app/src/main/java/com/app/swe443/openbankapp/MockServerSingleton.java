@@ -2,12 +2,14 @@ package com.app.swe443.openbankapp;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountSet;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by hlope on 4/18/2017.
@@ -32,6 +34,54 @@ public class MockServerSingleton {
     public static MockServerSingleton getInstance( ) {
         if(singleton == null) {
             singleton = new MockServerSingleton();
+            //==================================================================
+            User user = new User()
+                    .withName("Admin")
+                    .withPassword("a")
+                    .withPhone("Whatever")
+                    .withEmail("dontcare")
+                    .withUserID("a")
+                    .withIsAdmin(false)
+                    .withBank(singleton.getBank())
+                    .withUsername("a");
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+            int newAccountNum= singleton.getUniqueAccountNum();
+            user.withAccount(new Account()
+                    .withAccountnum(newAccountNum)
+                    .withType(AccountTypeEnum.SAVINGS)
+                    .withOwner(user)
+                    .withCreationdate(new Date())
+                    .withBalance(Double.valueOf("10.0")));
+
+
+            singleton.getBank().withCustomerUser(user);
+            User user2 = new User()
+                    .withName("Admin2")
+                    .withPassword("b")
+                    .withPhone("Whatever")
+                    .withEmail("docare")
+                    .withUserID("b")
+                    .withIsAdmin(false)
+                    .withBank(singleton.getBank())
+                    .withUsername("b");
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+            int newAccountNum2= singleton.getUniqueAccountNum();
+            user2.withAccount(new Account()
+                    .withAccountnum(newAccountNum2)
+                    .withType(AccountTypeEnum.SAVINGS)
+                    .withOwner(user)
+                    .withCreationdate(new Date())
+                    .withBalance(Double.valueOf("500.0")));
+
+
+            singleton.getBank().withCustomerUser(user2);
+            //=======================================================
         }
         return singleton;
     }

@@ -89,54 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //Initialize bank instance
         mockBankServer = MockServerSingleton.getInstance();
 
-        //==================================================================
-        User user = new User()
-                .withName("Admin")
-                .withPassword("a")
-                .withPhone("Whatever")
-                .withEmail("dontcare")
-                .withUserID("a")
-                .withIsAdmin(false)
-                .withBank(mockBankServer.getBank())
-                .withUsername("a");
-                /*
-                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-                 */
-        int newAccountNum= mockBankServer.getUniqueAccountNum();
-       user.withAccount(new Account()
-               .withAccountnum(newAccountNum)
-                .withType(AccountTypeEnum.SAVINGS)
-              .withOwner(user)
-               .withCreationdate(new Date())
-                .withBalance(Double.valueOf("10.0")));
 
-
-        mockBankServer.getBank().withCustomerUser(user);
-        User user2 = new User()
-                .withName("Admin2")
-                .withPassword("b")
-                .withPhone("Whatever")
-                .withEmail("docare")
-                .withUserID("b")
-                .withIsAdmin(false)
-                .withBank(mockBankServer.getBank())
-                .withUsername("b");
-                /*
-                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-                 */
-        int newAccountNum2= mockBankServer.getUniqueAccountNum();
-        user2.withAccount(new Account()
-                .withAccountnum(newAccountNum2)
-                .withType(AccountTypeEnum.SAVINGS)
-                .withOwner(user)
-                .withCreationdate(new Date())
-                .withBalance(Double.valueOf("500.0")));
-
-
-        mockBankServer.getBank().withCustomerUser(user2);
-        //=======================================================
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
