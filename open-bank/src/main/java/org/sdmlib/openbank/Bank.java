@@ -24,6 +24,8 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
+
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.User;
@@ -418,7 +420,25 @@ import org.sdmlib.openbank.Account;
    //==========================================================================
    public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
    {
-      return false;
+       Account toAcct = findAccountByID(toAcctID);
+       Account fromAcct = findAccountByID((fromAcctID));
+       if(toAcct == null){
+           return false;
+       }
+       if(fromAcct == null){
+           return false;
+       }
+       if(fromAcct.getBalance() < dollarValue + decimalValue ){
+           return false;
+       }
+       Transaction transferTransation = new Transaction().withBank(this)
+               .withAmount(dollarValue+decimalValue)
+               .withFromAccount(fromAcct)
+               .withToAccount(toAcct)
+               .withCreationdate(new Date())
+               .withTransType(TransactionTypeEnum.Transfer);
+       this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
+       return true;
    }
 
    
