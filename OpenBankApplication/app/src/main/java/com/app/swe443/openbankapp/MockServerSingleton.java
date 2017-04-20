@@ -31,36 +31,33 @@ public class MockServerSingleton {
         mainBank = new Bank();
         //==================================================================
         User user = new User()
-                .withName("Admin")
-                .withPassword("a")
-                .withPhone("Whatever")
-                .withEmail("dontcare")
-                .withUserID("a")
+                .withName("Tom Eater")
+                .withPassword("AntsAreTasty")
+                .withPhone("5712342393")
+                .withEmail("antEatingAntEater@ants.com")
+                .withUserID("AntEater")
                 .withIsAdmin(false)
                 .withBank(mainBank)
-                .withUsername("a");
-                /*
-                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-                 */
+                .withUsername("AntEater");
         int newAccountNum= this.getUniqueAccountNum();
         Account newAccount = new Account()
                 .withAccountnum(newAccountNum)
                 .withType(AccountTypeEnum.SAVINGS)
                 .withOwner(user)
                 .withCreationdate(new Date())
-                .withBalance(Double.valueOf("10.0"));
+                .withBalance(Double.valueOf("0.0"));
         user.withAccount(newAccount);
         Transaction t = new Transaction()
-                .withAmount(Double.valueOf("10.0"))
+                .withAmount(Double.valueOf("500.0"))
                 .withBank(mainBank)
                 .withDate(new Date())
                 .withToAccount(newAccount)
                 .withNote("Initial Seeding")
                 .withTransType(TransactionTypeEnum.Create);
         newAccount.getAccountTransactions().addFirst(t);
-
+        newAccount.setBalance(Double.valueOf("500.0"));
         mainBank.withCustomerUser(user);
+       /*
         user = new User()
                 .withName("Admin2")
                 .withPassword("b")
@@ -70,17 +67,13 @@ public class MockServerSingleton {
                 .withIsAdmin(false)
                 .withBank(mainBank)
                 .withUsername("b");
-                /*
-                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-                 */
         newAccountNum= this.getUniqueAccountNum();
         newAccount = new Account()
                 .withAccountnum(newAccountNum)
                 .withType(AccountTypeEnum.SAVINGS)
                 .withOwner(user)
                 .withCreationdate(new Date())
-                .withBalance(Double.valueOf("500.0"));
+                .withBalance(Double.valueOf("0.0"));
         user.withAccount(newAccount);
          t = new Transaction()
                 .withAmount(Double.valueOf("500.0"))
@@ -92,7 +85,7 @@ public class MockServerSingleton {
         newAccount.getAccountTransactions().addFirst(t);
 
         mainBank.withCustomerUser(user);
-        //=======================================================
+        */
     }
 
     /* Static 'singelton' method */

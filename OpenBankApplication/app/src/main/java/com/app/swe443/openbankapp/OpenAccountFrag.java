@@ -194,7 +194,7 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                         .withNote("Initial Seeding")
                         .withTransType(TransactionTypeEnum.Create);
                 newAccount.getAccountTransactions().addFirst(t);
-
+                newAccount.setBalance(Double.valueOf(initalBalanceInput.getText().toString()));
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);
 
