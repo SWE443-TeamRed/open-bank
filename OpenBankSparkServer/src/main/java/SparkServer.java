@@ -75,15 +75,20 @@ public class SparkServer {
                         String newPassword = request.queryParams("newPassword");
                         String id = request.queryParams("id");
 
-                        bank.findUserByID(id).withPassword(newPassword);
+                        if(bank.findUserByID(id) != null) {
 
-                        if (bank.findUserByID(id).getPassword().equals(newPassword))
-                            responseJSON.put("request", "successful");
-                        else {
+                            bank.findUserByID(id).withPassword(newPassword);
+
+                            if (bank.findUserByID(id).getPassword().equals(newPassword))
+                                responseJSON.put("request", "successful");
+                            else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason", "password not successfully changed");
+                            }
+                        }else {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason", "password not successfully changed");
+                            responseJSON.put("reason", "user could not be found");
                         }
-
                     }else {
                         responseJSON.put("request", "failed");
                         responseJSON.put("reason","missing required parameters in body");
@@ -153,11 +158,16 @@ public class SparkServer {
                         String id = request.queryParams("id");
 
                         if (id != null) {
-                            if (bank.findUserByID(id).logout())
-                                responseJSON.put("request", "successful");
-                            else {
+                            if(bank.findUserByID(id) != null) {
+                                if (bank.findUserByID(id).logout())
+                                    responseJSON.put("request", "successful");
+                                else {
+                                    responseJSON.put("request", "failed");
+                                    responseJSON.put("reason", "failed to logout the user");
+                                }
+                            }else {
                                 responseJSON.put("request", "failed");
-                                responseJSON.put("reason", "failed to logout the user");
+                                responseJSON.put("reason", "user could not be found");
                             }
                         } else {
                             responseJSON.put("request", "failed");
