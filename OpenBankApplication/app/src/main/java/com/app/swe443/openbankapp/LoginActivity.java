@@ -33,11 +33,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -78,12 +81,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         System.out.println("Creating Login Activity");
         //Initialize bank instance
         mockBankServer = MockServerSingleton.getInstance();
+
+        //==================================================================
+        User user = new User()
+                .withName("Admin")
+                .withPassword("a")
+                .withPhone("Whatever")
+                .withEmail("dontcare")
+                .withUserID("a")
+                .withIsAdmin(false)
+                .withBank(mockBankServer.getBank())
+                .withUsername("a");
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+        int newAccountNum= mockBankServer.getUniqueAccountNum();
+       user.withAccount(new Account()
+               .withAccountnum(newAccountNum)
+                .withType(AccountTypeEnum.SAVINGS)
+              .withOwner(user)
+               .withCreationdate(new Date())
+                .withBalance(Double.valueOf("15.0")));
+
+
+        mockBankServer.getBank().withCustomerUser(user);
+        //=======================================================
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
@@ -235,6 +265,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                TODO  TRACK WHICH USER JUST LOGGED IN, SERVER TASK
              */
             mAuthTask.execute((Void) null);
+
+            setContentView(R.layout.activity_main);
+
         }
     }
 

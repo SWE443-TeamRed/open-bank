@@ -147,7 +147,7 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                 }
                 if (!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString()))) {
                     //Toast.makeText(getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
-                    passwordInput.setError("Passwords don't match");
+                    confirmpasswordInput.setError("Passwords don't match");
                     incomplete = true;
                 }
                 if(incomplete)
@@ -183,6 +183,8 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                         .withOwner(user)
                         .withCreationdate(new Date())
                         .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
+
+
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);
 
