@@ -78,9 +78,49 @@
             "withdraw(double amount) boolean",
             "deposit(double amount) boolean"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"Bank",
+         "attributes":[
+            "fee : double",
+            "bankName : String"
+         ],
+         "methods":[
+            "validateLogin(int accountID, String username, String password) boolean",
+            "findAccountByID(int accountID) org.sdmlib.openbank.Account",
+            "findUserByID(String userID) org.sdmlib.openbank.User",
+            "confirmTransaction(int toAcctID, int fromAcctID, java.lang.Integer dollarValue, java.lang.Integer decimalValue) boolean"
+         ]
       }
    ],
    "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"many",
+            "property":"customerUser"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"User",
+            "cardinality":"many",
+            "property":"adminUsers"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
+         }
+      },
       {
          "typ":"ASSOCIATION",
          "source":{
@@ -92,6 +132,19 @@
             "id":"Account",
             "cardinality":"many",
             "property":"account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"transaction"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
          }
       },
       {
@@ -118,6 +171,32 @@
             "id":"Account",
             "cardinality":"one",
             "property":"toAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"customerAccounts"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Account",
+            "cardinality":"many",
+            "property":"adminAccounts"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"employingBank"
          }
       }
    ]
