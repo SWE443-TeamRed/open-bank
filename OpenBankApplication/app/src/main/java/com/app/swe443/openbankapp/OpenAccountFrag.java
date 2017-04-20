@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 
 import java.util.Date;
@@ -177,15 +179,21 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                     TODO AS THE SIZE OF ALL THE ACCOUNTS+1
                  */
                 int newAccountNum= mockserver.getUniqueAccountNum();
-                //user.withAccount();
-                Account userAccount = new Account()
-                    .withAccountnum(newAccountNum)
+                Account newAccount = new Account()
+                        .withAccountnum(newAccountNum)
                         .withType(type)
                         .withOwner(user)
                         .withCreationdate(new Date())
-                        .withBalance(Double.valueOf("0.0"));//Double.valueOf(initalBalanceInput.getText().toString())));
-                user.withAccount(userAccount);
-                userAccount.deposit(Double.valueOf(initalBalanceInput.getText().toString()));
+                        .withBalance(Double.valueOf("0.0"));
+                user.withAccount(newAccount);
+                Transaction t = new Transaction()
+                        .withAmount(Double.valueOf(initalBalanceInput.getText().toString()))
+                        .withBank(mockserver.getBank())
+                        .withDate(new Date())
+                        .withToAccount(newAccount)
+                        .withNote("Initial Seeding")
+                        .withTransType(TransactionTypeEnum.Create);
+                newAccount.getAccountTransactions().addFirst(t);
 
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);
