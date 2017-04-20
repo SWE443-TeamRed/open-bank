@@ -27,7 +27,6 @@ public class SparkServer {
     static int j = 1;
 
     static Map<Integer, Account> accountMap;
-    static Map<String, User> userMap;
 
     static Bank bank;
 
@@ -40,7 +39,6 @@ public class SparkServer {
 
         apiLogSetup();
         accountMapSetup();
-        userMapSetup();
 
         before("/*", (q, a) -> logger.info("Received api call from ip: " + q.ip()
                 + "\n\t" + q.pathInfo()
@@ -71,16 +69,25 @@ public class SparkServer {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    String username = request.queryParams("username");
-                    String newPassword = request.queryParams("newPassword");
+                    if(request.queryParams().contains("newPassword")
+                            && request.queryParams().contains("id")) {
 
-                    userMap.get(username).withPassword(newPassword);
+                        String newPassword = request.queryParams("newPassword");
+                        String id = request.queryParams("id");
 
-                    if(userMap.get(username).getPassword().equals(newPassword))
-                        responseJSON.put("request","successful");
-                    else
-                        responseJSON.put("request","failed");
+                        bank.findUserByID(id).withPassword(newPassword);
 
+                        if (bank.findUserByID(id).getPassword().equals(newPassword))
+                            responseJSON.put("request", "successful");
+                        else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "password not successfully changed");
+                        }
+
+                    }else {
+                        responseJSON.put("request", "failed");
+                        responseJSON.put("reason","missing required parameters in body");
+                    }
                     return responseJSON;
                 });
             });
@@ -256,21 +263,21 @@ public class SparkServer {
                             accountJson.put("request", "failed");
                         }
                     }
-                    if(!BANKMODE) {
-                        if (request.queryParams().contains("username")) {
-                            String username = request.queryParams("username");
-
-                            if (userMap.containsKey(username)) {
-                                accountJson.put("request", "successful");
-                                accountJson.put("accountNumber", userMap.get(username).getAccount().getAccountnum());
-                                accountJson.put("balance", userMap.get(username).getAccount().getBalance());
-                            }else {
-                                accountJson.put("request", "failed");
-                            }
-                        }else {
-                            accountJson.put("request", "failed");
-                        }
-                    }
+//                    if(!BANKMODE) {
+//                        if (request.queryParams().contains("username")) {
+//                            String username = request.queryParams("username");
+//
+//                            if (userMap.containsKey(username)) {
+//                                accountJson.put("request", "successful");
+//                                accountJson.put("accountNumber", userMap.get(username).getAccount().getAccountnum());
+//                                accountJson.put("balance", userMap.get(username).getAccount().getBalance());
+//                            }else {
+//                                accountJson.put("request", "failed");
+//                            }
+//                        }else {
+//                            accountJson.put("request", "failed");
+//                        }
+//                    }
 
                     jsonArray.add(accountJson);
                     return jsonArray;
@@ -287,21 +294,21 @@ public class SparkServer {
                         if (request.queryParams().contains("id")) {
                             id = request.queryParams("id");
 
-                            if(bank.findUserByID(id) != null) {
-                                Account account = bank.findUserByID(id).createAccount()
-                                        .withAccountnum(i)
-                                        .withOwner(userMap.get(username))
-                                        .withBalance(100);
-                                if (account != null) {
-                                    responseJSON.put("request", "successful");
-                                    responseJSON.put("account", account.toString());
-                                    i++;
-                                } else {
-                                    responseJSON.put("request", "failed");
-                                }
-                            }else {
-                                responseJSON.put("request", "failed");
-                            }
+//                            if(bank.findUserByID(id) != null) {
+//                                Account account = bank.findUserByID(id).createAccount()
+//                                        .withAccountnum(i)
+//                                        .withOwner(userMap.get(username))
+//                                        .withBalance(100);
+//                                if (account != null) {
+//                                    responseJSON.put("request", "successful");
+//                                    responseJSON.put("account", account.toString());
+//                                    i++;
+//                                } else {
+//                                    responseJSON.put("request", "failed");
+//                                }
+//                            }else {
+//                                responseJSON.put("request", "failed");
+//                            }
                         }else {
                             responseJSON.put("request", "failed");
                         }
@@ -313,24 +320,24 @@ public class SparkServer {
                             username = request.queryParams("username");
                             Account account = null;
 
-                            if (userMap.containsKey(username)) {
-                                account = new Account()
-                                        .withAccountnum(i)
-                                        .withOwner(userMap.get(username))
-                                        .withBalance(100);
-                                accountMap.put(i, account);
-                                if (accountMap.get(i) != null) {
-                                    responseJSON.put("request", "successful");
-                                    responseJSON.put("account", accountMap.get(i).toString());
-                                    i++;
-                                } else {
-                                    responseJSON.put("request", "failed");
-                                }
-
-                            } else {
-                                responseJSON.put("request", "failed");
-                                return responseJSON;
-                            }
+//                            if (userMap.containsKey(username)) {
+//                                account = new Account()
+//                                        .withAccountnum(i)
+//                                        .withOwner(userMap.get(username))
+//                                        .withBalance(100);
+//                                accountMap.put(i, account);
+//                                if (accountMap.get(i) != null) {
+//                                    responseJSON.put("request", "successful");
+//                                    responseJSON.put("account", accountMap.get(i).toString());
+//                                    i++;
+//                                } else {
+//                                    responseJSON.put("request", "failed");
+//                                }
+//
+//                            } else {
+//                                responseJSON.put("request", "failed");
+//                                return responseJSON;
+//                            }
                         } else {
                             responseJSON.put("request", "failed");
                         }
@@ -414,10 +421,6 @@ public class SparkServer {
 
     private static void accountMapSetup() {
         accountMap = new HashMap<>();
-    }
-
-    private static void userMapSetup() {
-        userMap = new HashMap<>();
     }
 
     private static void apiLogSetup() {
