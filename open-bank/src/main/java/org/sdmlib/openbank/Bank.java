@@ -606,4 +606,43 @@ import org.sdmlib.openbank.Account;
 
       return null;
    }
+
+   public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
+
+      User usr = new User();
+      usr.setUsername(username);
+      usr.setPassword(password);
+      usr.setPhone(phoneNumber);
+      usr.setIsAdmin(isAdmin);
+
+      if(isAdmin){
+         this.createAdminUsers();
+         this.withAdminUsers(usr);
+
+      }else{
+         this.createCustomerUser();
+         this.withCustomerUser(usr);
+      }
+
+      return "successful";
+   }
+
+   public String createAccount(String username) {
+
+      User usr1 = new User()
+              .withName(username)
+              .withUserID("tina1");
+
+      Account checking = new Account()
+              .withAccountnum(1)
+              .withOwner(usr1)
+              .withBalance(100);
+
+
+      this.createCustomerAccounts();
+      this.withCustomerAccounts(checking);
+
+      return "successful";
+   }
+
 }
