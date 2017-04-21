@@ -200,7 +200,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D9 : Date"
+            "id":"D3 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -213,7 +213,11 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D10 : Date"
+=======
+            "id":"D3 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -451,7 +455,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D9 : Date"
+            "id":"D3 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -464,7 +468,11 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D10 : Date"
+=======
+            "id":"D3 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -542,6 +550,7 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"A15 : Account",
          "attributes":[
             "balance=60.0",
@@ -580,10 +589,14 @@
             "amount=150.0",
             "note=Nick transfers 150 from his checking to Tina's checking"
          ]
+=======
+         "id":"D12 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       },
       {
          "typ":"clazz",
          "id":" : Date"
+<<<<<<< HEAD
       },
       {
          "typ":"clazz",
@@ -592,6 +605,8 @@
       {
          "typ":"clazz",
          "id":"D22 : Date"
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       }
    ],
    "edges":[
@@ -609,6 +624,7 @@
          }
       },
       {
+<<<<<<< HEAD
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
@@ -622,17 +638,24 @@
          }
       },
       {
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
             "property":"creationdate",
+<<<<<<< HEAD
             "id":"D16 : Date"
+=======
+            "id":"D12 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"account",
             "id":"A14 : Account"
          }
+<<<<<<< HEAD
       },
       {
          "typ":"UNDIRECTIONAL",
@@ -699,31 +722,7 @@
             "id":"T18 : Transaction"
          }
       },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"date",
-            "id":"D21 : Date"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"transaction",
-            "id":"T19 : Transaction"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"date",
-            "id":"D22 : Date"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"transaction",
-            "id":"T20 : Transaction"
-         }
+=======
       }
    ]
 }   ;
@@ -736,7 +735,7 @@
    "nodes":[
       {
          "typ":"clazz",
-         "id":"A14 : Account",
+         "id":"A11 : Account",
          "attributes":[
             "balance=100.0",
             "accountnum=2",
@@ -745,11 +744,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D16 : Date"
+         "id":"D12 : Date"
       },
       {
          "typ":"clazz",
-         "id":"U13 : User",
+         "id":"U10 : User",
          "attributes":[
             "UserID=nick1",
             "isAdmin=false",
@@ -761,162 +760,15 @@
       {
          "typ":"clazz",
          "id":" : Date"
-      },
-      {
-         "typ":"clazz",
-         "id":"A15 : Account",
-         "attributes":[
-            "balance=60.0",
-            "accountnum=2",
-            "IsConnected=false"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"D17 : Date"
-      },
-      {
-         "typ":"clazz",
-         "id":"T18 : Transaction",
-         "attributes":[
-            "amount=10.0",
-            "note=Tina transfers 10 from her checking to Nick's checking"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T19 : Transaction",
-         "attributes":[
-            "amount=100.0",
-            "note=Tina transfers 100 from her checking to Nick's checking"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"T20 : Transaction",
-         "attributes":[
-            "amount=150.0",
-            "note=Nick transfers 150 from his checking to Tina's checking"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"D21 : Date"
-      },
-      {
-         "typ":"clazz",
-         "id":"D22 : Date"
       }
    ],
    "edges":[
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       {
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
-            "property":"creationdate",
-            "id":"D16 : Date"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"account",
-            "id":"A14 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"U13 : User"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"account",
-            "id":"A14 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"account",
-            "id":"A15 : Account"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"U13 : User"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"creationdate",
-            "id":"D17 : Date"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"account",
-            "id":"A15 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"credit",
-            "id":"T18 : Transaction"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"fromAccount",
-            "id":"A15 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"credit",
-            "id":"T19 : Transaction"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"fromAccount",
-            "id":"A15 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"many",
-            "property":"debit",
-            "id":"T20 : Transaction"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"toAccount",
-            "id":"A15 : Account"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"date",
-            "id":"D21 : Date"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"transaction",
-            "id":"T18 : Transaction"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
+<<<<<<< HEAD
             "property":"date",
             "id":"D21 : Date"
          },
@@ -924,12 +776,22 @@
             "cardinality":"one",
             "property":"transaction",
             "id":"T19 : Transaction"
+=======
+            "property":"creationdate",
+            "id":"D12 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A11 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       },
       {
-         "typ":"UNDIRECTIONAL",
+         "typ":"ASSOCIATION",
          "source":{
             "cardinality":"one",
+<<<<<<< HEAD
             "property":"date",
             "id":"D22 : Date"
          },
@@ -937,6 +799,15 @@
             "cardinality":"one",
             "property":"transaction",
             "id":"T20 : Transaction"
+=======
+            "property":"owner",
+            "id":"U10 : User"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A11 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       }
    ]
@@ -962,7 +833,11 @@
    "nodes":[
       {
          "typ":"clazz",
+<<<<<<< HEAD
+         "id":"A14 : Account",
+=======
          "id":"A2 : Account",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "balance=390.0",
             "accountnum=1",
@@ -971,8 +846,472 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
+         "id":"D16 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"U13 : User",
+=======
          "id":"D3 : Date"
       },
+      {
+         "typ":"clazz",
+         "id":"U1 : User",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+<<<<<<< HEAD
+            "password=nickpass",
+            "name=Nick",
+=======
+            "password=tinapass",
+            "name=Tina",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T4 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+<<<<<<< HEAD
+         "id":"A15 : Account",
+=======
+         "id":"T5 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         "attributes":[
+            "amount=300.0",
+            "note=Depositing "
+         ]
+      },
+      {
+         "typ":"clazz",
+<<<<<<< HEAD
+         "id":"D17 : Date"
+=======
+         "id":"T20 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T6 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T7 : Transaction",
+         "attributes":[
+            "amount=20.0",
+            "note=Withdrawing "
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T8 : Transaction",
+         "attributes":[
+            "amount=30.0",
+            "note=Withdrawing "
+         ]
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+      },
+      {
+         "typ":"clazz",
+         "id":"T18 : Transaction",
+         "attributes":[
+            "amount=10.0",
+            "note=Tina transfers 10 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+<<<<<<< HEAD
+         "id":"T19 : Transaction",
+=======
+         "id":"T18 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+<<<<<<< HEAD
+         "id":"T20 : Transaction",
+         "attributes":[
+            "amount=150.0",
+            "note=Nick transfers 150 from his checking to Tina's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D22 : Date"
+=======
+         "id":" : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"creationdate",
+<<<<<<< HEAD
+            "id":"D16 : Date"
+=======
+            "id":"D3 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+<<<<<<< HEAD
+            "id":"A14 : Account"
+=======
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+<<<<<<< HEAD
+            "id":"U13 : User"
+=======
+            "id":"U1 : User"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"account",
+<<<<<<< HEAD
+            "id":"A14 : Account"
+=======
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+<<<<<<< HEAD
+            "property":"account",
+            "id":"A15 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U13 : User"
+=======
+            "property":"credit",
+            "id":"T4 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+<<<<<<< HEAD
+            "cardinality":"one",
+            "property":"creationdate",
+            "id":"D17 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"account",
+            "id":"A15 : Account"
+=======
+            "cardinality":"many",
+            "property":"credit",
+            "id":"T5 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"credit",
+<<<<<<< HEAD
+            "id":"T18 : Transaction"
+=======
+            "id":"T20 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+<<<<<<< HEAD
+            "id":"A15 : Account"
+=======
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+<<<<<<< HEAD
+            "property":"credit",
+            "id":"T19 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fromAccount",
+            "id":"A15 : Account"
+=======
+            "property":"debit",
+            "id":"T6 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T7 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T8 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+            "id":"T15 : Transaction"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+            "id":"A2 : Account"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"debit",
+<<<<<<< HEAD
+            "id":"T20 : Transaction"
+=======
+            "id":"T18 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"toAccount",
+<<<<<<< HEAD
+            "id":"A15 : Account"
+=======
+            "id":"A2 : Account"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D3 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T4 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+<<<<<<< HEAD
+            "id":"D21 : Date"
+=======
+            "id":"D3 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+<<<<<<< HEAD
+            "id":"T18 : Transaction"
+=======
+            "id":"T5 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D21 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+<<<<<<< HEAD
+            "id":"T19 : Transaction"
+=======
+            "id":"T20 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T6 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T7 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D9 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T8 : Transaction"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T15 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"date",
+<<<<<<< HEAD
+            "id":"D22 : Date"
+=======
+            "id":"D19 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+<<<<<<< HEAD
+            "id":"T20 : Transaction"
+=======
+            "id":"T18 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTransferActivityPersistance19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
       {
          "typ":"clazz",
          "id":"U1 : User",
@@ -986,6 +1325,33 @@
       },
       {
          "typ":"clazz",
+         "id":"A2 : Account",
+         "attributes":[
+            "balance=390.0",
+            "accountnum=1",
+            "IsConnected=false"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D3 : Date"
+      },
+      {
+         "typ":"clazz",
+<<<<<<< HEAD
+         "id":"U1 : User",
+         "attributes":[
+            "UserID=tina1",
+            "isAdmin=false",
+            "password=tinapass",
+            "name=Tina",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "id":"T4 : Transaction",
          "attributes":[
             "amount=10.0",
@@ -1002,7 +1368,11 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"T31 : Transaction",
+=======
+         "id":"T20 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "amount=150.0",
             "note=Nick transfers 150 from his checking to Tina's checking"
@@ -1034,7 +1404,11 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"T25 : Transaction",
+=======
+         "id":"T15 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "amount=10.0",
             "note=Tina transfers 10 from her checking to Nick's checking"
@@ -1042,7 +1416,11 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"T29 : Transaction",
+=======
+         "id":"T18 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "amount=100.0",
             "note=Tina transfers 100 from her checking to Nick's checking"
@@ -1054,10 +1432,11 @@
       },
       {
          "typ":"clazz",
-         "id":"D9 : Date"
+         "id":"D21 : Date"
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"D10 : Date"
       },
       {
@@ -1079,9 +1458,33 @@
       {
          "typ":"clazz",
          "id":"D30 : Date"
+=======
+         "id":"D9 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D19 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       }
    ],
    "edges":[
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "cardinality":"many",
+            "property":"account",
+            "id":"A2 : Account"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"U1 : User"
+         }
+      },
       {
          "typ":"UNDIRECTIONAL",
          "source":{
@@ -1091,19 +1494,6 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"account",
-            "id":"A2 : Account"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "cardinality":"one",
-            "property":"owner",
-            "id":"U1 : User"
-         },
-         "target":{
-            "cardinality":"many",
             "property":"account",
             "id":"A2 : Account"
          }
@@ -1139,7 +1529,11 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
+<<<<<<< HEAD
             "id":"T31 : Transaction"
+=======
+            "id":"T20 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1191,7 +1585,11 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
+<<<<<<< HEAD
             "id":"T25 : Transaction"
+=======
+            "id":"T15 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1204,7 +1602,11 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
+<<<<<<< HEAD
             "id":"T29 : Transaction"
+=======
+            "id":"T18 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1217,7 +1619,7 @@
          "source":{
             "cardinality":"one",
             "property":"date",
-            "id":"D9 : Date"
+            "id":"D3 : Date"
          },
          "target":{
             "cardinality":"one",
@@ -1230,7 +1632,11 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D10 : Date"
+=======
+            "id":"D3 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1243,12 +1649,20 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D32 : Date"
+=======
+            "id":"D21 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T31 : Transaction"
+=======
+            "id":"T20 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       },
       {
@@ -1295,12 +1709,20 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D26 : Date"
+=======
+            "id":"D14 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T25 : Transaction"
+=======
+            "id":"T15 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       },
       {
@@ -1308,17 +1730,25 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D30 : Date"
+=======
+            "id":"D19 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T29 : Transaction"
+=======
+            "id":"T18 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTransferActivityPersistance19", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTransferActivityPersistance20", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -1327,6 +1757,7 @@
    "nodes":[
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"U1 : User",
          "attributes":[
             "UserID=tina1",
@@ -1339,35 +1770,53 @@
       {
          "typ":"clazz",
          "id":"A2 : Account",
+=======
+         "id":"A11 : Account",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
-            "balance=390.0",
-            "accountnum=1",
+            "balance=60.0",
+            "accountnum=2",
             "IsConnected=false"
          ]
       },
       {
          "typ":"clazz",
-         "id":"D3 : Date"
+         "id":"D12 : Date"
       },
       {
          "typ":"clazz",
-         "id":"T4 : Transaction",
+         "id":"U10 : User",
+         "attributes":[
+            "UserID=nick1",
+            "isAdmin=false",
+            "password=nickpass",
+            "name=Nick",
+            "LoggedIn=true"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T13 : Transaction",
          "attributes":[
             "amount=10.0",
-            "note=Depositing "
+            "note=Tina transfers 10 from her checking to Nick's checking"
          ]
       },
       {
          "typ":"clazz",
-         "id":"T5 : Transaction",
-         "attributes":[
-            "amount=300.0",
-            "note=Depositing "
-         ]
-      },
-      {
-         "typ":"clazz",
+<<<<<<< HEAD
          "id":"T31 : Transaction",
+=======
+         "id":"T16 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
+         "attributes":[
+            "amount=100.0",
+            "note=Tina transfers 100 from her checking to Nick's checking"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T22 : Transaction",
          "attributes":[
             "amount=150.0",
             "note=Nick transfers 150 from his checking to Tina's checking"
@@ -1375,30 +1824,15 @@
       },
       {
          "typ":"clazz",
-         "id":"T6 : Transaction",
-         "attributes":[
-            "amount=10.0",
-            "note=Withdrawing "
-         ]
+         "id":" : Date"
       },
       {
          "typ":"clazz",
-         "id":"T7 : Transaction",
-         "attributes":[
-            "amount=20.0",
-            "note=Withdrawing "
-         ]
+         "id":"D14 : Date"
       },
       {
          "typ":"clazz",
-         "id":"T8 : Transaction",
-         "attributes":[
-            "amount=30.0",
-            "note=Withdrawing "
-         ]
-      },
-      {
-         "typ":"clazz",
+<<<<<<< HEAD
          "id":"T25 : Transaction",
          "attributes":[
             "amount=10.0",
@@ -1798,6 +2232,13 @@
       {
          "typ":"clazz",
          "id":"D22 : Date"
+=======
+         "id":"D17 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D21 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       }
    ],
    "edges":[
@@ -1806,7 +2247,11 @@
          "source":{
             "cardinality":"one",
             "property":"creationdate",
+<<<<<<< HEAD
             "id":"D16 : Date"
+=======
+            "id":"D12 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1832,7 +2277,11 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
+<<<<<<< HEAD
             "id":"T23 : Transaction"
+=======
+            "id":"T13 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1845,7 +2294,11 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
+<<<<<<< HEAD
             "id":"T27 : Transaction"
+=======
+            "id":"T16 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1858,7 +2311,11 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
+<<<<<<< HEAD
             "id":"T33 : Transaction"
+=======
+            "id":"T22 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -1867,6 +2324,7 @@
          }
       },
       {
+<<<<<<< HEAD
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
@@ -1906,10 +2364,13 @@
          }
       },
       {
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D32 : Date"
          },
          "target":{
@@ -1981,6 +2442,14 @@
             "cardinality":"one",
             "property":"transaction",
             "id":"T18 : Transaction"
+=======
+            "id":"D14 : Date"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"transaction",
+            "id":"T13 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       },
       {
@@ -1988,7 +2457,11 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D21 : Date"
+=======
+            "id":"D17 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2001,12 +2474,20 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D22 : Date"
+=======
+            "id":"D21 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T20 : Transaction"
+=======
+            "id":"T22 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       }
    ]
@@ -2040,6 +2521,7 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"A15 : Account",
          "attributes":[
             "balance=60.0",
@@ -2082,6 +2564,13 @@
       {
          "typ":"clazz",
          "id":"T18 : Transaction",
+=======
+         "id":"D12 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"T13 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "amount=10.0",
             "note=Tina transfers 10 from her checking to Nick's checking"
@@ -2097,7 +2586,11 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"T20 : Transaction",
+=======
+         "id":"T22 : Transaction",
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "attributes":[
             "amount=150.0",
             "note=Nick transfers 150 from his checking to Tina's checking"
@@ -2109,6 +2602,7 @@
       },
       {
          "typ":"clazz",
+<<<<<<< HEAD
          "id":"D24 : Date"
       },
       {
@@ -2118,14 +2612,24 @@
       {
          "typ":"clazz",
          "id":"D32 : Date"
+=======
+         "id":"D14 : Date"
+      },
+      {
+         "typ":"clazz",
+         "id":"D17 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       },
       {
          "typ":"clazz",
          "id":"D21 : Date"
+<<<<<<< HEAD
       },
       {
          "typ":"clazz",
          "id":"D22 : Date"
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
       }
    ],
    "edges":[
@@ -2143,6 +2647,7 @@
          }
       },
       {
+<<<<<<< HEAD
          "typ":"ASSOCIATION",
          "source":{
             "cardinality":"many",
@@ -2156,11 +2661,17 @@
          }
       },
       {
+=======
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
             "property":"creationdate",
+<<<<<<< HEAD
             "id":"D16 : Date"
+=======
+            "id":"D12 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2173,7 +2684,11 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
+<<<<<<< HEAD
             "id":"T23 : Transaction"
+=======
+            "id":"T13 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2186,7 +2701,11 @@
          "source":{
             "cardinality":"many",
             "property":"credit",
+<<<<<<< HEAD
             "id":"T27 : Transaction"
+=======
+            "id":"T16 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2199,7 +2718,11 @@
          "source":{
             "cardinality":"many",
             "property":"debit",
+<<<<<<< HEAD
             "id":"T33 : Transaction"
+=======
+            "id":"T22 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2211,6 +2734,7 @@
          "typ":"UNDIRECTIONAL",
          "source":{
             "cardinality":"one",
+<<<<<<< HEAD
             "property":"creationdate",
             "id":"D17 : Date"
          },
@@ -2304,11 +2828,19 @@
             "cardinality":"one",
             "property":"date",
             "id":"D21 : Date"
+=======
+            "property":"date",
+            "id":"D14 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T18 : Transaction"
+=======
+            "id":"T13 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       },
       {
@@ -2316,7 +2848,11 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D21 : Date"
+=======
+            "id":"D17 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
@@ -2329,12 +2865,20 @@
          "source":{
             "cardinality":"one",
             "property":"date",
+<<<<<<< HEAD
             "id":"D22 : Date"
+=======
+            "id":"D21 : Date"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          },
          "target":{
             "cardinality":"one",
             "property":"transaction",
+<<<<<<< HEAD
             "id":"T20 : Transaction"
+=======
+            "id":"T22 : Transaction"
+>>>>>>> 87d82af4a323f0a6551425e34d4e9548ce54ce03
          }
       }
    ]

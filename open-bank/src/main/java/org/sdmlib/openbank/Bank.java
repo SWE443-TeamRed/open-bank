@@ -21,17 +21,14 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.util.Date;
-
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.UserSet;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Date;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -394,6 +391,7 @@ import org.sdmlib.openbank.Account;
             return acnt;
          }
       }
+
       return null;
    }
 
@@ -582,5 +580,66 @@ import org.sdmlib.openbank.Account;
       Account value = new Account();
       withAdminAccounts(value);
       return value;
-   } 
+   }
+
+   public String Login(String username, String password ) {
+      if (username == null || password == null) {
+         return null;
+      }
+
+      UserSet custUserSet = this.getCustomerUser();
+      for (User custUsr : custUserSet) {
+         if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
+            return custUsr.getUserID();
+         }
+      }
+
+      UserSet admnUserSet = this.getAdminUsers();
+      for (User admUsr : admnUserSet) {
+         if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            return admUsr.getUserID();
+         }
+      }
+
+      return null;
+   }
+
+   public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
+
+      User usr = new User();
+      usr.setUsername(username);
+      usr.setPassword(password);
+      usr.setPhone(phoneNumber);
+      usr.setIsAdmin(isAdmin);
+
+      if(isAdmin){
+         this.createAdminUsers();
+         this.withAdminUsers(usr);
+
+      }else{
+         this.createCustomerUser();
+         this.withCustomerUser(usr);
+      }
+
+      return "successful";
+   }
+
+   public String createAccount(String username) {
+
+      User usr1 = new User()
+              .withName(username)
+              .withUserID("tina1");
+
+      Account checking = new Account()
+              .withAccountnum(1)
+              .withOwner(usr1)
+              .withBalance(100);
+
+
+      this.createCustomerAccounts();
+      this.withCustomerAccounts(checking);
+
+      return "successful";
+   }
+
 }

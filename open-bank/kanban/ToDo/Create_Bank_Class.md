@@ -36,4 +36,7 @@ Assigned persons (currently working on task):
 Log entries (who worked when and how long on this):
     - Fatih, 2 hr (April 13)
     - Fatih, 2 hr (April 14)
-	
+    - Fatih, 1 hr (April 15)
+    - Fatih, 2 hr (April 16)
+    - Fatih, 1 hr (April 17)
+    - Fatih, 1 hr (April 18)
