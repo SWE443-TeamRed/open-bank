@@ -16,22 +16,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements HomeFrag.OnAccountSelectedListener{
+
+
+
 
     private DrawerLayout Drawer;
     private ActionBarDrawerToggle drawerToggle;
     private ListView drawerList;
     private Toolbar toolbar;
     public ActionBar actionBar;
-
     private Fragment home_fragment;
     private Fragment newhome_fragment;
 
@@ -47,7 +44,10 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-    private ArrayList<Account> accounts = new ArrayList<Account>();
+
+    private MockServerSingleton mockBankServer;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,42 +74,18 @@ public class MainActivity extends AppCompatActivity
         //Draw the actionbar
         addDrawerItems();
 
-        //Create User's and Accounts as dummy data
+        //Create User's and AccountDetails as dummy data
+
         JsonPersistency jsonp = new JsonPersistency();
-        User tina = new User().withUserID("tina1").withPassword("tinapass");
-        Account tinac = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(1)
-                .withType(AccountTypeEnum.SAVINGS)
-                .withCreationdate(new Date());
-        Account tinas = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(2)
-                .withType(AccountTypeEnum.SAVINGS)
-                .withCreationdate(new Date());
-        Account tinap = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(3)
-                .withType(AccountTypeEnum.CHECKING)
-                .withCreationdate(new Date());
-        System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
-        tinac.withdraw(1); //90
-        tinac.withdraw(20);  //70
-        tinac.withdraw(30);  //40
-        tinac.deposit(1000);  //1040
-        tinac.deposit(500);  //1540
-        tinac.withdraw(400); // 1140
-        tinac.withdraw(800); // 340
-        tinac.withdraw(20);   //320
+
+        mockBankServer = MockServerSingleton.getInstance();
+
+
 
         /*
-            Add Tina's account set to MainActivity Accounts data structure
+            Add Tina's account set to MainActivity AccountDetails data structure
             ArrayList<Account> needed for account list in homepage
          */
-        accounts.addAll(tina.getAccount());
     }
 
     private void addDrawerItems() {
@@ -161,12 +137,10 @@ public class MainActivity extends AppCompatActivity
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 5:
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, logout_fragment
-
-                        );
-                        transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
+                        Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                        startActivity(intent);
+
                         break;
                 }
             }
@@ -190,8 +164,6 @@ public class MainActivity extends AppCompatActivity
         open_account_fragment = new OpenAccountFrag();
 
 
-        /********Logout Fragment********/
-        logout_fragment = new LogoutFrag();
 
         /********Logout Fragment********/
         contacts_fragment = new ContactsFrag();
@@ -201,12 +173,11 @@ public class MainActivity extends AppCompatActivity
 
 
         //Initiate homepage Fragment when app opens
-       transaction = fm.beginTransaction();
+        transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
         transaction.addToBackStack(null);
         transaction.commit();
-        /*Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent); */
+
     }
 
     /*
@@ -216,45 +187,29 @@ public class MainActivity extends AppCompatActivity
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
         getFragmentManager().popBackStack();
-        Intent intent = new Intent(this, Accounts.class);
-        intent.putExtra("accountIndex",id);
+        /*
+            TODO TRACK WHICH ACCOUNT THE USER HAS SELECTED TO VIEW AND WORK WITH (SERVER SIDE?)
+         */
+        mockBankServer.setAccountIndex(id);
+        Intent intent = new Intent(this, AccountDetails.class);
         startActivity(intent);
     }
 
-    //Give Home fragments arrayList of accounts
-    public ArrayList<Account> getAccounts(){
-        return accounts;
-    }
+
+
 
     public boolean onOptionsItemSelected(MenuItem item){
         System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
-        //Do not create a new Intent for Main Activity here as this will destory all data being tracked
-        //Set the (Account Details, Transfer, Transaction) view to gone and the mainView to visible to display homepage
-        //Initiate the Homepage fragment
-//
-//        adapter.notifyDataSetChanged();
-//        transaction = fm.beginTransaction();
-//        newhome_fragment = new HomeFrag();
-//        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-//        transaction.addToBackStack(null);
-//        transaction.commit();
+
+
         return true;
+
     }
 
     @Override
     public void onBackPressed() {
         System.out.println("Logout by back press");
         finish();
-//            adapter.notifyDataSetChanged();
-//            Drawer.invalidate();
-//            actionBar.invalidateOptionsMenu();
-//
-//
-//            transaction = fm.beginTransaction();
-//            newhome_fragment = new HomeFrag();
-//            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-//            transaction.addToBackStack(null);
-//            transaction.commit();
 
     }
 

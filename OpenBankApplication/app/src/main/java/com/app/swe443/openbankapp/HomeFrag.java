@@ -29,7 +29,7 @@ public class HomeFrag extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Account> mDataset;
     private OnAccountSelectedListener  mCallback;
-
+    private MockServerSingleton mockserver;
 
     // Main Activity must implement this interface in order to communicate with HomeFrag
     public interface OnAccountSelectedListener {
@@ -61,10 +61,16 @@ public class HomeFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        /*
+            TODO ESTABLISH CONTACT WITHT EH SERVER
+         */
+        mockserver = MockServerSingleton.getInstance();
+
         //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
-        homepageHeaderName.setText("Welcome " + "Nick");
+        homepageHeaderName.setText("Welcome " + mockserver.getLoggedInUser().getName());
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -78,10 +84,10 @@ public class HomeFrag extends Fragment {
         //Account tinaa = jsonp.fromJson(tina.getUserID());
 
         //Set data and send it to the Adapter
-        ArrayList<Account> data = new ArrayList<Account>();
-        MainActivity activity = (MainActivity) getActivity();
-        data.addAll(activity.getAccounts());
-        rViewAdapter = new MyAdapter(data, getContext());
+        /*
+           TODO NEED ARRAYLIST OF THE USER'S ACCOUNT (SERVER?)
+         */
+        rViewAdapter = new MyAdapter(mockserver.getAccounts(), getContext());
         mRecyclerView.setAdapter(rViewAdapter);
 
         return v;

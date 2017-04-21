@@ -21,36 +21,17 @@
 
 package com.app.swe443.openbankapp.Support;
 
-import com.app.swe443.openbankapp.JsonPersistency;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
- /*
-   Copyright (c) 2017 FA
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-   and associated documentation files (the "Software"), to deal in the Software without restriction,
-   including without limitation the rights to use, copy, modify, merge, publish, distribute,
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-   furnished to do so, subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all copies or
-   substantial portions of the Software.
-
-   The Software shall be used for Good, not Evil.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ *
+ * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
-
-
 public  class Transaction implements SendableEntity
 {
 
@@ -108,6 +89,7 @@ public  class Transaction implements SendableEntity
    {
       setFromAccount(null);
       setToAccount(null);
+      setBank(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -368,11 +350,10 @@ public  class Transaction implements SendableEntity
       return value;
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_TRANSTYPE = "transType";
-   
 
    private TransactionTypeEnum transType;
 
@@ -381,7 +362,6 @@ public  class Transaction implements SendableEntity
       return this.transType;
    }
 
-
    public void setTransType(TransactionTypeEnum value)
    {
       if (value ==null) {
@@ -389,12 +369,12 @@ public  class Transaction implements SendableEntity
       }
 
       if (this.transType != value) {
+
          TransactionTypeEnum oldValue = this.transType;
          this.transType = value;
          this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
       }
    }
-
 
    public Transaction withTransType(TransactionTypeEnum value)
    {
@@ -402,9 +382,9 @@ public  class Transaction implements SendableEntity
       return this;
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_CREATIONDATE = "creationdate";
 
    private Date creationdate;
@@ -441,5 +421,64 @@ public  class Transaction implements SendableEntity
       Account accnt = json.fromJson(userID);
 
       return accnt;
+   }
+
+
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Bank
+    *              transaction                   bank
+    * </pre>
+    */
+
+   public static final String PROPERTY_BANK = "bank";
+
+   private Bank bank = null;
+
+   public Bank getBank()
+   {
+      return this.bank;
+   }
+
+   public boolean setBank(Bank value)
+   {
+      boolean changed = false;
+
+      if (this.bank != value)
+      {
+         Bank oldValue = this.bank;
+
+         if (this.bank != null)
+         {
+            this.bank = null;
+            oldValue.setTransaction(null);
+         }
+
+         this.bank = value;
+
+         if (value != null)
+         {
+            value.withTransaction(this);
+         }
+
+         firePropertyChange(PROPERTY_BANK, oldValue, value);
+         changed = true;
+      }
+
+      return changed;
+   }
+
+   public Transaction withBank(Bank value)
+   {
+      setBank(value);
+      return this;
+   }
+
+   public Bank createBank()
+   {
+      Bank value = new Bank();
+      withBank(value);
+      return value;
    }
 }

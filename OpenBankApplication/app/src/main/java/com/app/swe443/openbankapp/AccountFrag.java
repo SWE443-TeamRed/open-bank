@@ -31,7 +31,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private TextView ownerText;
     private TextView typeText;
     private TextView creationText;
-    private Accounts activity;
+    private AccountDetails activity;
     private OnAccountsCallbackListener mCallback;
 
 
@@ -84,7 +84,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         final View v =  inflater.inflate(R.layout.fragment_account,container,false);
 
-        activity = (Accounts) getActivity();
+        activity = (AccountDetails) getActivity();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             accountIndex = bundle.getInt("id",-1);

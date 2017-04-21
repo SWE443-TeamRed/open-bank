@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 
-public class Accounts extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener  {
+public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
 
 
     //Variables to initalize tabs menu
@@ -33,16 +33,17 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
     //Fields of the account selected
     private int accountIndex;
     private Account account;
+    private MockServerSingleton mockBankServer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accounts);
 
+        mockBankServer = MockServerSingleton.getInstance();
+
         //Get accountIndex from MainActivity
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        accountIndex = extras.getInt("accountIndex");
+        accountIndex = mockBankServer.getAccountIndex();
         System.out.println("Obtained Account Index "+accountIndex);
 
         //Set of the Pager fragments
@@ -60,42 +61,13 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
         actionBar.setHomeButtonEnabled(true);
 
 
-        //Create User's and Accounts as dummy data
+        //Create User's and AccountDetails as dummy data
         JsonPersistency jsonp = new JsonPersistency();
-        User tina = new User().withUserID("tina1").withPassword("tinapass");
-        Account tinac = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(1)
-                .withType(AccountTypeEnum.SAVINGS)
-                .withCreationdate(new Date());
-        Account tinas = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(2)
-                .withType(AccountTypeEnum.SAVINGS)
-                .withCreationdate(new Date());
-        Account tinap = new Account()
-                .withBalance(100)
-                .withOwner(tina)
-                .withAccountnum(3)
-                .withType(AccountTypeEnum.CHECKING)
-                .withCreationdate(new Date());
-        System.out.println("TYPE OF ACCOUNT IS " + tinac.getType());
-        tinac.withdraw(1); //90
-        tinac.withdraw(20);  //70
-        tinac.withdraw(30);  //40
-        tinac.deposit(1000);  //1040
-        tinac.deposit(500);  //1540
-        tinac.withdraw(400); // 1140
-        tinac.withdraw(800); // 340
-        tinac.withdraw(20);   //320
-
 
         /*
             Get the account that these fragments will use
          */
-        account = tina.getAccount().get(accountIndex);
+        account = mockBankServer.getLoggedInUser().getAccount().get(accountIndex);
 
     }
 
@@ -145,6 +117,9 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
     public void onWithdrawSelected(int amount) {
         System.out.println("onWithdrawSelected mathod initiated, initial balance of account is "+ account.getBalance());
         //Fufill withdraw
+        /*
+                TODO WITHDRAW SHOULD NOT OCCUR HERE
+         */
         account.withdraw(amount);
         System.out.println("Balance after withdraw "+account.getBalance());
 
@@ -153,6 +128,16 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
         viewerPager.invalidate();
 
     }
+
+    public void onTransferSelected() {
+        System.out.println("onTransferSelected method initiated, balance of account is "+ account.getBalance());
+        //Notify Pager adapter to update info in transaction and account fragments
+        fragmentPagerAdapter.notifyDataSetChanged();
+        viewerPager.invalidate();
+
+    }
+
+
 
 
 

@@ -1,38 +1,57 @@
 package com.app.swe443.openbankapp;
 
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.swe443.openbankapp.Support.*;
+import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.User;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by kimberly_93pc on 4/13/17.
  */
 
-public class OpenAccountFrag extends Fragment implements View.OnClickListener {
-    boolean savings = false;
-    boolean checking = false;
+public class OpenAccountFrag extends Fragment implements View.OnClickListener{
 
-    EditText balance = null;
+    private EditText nameOfUserInput ;
+    private EditText phoneInput;
+    private EditText emailInput;
+    private EditText usernameInput;
+    private EditText confirmpasswordInput;
+    private EditText passwordInput;
+    private CheckBox isAdminCheckBox;
+    private EditText initalBalanceInput;
+    private Spinner initalAccountType;
+
+    //Form layout to set blank for account completion message
+    private LinearLayout createAccountFormLayout;
+    private LinearLayout formButtonLayout;
+    private LinearLayout createAccountSuccessLayout;
+
+    private TextView complettionMessage;
+    private Button completeCreateAccountButton;
+
+    private Button cancelCreateAccount;
+    private Button confirmCreateAccount;
+
+    private Activity activity;
+    private MockServerSingleton mockserver;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,77 +60,148 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_open_account, container, false);
+        View v= inflater.inflate(R.layout.fragment_open_account, container, false);
 
-        //Open account button
-        Button button = (Button) view.findViewById(R.id.open_account_button);
-        button.setOnClickListener(this);
-        //Text field for amount
-        balance =  (EditText) view.findViewById(R.id.initail_value);
 
-        //Radio buttons for account type
-        RadioGroup rad = (RadioGroup) view.findViewById(R.id.radio_group);
-        rad.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId) {
-                    case R.id.checking_rad:
-                       savings = true;
-                        break;
-                    case R.id.savings_rad:
-                        checking = true;
-                        break;
-                }
-            }
-        });
+        activity = (LoginActivity) getActivity();
+        //Initialize bank instance
+        mockserver = MockServerSingleton.getInstance();
 
-        return view;
+        //Create form layouts
+        createAccountFormLayout = (LinearLayout) v.findViewById(R.id.createAccountFormLayout);
+        formButtonLayout = (LinearLayout) v.findViewById(R.id.buttonlayout);
+        createAccountSuccessLayout = (LinearLayout) v.findViewById(R.id.createAccountSuccessLayout);
+        createAccountSuccessLayout.setVisibility(View.GONE);
+
+        //Form's fields
+        nameOfUserInput = (EditText) v.findViewById(R.id.nameOfUserInput);
+        phoneInput = (EditText) v.findViewById(R.id.phoneInput);
+        emailInput = (EditText) v.findViewById(R.id.emailInput);
+        usernameInput = (EditText) v.findViewById(R.id.usernameInput);
+        confirmpasswordInput = (EditText) v.findViewById(R.id.confirmPasswordInput);
+        passwordInput = (EditText) v.findViewById(R.id.passwordInput);
+        isAdminCheckBox = (CheckBox) v.findViewById(R.id.adminCheckBox);
+        initalBalanceInput = (EditText) v.findViewById(R.id.initialBalanceInput);
+        initalAccountType = (Spinner) v.findViewById(R.id.accounttypeSpinner);
+
+        cancelCreateAccount = (Button) v.findViewById(R.id.cancelCreateAccount);
+        cancelCreateAccount.setOnClickListener(this);
+
+        confirmCreateAccount = (Button) v.findViewById(R.id.confirmCreateAccount);
+        confirmCreateAccount.setOnClickListener(this);
+
+        complettionMessage = (TextView) v.findViewById(R.id.transferCompleteMessage);
+        completeCreateAccountButton = (Button) v.findViewById(R.id.completeTransferButton);
+        completeCreateAccountButton.setOnClickListener(this);
+
+
+        return v;
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cancelCreateAccount:
+                System.out.println("Cancel Create Account Requested");
+                getFragmentManager().popBackStack();
 
-      //If clicked on open account button.
-      if(v == getView().findViewById(R.id.open_account_button))
-      {
-          User tina = new User().withUserID("tina1").withPassword("tinapass");
-          Account newAccount = new Account()
-                  .withOwner(tina)
-                  .withAccountnum(1)
-                  .withCreationdate(new Date());
-          newAccount.withBalance(Integer.parseInt(balance.getText().toString()));
-          Intent Intent = new Intent(getContext(), MainActivity.class);
+                break;
+            case R.id.confirmCreateAccount:
+                boolean incomplete = false;
+                System.out.println("Create Account Requested");
+                if (nameOfUserInput.getText().toString().equals("")) {
+                    nameOfUserInput.setError("Missing your name");
+                    //Toast.makeText(getContext(), "Missing your name", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (phoneInput.getText().toString().equals("")) {
+                    phoneInput.setError("Missing phone number");
+                    //Toast.makeText(getContext(), "Missing Phone", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (emailInput.getText().toString().equals("")) {
+                    emailInput.setError("Missing Email");
+                    //Toast.makeText(getContext(), "Missing Email", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (usernameInput.getText().toString().equals("")) {
+                   usernameInput.setError("Missing Username");
+                    //Toast.makeText(getContext(), "Missing Username",Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (passwordInput.getText().toString().equals("")){
+                   passwordInput.setError("Missing Password");
+                    // Toast.makeText(getContext(), "Missing Password",Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (confirmpasswordInput.getText().toString().equals("")) {
+                   confirmpasswordInput.setError("Confirm your password");
+                    // Toast.makeText(getContext(), "Confirm your passwrod",                            Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (initalBalanceInput.getText().toString().equals("")) {
+                   initalBalanceInput.setError("Please enter an initial balance");
+                    // Toast.makeText(getContext(), "Please enter an initial balance of your first account", Toast.LENGTH_SHORT).show();
+                    incomplete = true;
+                }
+                if (!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString()))) {
+                    //Toast.makeText(getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
+                    passwordInput.setError("Passwords don't match");
+                    incomplete = true;
+                }
+                if(incomplete)
+                    break;
+                /*
 
-          if(savings)
-          {
-              newAccount.withType(AccountTypeEnum.SAVINGS);
-              getContext().startActivity(Intent);
+                    TODO CONTACT SERVER AND REQUEST A NEW USER WITH ACCOUNT BE CREATED
+                 */
+                Boolean isAdmin = isAdminCheckBox.isChecked();
+                AccountTypeEnum type;
+                if(initalAccountType.getSelectedItem().toString().equals("Savings"))
+                    type = AccountTypeEnum.SAVINGS;
+                else
+                    type = AccountTypeEnum.CHECKING;
 
-          }
+                User user = new User()
+                        .withName(nameOfUserInput.getText().toString())
+                        .withPassword(passwordInput.getText().toString())
+                        .withPhone(phoneInput.getText().toString())
+                        .withEmail(emailInput.getText().toString())
+                        .withUserID(usernameInput.getText().toString())
+                        .withIsAdmin(isAdmin)
+                        .withBank(mockserver.getBank())
+                        .withUsername(usernameInput.getText().toString());
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+                int newAccountNum= mockserver.getUniqueAccountNum();
+                user.withAccount(new Account()
+                    .withAccountnum(newAccountNum)
+                        .withType(type)
+                        .withOwner(user)
+                        .withCreationdate(new Date())
+                        .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
+                mockserver.getBank().withCustomerUser(user);
+               completeNewAccount(newAccountNum);
 
-          else if(checking)
-          {
-              newAccount.withType(AccountTypeEnum.CHECKING);
-              getContext().startActivity(Intent);
+                break;
+            case R.id.completeTransferButton:
+                //Go to login
+                getFragmentManager().popBackStack();
+        }
+    }
 
-          }
-          else
-          {
-              new AlertDialog.Builder(this.getContext())
-                      .setTitle("Missing Field")
-                      .setMessage("Please select account type")
-                      .setNeutralButton("ok", new DialogInterface.OnClickListener() {
-                          public void onClick(DialogInterface dialog, int which) {
-                              dialog.cancel();
-                          }
-                      })
-                      .setIcon(android.R.drawable.ic_dialog_alert)
-                      .show();
-          }
+    public void completeNewAccount(int newAccountNum){
+        Toast.makeText(getContext(), "Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users",
+                Toast.LENGTH_SHORT).show();
+        createAccountFormLayout.setVisibility(View.GONE);
+        formButtonLayout.setVisibility(View.GONE);
+        createAccountSuccessLayout.setVisibility(View.VISIBLE);
+        complettionMessage.setText("Your account is created! Your account number is "+newAccountNum+". Save this for your records.");
 
-      }
+
+
     }
 }
-
