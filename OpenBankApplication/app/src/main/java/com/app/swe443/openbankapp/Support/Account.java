@@ -487,7 +487,7 @@ public  class Account implements SendableEntity
                         .withFromAccount(reciever);
                 this.withDebit(newTrans);
                 accountTransactions.addFirst(newTrans);
-                reciever.accountTransactions.addFirst(newTrans);
+                reciever.accountTransactions.addFirst(newTrans.withNote(this.getOwner().getName() +" sent you "+amount));
                 System.out.println("RECIEVER HAS BALANCE OF "+reciever.getBalance() +" credit of "+reciever.getCredit().size());
                 System.out.println("GIVER HAS BALANCE OF "+this.getBalance()+" debit of "+this.getDebit().size());
 
