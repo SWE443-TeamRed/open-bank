@@ -21,7 +21,7 @@ import java.util.Date;
         import java.util.LinkedList;
 
 
-public class Accounts extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
+public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
 
 
     //Variables to initalize tabs menu
@@ -61,7 +61,7 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
         actionBar.setHomeButtonEnabled(true);
 
 
-        //Create User's and Accounts as dummy data
+        //Create User's and AccountDetails as dummy data
         JsonPersistency jsonp = new JsonPersistency();
 
         /*

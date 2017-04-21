@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 
@@ -31,7 +30,7 @@ public class TransactionFrag extends Fragment {
     private int accountID;
 
     //Parent activity which stores data
-    Accounts activity;
+    AccountDetails activity;
     private MockServerSingleton mockBankServer;
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
@@ -62,11 +61,11 @@ public class TransactionFrag extends Fragment {
         if(transactions.size()!=0){
             transactions.clear();
         }
-        //Accounts Activity reference, used to get account and transaction data through Main's methods
-        activity = (Accounts) getActivity();
+        //AccountDetails Activity reference, used to get account and transaction data through Main's methods
+        activity = (AccountDetails) getActivity();
         //Grab Account ID from the passed in argument
 
-            //Call to Accounts Activity to get transactions of specific account
+            //Call to AccountDetails Activity to get transactions of specific account
             transactions.addAll(mockBankServer.getTransactions());
             System.out.println("Getting the user's transactions of size "+transactions.size());
             /*

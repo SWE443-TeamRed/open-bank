@@ -154,7 +154,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                                     ,Double.valueOf(amount.getText().toString()));
                             Toast.makeText(getContext(), "Sending....COMPLETE!",
                                     Toast.LENGTH_SHORT).show();
-                            //Contact Accounts activity that it needs to refresh the tabs with new trasnfer info
+                            //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
                             mCallback.onTransferSelected();
 
                             setOptionsVisibility(1);

@@ -16,13 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.Bank;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements HomeFrag.OnAccountSelectedListener{
@@ -80,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         //Draw the actionbar
         addDrawerItems();
 
-        //Create User's and Accounts as dummy data
+        //Create User's and AccountDetails as dummy data
 
         JsonPersistency jsonp = new JsonPersistency();
 
@@ -89,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /*
-            Add Tina's account set to MainActivity Accounts data structure
+            Add Tina's account set to MainActivity AccountDetails data structure
             ArrayList<Account> needed for account list in homepage
          */
     }
@@ -170,8 +164,6 @@ public class MainActivity extends AppCompatActivity
         open_account_fragment = new OpenAccountFrag();
 
 
-        /********Logout Fragment********/
-        logout_fragment = new LogoutFrag();
 
         /********Logout Fragment********/
         contacts_fragment = new ContactsFrag();
@@ -199,7 +191,7 @@ public class MainActivity extends AppCompatActivity
             TODO TRACK WHICH ACCOUNT THE USER HAS SELECTED TO VIEW AND WORK WITH (SERVER SIDE?)
          */
         mockBankServer.setAccountIndex(id);
-        Intent intent = new Intent(this, Accounts.class);
+        Intent intent = new Intent(this, AccountDetails.class);
         startActivity(intent);
     }
 
