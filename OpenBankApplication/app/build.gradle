@@ -20,7 +20,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            multiDexKeepFile file ('multidex-config.txt')
+            multiDexKeepFile file('multidex-config.txt')
         }
     }
     dexOptions {
