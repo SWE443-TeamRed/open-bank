@@ -200,16 +200,6 @@ public class MainActivity extends AppCompatActivity
 
     public boolean onOptionsItemSelected(MenuItem item){
         System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
-        //Do not create a new Intent for Main Activity here as this will destory all data being tracked
-        //Set the (Account Details, Transfer, Transaction) view to gone and the mainView to visible to display homepage
-        //Initiate the Homepage fragment
-//
-//        adapter.notifyDataSetChanged();
-//        transaction = fm.beginTransaction();
-//        newhome_fragment = new HomeFrag();
-//        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-//        transaction.addToBackStack(null);
-//        transaction.commit();
 
 
         return true;
@@ -220,16 +210,6 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         System.out.println("Logout by back press");
         finish();
-//            adapter.notifyDataSetChanged();
-//            Drawer.invalidate();
-//            actionBar.invalidateOptionsMenu();
-//
-//
-//            transaction = fm.beginTransaction();
-//            newhome_fragment = new HomeFrag();
-//            transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
-//            transaction.addToBackStack(null);
-//            transaction.commit();
 
     }
 
