@@ -26,9 +26,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
         implements HomeFrag.OnAccountSelectedListener{
 
-
-
-
     private DrawerLayout Drawer;
     private ActionBarDrawerToggle drawerToggle;
     private ListView drawerList;
@@ -51,9 +48,6 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
     private ArrayList<Account> accounts = new ArrayList<Account>();
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,11 +201,12 @@ public class MainActivity extends AppCompatActivity
 
 
         //Initiate homepage Fragment when app opens
-        transaction = fm.beginTransaction();
+       transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
         transaction.addToBackStack(null);
         transaction.commit();
-
+        /*Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent); */
     }
 
     /*
@@ -225,7 +220,6 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("accountIndex",id);
         startActivity(intent);
     }
-
 
     //Give Home fragments arrayList of accounts
     public ArrayList<Account> getAccounts(){
@@ -244,9 +238,7 @@ public class MainActivity extends AppCompatActivity
 //        transaction.replace(home_fragment.getId(), newhome_fragment, "Home_FRAGMENT");
 //        transaction.addToBackStack(null);
 //        transaction.commit();
-
         return true;
-
     }
 
     @Override

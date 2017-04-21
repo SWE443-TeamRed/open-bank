@@ -74,13 +74,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:textAppearanceSmall"
-                android:textColor="#0b3c5d"
-                android:text="Forgot Password"/>
-
         <TextView
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
@@ -90,7 +83,7 @@
 
 
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/sign_in_button"
         style="?android:textAppearanceSmall"
         android:background="#0b3c5d"
         android:layout_width="wrap_content"

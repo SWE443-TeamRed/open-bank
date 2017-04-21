@@ -49,5 +49,4 @@ public class SignUp4Activity extends AppCompatActivity {
         rb = (RadioButton)findViewById(radiobuttons);
     }
 
-    //public
 }
