@@ -24,32 +24,32 @@ package com.app.swe443.openbankapp.Support;
 
 public enum TransactionTypeEnum
 {
-		DEPOSIT,
-		WITHDRAW,
-		DELETE,
-		CREATE,
-		TRANSFER;
+		Deposit,
+		Withdraw,
+		Delete,
+		Create,
+		Transfer;
 
-   
-   //==========================================================================
-   public String toString()
-   {
+
+    //==========================================================================
+    public String toString()
+    {
         switch(this) {
-            case DEPOSIT:
+            case Deposit:
                 return "Deposit";
-            case WITHDRAW:
+            case Withdraw:
                 return "Withdraw";
-            case CREATE:
+            case Create:
                 return "Create";
-            case DELETE:
+            case Delete:
                 return "Delete";
-            case TRANSFER:
+            case Transfer:
                 return "Transfer";
         }
-       return null;
-   }
+        return null;
+    }
 
-   
+
    //==========================================================================
      TransactionTypeEnum(  )
    {

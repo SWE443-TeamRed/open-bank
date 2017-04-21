@@ -21,14 +21,12 @@
    
 package com.app.swe443.openbankapp.Support;
 
-import org.sdmlib.replication.util.ChangeEventListSet;
-
 public enum AccountTypeEnum
 {
-		SAVINGS,
-		CHECKING;
+   SAVINGS,
+   CHECKING;
 
-   
+
    //==========================================================================
    public String toString()
    {
@@ -38,9 +36,9 @@ public enum AccountTypeEnum
          return "CHECKING";
    }
 
-   
+
    //==========================================================================
-     AccountTypeEnum(  )
+   AccountTypeEnum(  )
    {
    }
 }

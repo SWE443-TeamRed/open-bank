@@ -1,9 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.JsonPersistency;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.*;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.util.Date;
@@ -22,6 +19,7 @@ public class Test_Improving_Backend_Functionality {
         trans = new org.sdmlib.openbank.Transaction();
     }
 
+    //******** TRANSACTION CLASS TESTS *****************
     @Test(expected=IllegalArgumentException.class)
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
@@ -973,5 +971,177 @@ public class Test_Improving_Backend_Functionality {
         bob.login("bobby17", "BillyB$b1");
         assertTrue(bob.isLoggedIn());
         bob.setPhone("7031234567");
+    }
+
+
+    //******* BANK CLASS TEST CASES ************
+
+    @Test
+    // FA test findAccountByID with a valid account number
+    public void testfindAccountByID() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+
+        Account checking = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(checking);
+
+        Account acntGet = bnk.findAccountByID(1);
+        //System.out.println("acntGet" + acntGet);
+        assertTrue(1==acntGet.getAccountnum());
+    }
+
+    @Test
+    // FA test findAccountByID with empty account abject, should return null
+    public void testfindAccountByIDWithNull() {
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(null);
+
+        Account acntGet = bnk.findAccountByID(1);
+        //System.out.println("acntGet" + acntGet);
+        assertTrue(null==acntGet);
+    }
+
+    /**
+     * 1. Test login validation of all customerAccounts given correct credentials
+     * 2. Test login validation of all AdminAccounts given correct credentials
+     * 3. Test login validation given incorrect userID
+     * 4. Test login validation given incorrect password
+     * 5. Test login validation given invalid accountNum
+     */
+    @Test
+    public void testvalidateLogin() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1")
+                .withPassword("Th3C@pt");
+        User usr3 = new User()
+                .withName("kevin")
+                .withUserID("ksludo")
+                .withPassword("Zh1p@n");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Account checking2 = new Account()
+                .withAccountnum(2)
+                .withOwner(usr2)
+                .withBalance(1000);
+        Account checking3 = new Account()
+                .withAccountnum(3)
+                .withOwner(usr3)
+                .withBalance(12300000);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerAccounts(checking2);
+        bnk.withAdminAccounts(checking3);
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+        bnk.withAdminUsers(usr3);
+
+        assertFalse("Validated karli's login with incorrect password", bnk.validateLogin(1, "karli25", "SDML1b"));
+        assertTrue("Did not successfully validate karli's login", bnk.validateLogin(1, "karli25", "StudyRight"));
+        assertFalse("Validated account 2 with incorrect userID", bnk.validateLogin(2, "steverog2", "Th3C@pt"));
+        assertTrue("Did not successfully validate steve's login" ,bnk.validateLogin(2, "steverog1", "Th3C@pt"));
+        assertTrue("Did not validate admin login", bnk.validateLogin(3, "ksludo", "Zh1p@n"));
+        assertFalse("Validated login of an nonexisting account", bnk.validateLogin(4, "ulnoSDM", "SDML1b"));
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of an account with a negative ID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNegativeAccountID() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(-1, "karli25", "StudyRight");
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of null UserID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNullUserID() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(1, null, "StudyRight");
+    }
+
+    // Should throw an IllegalArgument Exception when trying to validate login of null UserID
+    @Test (expected = IllegalArgumentException.class)
+    public void testvalidateLoginWithNullPassword() {
+        User usr1 = new User()
+                .withName("karli")
+                .withUserID("karli25")
+                .withPassword("StudyRight");
+        Account checking1 = new Account()
+                .withAccountnum(1)
+                .withOwner(usr1)
+                .withBalance(100);
+        Bank bnk = new Bank();
+        bnk.withCustomerAccounts(checking1);
+        bnk.withCustomerUser(usr1);
+        bnk.validateLogin(1, "karli25", null);
+    }
+
+    // Tests if findUserByID can find all users associated with the bank
+    // Also tests for the case in which the user cannot be found
+    @Test
+    public void testfindUserByID() {
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1");
+        Bank bnk = new Bank();
+        bnk.withCustomerUser(usr1);
+        bnk.withCustomerUser(usr2);
+
+        User usr = bnk.findUserByID("steverog1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("tina1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("tina1");
+        assertTrue(usr.getUserID().equals(usr.getUserID()));
+        usr = bnk.findUserByID("noone");
+        assertTrue("User does not exist", usr == null);
+    }
+
+    @Test
+    public void testfindUserByIDWithNull() {
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(null);
+
+        User usrGet = bnk.findUserByID("steverog1");
+        assertTrue(usrGet == null);
     }
 }

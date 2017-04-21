@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 
@@ -29,10 +28,10 @@ public class TransactionFrag extends Fragment {
     //UI fields
     private TextView transactionHeaderName;
     private int accountID;
-    private Account account;
 
     //Parent activity which stores data
-    Accounts activity;
+    AccountDetails activity;
+    private MockServerSingleton mockBankServer;
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     //Calculate each change in balance as a result of each transaction. Display this with each transaction
@@ -54,27 +53,25 @@ public class TransactionFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("Creating transaction fragment");
+        System.out.println("Creating transaction fragment, there are "+transactions.size()+ " transactions");
+
+        mockBankServer = MockServerSingleton.getInstance();
 
         //Clear local transactions after every fragement load
         if(transactions.size()!=0){
             transactions.clear();
         }
-        //Accounts Activity reference, used to get account and transaction data through Main's methods
-        activity = (Accounts) getActivity();
+        //AccountDetails Activity reference, used to get account and transaction data through Main's methods
+        activity = (AccountDetails) getActivity();
         //Grab Account ID from the passed in argument
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            //Account ID
-            accountID = bundle.getInt("id",-1);
-            account = activity.getAccount();
-            //Call to Accounts Activity to get transactions of specific account
-            transactions.addAll(activity.getTransactions());
 
+            //Call to AccountDetails Activity to get transactions of specific account
+            transactions.addAll(mockBankServer.getTransactions());
+            System.out.println("Getting the user's transactions of size "+transactions.size());
             /*
                 Calculate the updated balance after each transaction occurs
              */
-            transCost = account.getBalance();
+            transCost = mockBankServer.getAccount().getBalance();
             //For every transaction in the account, calculate the account balance as a result of the trasaction, store for display
             for(int i=0;i<transactions.size();i++){
                 if(i==0)
@@ -82,25 +79,31 @@ public class TransactionFrag extends Fragment {
                     transactionBalances.add(i,transCost);
                 else {
                     //Every transactions 'current balance' should be value before the previous transction took place
-                    if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.DEPOSIT)) {
+                    if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Deposit)) {
                         //i-1 = the transaction infront of i, subtracting when a deposit occurs shows balance before Deposit at i-1 took place
                         transCost -= transactions.get(i-1).getAmount();
                         transactionBalances.add(i, transCost);
                         System.out.println("Deposit  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
 
-                    } else {
+                    } else if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Withdraw)) {
                         //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
                         transCost += transactions.get(i-1).getAmount();
                         transactionBalances.add(i, transCost);
                         System.out.println("Withdrew  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
 
 
+                    }else if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Transfer)) {
+                        //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
+                        transCost += transactions.get(i-1).getAmount();
+                        transactionBalances.add(i, transCost);
+                        System.out.println("Transfer  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
+
                     }
                 }
             }
         }
 
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -193,7 +196,7 @@ public class TransactionFrag extends Fragment {
         public void onBindViewHolder(TransactionFrag.MyAdapter.ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.TRANSFER))
+            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Transfer))
                 holder.fromText.setText(String.valueOf(String.valueOf(transactions.get(position).getFromAccount().getOwner().getName())));
             else
                 holder.fromText.setText(String.valueOf("Self"));
@@ -203,7 +206,7 @@ public class TransactionFrag extends Fragment {
             holder.dateText.setText(String.valueOf(newDateFormat));
             holder.typeText.setText(String.valueOf(transactions.get(position).getTransType()));
 
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.DEPOSIT)) {
+            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit)) {
                  holder.amountText.setText(String.valueOf(transactions.get(position).getAmount()));
                  holder.balanceText.setText(String.valueOf(transactionBalances.get(position)));
 
