@@ -251,106 +251,80 @@ public class SparkServer {
                     JSONArray jsonArray = new JSONArray();
                     JSONObject accountJson = new JSONObject();
 
-                    if(BANKMODE)
-                    {
-                        if (request.queryParams().contains("userID") && request.queryParams().contains("accountID")) {
-                            String userID = request.queryParams("userID");
+                    if (request.queryParams().contains("id")) {
+
+                        String id = request.queryParams("id");
+
+                        if(request.queryParams().contains("accountID")) {
                             int accountID = Integer.parseInt(request.queryParams("accountID"));
                             Account account = bank.findAccountByID(accountID);
 
-                            logger.info("User id: " + userID);
-                            logger.info("User Accounts: " + bank.findUserByID(userID).getAccount());
-                            logger.info("Account id: " + accountID);
-                            logger.info("Account located: " + account);
-
-                            if(account != null) {
+                            if (account != null) {
                                 accountJson.put("accountNumber", account.getAccountnum());
+                                accountJson.put("accountType", account.getType());
                                 accountJson.put("balance", account.getBalance());
-                            }else {
+                                jsonArray.add(accountJson);
+                            } else {
                                 accountJson.put("request", "failed");
+                                accountJson.put("reason", "bank failed to locate account");
+                                jsonArray.add(accountJson);
                             }
                         }else {
-                            accountJson.put("request", "failed");
-                        }
-                    }
-//                    if(!BANKMODE) {
-//                        if (request.queryParams().contains("username")) {
-//                            String username = request.queryParams("username");
-//
-//                            if (userMap.containsKey(username)) {
-//                                accountJson.put("request", "successful");
-//                                accountJson.put("accountNumber", userMap.get(username).getAccount().getAccountnum());
-//                                accountJson.put("balance", userMap.get(username).getAccount().getBalance());
-//                            }else {
-//                                accountJson.put("request", "failed");
-//                            }
-//                        }else {
-//                            accountJson.put("request", "failed");
-//                        }
-//                    }
+                            AccountSet accounts = bank.findUserByID(id).getAccount();
 
-                    jsonArray.add(accountJson);
+                            for(Account account : accounts){
+                                if (account != null) {
+                                    accountJson.put("accountNumber", account.getAccountnum());
+                                    accountJson.put("accountType", account.getType());
+                                    accountJson.put("balance", account.getBalance());
+                                    jsonArray.add(accountJson);
+                                }
+                            }
+                        }
+                    }else {
+                        accountJson.put("request", "failed");
+                        accountJson.put("reason","missing required parameters in body");
+                        jsonArray.add(accountJson);
+                    }
+
                     return jsonArray;
                 });
                 post("", (Request request, Response response) -> {
 
                     JSONObject responseJSON = new JSONObject();
 
-                    String username = "";
-                    String id = "";
+                    if (request.queryParams().contains("id")
+                            && request.queryParams().contains("accountType")
+                            && request.queryParams().contains("initialBalance")) {
 
-                    if(BANKMODE)
-                    {
-                        if (request.queryParams().contains("id")) {
-                            id = request.queryParams("id");
+                        String id = request.queryParams("id");
+                        String accountType = request.queryParams("accountType");
+                        Double initialBalance = Double.parseDouble(request.queryParams("initialBalance"));
 
-//                            if(bank.findUserByID(id) != null) {
-//                                Account account = bank.findUserByID(id).createAccount()
-//                                        .withAccountnum(i)
-//                                        .withOwner(userMap.get(username))
-//                                        .withBalance(100);
-//                                if (account != null) {
-//                                    responseJSON.put("request", "successful");
-//                                    responseJSON.put("account", account.toString());
-//                                    i++;
-//                                } else {
-//                                    responseJSON.put("request", "failed");
-//                                }
-//                            }else {
-//                                responseJSON.put("request", "failed");
-//                            }
+                        AccountTypeEnum accountTypeEnum = AccountTypeEnum.valueOf(accountType);
+
+                        if(bank.findUserByID(id) != null) {
+                            Account account = bank.findUserByID(id).createAccount()
+                                    .withAccountnum(i)
+                                    .withOwner(bank.findUserByID(id))
+                                    .withType(accountTypeEnum)
+                                    .withBalance(initialBalance);
+                            if (account != null) {
+                                responseJSON.put("request", "successful");
+                                responseJSON.put("accountNum", account.getAccountnum());
+                                responseJSON.put("test", account.toString());
+                                i++;
+                            } else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason","bank failed to create account");
+                            }
                         }else {
                             responseJSON.put("request", "failed");
+                            responseJSON.put("reason","bank id was null");
                         }
-                    }
-
-                    if(!BANKMODE) {
-                        if (request.queryParams().contains("username")) {
-
-                            username = request.queryParams("username");
-                            Account account = null;
-
-//                            if (userMap.containsKey(username)) {
-//                                account = new Account()
-//                                        .withAccountnum(i)
-//                                        .withOwner(userMap.get(username))
-//                                        .withBalance(100);
-//                                accountMap.put(i, account);
-//                                if (accountMap.get(i) != null) {
-//                                    responseJSON.put("request", "successful");
-//                                    responseJSON.put("account", accountMap.get(i).toString());
-//                                    i++;
-//                                } else {
-//                                    responseJSON.put("request", "failed");
-//                                }
-//
-//                            } else {
-//                                responseJSON.put("request", "failed");
-//                                return responseJSON;
-//                            }
-                        } else {
-                            responseJSON.put("request", "failed");
-                        }
+                    }else {
+                        responseJSON.put("request", "failed");
+                        responseJSON.put("reason","missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -441,7 +415,7 @@ public class SparkServer {
             fh.setFormatter(formatter);
             logger.addHandler(fh);
 
-            logger.info("*************************************New session started*************************************");
+            logger.info("*************************************New Session Started*************************************");
         } catch (IOException ioe) {};
     }
 
