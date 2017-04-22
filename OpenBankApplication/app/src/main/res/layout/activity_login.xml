@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password"
-                android:textColor="#0b3c5d" />
+                android:textColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/username_sign_in_button"

@@ -29,6 +29,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 dependencies {
 
@@ -47,4 +48,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     androidTestCompile 'junit:junit:4.12'
     provided 'org.sdmlib:SDMLib:2.2.+'
+
 }

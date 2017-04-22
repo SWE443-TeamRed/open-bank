@@ -212,128 +212,13 @@ public class TransactionSet extends SimpleSet<Transaction>
    }
 
 
-   /**
-<<<<<<< HEAD
-    * Loop through the current set of Transaction objects and collect a list of the date attribute values.
-    *
-=======
-    * Loop through the current set of Transaction objects and collect a list of the date attribute values.
-    *
->>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
-    * @return List of java.util.Date objects reachable via date attribute
-    */
-   public ObjectSet getDate()
-   {
-      ObjectSet result = new ObjectSet();
-
-      for (Transaction obj : this)
-      {
-         result.add(obj.getDate());
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute matches the parameter value.
-    *
-    * @param value Search value
-    *
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterDate(Date value)
-   {
-      TransactionSet result = new TransactionSet();
-
-      for (Transaction obj : this)
-      {
-         if (value == obj.getDate())
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of Transaction objects and assign value to the date attribute of each of it.
-    *
-    * @param value New attribute value
-    *
-    * @return Current set of Transaction objects now with new attribute values.
-    */
-   public TransactionSet withDate(Date value)
-   {
-      for (Transaction obj : this)
-      {
-         obj.setDate(value);
-      }
-
-      return this;
-   }
 
 
-   /**
-    * Loop through the current set of Transaction objects and collect a list of the time attribute values.
-    *
->>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
-    * @return List of java.util.Date objects reachable via time attribute
-    */
-   public ObjectSet getTime()
-   {
-      ObjectSet result = new ObjectSet();
 
-      for (Transaction obj : this)
-      {
-         result.add(obj.getTime());
-      }
-
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute matches the parameter value.
-    *
-    * @param value Search value
-    *
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterTime(Date value)
-   {
-      TransactionSet result = new TransactionSet();
-
-      for (Transaction obj : this)
-      {
-         if (value == obj.getTime())
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and assign value to the time attribute of each of it.
-    *
-    * @param value New attribute value
-    *
-    * @return Current set of Transaction objects now with new attribute values.
-    */
-   public TransactionSet withTime(Date value)
-   {
-      for (Transaction obj : this)
-      {
-         obj.setTime(value);
-      }
-
-      return this;
-   }
 
 
    /**

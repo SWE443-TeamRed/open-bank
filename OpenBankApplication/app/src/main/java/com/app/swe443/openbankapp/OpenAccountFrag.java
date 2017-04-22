@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 
 import java.util.Date;
@@ -177,13 +179,26 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                     TODO AS THE SIZE OF ALL THE ACCOUNTS+1
                  */
                 int newAccountNum= mockserver.getUniqueAccountNum();
-                user.withAccount(new Account()
-                    .withAccountnum(newAccountNum)
+                Account newAccount = new Account()
+                        .withAccountnum(newAccountNum)
                         .withType(type)
                         .withOwner(user)
                         .withCreationdate(new Date())
-                        .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
+                        .withBalance(Double.valueOf(initalBalanceInput.getText().toString()));
+                Transaction trans = new Transaction()
+                                .withAmount(Double.valueOf(initalBalanceInput.getText().toString()))
+                                .withCreationdate(new Date())
+                                .withNote("Initial account")
+                                .withTransType(TransactionTypeEnum.Create);
+
+                trans.withFromAccount(newAccount);
+                trans.withToAccount(newAccount);
+                newAccount.setCreateTransaction(trans);
+
+                user.withAccount();
                 mockserver.getBank().withCustomerUser(user);
+
+
                completeNewAccount(newAccountNum);
 
                 break;
@@ -194,8 +209,7 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
     }
 
     public void completeNewAccount(int newAccountNum){
-        Toast.makeText(getContext(), "Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users",
-                Toast.LENGTH_SHORT).show();
+        System.out.println("Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users");
         createAccountFormLayout.setVisibility(View.GONE);
         formButtonLayout.setVisibility(View.GONE);
         createAccountSuccessLayout.setVisibility(View.VISIBLE);

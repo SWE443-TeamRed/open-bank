@@ -482,7 +482,7 @@ public  class Account implements SendableEntity
                         .withAmount(amount)
                         .withCreationdate(new Date())
                         .withToAccount(this)
-                        .withDate(new Date())
+                        .withCreationdate(new Date())
                         .withNote("Transfer "+amount+" to " +reciever.getOwner().getName())
                         .withFromAccount(reciever);
                 this.withDebit(newTrans);
@@ -524,7 +524,7 @@ public  class Account implements SendableEntity
 
          //Create transaction object
          trans = new Transaction();
-         trans.setDate(new Date());
+         trans.setCreationdate(new Date());
          trans.setAmount(amount);
          trans.setNote(note);
 
@@ -548,6 +548,9 @@ public  class Account implements SendableEntity
    }
 
 
+   public void setCreateTransaction(Transaction trans){
+      accountTransactions.add(trans);
+   }
 
 
     //To withdraw money from this account.
@@ -634,19 +637,7 @@ public  class Account implements SendableEntity
    
 
 
-   
-   //==========================================================================
-   public boolean receiveFunds( Account giver, double amount, String note )
-   {
-      return false;
-   }
 
-   
-   //==========================================================================
-   public Transaction recordTransaction( boolean p0, double p1, String p2 )
-   {
-      return null;
-   }
 
    
    /********************************************************************

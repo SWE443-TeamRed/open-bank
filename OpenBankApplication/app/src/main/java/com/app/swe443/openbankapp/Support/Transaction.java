@@ -140,69 +140,10 @@ public  class Transaction implements SendableEntity
 
 
 
-   //==========================================================================
-
-   public static final String PROPERTY_DATE = "date";
-
-   private Date date;
-
-   public Date getDate()
-   {
-      return this.date;
-   }
-
-   public void setDate(Date value)
-   {
-      // check for negative, if less then 0 throw IllegalArgumentException
-      if (value ==null) {
-         throw new IllegalArgumentException("Date is null. Invalid Date.");
-      }else {
-         if (this.date != value) {
-
-            Date oldValue = this.date;
-            this.date = value;
-            this.firePropertyChange(PROPERTY_DATE, oldValue, value);
-         }
-      }
-   }
-
-   public Transaction withDate(Date value)
-   {
-      setDate(value);
-      return this;
-   }
 
 
-   //==========================================================================
 
-   public static final String PROPERTY_TIME = "time";
 
-   private Date time;
-
-   public Date getTime()
-   {
-      return this.time;
-   }
-
-   public void setTime(Date value)
-   {
-      if (value ==null) {
-         throw new IllegalArgumentException("Date is null. Invalid Date/Time.");
-      }else {
-         if (this.time != value) {
-
-            Date oldValue = this.time;
-            this.time = value;
-            this.firePropertyChange(PROPERTY_TIME, oldValue, value);
-         }
-      }
-   }
-
-   public Transaction withTime(Date value)
-   {
-      setTime(value);
-      return this;
-   }
 
 
    //==========================================================================

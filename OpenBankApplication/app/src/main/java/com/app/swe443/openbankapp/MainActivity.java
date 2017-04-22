@@ -165,9 +165,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        /********Logout Fragment********/
-        contacts_fragment = new ContactsFrag();
-
         /********Transaction Fragments********/
         users_fragment = new UsersFrag();
 

@@ -21,13 +21,15 @@ import java.util.Date;
 
 public class UsersFrag extends Fragment implements View.OnClickListener{
 
-    Account newAccount;
-    User tina;
-    EditText name;
-    EditText lastName;
-    EditText email;
-    EditText phone;
-    EditText pass;
+    private User tina;
+    private EditText name;
+    private EditText email;
+    private EditText phone;
+    private EditText pass;
+    private EditText username;
+    private User user;
+
+    private MockServerSingleton mockServer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,45 +39,42 @@ public class UsersFrag extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Temp data
-        User tina = new User().withUserID("Tom Nolastname").withPassword("AntsAreTasty");
-        tina.withName("Tom Nolastname")
-                .withPhone("5712334534")
-                .withEmail("toms@mail.com")
-                .withUsername("AntEater")
-                .withPassword("AntsAreTasty");
 
+
+
+        mockServer = MockServerSingleton.getInstance();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
 
         //Text field for amount
          name =  (EditText) view.findViewById(R.id.first_name);
-//        EditText lastName =  (EditText) view.findViewById(R.id.last_name);
          email =  (EditText) view.findViewById(R.id.user_email);
          phone =  (EditText) view.findViewById(R.id.phone_number);
          pass = (EditText) view.findViewById(R.id.user_password);
+        username = (EditText) view.findViewById(R.id.user_username);
 
         Button button = (Button) view.findViewById(R.id.submit_users_info);
+        button.setOnClickListener(this);
 
+        user = mockServer.getLoggedInUser();
+        name.setText(user.getName().toString());
+        email.setText(user.getEmail().toString());
+        phone.setText(user.getPhone().toString());
+        pass.setText(user.getPassword().toString());
+        username.setText(user.getUsername());
 
-        name.setText(tina.getName());
-//      lastName.setText(tina.getName());
-        phone.setText(tina.getPhone());
-        email.setText(tina.getEmail());
-        pass.setText("********");
 
         return view;
     }
     @Override
     public void onClick(View v) {
-        //If clicked on open account button.
-        if(v == getView().findViewById(R.id.submit_users_info)) {
-            tina.setName(name.getText().toString());
-            tina.setEmail(email.getText().toString());
-            tina.setPhone(phone.getText().toString());
-            tina.setPassword(pass.getText().toString());
-        }
+        /*
+            TODO REQUEST TO SERVER TO UPDATE USER INFO
+         */
+
+        mockServer.updateUser(name.getText().toString(),email.getText().toString(),phone.getText().toString(),
+                pass.getText().toString(),username.getText().toString());
         Intent Intent = new Intent(getContext(), MainActivity.class);
         getContext().startActivity(Intent);
     }

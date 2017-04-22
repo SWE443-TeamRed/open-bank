@@ -791,152 +791,20 @@ public class UserSet extends SimpleSet<User>
    }
 
 
-   /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value.
-    *
-    * @param value Search value
-    *
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterPhone(String value)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (value.equals(obj.getPhone()))
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper.
-    *
-    * @param lower Lower bound
-    * @param upper Upper bound
-    *
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterPhone(String lower, String upper)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and assign value to the phone attribute of each of it.
-    *
-    * @param value New attribute value
-    *
-    * @return Current set of User objects now with new attribute values.
-    */
-   public UserSet withPhone(String value)
-   {
-      for (User obj : this)
-      {
-         obj.setPhone(value);
-      }
-
-      return this;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and collect a list of the username attribute values.
-    *
-    * @return List of String objects reachable via username attribute
-    */
-   public ObjectSet getUsername()
-   {
-      ObjectSet result = new ObjectSet();
-
-      for (User obj : this)
-      {
-         result.add(obj.getUsername());
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and collect those User objects where the username attribute matches the parameter value.
-    *
-    * @param value Search value
-    *
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterUsername(String value)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (value.equals(obj.getUsername()))
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and collect those User objects where the username attribute is between lower and upper.
-    *
-    * @param lower Lower bound
-    * @param upper Upper bound
-    *
-    * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterUsername(String lower, String upper)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
 
 
-   /**
-    * Loop through the current set of User objects and assign value to the username attribute of each of it.
-    *
-    * @param value New attribute value
-    *
-    * @return Current set of User objects now with new attribute values.
-    */
-   public UserSet withUsername(String value)
-   {
-      for (User obj : this)
-      {
-         obj.setUsername(value);
-      }
 
-      return this;
-   }
+
 
 
    /**

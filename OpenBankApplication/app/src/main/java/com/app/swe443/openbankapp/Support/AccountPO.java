@@ -75,43 +75,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
    
-   //==========================================================================
-//
-//   public boolean myBankTransaction(double amount, Account destinationAccount)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).myBankTransaction(amount, destinationAccount);
-//      }
-//      return false;
-//   }
-//
-//
-//   //==========================================================================
-//
-//   public boolean receiveFound(double amount, Account sourceAccount)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).receiveFound(amount, sourceAccount);
-//      }
-//      return false;
-//   }
-//
-//
-//   //==========================================================================
-//
-//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Account) getCurrentMatch()).sendTransactionInfo(transaction, amount, p0, p1, note);
-//      }
-//      return false;
-//   }
 
-   
-   //==========================================================================
    
    public void withdraw(double amount)
    {
@@ -648,16 +612,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    }
 
    
-   //==========================================================================
-   
-   public com.app.swe443.openbankapp.Support.Transaction recordTransaction(boolean p0, double p1, String p2)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
-      }
-      return null;
-   }
+
 
    public BankPO createBankPO()
    {

@@ -6,4 +6,8 @@
     <color name="background_material_dark">#328cc1</color>
     <color name="colorSecondaryDark">#0b3c5d</color>
     <color name="transparentSecondary">#ca0b3c5d</color>
+    <!--Yellow: D9B310-->
+    <!--Sky blue: 328CC1-->
+    <!--Dark blue: 0B3C5D-->
+    <!--Black: 1D2731-->
 </resources>

@@ -115,6 +115,14 @@ public class MockServerSingleton {
     }
 
 
+    public void updateUser(String name,String email,String phone,
+                String pass,String username){
+        loggedInUser.setEmail(email);
+        loggedInUser.setName(name);
+        loggedInUser.setPhone(phone);
+        loggedInUser.setPassword(pass);
+        loggedInUser.setUsername(username);
+    }
 
     public ArrayList<Account> getAccounts(){
         ArrayList<Account> trans = new ArrayList<Account>();

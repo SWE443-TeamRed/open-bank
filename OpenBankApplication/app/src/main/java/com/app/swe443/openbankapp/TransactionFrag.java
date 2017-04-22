@@ -79,7 +79,8 @@ public class TransactionFrag extends Fragment {
                     transactionBalances.add(i,transCost);
                 else {
                     //Every transactions 'current balance' should be value before the previous transction took place
-                    if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Deposit)) {
+                    if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Deposit) ||
+                            transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Create)) {
                         //i-1 = the transaction infront of i, subtracting when a deposit occurs shows balance before Deposit at i-1 took place
                         transCost -= transactions.get(i-1).getAmount();
                         transactionBalances.add(i, transCost);
@@ -202,7 +203,7 @@ public class TransactionFrag extends Fragment {
                 holder.fromText.setText(String.valueOf("Self"));
 
             holder.noteText.setText(String.valueOf(transactions.get(position).getNote()));
-            String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(transactions.get(position).getDate());
+            String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(transactions.get(position).getCreationdate());
             holder.dateText.setText(String.valueOf(newDateFormat));
             holder.typeText.setText(String.valueOf(transactions.get(position).getTransType()));
 

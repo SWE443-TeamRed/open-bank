@@ -32,8 +32,6 @@ public class TransactionCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Transaction.PROPERTY_AMOUNT,
-      Transaction.PROPERTY_DATE,
-      Transaction.PROPERTY_TIME,
       Transaction.PROPERTY_NOTE,
       Transaction.PROPERTY_FROMACCOUNT,
       Transaction.PROPERTY_TOACCOUNT,
@@ -70,15 +68,7 @@ public class TransactionCreator implements SendableEntityCreator
          return ((Transaction) target).getAmount();
       }
 
-      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getDate();
-      }
 
-      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getTime();
-      }
 
       if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attribute))
       {
@@ -134,17 +124,7 @@ public class TransactionCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setTime((Date) value);
-         return true;
-      }
 
-      if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setDate((Date) value);
-         return true;
-      }
 
       if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attrName))
       {
