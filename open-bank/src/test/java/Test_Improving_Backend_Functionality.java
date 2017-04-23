@@ -1196,4 +1196,107 @@ public class Test_Improving_Backend_Functionality {
 
         assertTrue(null==usrID);
     }
+
+
+
+    //********** Bank withDrawFunds tests *************
+    @Test
+    public void testBankWithdraw() {
+        Date dt = new Date("03/19/2017");
+
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        //Setting the account information.
+        Account usrBobAccnt = new Account()
+                .withAccountnum(12345)
+                .withBalance(30)
+                .withDebit()
+                .withOwner(usrBob)
+                .withCreationdate(dt);
+
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(usrBobAccnt);
+
+        StringBuilder msg = new StringBuilder("");
+
+        double amnt = bnk.withDrawFunds(12345,20,msg);
+
+
+        System.out.println("amnt:" + amnt + "--msg: " + msg);
+        assertTrue(10==amnt);
+    }
+
+
+    @Test
+    public void testBankWithdrawAccntNotFound() {
+        Date dt = new Date("03/19/2017");
+
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        //Setting the account information.
+        Account usrBobAccnt = new Account()
+                .withAccountnum(12345)
+                .withBalance(30)
+                .withDebit()
+                .withOwner(usrBob)
+                .withCreationdate(dt);
+
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(usrBobAccnt);
+
+        StringBuilder msg = new StringBuilder("");
+
+        double amnt = bnk.withDrawFunds(123456,20,msg);
+
+
+        System.out.println("amnt:" + amnt + "--msg: " + msg);
+        assertTrue(0==amnt);
+
+    }
+
+    @Test
+    public void testBankWithdrawNotEnougFunds() {
+        Date dt = new Date("03/19/2017");
+
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        //Setting the account information.
+        Account usrBobAccnt = new Account()
+                .withAccountnum(12345)
+                .withBalance(30)
+                .withDebit()
+                .withOwner(usrBob)
+                .withCreationdate(dt);
+
+
+        Bank bnk = new Bank();
+        bnk.createCustomerAccounts();
+        bnk.withCustomerAccounts(usrBobAccnt);
+
+        StringBuilder msg = new StringBuilder("");
+
+        double amnt = bnk.withDrawFunds(12345,40,msg);
+
+
+        System.out.println("amnt:" + amnt + "--msg: " + msg);
+        assertTrue(30==amnt);
+    }
+
+
 }

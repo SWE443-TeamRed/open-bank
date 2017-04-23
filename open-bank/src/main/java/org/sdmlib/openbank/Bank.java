@@ -28,6 +28,7 @@ import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Wrapper;
 import java.util.Date;
    /**
     * 
@@ -384,11 +385,22 @@ import java.util.Date;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      if (accountID<=0) {
+         throw new IllegalArgumentException("Invalid accountID.");
+      }
+
       AccountSet accountSets = this.getCustomerAccounts();
 
       for (Account acnt : accountSets) {
          if(acnt.getAccountnum()==accountID){
             return acnt;
+         }
+      }
+
+      AccountSet adminAccnts = this.getAdminAccounts();
+      for (Account AdminAccnt : adminAccnts) {
+         if (AdminAccnt.getAccountnum()==accountID) {
+            return AdminAccnt;
          }
       }
 
@@ -640,6 +652,31 @@ import java.util.Date;
       this.withCustomerAccounts(checking);
 
       return "successful";
+   }
+
+   // withDrawFunds from given account
+   public double withDrawFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account withDrawAccnt = findAccountByID(accountNum);
+
+      if (withDrawAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+      if (withDrawAccnt.getBalance()<amount){
+         msg.append("Not enough funds exists.");
+         return withDrawAccnt.getBalance();
+      }
+
+      withDrawAccnt.withdraw(amount);
+      balance=  withDrawAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
    }
 
 }
