@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.app.swe443.openbankapp.Support.Account;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 /**
@@ -51,7 +52,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private Button confirmWithdraw;
     private Button cancelWithdraw;
     private LinearLayout withdrawButtons;
-
+    private MockServerSingleton mockserver;
 
     public AccountFrag(){
 
@@ -84,14 +85,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         final View v =  inflater.inflate(R.layout.fragment_account,container,false);
 
+        mockserver = MockServerSingleton.getInstance();
         activity = (AccountDetails) getActivity();
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            accountIndex = bundle.getInt("id",-1);
-            account = activity.getAccount();
-            System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ account.getAccountnum() + " AT INDEX "+accountIndex);
 
-        }
+        accountIndex = mockserver.getAccountIndex();
+        account = mockserver.getAccount();
+        System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ account.getAccountnum() + " AT INDEX "+accountIndex);
+
+
 
         depositButton = (Button) v.findViewById(R.id.deposit);
         depositamounttitleText = (TextView) v.findViewById(R.id.depositamounttitleText);
@@ -128,8 +129,9 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
         accountnameText.setText(String.valueOf(account.getType()));
         accountnumText.setText(String.valueOf(account.getAccountnum()));
-        balanceText.setText(String.valueOf(account.getBalance()));
-        ownerText.setText(String.valueOf(account.getOwner().getUserID()));
+        DecimalFormat precision = new DecimalFormat("0.00");
+        balanceText.setText("$ " +precision.format(account.getBalance()));
+        ownerText.setText(String.valueOf(account.getOwner().getUsername()));
         typeText.setText(String.valueOf(account.getType()));
         String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
         creationText.setText(newDateFormat);
@@ -180,7 +182,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                                     setDepositFieldsVisability(0);
                                     depositButton.setVisibility(View.VISIBLE);
                                     withdrawButton.setVisibility(View.VISIBLE);
-                                    balanceText.setText(String.valueOf(account.getBalance()));
+                                    DecimalFormat precision = new DecimalFormat("0.00");
+                                    balanceText.setText(String.valueOf(precision.format(account.getBalance())));
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:

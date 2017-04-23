@@ -33,7 +33,7 @@ public class JsonPersistency {
 
             // Write Json to textfile
             try {
-                FileWriter file = new FileWriter(account.getOwner().getUserID()+".json");
+                FileWriter file = new FileWriter(account.getOwner().getUsername()+".json");
                 file.write(jsonText);
                 file.flush();
 

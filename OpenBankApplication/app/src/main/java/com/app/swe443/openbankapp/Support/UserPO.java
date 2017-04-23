@@ -53,16 +53,7 @@ public class UserPO extends PatternObject<UserPO, User>
    }
 
    
-   //==========================================================================
    
-   public boolean login(String username, String password)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) getCurrentMatch()).login(username, password);
-      }
-      return false;
-   }
 
    
    //==========================================================================
@@ -76,66 +67,9 @@ public class UserPO extends PatternObject<UserPO, User>
       return false;
    }
 
-   public UserPO createUserIDCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_USERID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
+
    
-   public UserPO createUserIDCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_USERID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public UserPO createUserIDAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(User.PROPERTY_USERID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getUserID()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((User) getCurrentMatch()).getUserID();
-      }
-      return null;
-   }
-   
-   public UserPO withUserID(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((User) getCurrentMatch()).setUserID(value);
-      }
-      return this;
-   }
+
    
    public UserPO createIsAdminCondition(boolean value)
    {

@@ -35,29 +35,7 @@ import de.uniks.networkparser.EntityUtil;
    public  class User implements SendableEntity {
 
 
-       /*
-            User login varification
 
-        */
-
-       public boolean login(String userId, String password) {
-           if (getUserID().equals(userId) && getPassword().equals(password)) {
-               File jsonfile = new File(userId+".json");
-               if(jsonfile.exists()) {
-                   JsonPersistency jsonPersist = new JsonPersistency();
-                   Account userAccount = jsonPersist.fromJson(userId);
-                   this.withAccount(userAccount);
-               }
-               this.setLoggedIn(true);
-               return true;
-           } else {
-               if (getUserID().equals(userId))
-                   System.out.println("Username is incorrect");
-               if (getPassword().equals(password))
-                   System.out.println("Username is incorrect");
-               return false;
-           }
-       }
        //==========================================================================
 
        protected PropertyChangeSupport listeners = null;
@@ -143,7 +121,7 @@ import de.uniks.networkparser.EntityUtil;
            StringBuilder result = new StringBuilder();
 
            result.append(" ").append("Name: "+this.getName());
-           result.append(" ").append("userID: "+this.getUserID());
+           result.append(" ").append("username: "+this.getUsername());
            result.append(" ").append("Password: " + this.getPassword());
            result.append(" ").append("Admin: " + this.isIsAdmin());
            result.append(" ").append(this.getEmail());
@@ -155,29 +133,9 @@ import de.uniks.networkparser.EntityUtil;
 
 
 
-       //==========================================================================
 
-       public static final String PROPERTY_USERID = "UserID";
 
-       private String UserID;
 
-       public String getUserID() {
-           return this.UserID;
-       }
-
-       public void setUserID(String value) {
-           if (!EntityUtil.stringEquals(this.UserID, value)) {
-
-               String oldValue = this.UserID;
-               this.UserID = value;
-               this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-           }
-       }
-
-       public User withUserID(String value) {
-           setUserID(value);
-           return this;
-       }
 
 
        /********************************************************************

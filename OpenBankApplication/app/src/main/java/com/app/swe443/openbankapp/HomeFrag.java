@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.app.swe443.openbankapp.Support.Account;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -172,10 +173,9 @@ public class HomeFrag extends Fragment {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
             holder.accountnameText.setText(String.valueOf(String.valueOf(mDataset.get(position).getType())));
-            holder.accountnumText.setText(String.valueOf(mDataset.get(position).getAccountnum()));
-            holder.balanceText.setText(String.valueOf(mDataset.get(position).getBalance()));
-
-
+            holder.accountnumText.setText("Account: "+  String.valueOf(mDataset.get(position).getAccountnum()));
+            DecimalFormat precision = new DecimalFormat("0.00");
+            holder.balanceText.setText("$ " +String.valueOf(precision.format(mDataset.get(position).getBalance())));
         }
 
 
@@ -185,14 +185,14 @@ public class HomeFrag extends Fragment {
             return mDataset.size();
         }
 
-        public void initFragments() {
-
-            /********Home Fragment********/
-            home_fragment = new HomeFrag();
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
-            transaction.commit();
-        }
+//        public void initFragments() {
+//
+//            /********Home Fragment********/
+//            home_fragment = new HomeFrag();
+//            transaction = fm.beginTransaction();
+//            transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
+//            transaction.commit();
+//        }
     }
 
 }

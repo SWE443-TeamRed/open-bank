@@ -61,14 +61,14 @@
                 android:id="@+id/accountnumtitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Account Number"
+                android:text="Account ID"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/typetitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Type"
+                android:text="Account Type"
                 android:textSize="20sp" />
 
             <TextView
@@ -140,6 +140,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:textAllCaps="false"
             android:background="#0b3c5d"
             android:text="Deposit"
 
@@ -150,6 +151,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textAllCaps="false"
             android:background="#0b3c5d"
             android:text="Withdraw"
 

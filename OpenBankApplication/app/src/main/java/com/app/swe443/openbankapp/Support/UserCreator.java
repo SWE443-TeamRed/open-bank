@@ -29,7 +29,6 @@ public class UserCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      User.PROPERTY_USERID,
       User.PROPERTY_ISADMIN,
       User.PROPERTY_PASSWORD,
       User.PROPERTY_NAME,
@@ -65,9 +64,9 @@ public class UserCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attribute))
+      if (User.PROPERTY_USERNAME.equalsIgnoreCase(attribute))
       {
-         return ((User) target).getUserID();
+         return ((User) target).getUsername();
       }
 
       if (User.PROPERTY_ISADMIN.equalsIgnoreCase(attribute))
@@ -168,9 +167,9 @@ public class UserCreator implements SendableEntityCreator
          return true;
       }
 
-      if (User.PROPERTY_USERID.equalsIgnoreCase(attrName))
+      if (User.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
       {
-         ((User) target).setUserID((String) value);
+         ((User) target).setUsername((String) value);
          return true;
       }
 

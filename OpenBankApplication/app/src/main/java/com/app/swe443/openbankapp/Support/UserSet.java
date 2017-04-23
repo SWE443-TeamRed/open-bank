@@ -145,19 +145,7 @@ public class UserSet extends SimpleSet<User>
    }
 
 
-   //==========================================================================
 
-   public de.uniks.networkparser.list.BooleanList login(String username, String password)
-   {
-
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-
-      for (User obj : this)
-      {
-         result.add( obj.login(username, password) );
-      }
-      return result;
-   }
 
 
    //==========================================================================
@@ -180,13 +168,13 @@ public class UserSet extends SimpleSet<User>
     *
     * @return List of String objects reachable via userID attribute
     */
-   public ObjectSet getUserID()
+   public ObjectSet getUserName()
    {
       ObjectSet result = new ObjectSet();
 
       for (User obj : this)
       {
-         result.add(obj.getUserID());
+         result.add(obj.getUsername());
       }
 
       return result;
@@ -200,13 +188,13 @@ public class UserSet extends SimpleSet<User>
     *
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterUserID(String value)
+   public UserSet filterUserName(String value)
    {
       UserSet result = new UserSet();
 
       for (User obj : this)
       {
-         if (value.equals(obj.getUserID()))
+         if (value.equals(obj.getUsername()))
          {
             result.add(obj);
          }
@@ -224,13 +212,13 @@ public class UserSet extends SimpleSet<User>
     *
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterUserID(String lower, String upper)
+   public UserSet filterUserName(String lower, String upper)
    {
       UserSet result = new UserSet();
 
       for (User obj : this)
       {
-         if (lower.compareTo(obj.getUserID()) <= 0 && obj.getUserID().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -247,11 +235,11 @@ public class UserSet extends SimpleSet<User>
     *
     * @return Current set of User objects now with new attribute values.
     */
-   public UserSet withUserID(String value)
+   public UserSet withUserName(String value)
    {
       for (User obj : this)
       {
-         obj.setUserID(value);
+         obj.setUsername(value);
       }
 
       return this;

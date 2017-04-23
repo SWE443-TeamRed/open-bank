@@ -75,7 +75,6 @@ public class UsersFrag extends Fragment implements View.OnClickListener{
 
         mockServer.updateUser(name.getText().toString(),email.getText().toString(),phone.getText().toString(),
                 pass.getText().toString(),username.getText().toString());
-        Intent Intent = new Intent(getContext(), MainActivity.class);
-        getContext().startActivity(Intent);
+
     }
 }

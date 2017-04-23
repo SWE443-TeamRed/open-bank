@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -27,7 +28,6 @@ public class TransactionFrag extends Fragment {
 
     //UI fields
     private TextView transactionHeaderName;
-    private int accountID;
 
     //Parent activity which stores data
     AccountDetails activity;
@@ -205,17 +205,20 @@ public class TransactionFrag extends Fragment {
             holder.noteText.setText(String.valueOf(transactions.get(position).getNote()));
             String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(transactions.get(position).getCreationdate());
             holder.dateText.setText(String.valueOf(newDateFormat));
-            holder.typeText.setText(String.valueOf(transactions.get(position).getTransType()));
+            holder.typeText.setText("Account Type: "+String.valueOf(transactions.get(position).getTransType()));
 
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit)) {
-                 holder.amountText.setText(String.valueOf(transactions.get(position).getAmount()));
-                 holder.balanceText.setText(String.valueOf(transactionBalances.get(position)));
+            DecimalFormat precision = new DecimalFormat("0.00");
+            String balance = precision.format(transactionBalances.get(position));
+            holder.balanceText.setText("$ "+balance);
+            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit) ||
+                    transactions.get(position).getTransType().equals(TransactionTypeEnum.Create)) {
+                 holder.amountText.setText("$ "+precision.format(transactions.get(position).getAmount()));
 
             }else{
                 //amount is the amount of the transaction (-) displays if it is a withdraw
-                holder.amountText.setText(String.valueOf("- " + transactions.get(position).getAmount()));
+                holder.amountText.setText(String.valueOf("- $" + transactions.get(position).getAmount()));
                 //Balance at this transactions state is stored in the transactionBalances array at index position (corresponds to transaction index)
-                holder.balanceText.setText(String.valueOf(transactionBalances.get(position)));
+                holder.balanceText.setText("$ "+precision.format(transactionBalances.get(position)));
 
             }
         }

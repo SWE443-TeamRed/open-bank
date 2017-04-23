@@ -34,7 +34,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
@@ -57,13 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -115,9 +108,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+    /*
+        CREATE ACCOUNT clicked
+     */
     public void createAccount(View v){
         fm = getSupportFragmentManager();
-        Fragment openAccount_fragment = new OpenAccountFrag();
+        Fragment openAccount_fragment = new CreateBankAccountFrag();
         //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
         transaction.replace(R.id.drawer_layout, openAccount_fragment, "openAccount_fragment");
@@ -197,31 +193,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        }
 
         // Check for a valid username address.
-        if (TextUtils.isEmpty(username)) {
+        if (mUsernameView.getText().toString().equals("")) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
         }
-        else if (TextUtils.isEmpty(password)) {
+        if (mPasswordView.getText().toString().equals("")) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
         }
-        else
-         {
-            if (!doesUserExist(username)) {
+        if (!doesUserExist(username)) {
                 mUsernameView.setError("This username is not registered");
                 focusView = mUsernameView;
                 cancel = true;
-            }else{
-                if(!isPasswordValid(username, password)) {
+        }else if(!isPasswordValid(username, password)) {
                     mPasswordView.setError("Incorrect Password");
                     focusView = mPasswordView;
                     cancel = true;
-                }
-
-            }
         }
+
+
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -377,13 +370,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+
 
             // TODO: register the new account here.
             return true;

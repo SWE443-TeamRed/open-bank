@@ -45,7 +45,9 @@
             android:layout_below="@+id/amountText"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="79dp"
-            android:text="Button" />
+            android:background="@color/colorSecondaryDark"
+            android:text="Button"
+            android:textAllCaps="false" />
     </RelativeLayout>
 
     <LinearLayout

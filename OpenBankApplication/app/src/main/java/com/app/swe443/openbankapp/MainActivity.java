@@ -120,28 +120,24 @@ public class MainActivity extends AppCompatActivity
                         Drawer.closeDrawer(Gravity.LEFT);
                     case 2:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, contacts_fragment);
+                        transaction.replace(R.id.contentFragment, users_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 3:
                         transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, users_fragment);
+                        transaction.replace(R.id.contentFragment, open_account_fragment);
+                        transaction.addToBackStack(null);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
                     case 4:
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.contentFragment, open_account_fragment);
-                        transaction.commit();
-                        Drawer.closeDrawer(Gravity.LEFT);
-                        break;
-                    case 5:
                         Drawer.closeDrawer(Gravity.LEFT);
                         Intent intent = new Intent(v.getContext(), LoginActivity.class);
                         startActivity(intent);
 
                         break;
+
                 }
             }
         });
@@ -161,12 +157,15 @@ public class MainActivity extends AppCompatActivity
 
 
         /********Open Account Fragment********/
-        open_account_fragment = new OpenAccountFrag();
+        open_account_fragment = new CreateBankAccountFrag();
 
 
 
         /********Transaction Fragments********/
         users_fragment = new UsersFrag();
+
+
+        open_account_fragment = new OpenAccountFrag();
 
 
         //Initiate homepage Fragment when app opens

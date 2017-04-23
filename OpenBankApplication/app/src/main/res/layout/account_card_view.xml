@@ -29,19 +29,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/accountnameText"
+                android:id="@+id/accountnumText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/accountnumText"
+                android:id="@+id/accountnameText"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:text="TextView"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
 

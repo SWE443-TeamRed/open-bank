@@ -16,9 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
@@ -35,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".OpenAccount"></activity>
     </application>
 
 </manifest>

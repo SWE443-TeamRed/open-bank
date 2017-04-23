@@ -396,13 +396,13 @@ import de.uniks.networkparser.EntityUtil;
    public User findUserByID(String userID) {
        UserSet pulledUsers = this.getCustomerUser();
        for (User i : pulledUsers) {
-           if (i.getUserID() != null && i.getUserID().equals(userID)) {
+           if (i.getUsername() != null && i.getUsername().equals(userID)) {
                return i;
            }
        }
       pulledUsers = this.getAdminUsers();
       for (User i : pulledUsers) {
-         if (i.getUserID() != null && i.getUserID().equals(userID)) {
+         if (i.getUsername() != null && i.getUsername().equals(userID)) {
             return i;
          }
       }

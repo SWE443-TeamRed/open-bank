@@ -2,12 +2,15 @@ package com.app.swe443.openbankapp;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountSet;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by hlope on 4/18/2017.
@@ -117,11 +120,13 @@ public class MockServerSingleton {
 
     public void updateUser(String name,String email,String phone,
                 String pass,String username){
-        loggedInUser.setEmail(email);
-        loggedInUser.setName(name);
-        loggedInUser.setPhone(phone);
-        loggedInUser.setPassword(pass);
-        loggedInUser.setUsername(username);
+        User oldUser = mainBank.getCustomerUser().filterUserName(username).get(0);
+        oldUser.setEmail(email);
+        oldUser.setName(name);
+        oldUser.setPhone(phone);
+        oldUser.setPassword(pass);
+        oldUser.setUsername(username);
+        loggedInUser = oldUser;
     }
 
     public ArrayList<Account> getAccounts(){
@@ -149,6 +154,70 @@ public class MockServerSingleton {
         trans.addAll(loggedInUser.getAccount().get(accountindex).getAccountTransactions());
         return trans;
 
+    }
+
+    public void openAccount(String type, double balance){
+        AccountTypeEnum rtype;
+        if(type.equals(AccountTypeEnum.SAVINGS.toString()))
+            rtype = AccountTypeEnum.SAVINGS;
+        else
+            rtype = AccountTypeEnum.CHECKING;
+
+        getLoggedInUser().withAccount(new Account()
+            .withBalance(balance)
+            .withAccountnum(getUniqueAccountNum())
+            .withOwner(getLoggedInUser())
+            .withCreationdate(new Date())
+            .withOwner(getLoggedInUser())
+            .withType(rtype));
+
+    }
+
+    public int createBankAccount(boolean isAdmin, String type,String name,String pass,String phone,String email,String username,Double balance){
+
+        /*
+
+                    TODO CONTACT SERVER AND REQUEST A NEW USER WITH ACCOUNT BE CREATED
+                 */
+        AccountTypeEnum rtype;
+        if(type.toString().equals("Savings"))
+            rtype = AccountTypeEnum.SAVINGS;
+        else
+            rtype = AccountTypeEnum.CHECKING;
+
+        User user = new User()
+                .withName(name)
+                .withPassword(pass)
+                .withPhone(phone)
+                .withEmail(email)
+                .withIsAdmin(isAdmin)
+                .withBank(this.getBank())
+                .withUsername(username);
+                /*
+                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
+                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
+                 */
+        int newAccountNum= this.getUniqueAccountNum();
+        Account newAccount = new Account()
+                .withAccountnum(newAccountNum)
+                .withType(rtype)
+                .withOwner(user)
+                .withCreationdate(new Date())
+                .withBalance(Double.valueOf(balance));
+        user.withAccount(newAccount);
+        Transaction trans = new Transaction()
+                .withAmount(Double.valueOf(balance))
+                .withCreationdate(new Date())
+                .withNote("Initial account")
+                .withTransType(TransactionTypeEnum.Create);
+
+        trans.withFromAccount(newAccount);
+        trans.withToAccount(newAccount);
+        newAccount.setCreateTransaction(trans);
+
+        this.getBank().withCustomerUser(user);
+
+        return newAccountNum;
     }
 
     public Account getAccount(){
