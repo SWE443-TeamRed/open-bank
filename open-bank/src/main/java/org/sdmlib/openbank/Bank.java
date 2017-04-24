@@ -602,6 +602,7 @@ import java.util.Date;
       UserSet custUserSet = this.getCustomerUser();
       for (User custUsr : custUserSet) {
          if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
+            //custUsr.setLoggedIn(true);
             return custUsr.getUserID();
          }
       }
@@ -609,6 +610,7 @@ import java.util.Date;
       UserSet admnUserSet = this.getAdminUsers();
       for (User admUsr : admnUserSet) {
          if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            //admUsr.setLoggedIn(true);
             return admUsr.getUserID();
          }
       }
@@ -679,4 +681,24 @@ import java.util.Date;
       return balance;
    }
 
+   // depositFunds to given account
+   public double depositFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account depositAccnt = findAccountByID(accountNum);
+
+      if (depositAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+
+      depositAccnt.deposit(amount);
+      balance=  depositAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
 }
