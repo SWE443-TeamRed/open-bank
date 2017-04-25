@@ -33,6 +33,7 @@ public class Model {
         transTypeEnum.withMethod("toString", DataType.STRING);
 
 /////////User///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         // create class user
         Clazz user = model.createClazz("User");
 
@@ -43,7 +44,8 @@ public class Model {
         user.withAttribute("password", DataType.STRING);
         user.withAttribute("email", DataType.STRING);
         user.withAttribute("LoggedIn", DataType.BOOLEAN);
-        user.withAttribute("phone", DataType.INT);
+        user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
+        user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
 
         //User Methods
 
@@ -119,8 +121,44 @@ public class Model {
         account.withMethod("deposit", DataType.BOOLEAN,
                 new Parameter(DataType.DOUBLE).with("amount"));
 
+        // ************* Bank class ************
+        Clazz bank = model.createClazz("Bank");
+        bank.withAttribute("fee", DataType.DOUBLE);
+        bank.withAttribute("bankName", DataType.STRING);
 
-/////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // ************* Bank Bidirectionals ****************
+        bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
+        bank.withBidirectional(user, "customerUser", Cardinality.MANY, "bank", Cardinality.ONE);
+        bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
+
+        bank.withBidirectional(account, "adminAccounts", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        bank.withBidirectional(user, "adminUsers", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        // ********** Bank Methods **********
+        // validateLogin method
+        bank.withMethod("validateLogin", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("accountID"),
+                new Parameter(DataType.STRING).with("username"),
+                new Parameter(DataType.STRING).with("password"));
+
+        // findAccountByID method
+        bank.withMethod("findAccountByID", DataType.create(Account.class),
+                new Parameter(DataType.INT).with("accountID"));
+
+
+        // findUserByID method
+        bank.withMethod("findUserByID", DataType.create(User.class),
+                new Parameter(DataType.STRING).with("userID"));
+
+
+        // confirmTransaction method
+        bank.withMethod("confirmTransaction", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("toAcctID"),
+                new Parameter(DataType.INT).with("fromAcctID"),
+                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
+                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+
+        /////////Bidirectionals/////////////////////////////////////////////////////////////////////////////////////////////////
 
         // the account in user
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);

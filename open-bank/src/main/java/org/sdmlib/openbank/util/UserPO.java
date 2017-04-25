@@ -8,6 +8,8 @@ import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.UserPO;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.BankPO;
+import org.sdmlib.openbank.Bank;
 
 public class UserPO extends PatternObject<UserPO, User>
 {
@@ -429,7 +431,8 @@ public class UserPO extends PatternObject<UserPO, User>
       
       return this;
    }
-   
+
+   /*
    public UserPO createPhoneCondition(int lower, int upper)
    {
       new AttributeConstraint()
@@ -444,7 +447,8 @@ public class UserPO extends PatternObject<UserPO, User>
       
       return this;
    }
-   
+   */
+
    public UserPO createPhoneAssignment(int value)
    {
       new AttributeConstraint()
@@ -459,16 +463,16 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
-   public int getPhone()
+   public String getPhone()
    {
       if (this.getPattern().getHasMatch())
       {
          return ((User) getCurrentMatch()).getPhone();
       }
-      return 0;
+      return null;
    }
    
-   public UserPO withPhone(int value)
+   public UserPO withPhone(String value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -512,6 +516,188 @@ public class UserPO extends PatternObject<UserPO, User>
       if (this.getPattern().getHasMatch())
       {
          return ((User) this.getCurrentMatch()).getAccount();
+      }
+      return null;
+   }
+
+   public UserPO createPhoneCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createPhoneAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_PHONE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createUsernameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createUsernameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createUsernameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_USERNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getUsername()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getUsername();
+      }
+      return null;
+   }
+   
+   public UserPO withUsername(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setUsername(value);
+      }
+      return this;
+   }
+   
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public UserPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_BANK);
+   }
+
+   public UserPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) this.getCurrentMatch()).getBank();
+      }
+      return null;
+   }
+
+   public BankPO createEmployingBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public BankPO createEmployingBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_EMPLOYINGBANK, result);
+      
+      return result;
+   }
+
+   public UserPO createEmployingBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_EMPLOYINGBANK);
+   }
+
+   public UserPO createEmployingBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_EMPLOYINGBANK, modifier);
+   }
+
+   public Bank getEmployingBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) this.getCurrentMatch()).getEmployingBank();
       }
       return null;
    }
