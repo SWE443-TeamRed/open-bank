@@ -11,8 +11,6 @@ import java.io.IOException;
  */
 public class JsonPersistency {
 
-
-
     public void toJson(Account account){
         String jsonText = "";
 
@@ -81,6 +79,72 @@ public class JsonPersistency {
         return account;
     }
 
+    public void bankToJson(Bank bank){
+        String jsonText = "";
 
+        if(bank == null){
+            throw new NullPointerException();
+        }
+        else {
+
+            IdMap idMap = BankCreator.createIdMap("bank");
+
+            JsonArray jsonArray = idMap.toJsonArray(bank);
+            jsonText = jsonArray.toString(3);
+
+            System.out.println(jsonText); //For testing
+
+            // Write Json to textfile
+            try {
+                FileWriter file = new FileWriter(bank.getBankName()+".json");
+                file.write(jsonText);
+                file.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Bank bankFromJson(String bankName){
+
+        BufferedReader br = null;
+        FileReader fr = null;
+        String jsonString = "";
+
+        try {
+            String sCurrentLine;
+
+            br = new BufferedReader(new FileReader(bankName+".json"));
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                jsonString += sCurrentLine + "\n";
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+            }
+        }
+
+        // read jsonText from file
+        Bank bank = null;
+
+        IdMap readerMap = BankCreator.createIdMap("bank");
+
+        Object rootObject = readerMap.decode(jsonString);
+
+        bank = (Bank) rootObject;
+
+        return bank;
+    }
 
 }
