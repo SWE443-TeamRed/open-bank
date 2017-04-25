@@ -28,6 +28,7 @@ import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Wrapper;
 import java.util.Date;
    /**
     * 
@@ -384,11 +385,22 @@ import java.util.Date;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      if (accountID<=0) {
+         throw new IllegalArgumentException("Invalid accountID.");
+      }
+
       AccountSet accountSets = this.getCustomerAccounts();
 
       for (Account acnt : accountSets) {
          if(acnt.getAccountnum()==accountID){
             return acnt;
+         }
+      }
+
+      AccountSet adminAccnts = this.getAdminAccounts();
+      for (Account AdminAccnt : adminAccnts) {
+         if (AdminAccnt.getAccountnum()==accountID) {
+            return AdminAccnt;
          }
       }
 
@@ -590,6 +602,7 @@ import java.util.Date;
       UserSet custUserSet = this.getCustomerUser();
       for (User custUsr : custUserSet) {
          if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
+            //custUsr.setLoggedIn(true);
             return custUsr.getUserID();
          }
       }
@@ -597,6 +610,7 @@ import java.util.Date;
       UserSet admnUserSet = this.getAdminUsers();
       for (User admUsr : admnUserSet) {
          if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            //admUsr.setLoggedIn(true);
             return admUsr.getUserID();
          }
       }
@@ -642,4 +656,49 @@ import java.util.Date;
       return "successful";
    }
 
+   // withDrawFunds from given account
+   public double withDrawFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account withDrawAccnt = findAccountByID(accountNum);
+
+      if (withDrawAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+      if (withDrawAccnt.getBalance()<amount){
+         msg.append("Not enough funds exists.");
+         return withDrawAccnt.getBalance();
+      }
+
+      withDrawAccnt.withdraw(amount);
+      balance=  withDrawAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
+
+   // depositFunds to given account
+   public double depositFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account depositAccnt = findAccountByID(accountNum);
+
+      if (depositAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+
+      depositAccnt.deposit(amount);
+      balance=  depositAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
 }
