@@ -303,6 +303,7 @@ public class SparkServer {
                             } else {
                                 accountJson.put("request", "failed");
                                 accountJson.put("reason","user with id " + id + " does not exist");
+                                jsonArray.add(accountJson);
                             }
                         }
                     }else {
