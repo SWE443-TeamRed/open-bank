@@ -288,11 +288,13 @@ public class SparkServer {
 
                             if(accounts != null) {
                                 for (Account account : accounts) {
+                                    JSONObject multAccountJson = new JSONObject();
+                                    logger.info("Account: " + account.toString());
                                     if (account != null) {
-                                        accountJson.put("accountNumber", account.getAccountnum());
-                                        accountJson.put("accountType", account.getType());
-                                        accountJson.put("balance", account.getBalance());
-                                        jsonArray.add(accountJson);
+                                        multAccountJson.put("accountNumber", account.getAccountnum());
+                                        multAccountJson.put("accountType", account.getType());
+                                        multAccountJson.put("balance", account.getBalance());
+                                        jsonArray.add(multAccountJson);
                                     }
                                 }
                             } else {

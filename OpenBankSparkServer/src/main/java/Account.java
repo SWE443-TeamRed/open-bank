@@ -24,7 +24,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  *
@@ -588,8 +587,6 @@ public  class Account implements SendableEntity
    
    public Account withType(AccountTypeEnum value)
    {
-      Logger logger = Logger.getLogger(Account.class.getName());
-      logger.info("Value: " + value.toString());
       setType(value);
       return this;
    } 
