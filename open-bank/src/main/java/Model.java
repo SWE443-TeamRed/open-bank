@@ -5,6 +5,7 @@ import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -28,8 +29,12 @@ public class Model {
         Clazz transTypeEnum = model.createClazz("TransactionTypeEnum").enableEnumeration();
 
         transTypeEnum.with(
-                new Literal("DEPOSIT"), new Literal("FEE"),
-                new Literal("WITHDRAW"),new Literal("CLOSE"),new Literal("CREATE"),new Literal("TRANSFER"));
+                new Literal("DEPOSIT"),
+                new Literal("WITHDRAWAL"),
+                new Literal("TRANSFER"),
+                new Literal("SEED"),
+                new Literal("CLOSE"),
+                new Literal("FEE"));
 
         transTypeEnum.withMethod("toString", DataType.STRING);
 
@@ -166,7 +171,7 @@ public class Model {
         // Transactions and Account relation
         account.withBidirectional(transaction, "transactions",Cardinality.MANY,"accounts",Cardinality.MANY);
 
-/////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Storyboard storyboard = new Storyboard();
         storyboard.add("This shows the class diagram.");
