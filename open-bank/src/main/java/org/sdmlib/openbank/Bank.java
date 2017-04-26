@@ -22,6 +22,7 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.util.UserSet;
@@ -701,4 +702,67 @@ import java.util.Date;
 
       return balance;
    }
+
+   // update given user's info
+   public String updateUserInfo(String userID, String fieldName, String fieldValue){
+
+      UserSet usr= this.getCustomerUser().filterUserID(userID);
+
+      if(usr.size()==0){
+         return "UserID " + userID  + " is not valid.";
+      }
+
+      //this.findUserByID(userID).setName(fieldValue);
+      //this.getCustomerUser().withUserID(userID).filterUserID(userID).getName();
+      //return "successful";
+
+      //usr.setIsAdmin(Boolean.valueOf(fieldValue));
+
+      /*
+      user.withAttribute("name", DataType.STRING);
+      user.withAttribute("userID",DataType.STRING); NO
+      user.withAttribute("isAdmin", DataType.BOOLEAN);
+      user.withAttribute("password", DataType.STRING);
+      user.withAttribute("email", DataType.STRING);
+      user.withAttribute("LoggedIn", DataType.BOOLEAN);
+      user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
+      user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
+      */
+
+      //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
+
+      switch (fieldName.toUpperCase()) {
+         case "NAME":
+            usr.withName(fieldValue);
+            break;
+         case "USERID":
+            usr.withUserID(fieldValue);
+            break;
+         case "ISADMIN":
+            usr.withIsAdmin(Boolean.valueOf(fieldValue));
+            break;
+         case "PASSWORD":
+            usr.withPassword(fieldValue);
+            break;
+         case "EMAIL":
+            usr.withEmail(fieldValue);
+            break;
+         case "LOGGEDIN":
+            usr.withLoggedIn(Boolean.valueOf(fieldValue));
+            break;
+         case "PHONE":
+            usr.withPhone(fieldValue);
+            break;
+         case "USERNAME":
+            usr.withUsername(fieldValue);
+            break;
+         default:
+            return "Field " + fieldName + " is not valid.";
+      }
+
+      //System.out.println("updateUserInfo:" + usr.getPhone());
+      return "successful";
+
+   }
+
 }

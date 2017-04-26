@@ -1,3 +1,4 @@
+import de.uniks.networkparser.list.NumberList;
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
@@ -1365,5 +1366,137 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(0==amnt);
 
     }
+
+    //********** Bank updateUserInfo method tests *************
+    @Test
+    public void testupdateUserInfoChangeName() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","name","jack");
+
+        System.out.println("name:" + bnk.getCustomerUser().withUserID("bob12").getName().toString());
+        System.out.println("result:" + result);
+        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getName().toString());
+    }
+
+    @Test
+    public void testupdateUserInfoChangeUserName() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","username","jack");
+
+        System.out.println("usrName:" + bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
+        System.out.println("result:" + result);
+        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
+    }
+
+    @Test
+    public void testupdateUserInfoChangeEmail() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk = bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","email","jack@gmail.com");
+
+        System.out.println("email:" + bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+        System.out.println("usrBob:" + usrBob.getEmail());
+        System.out.println("result:" + result);
+        assertEquals("(jack@gmail.com)",bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+    }
+
+    @Test
+    public void testupdateUserInfoChangePhone() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","phone","3333333334");
+
+        /*
+        NumberList phnNums = bnk.getCustomerUser().withUserID("bob12").getPhone();
+
+        for (Number x : phnNums) {
+            System.out.println("usrBob:" + x.intValue());
+        }
+*/
+        //System.out.println("phone:" + bnk.getCustomerUser().withUserID("bob12").getPhone().toArray());
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("3333333334",usrBob.getPhone());
+    }
+
+    @Test
+    public void testupdateUserInfoInvalidUser() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob10","phone","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("UserID bob10 is not valid.",result);
+    }
+
+    @Test
+    public void testupdateUserInfoInvalidField() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("Field phone2 is not valid.",result);
+    }
+
 
 }

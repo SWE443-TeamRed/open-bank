@@ -218,27 +218,30 @@ public class SparkServer {
                     String password = "";
                     String phoneNumber = "";
                     boolean isAdmin = false;
+                    String email = "";
 
 
                     if(request.queryParams().contains("name")
                             && request.queryParams().contains("username")
                             && request.queryParams().contains("password")
                             && request.queryParams().contains("isAdmin")
-                            && request.queryParams().contains("phoneNumber")) {
+                            && request.queryParams().contains("phoneNumber")
+                            && request.queryParams().contains("email")) {
                         name = request.queryParams("name");
                         username = request.queryParams("username");
                         password = request.queryParams("password");
                         isAdmin = Boolean.parseBoolean(request.queryParams("isAdmin"));
                         phoneNumber = request.queryParams("phoneNumber");
+                        email = request.queryParams("email");
 
                         User user = new User()
-                                .withAccount()
                                 .withName(name)
                                 .withUsername(username)
                                 .withPhone(phoneNumber)
                                 .withUserID("" + j)
                                 .withPassword(password)
-                                .withIsAdmin(isAdmin);
+                                .withIsAdmin(isAdmin)
+                                .withEmail(email);
                         bank.withCustomerUser(user);
                         j++;
 
