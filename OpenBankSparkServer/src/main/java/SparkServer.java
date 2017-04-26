@@ -23,6 +23,8 @@ public class SparkServer {
 
     static boolean BANKMODE = true;
 
+    static PrintClass print = new PrintClass();
+
     static Transaction transaction = null;
 
     static private JsonPersistency jsonPersistency;
@@ -30,7 +32,7 @@ public class SparkServer {
     static int i = 1;
     static int j = 1;
 
-    static Map<Integer, Account> accountMap;
+   static Map<Integer, Account> accountMap;
 
     static Bank bank;
 
@@ -51,13 +53,15 @@ public class SparkServer {
         apiLogSetup();
         accountMapSetup();
 
-        before("/*", (q, a) -> logger.info("Received api call from ip: " + q.ip()
-                + "\n\t" + q.pathInfo()
-                + "\n\tMessage Content"
-                + "\n\tcontentType: " + q.contentType()
-                + "\n\theaders: " + q.headers().toString()
-                + "\n\tquery params: " + q.queryParams().toString()));
-
+        //sort(list, Comparable::<String>compareTo);
+//        before("/*", (q, a) -> {
+//            return logger.info("Received api call from ip: " + q.ip()
+//                    + "\n\t" + q.pathInfo()
+//                    + "\n\tMessage Content"
+//                    + "\n\tcontentType: " + q.contentType()
+//                    + "\n\theaders: " + q.headers().toString()
+//                    + "\n\tquery params: " + q.queryParams().toString());
+//        });
         get("/", (Request request, Response response) -> {
             return "TeamRed OpenBank";
         });
@@ -174,7 +178,6 @@ public class SparkServer {
                         responseJSON.put("authentication", false);
                         responseJSON.put("reason","missing required parameters in body");
                     }
-
                     return responseJSON;
                 });
             });
@@ -220,7 +223,6 @@ public class SparkServer {
 
                     return responseJSON;
                 });
-
 
                 post("", (Request request, Response response) -> {
 
@@ -271,7 +273,6 @@ public class SparkServer {
                         responseJSON.put("request","failed");
                         responseJSON.put("reason","missing required parameters in body");
                     }
-
                     return responseJSON;
                 });
             });
@@ -326,11 +327,9 @@ public class SparkServer {
                         accountJson.put("reason","missing required parameters in body");
                         jsonArray.add(accountJson);
                     }
-
                     return jsonArray;
                 });
                 post("", (Request request, Response response) -> {
-
                     JSONObject responseJSON = new JSONObject();
 
                     if (request.queryParams().contains("id")
@@ -360,6 +359,7 @@ public class SparkServer {
                                     .withOwner(bank.findUserByID(id))
                                     .withType(accountTypeEnum)
                                     .withBalance(initialBalance);
+                            bank.withCustomerAccounts(account);
                             if (account != null) {
                                 responseJSON.put("request", "successful");
                                 responseJSON.put("accountNum", account.getAccountnum());
@@ -380,74 +380,124 @@ public class SparkServer {
                     return responseJSON;
                 });
             });
+
             path("/transaction", () -> {
-
                 get("", (Request request, Response response) -> {
-
-                    String id = "";
+                    int accountId = 0;
+                    //TransactionSet allTransactions = new TransactionSet();
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("id"))
+                    if(request.queryParams().contains("accountID"))
                     {
-                        id = request.queryParams("id");
-                    } else {
-                        responseJSON.put("request", "failed");
-                        return responseJSON;
-                    }
+                        accountId = Integer.parseInt(request.queryParams("accountID"));
+                        Account account = bank.findAccountByID(accountId);
+                      /*  for( int i=0; i< allTransactions.size(); i++)
+                        {
+                            responseJSON.put("Amount", allTransactions.get(i).getAmount());
+                            responseJSON.put("Note",allTransactions.get(i).getNote());
+                        }*/
+                        responseJSON.put("request", "success");
+                        //responseJSON.put("transactions", account.getCredit());
+                        responseJSON.put("transactions", account.getCredit());
 
-                    return responseJSON.put("request", "success");
+                    } else
+                    {
+                        responseJSON.put("request", "failed");
+                    }
+                    return responseJSON;
                 });
 
                 post("", (Request request, Response response) -> {
-
                     JSONObject responseJSON = new JSONObject();
 
                     double amount = 0;
                     int fromAccountId = 0;
                     int toAccountId = 0;
                     String transferType = "";
-
-                    if(request.queryParams().contains("amount")
-                            && request.queryParams().contains("fromAccountId")
-                            && request.queryParams().contains("toAccountId")
-                            && request.queryParams().contains("transferType")) {
-                        amount = Double.parseDouble(request.queryParams("amount"));
-                        fromAccountId = Integer.parseInt(request.queryParams("fromAccountId"));
-                        toAccountId = Integer.parseInt(request.queryParams("toAccountId"));
+                    if(request.queryParams().contains("transferType"))
+                    {
                         transferType = request.queryParams("transferType");
+                        if (transferType.equals("Transfer")) {
+                            if (request.queryParams().contains("amount")
+                                && request.queryParams().contains("fromAccountId")
+                                && request.queryParams().contains("toAccountId")) {
+                                //  && request.queryParams().contains("transferType")) {
+                                amount = Double.parseDouble(request.queryParams("amount"));
+                                fromAccountId = Integer.parseInt(request.queryParams("fromAccountId"));
+                                toAccountId = Integer.parseInt(request.queryParams("toAccountId"));
+                                // transferType = request.queryParams("transferType");
+                                TransactionTypeEnum transactionTypeEnum = TransactionTypeEnum.valueOf(transferType);
 
-                        TransactionTypeEnum transactionTypeEnum = TransactionTypeEnum.valueOf(transferType);
+                                Account accountFrom = bank.findAccountByID(fromAccountId);
+                                Account accountTo = bank.findAccountByID(toAccountId);
 
-                        logger.info("fromAccount: " + accountMap.get(fromAccountId).toString());
-                        logger.info("toAccount: " + accountMap.get(toAccountId).toString());
+                                if (accountFrom != null && accountTo != null) {
 
-//                        Transaction transaction = new Transaction()
-//                                .withAmount(amount)
-//                                .withCreationdate(new Date())
-//                                .withFromAccount(accountMap.get(fromAccountId))
-//                                .withToAccount(accountMap.get(toAccountId))
-//                                .withTransType(transactionTypeEnum)
-//                                .withTime(new Date());
+                                    if (accountFrom.getBalance() > amount) {
+                                        Transaction transaction = bank.createTransaction();
+                                        transaction.withAmount(amount)
+                                                .withCreationdate(new Date())
+                                                .withFromAccount(accountFrom)
+                                                .withToAccount(accountTo)
+                                                .withTransType(transactionTypeEnum)
+                                                .withTime(new Date())
+                                                .withNote(accountFrom.getOwner().getName() + " has transferred money to " + accountTo.getOwner().getName());
+                                        accountFrom.transferToAccount(amount, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName());
+                                        // have to add to the transactionSet
 
-                        Transaction transaction = accountMap.get(fromAccountId).createCredit()
-                                .withAmount(amount)
-                                .withCreationdate(new Date())
-                                .withFromAccount(accountMap.get(fromAccountId))
-                                .withToAccount(accountMap.get(toAccountId))
-                                .withTransType(transactionTypeEnum)
-                                .withTime(new Date());;
-
-                        accountMap.get(fromAccountId).transferToAccount(amount, accountMap.get(toAccountId), "");
-
-                        responseJSON.put("request", "successful");
-                        responseJSON.put("transaction", transaction.toString());
-                        responseJSON.put("transactionFrom", transaction.getFromAccount().toString());
-                        responseJSON.put("transactionTo", transaction.getToAccount().toString());
-
-                        return responseJSON;
-                    }
-
-                    responseJSON.put("request", "failed");
+                                        responseJSON.put("request", "success");
+                                        responseJSON.put("note", transaction.getNote());
+                                        responseJSON.put("balance", (accountFrom.getBalance()));
+                                        responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
+                                        responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+                                    }
+                                    else{
+                                        responseJSON.put("request", "fail");
+                                        responseJSON.put("reason", "you do not have enough funds to transfer");
+                                    }
+                                }
+                                else
+                                {
+                                    responseJSON.put("request", "fail");
+                                    responseJSON.put("reason", "requested account does not exist");
+                                }
+                            }
+                        }
+                        else if (transferType.equals("Deposit")) {
+                                int toAccount;
+                                if (request.queryParams().contains("amount") && request.queryParams().contains("toAccount"))
+                                {
+                                    amount = Double.parseDouble(request.queryParams("amount"));
+                                    toAccount = Integer.parseInt(request.queryParams("toAccount"));
+                                    Account depositToAccount  = bank.findAccountByID(toAccount);
+                                    depositToAccount.deposit(amount);
+                                    responseJSON.put("request", "success");
+                                    responseJSON.put("balance", (depositToAccount.getBalance()));
+                                }
+                                else
+                                {
+                                    responseJSON.put("request", "fail");
+                                    responseJSON.put("reason", "requested account does not exist");
+                                }
+                        }
+                        else if (transferType.equals("Withdraw")){
+                            int fromAccount;
+                            if (request.queryParams().contains("amount") && request.queryParams().contains("fromAccount"))
+                            {
+                                amount = Double.parseDouble(request.queryParams("amount"));
+                                fromAccount = Integer.parseInt(request.queryParams("fromAccount"));
+                                Account withdrawFromAccount  = bank.findAccountByID(fromAccount);
+                                withdrawFromAccount.withdraw(amount);
+                                responseJSON.put("request", "success");
+                                responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+                            }
+                            else
+                            {
+                                responseJSON.put("request", "fail");
+                                responseJSON.put("reason", "requested account does not exist");
+                            }
+                        }
+                     }
                     return responseJSON;
                 });
             });
@@ -476,6 +526,12 @@ public class SparkServer {
         public void run() {
             jsonPersistency.bankToJson(bank);
             logger.info("*************************************Shutting Down Session*************************************");
+        }
+    }
+
+    static class PrintClass {
+        public void print(String printString) {
+            System.out.println(printString);
         }
     }
 }
