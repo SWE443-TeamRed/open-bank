@@ -24,11 +24,11 @@ package org.sdmlib.openbank;
 public enum TransactionTypeEnum
 {
 		DEPOSIT,
-		FEE,
-		WITHDRAW,
-		CLOSE,
-		CREATE,
-		TRANSFER;
+        WITHDRAWAL,
+        TRANSFER,
+        SEED,
+        CLOSE,
+		FEE;
 
    
    //==========================================================================

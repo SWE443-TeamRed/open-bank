@@ -86,7 +86,7 @@ public class TransactionTest {
         trans.setTransType(null);
 
     }
-
+/*
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
@@ -104,4 +104,5 @@ public class TransactionTest {
 
         assertTrue(TransactionTypeEnum.Deposit == trans.getTransType());
     }
+    */
 }

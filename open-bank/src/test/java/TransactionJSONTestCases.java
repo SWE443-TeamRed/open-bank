@@ -84,7 +84,7 @@ public class TransactionJSONTestCases {
         // set type
         trans.setTransType(null);
     }
-
+/*
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
@@ -102,7 +102,7 @@ public class TransactionJSONTestCases {
 
         assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Deposit == trans.getTransType());
     }
-
+*/
     // JSON Test Case
     @Test(expected=NullPointerException.class)
     // set user with null should throws NullPointerException exception

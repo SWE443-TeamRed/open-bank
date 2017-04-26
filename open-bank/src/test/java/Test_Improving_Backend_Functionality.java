@@ -91,18 +91,18 @@ public class Test_Improving_Backend_Functionality {
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Withdraw);
+        trans.setTransType(TransactionTypeEnum.WITHDRAWAL);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Withdraw == trans.getTransType());
+        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.WITHDRAWAL == trans.getTransType());
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeDeposit(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Deposit);
+        trans.setTransType(TransactionTypeEnum.DEPOSIT);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Deposit == trans.getTransType());
+        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.DEPOSIT == trans.getTransType());
     }
 
     // JSON Test Case
