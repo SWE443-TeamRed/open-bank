@@ -602,21 +602,6 @@ public  class Account implements SendableEntity
    
 
 
-   
-   //==========================================================================
-   public boolean receiveFunds( Account giver, double amount, String note )
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   public Transaction recordTransaction( boolean p0, double p1, String p2 )
-   {
-      return null;
-   }
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -733,4 +718,18 @@ public  class Account implements SendableEntity
       withEmployingBank(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public boolean receiveFunds( Account giver, double amount, String note )
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   public Transaction recordTransaction( boolean p0, double p1, String p2 )
+   {
+      return null;
+   }
 }

@@ -435,7 +435,7 @@ import org.sdmlib.openbank.Account;
                .withFromAccount(fromAcct)
                .withToAccount(toAcct)
                .withCreationdate(new Date())
-               .withTransType(TransactionTypeEnum.Transfer);
+               .withTransType(TransactionTypeEnum.TRANSFER);
        this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
        return true;
    }

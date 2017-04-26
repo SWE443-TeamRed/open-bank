@@ -933,17 +933,6 @@ public class AccountSet extends SimpleSet<Account>
    
    //==========================================================================
    
-   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
-   {
-      
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.recordTransaction(p0, p1, p2) );
-      }
-      return result;
-   }
 
    /**
     * Loop through the current set of Account objects and collect a set of the Bank objects reached via bank. 
@@ -1073,6 +1062,21 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(p0, p1, p2) );
+      }
+      return result;
    }
 
 }

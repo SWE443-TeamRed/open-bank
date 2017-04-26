@@ -647,17 +647,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
-   
-   //==========================================================================
-   
-   public org.sdmlib.openbank.Transaction recordTransaction(boolean p0, double p1, String p2)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
-      }
-      return null;
-   }
+
 
    public BankPO createBankPO()
    {
@@ -733,6 +723,18 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       if (this.getPattern().getHasMatch())
       {
          return ((Account) this.getCurrentMatch()).getEmployingBank();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.openbank.Transaction recordTransaction(boolean p0, double p1, String p2)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
       }
       return null;
    }

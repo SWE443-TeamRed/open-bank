@@ -27,8 +27,9 @@ public class Model {
 
         Clazz transTypeEnum = model.createClazz("TransactionTypeEnum").enableEnumeration();
 
-        transTypeEnum.with(new Literal("Deposit"),
-                new Literal("Withdraw"),new Literal("Delete"),new Literal("Create"),new Literal("Transfer"));
+        transTypeEnum.with(
+                new Literal("DEPOSIT"), new Literal("FEE"),
+                new Literal("WITHDRAW"),new Literal("CLOSE"),new Literal("CREATE"),new Literal("TRANSFER"));
 
         transTypeEnum.withMethod("toString", DataType.STRING);
 
