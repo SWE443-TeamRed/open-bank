@@ -30,7 +30,7 @@ public class Model {
 
         transTypeEnum.with(
                 new Literal("DEPOSIT"),
-                new Literal("WITHDRAWAL"),
+                new Literal("WITHDRAW"),
                 new Literal("TRANSFER"),
                 new Literal("SEED"),
                 new Literal("CLOSE"),
@@ -67,7 +67,8 @@ public class Model {
     /////////Transaction////////////////////////////////////////////////////////////////////////////////////////////////////
         // create class Transaction
         Clazz transaction = model.createClazz("Transaction");
-        transaction.withAttribute("amount", DataType.DOUBLE);
+        //transaction.withAttribute("amount", DataType.DOUBLE);
+        transaction.withAttribute("amount", DataType.create(BigInteger.class));
         transaction.withAttribute("creationdate",DataType.create(Date.class));
         transaction.withAttribute("note",DataType.STRING);
         transaction.withAttribute("transType", DataType.create(transTypeEnum));

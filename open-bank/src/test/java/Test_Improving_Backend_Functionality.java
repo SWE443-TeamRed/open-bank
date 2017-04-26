@@ -91,9 +91,9 @@ public class Test_Improving_Backend_Functionality {
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
         // set type
-        trans.setTransType(TransactionTypeEnum.WITHDRAWAL);
+        trans.setTransType(TransactionTypeEnum.WITHDRAW);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.WITHDRAWAL == trans.getTransType());
+        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.WITHDRAW == trans.getTransType());
     }
 
     @Test
