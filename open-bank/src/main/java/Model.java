@@ -163,10 +163,8 @@ public class Model {
 
         // the account in user
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
-        //transactions toAccount
-        account.withBidirectional(transaction, "credit",Cardinality.MANY,"fromAccount",Cardinality.ONE);
-        //transactions fromAccount
-        account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
+        // Transactions and Account relation
+        account.withBidirectional(transaction, "transactions",Cardinality.MANY,"accounts",Cardinality.MANY);
 
 /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
 

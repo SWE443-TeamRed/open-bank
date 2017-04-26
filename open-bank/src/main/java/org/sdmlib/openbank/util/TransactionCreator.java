@@ -38,11 +38,10 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_DATE,
       Transaction.PROPERTY_TIME,
       Transaction.PROPERTY_NOTE,
-      Transaction.PROPERTY_FROMACCOUNT,
-      Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
       Transaction.PROPERTY_CREATIONDATE,
       Transaction.PROPERTY_BANK,
+      Transaction.PROPERTY_ACCOUNTS,
    };
    
    @Override
@@ -88,15 +87,6 @@ public class TransactionCreator implements SendableEntityCreator
          return ((Transaction) target).getNote();
       }
 
-      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getFromAccount();
-      }
-
-      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getToAccount();
-      }
 
       if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attribute))
       {
@@ -111,6 +101,11 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attribute))
       {
          return ((Transaction) target).getBank();
+      }
+
+      if (Transaction.PROPERTY_ACCOUNTS.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getAccounts();
       }
       
       return null;
@@ -160,21 +155,21 @@ public class TransactionCreator implements SendableEntityCreator
          attrName = attrName + type;
       }
 
-      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setFromAccount((Account) value);
-         return true;
-      }
-
-      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
-      {
-         ((Transaction) target).setToAccount((Account) value);
-         return true;
-      }
-
       if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setBank((Bank) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_ACCOUNTS.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).withAccounts((Account) value);
+         return true;
+      }
+      
+      if ((Transaction.PROPERTY_ACCOUNTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).withoutAccounts((Account) value);
          return true;
       }
       

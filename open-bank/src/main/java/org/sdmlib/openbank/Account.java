@@ -94,10 +94,9 @@ public  class Account implements SendableEntity
    public void removeYou()
    {
       setOwner(null);
-      withoutCredit(this.getCredit().toArray(new Transaction[this.getCredit().size()]));
-      withoutDebit(this.getDebit().toArray(new Transaction[this.getDebit().size()]));
       setBank(null);
       setEmployingBank(null);
+      withoutTransactions(this.getTransactions().toArray(new Transaction[this.getTransactions().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -252,159 +251,7 @@ public  class Account implements SendableEntity
    }
 
 
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Account ----------------------------------- Transaction
-    *              fromAccount                   credit
-    * </pre>
-    */
-
-   public static final String PROPERTY_CREDIT = "credit";
-
-   private TransactionSet credit = null;
-
-   public TransactionSet getCredit()
-   {
-      if (this.credit == null)
-      {
-         return TransactionSet.EMPTY_SET;
-      }
-
-      return this.credit;
-   }
-
-   public Account withCredit(Transaction... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Transaction item : value)
-      {
-         if (item != null)
-         {
-            if (this.credit == null)
-            {
-               this.credit = new TransactionSet();
-            }
-
-            boolean changed = this.credit.add (item);
-
-            if (changed)
-            {
-               item.withFromAccount(this);
-               firePropertyChange(PROPERTY_CREDIT, null, item);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Account withoutCredit(Transaction... value)
-   {
-      for (Transaction item : value)
-      {
-         if ((this.credit != null) && (item != null))
-         {
-            if (this.credit.remove(item))
-            {
-               item.setFromAccount(null);
-               firePropertyChange(PROPERTY_CREDIT, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Transaction createCredit()
-   {
-      Transaction value = new Transaction();
-      withCredit(value);
-      return value;
-   }
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Account ----------------------------------- Transaction
-    *              toAccount                   debit
-    * </pre>
-    */
-
-   public static final String PROPERTY_DEBIT = "debit";
-
-   private TransactionSet debit = null;
-
-   public TransactionSet getDebit()
-   {
-      if (this.debit == null)
-      {
-         return TransactionSet.EMPTY_SET;
-      }
-
-      return this.debit;
-   }
-
-   public Account withDebit(Transaction... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Transaction item : value)
-      {
-         if (item != null)
-         {
-            if (this.debit == null)
-            {
-               this.debit = new TransactionSet();
-            }
-
-            boolean changed = this.debit.add (item);
-
-            if (changed)
-            {
-               item.withToAccount(this);
-               firePropertyChange(PROPERTY_DEBIT, null, item);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Account withoutDebit(Transaction... value)
-   {
-      for (Transaction item : value)
-      {
-         if ((this.debit != null) && (item != null))
-         {
-            if (this.debit.remove(item))
-            {
-               item.setToAccount(null);
-               firePropertyChange(PROPERTY_DEBIT, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Transaction createDebit()
-   {
-      Transaction value = new Transaction();
-      withDebit(value);
-      return value;
-   }
-
-
-
-
-
-
-
-
-
-
-   //==========================================================================
+    //==========================================================================
 
    public static final String PROPERTY_ISCONNECTED = "IsConnected";
 
@@ -500,18 +347,12 @@ public  class Account implements SendableEntity
    {
       Transaction trans;
 
-         //Create transaction object
-         trans = new Transaction();
-         trans.setDate(new Date());
-         trans.setAmount(amount);
-         trans.setNote(note);
-         if(credit) {
-            //Credit transaction, Set who is getting amount
-            trans.setFromAccount(recordforAccount);
-         }else{
-             //Debit transaction, set who is recieving amount
-            trans.setToAccount(recordforAccount);
-         }
+      //Create transaction object
+      trans = new Transaction();
+      trans.setDate(new Date());
+      trans.setAmount(amount);
+      trans.setNote(note);
+      trans.withAccounts(recordforAccount);
       return trans;
    }
 
@@ -732,4 +573,76 @@ public  class Account implements SendableEntity
    {
       return null;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Account ----------------------------------- Transaction
+    *              accounts                   transactions
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TRANSACTIONS = "transactions";
+
+   private TransactionSet transactions = null;
+   
+   public TransactionSet getTransactions()
+   {
+      if (this.transactions == null)
+      {
+         return TransactionSet.EMPTY_SET;
+      }
+   
+      return this.transactions;
+   }
+
+   public Account withTransactions(Transaction... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Transaction item : value)
+      {
+         if (item != null)
+         {
+            if (this.transactions == null)
+            {
+               this.transactions = new TransactionSet();
+            }
+            
+            boolean changed = this.transactions.add (item);
+
+            if (changed)
+            {
+               item.withAccounts(this);
+               firePropertyChange(PROPERTY_TRANSACTIONS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Account withoutTransactions(Transaction... value)
+   {
+      for (Transaction item : value)
+      {
+         if ((this.transactions != null) && (item != null))
+         {
+            if (this.transactions.remove(item))
+            {
+               item.withoutAccounts(this);
+               firePropertyChange(PROPERTY_TRANSACTIONS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Transaction createTransactions()
+   {
+      Transaction value = new Transaction();
+      withTransactions(value);
+      return value;
+   } 
 }

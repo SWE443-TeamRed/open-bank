@@ -432,8 +432,7 @@ import org.sdmlib.openbank.Account;
        }
        Transaction transferTransation = new Transaction().withBank(this)
                .withAmount(dollarValue+decimalValue)
-               .withFromAccount(fromAcct)
-               .withToAccount(toAcct)
+               .withAccounts(fromAcct,toAcct)
                .withCreationdate(new Date())
                .withTransType(TransactionTypeEnum.TRANSFER);
        this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction

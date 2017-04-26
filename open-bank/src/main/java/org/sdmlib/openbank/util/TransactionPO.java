@@ -12,6 +12,7 @@ import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.util.BankPO;
 import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.util.AccountSet;
 
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
@@ -262,83 +263,8 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public AccountPO createFromAccountPO()
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
-      
-      return result;
-   }
 
-   public AccountPO createFromAccountPO(String modifier)
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Transaction.PROPERTY_FROMACCOUNT, result);
-      
-      return result;
-   }
 
-   public TransactionPO createFromAccountLink(AccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT);
-   }
-
-   public TransactionPO createFromAccountLink(AccountPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_FROMACCOUNT, modifier);
-   }
-
-   public Account getFromAccount()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) this.getCurrentMatch()).getFromAccount();
-      }
-      return null;
-   }
-
-   public AccountPO createToAccountPO()
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
-      
-      return result;
-   }
-
-   public AccountPO createToAccountPO(String modifier)
-   {
-      AccountPO result = new AccountPO(new Account[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Transaction.PROPERTY_TOACCOUNT, result);
-      
-      return result;
-   }
-
-   public TransactionPO createToAccountLink(AccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT);
-   }
-
-   public TransactionPO createToAccountLink(AccountPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Transaction.PROPERTY_TOACCOUNT, modifier);
-   }
-
-   public Account getToAccount()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Transaction) this.getCurrentMatch()).getToAccount();
-      }
-      return null;
-   }
 
    public TransactionPO createTransTypeCondition(TransactionTypeEnum value)
    {
@@ -467,6 +393,45 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       if (this.getPattern().getHasMatch())
       {
          return ((Transaction) this.getCurrentMatch()).getBank();
+      }
+      return null;
+   }
+
+   public AccountPO createAccountsPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_ACCOUNTS, result);
+      
+      return result;
+   }
+
+   public AccountPO createAccountsPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_ACCOUNTS, result);
+      
+      return result;
+   }
+
+   public TransactionPO createAccountsLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_ACCOUNTS);
+   }
+
+   public TransactionPO createAccountsLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_ACCOUNTS, modifier);
+   }
+
+   public AccountSet getAccounts()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getAccounts();
       }
       return null;
    }

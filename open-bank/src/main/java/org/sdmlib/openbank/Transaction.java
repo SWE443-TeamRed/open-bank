@@ -30,6 +30,7 @@ import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.util.AccountSet;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -89,9 +90,8 @@ public  class Transaction implements SendableEntity
 
    public void removeYou()
    {
-      setFromAccount(null);
-      setToAccount(null);
       setBank(null);
+      withoutAccounts(this.getAccounts().toArray(new Account[this.getAccounts().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -235,124 +235,6 @@ public  class Transaction implements SendableEntity
    }
 
 
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Transaction ----------------------------------- Account
-    *              credit                   fromAccount
-    * </pre>
-    */
-
-   public static final String PROPERTY_FROMACCOUNT = "fromAccount";
-
-   private Account fromAccount = null;
-
-   public Account getFromAccount()
-   {
-      return this.fromAccount;
-   }
-
-   public boolean setFromAccount(Account value)
-   {
-      boolean changed = false;
-
-      if (this.fromAccount != value)
-      {
-         Account oldValue = this.fromAccount;
-
-         if (this.fromAccount != null)
-         {
-            this.fromAccount = null;
-            oldValue.withoutCredit(this);
-         }
-
-         this.fromAccount = value;
-
-         if (value != null)
-         {
-            value.withCredit(this);
-         }
-
-         firePropertyChange(PROPERTY_FROMACCOUNT, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Transaction withFromAccount(Account value)
-   {
-      setFromAccount(value);
-      return this;
-   }
-
-   public Account createFromAccount()
-   {
-      Account value = new Account();
-      withFromAccount(value);
-      return value;
-   }
-
-
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Transaction ----------------------------------- Account
-    *              debit                   toAccount
-    * </pre>
-    */
-
-   public static final String PROPERTY_TOACCOUNT = "toAccount";
-
-   private Account toAccount = null;
-
-   public Account getToAccount()
-   {
-      return this.toAccount;
-   }
-
-   public boolean setToAccount(Account value)
-   {
-      boolean changed = false;
-
-      if (this.toAccount != value)
-      {
-         Account oldValue = this.toAccount;
-
-         if (this.toAccount != null)
-         {
-            this.toAccount = null;
-            oldValue.withoutDebit(this);
-         }
-
-         this.toAccount = value;
-
-         if (value != null)
-         {
-            value.withDebit(this);
-         }
-
-         firePropertyChange(PROPERTY_TOACCOUNT, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Transaction withToAccount(Account value)
-   {
-      setToAccount(value);
-      return this;
-   }
-
-   public Account createToAccount()
-   {
-      Account value = new Account();
-      withToAccount(value);
-      return value;
-   }
-
-   
    //==========================================================================
    
    public static final String PROPERTY_TRANSTYPE = "transType";
@@ -481,6 +363,78 @@ public  class Transaction implements SendableEntity
    {
       Bank value = new Bank();
       withBank(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Transaction ----------------------------------- Account
+    *              transactions                   accounts
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ACCOUNTS = "accounts";
+
+   private AccountSet accounts = null;
+   
+   public AccountSet getAccounts()
+   {
+      if (this.accounts == null)
+      {
+         return AccountSet.EMPTY_SET;
+      }
+   
+      return this.accounts;
+   }
+
+   public Transaction withAccounts(Account... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Account item : value)
+      {
+         if (item != null)
+         {
+            if (this.accounts == null)
+            {
+               this.accounts = new AccountSet();
+            }
+            
+            boolean changed = this.accounts.add (item);
+
+            if (changed)
+            {
+               item.withTransactions(this);
+               firePropertyChange(PROPERTY_ACCOUNTS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Transaction withoutAccounts(Account... value)
+   {
+      for (Account item : value)
+      {
+         if ((this.accounts != null) && (item != null))
+         {
+            if (this.accounts.remove(item))
+            {
+               item.withoutTransactions(this);
+               firePropertyChange(PROPERTY_ACCOUNTS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Account createAccounts()
+   {
+      Account value = new Account();
+      withAccounts(value);
       return value;
    } 
 }

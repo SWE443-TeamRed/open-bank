@@ -550,210 +550,7 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via credit. 
-    * 
-    * @return Set of Transaction objects reachable via credit
-    */
-   public TransactionSet getCredit()
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.with(obj.getCredit());
-      }
-      
-      return result;
-   }
 
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference credit pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as credit neighbor of the collected results. 
-    * 
-    * @return Set of Transaction objects referring to value via credit
-    */
-   public AccountSet filterCredit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AccountSet answer = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getCredit()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Credit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Credit attributes.
-    */
-   public AccountSet withCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withCredit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Credit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutCredit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via debit. 
-    * 
-    * @return Set of Transaction objects reachable via debit
-    */
-   public TransactionSet getDebit()
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.with(obj.getDebit());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference debit pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as debit neighbor of the collected results. 
-    * 
-    * @return Set of Transaction objects referring to value via debit
-    */
-   public AccountSet filterDebit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AccountSet answer = new AccountSet();
-      
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDebit()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Debit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Debit attributes.
-    */
-   public AccountSet withDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withDebit(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Debit attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutDebit(value);
-      }
-      
-      return this;
-   }
-
-   
-   //==========================================================================
-   
-//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.myBankTransaction(amount, destinationAccount) );
-//      }
-//      return result;
-//   }
-
-   
-   //==========================================================================
-   
-//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.receiveFound(amount, sourceAccount) );
-//      }
-//      return result;
-//   }
-
-   
-   //==========================================================================
-   
-//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.sendTransactionInfo(transaction, amount, p0, p1, note) );
-//      }
-//      return result;
-//   }
 
 
    /**
@@ -1077,6 +874,86 @@ public class AccountSet extends SimpleSet<Account>
          result.add( obj.recordTransaction(p0, p1, p2) );
       }
       return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via transactions. 
+    * 
+    * @return Set of Transaction objects reachable via transactions
+    */
+   public TransactionSet getTransactions()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.with(obj.getTransactions());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference transactions pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as transactions neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via transactions
+    */
+   public AccountSet filterTransactions(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AccountSet answer = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getTransactions()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Transactions attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Transactions attributes.
+    */
+   public AccountSet withTransactions(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withTransactions(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Transactions attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public AccountSet withoutTransactions(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withoutTransactions(value);
+      }
+      
+      return this;
    }
 
 }

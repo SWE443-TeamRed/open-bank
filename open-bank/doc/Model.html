@@ -152,25 +152,12 @@
          "source":{
             "id":"Transaction",
             "cardinality":"many",
-            "property":"credit"
+            "property":"transactions"
          },
          "target":{
             "id":"Account",
-            "cardinality":"one",
-            "property":"fromAccount"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Transaction",
             "cardinality":"many",
-            "property":"debit"
-         },
-         "target":{
-            "id":"Account",
-            "cardinality":"one",
-            "property":"toAccount"
+            "property":"accounts"
          }
       },
       {
