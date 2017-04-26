@@ -7,7 +7,7 @@ Description:
 	- Datatype of Phone Number: Change it to a String
 	- Add a username String attribute and use username for the functions
 		userID was previously used for
-		+ userID will be a unique identifier for each userID
+		+ userID will be a unique identifier for each user
   b) Update Account Class:
 	- Remove TransactionSets Debit/Credit, consolidate to TransactionSets
 		called transactions
