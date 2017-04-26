@@ -133,7 +133,7 @@ public class AccountSet extends SimpleSet<Account>
 
 //   //==========================================================================
 //
-//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   var de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -148,7 +148,7 @@ public class AccountSet extends SimpleSet<Account>
 //
 //   //==========================================================================
 //
-//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   var de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -163,7 +163,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   var de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -383,7 +383,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Subset of Account objects that match the parameter
     */
-//   public AccountSet filterCreationdate(Date value)
+//   var AccountSet filterCreationdate(Date value)
 //   {
 //      AccountSet result = new AccountSet();
 //
@@ -406,7 +406,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Current set of Account objects now with new attribute values.
     */
-//   public AccountSet withCreationdate(Date value)
+//   var AccountSet withCreationdate(Date value)
 //   {
 //      for (Account obj : this)
 //      {
@@ -703,7 +703,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   var de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -718,7 +718,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   var de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -733,7 +733,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   var de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();

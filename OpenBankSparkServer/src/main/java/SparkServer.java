@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import spark.Request;
 import spark.Response;
+import spark.utils.IOUtils;
 
 import java.io.IOException;
 import java.util.Date;
@@ -79,6 +80,20 @@ public class SparkServer {
                     "</HTML>";
             });
 
+            path("/login", () -> {
+                get("", (Request request, Response response) -> {
+
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                });
+            });
+
+            path("/viewTransactions", () -> {
+                get("", (Request request, Response response) -> {
+
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/viewTransactions.html"));
+                });
+            });
+
             path("/passwordReset", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
@@ -113,7 +128,7 @@ public class SparkServer {
         });
 
 
-        path("/api", () -> {
+        path("/api/v1", () -> {
 
             path("/login", () -> {
 

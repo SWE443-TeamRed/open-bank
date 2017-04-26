@@ -65,7 +65,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
 //
-//   public boolean myBankTransaction(double amount, Account destinationAccount)
+//   var boolean myBankTransaction(double amount, Account destinationAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -77,7 +77,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //
 //   //==========================================================================
 //
-//   public boolean receiveFound(double amount, Account sourceAccount)
+//   var boolean receiveFound(double amount, Account sourceAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -89,7 +89,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //
 //   //==========================================================================
 //
-//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   var boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -270,7 +270,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-//   public Date getCreationdate()
+//   var Date getCreationdate()
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -279,7 +279,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
 //      return null;
 //   }
    
-//   public AccountPO withCreationdate(Date value)
+//   var AccountPO withCreationdate(Date value)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -454,7 +454,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-//   public boolean myBankTransaction(double amount, Account destinationAccount)
+//   var boolean myBankTransaction(double amount, Account destinationAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -466,7 +466,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-//   public boolean receiveFound(double amount, Account sourceAccount)
+//   var boolean receiveFound(double amount, Account sourceAccount)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {
@@ -478,7 +478,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-//   public boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   var boolean sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //      if (this.getPattern().getHasMatch())
 //      {

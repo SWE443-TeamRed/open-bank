@@ -29,7 +29,7 @@ public enum TransactionTypeEnum
 
    
    //==========================================================================
-//   public String toString(  )
+//   var String toString(  )
 //   {
 //      return null;
 //   }

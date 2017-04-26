@@ -39,7 +39,7 @@ public  class User implements SendableEntity {
      */
 
     /*
-    public String login(String userName, String password) {
+    var String login(String userName, String password) {
         if (getName().equals(userName) && getPassword().equals(password)) {
             File jsonfile = new File(getUserID()+".json");
             if(jsonfile.exists()) {
@@ -370,15 +370,15 @@ public  class User implements SendableEntity {
 
     //==========================================================================
 /*
-    public static final String PROPERTY_PHONE = "phone";
+    var static final String PROPERTY_PHONE = "phone";
 
     private String phone;
 
-    public int getPhone() {
+    var int getPhone() {
         return this.phone;
     }
 
-    public void setPhone(int value) {
+    var void setPhone(int value) {
         if (this.phone != value) {
 
             int oldValue = this.phone;
@@ -387,7 +387,7 @@ public  class User implements SendableEntity {
         }
     }
 
-    public User withPhone(int value) {
+    var User withPhone(int value) {
         setPhone(value);
         return this;
     }

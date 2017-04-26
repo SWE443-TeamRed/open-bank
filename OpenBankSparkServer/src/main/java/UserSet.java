@@ -627,7 +627,7 @@ public class UserSet extends SimpleSet<User>
     * @return Subset of User objects that match the parameter
     */
    /*
-   public UserSet filterPhone(String value)
+   var UserSet filterPhone(String value)
    {
       UserSet result = new UserSet();
       
@@ -652,7 +652,7 @@ public class UserSet extends SimpleSet<User>
     * @return Subset of User objects that match the parameter
     */
   /*
-   public UserSet filterPhone(int lower, int upper)
+   var UserSet filterPhone(int lower, int upper)
    {
       UserSet result = new UserSet();
       
@@ -676,7 +676,7 @@ public class UserSet extends SimpleSet<User>
     * @return Current set of User objects now with new attribute values.
     */
    /*
-   public UserSet withPhone(String value)
+   var UserSet withPhone(String value)
    {
       for (User obj : this)
       {
