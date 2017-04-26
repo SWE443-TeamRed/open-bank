@@ -703,11 +703,15 @@ import java.util.Date;
       return balance;
    }
 
+   // update given user's info
    public String updateUserInfo(String userID, String fieldName, String fieldValue){
 
       UserSet usr= this.getCustomerUser().filterUserID(userID);
 
-      //System.out.println("getName:" + usr.getName());
+      if(usr.size()==0){
+         return "UserID " + userID  + " is not valid.";
+      }
+
       //this.findUserByID(userID).setName(fieldValue);
       //this.getCustomerUser().withUserID(userID).filterUserID(userID).getName();
       //return "successful";
@@ -725,7 +729,7 @@ import java.util.Date;
       user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
       */
 
-      System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
+      //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
 
       switch (fieldName.toUpperCase()) {
          case "NAME":
@@ -753,7 +757,7 @@ import java.util.Date;
             usr.withUsername(fieldValue);
             break;
          default:
-            return "Field," + fieldName + " not found.";
+            return "Field " + fieldName + " is not valid.";
       }
 
       //System.out.println("updateUserInfo:" + usr.getPhone());

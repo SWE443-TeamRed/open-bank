@@ -1456,4 +1456,47 @@ public class Test_Improving_Backend_Functionality {
         assertEquals("3333333334",usrBob.getPhone());
     }
 
+    @Test
+    public void testupdateUserInfoInvalidUser() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob10","phone","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("UserID bob10 is not valid.",result);
+    }
+
+    @Test
+    public void testupdateUserInfoInvalidField() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("Field phone2 is not valid.",result);
+    }
+
+
 }
