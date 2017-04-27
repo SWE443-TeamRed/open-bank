@@ -4,6 +4,7 @@ import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.TransactionTypeEnum;
 
 
+import java.math.BigInteger;
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -23,14 +24,14 @@ public class TransactionTest {
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
     public void testSetAmountNegative()throws Exception{
-        trans.setAmount(-5);
+        trans.setAmount(BigInteger.valueOf(-5));
     }
 
     @Test
     // setAmount and get the amount to make sure you get the correct amount
     public void setgetAmount(){
-        trans.setAmount(50.55);
-        assertTrue(50.55 == trans.getAmount());
+        trans.setAmount(BigInteger.valueOf(50));
+        assertTrue(BigInteger.valueOf(50) == trans.getAmount());
     }
 
     @Test

@@ -11,8 +11,7 @@ Description:
   b) Update Account Class:
 	X- Remove TransactionSets Debit/Credit, consolidate to TransactionSets
 		called transactions
-	- Balance datatype should be two BigIntegers [java type, one to hold 
-		before the decimal place and one for after the decimal place]
+	- Balance datatype should be a BigInteger (amount would be calculated by dividing it by one billion)
 	- Edit transaction methods to also create an additional fee transaction
 		when necessary
 	- Fix receiveFunds and recordTransaction methods for account in model
@@ -21,8 +20,7 @@ Description:
     - Transactions should have a 1 to 1 relationship with itself
 		+ Label it as previous and next
 		+ (this is a change to the Class Diagram)
-    - Amount datatype should be two BigIntegers [java type, one to hold 
-		before the decimal place and one for after the decimal place]
+    - Amount datatype should be a BigInteger (amount would be calculated by dividing it by one billion)
     X- Change TransactionTypeEnum fields to [DEPOSIT, WITHDRAW, TRANSFER,
 		CREATE, CLOSE, FEE]
   
