@@ -2,12 +2,15 @@ package com.app.swe443.openbankapp;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountSet;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by hlope on 4/18/2017.
@@ -26,12 +29,70 @@ public class MockServerSingleton {
      */
     private MockServerSingleton() {
         mainBank = new Bank();
+        //==================================================================
+        User user = new User()
+                .withName("Tom Eater")
+                .withPassword("AntsAreTasty")
+                .withPhone("5712342393")
+                .withEmail("antEatingAntEater@ants.com")
+                .withUserID("AntEater")
+                .withIsAdmin(false)
+                .withBank(mainBank)
+                .withUsername("AntEater");
+        int newAccountNum= this.getUniqueAccountNum();
+        Account newAccount = new Account()
+                .withAccountnum(newAccountNum)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withOwner(user)
+                .withCreationdate(new Date())
+                .withBalance(Double.valueOf("0.0"));
+        user.withAccount(newAccount);
+        Transaction t = new Transaction()
+                .withAmount(Double.valueOf("500.0"))
+                .withBank(mainBank)
+                .withDate(new Date())
+                .withToAccount(newAccount)
+                .withNote("Initial Seeding")
+                .withTransType(TransactionTypeEnum.Create);
+        newAccount.getAccountTransactions().addFirst(t);
+        newAccount.setBalance(Double.valueOf("500.0"));
+        mainBank.withCustomerUser(user);
+       /*
+        user = new User()
+                .withName("Admin2")
+                .withPassword("b")
+                .withPhone("Whatever")
+                .withEmail("docare")
+                .withUserID("b")
+                .withIsAdmin(false)
+                .withBank(mainBank)
+                .withUsername("b");
+        newAccountNum= this.getUniqueAccountNum();
+        newAccount = new Account()
+                .withAccountnum(newAccountNum)
+                .withType(AccountTypeEnum.SAVINGS)
+                .withOwner(user)
+                .withCreationdate(new Date())
+                .withBalance(Double.valueOf("0.0"));
+        user.withAccount(newAccount);
+         t = new Transaction()
+                .withAmount(Double.valueOf("500.0"))
+                 .withBank(mainBank)
+                 .withDate(new Date())
+                 .withToAccount(newAccount)
+                 .withNote("Initial Seeding")
+                 .withTransType(TransactionTypeEnum.Create);
+        newAccount.getAccountTransactions().addFirst(t);
+
+        mainBank.withCustomerUser(user);
+        */
     }
 
     /* Static 'singelton' method */
     public static MockServerSingleton getInstance( ) {
         if(singleton == null) {
             singleton = new MockServerSingleton();
+
         }
         return singleton;
     }

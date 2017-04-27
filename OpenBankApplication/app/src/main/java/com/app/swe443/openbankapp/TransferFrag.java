@@ -123,22 +123,42 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 /*
                     TODO CHECK IF TOACCOUNT EXISTS, NEED TO GET ALL ACCOUNTS IN SERVER
                  */
-                if(mockserver.doesAccountExists(Integer.valueOf(accountTo.getText().toString())))
-                    Toast.makeText(getContext(), "You are trying to transfer to a non existent account",
-                            Toast.LENGTH_SHORT).show();
-                if(accountTo.getText().toString().equals("") || amount.getText().toString().equals("")|| accountToConfirm.getText().toString().equals("")){
-                    Toast.makeText(getContext(), "Required field is missing",
-                            Toast.LENGTH_SHORT).show();
-                }else if(!(accountTo.getText().toString().equals(accountToConfirm.getText().toString()))){
-                    Toast.makeText(getContext(), "Account numbers are not the same, please confirm same account number",
-                            Toast.LENGTH_SHORT).show();
-                }else {
-                        checkIfInputsAreFilled();
-
+                boolean incomplete = false;
+                if(mockserver.doesAccountExists(Integer.valueOf(accountTo.getText().toString()))) {
+                    accountTo.setError("Account does not exist");
+                    incomplete = true;
                 }
-                break;
+                if(accountTo.getText().toString().equals("") ) {
+                    accountTo.setError("Required field is missing");
+                    incomplete = true;
+                }
+                if(accountToConfirm.getText().toString().equals("")) {
+                    accountToConfirm.setError("Required field is missing");
+                    incomplete = true;
+                }
+                if(!(accountTo.getText().toString().equals(accountToConfirm.getText().toString()))){
+                    accountToConfirm.setError("Values do not match");
+                    incomplete = true;
+                }
+                if(amount.getText().toString().equals("")) {
+                    amount.setError("Required field is missing");
+                    incomplete = true;
+                }
+                else if(Double.valueOf(amount.getText().toString()) <= 0){
+                    amount.setError("Can't transfer a negative amount");
+                    incomplete = true;
+                }
+                else if(Double.valueOf(amount.getText().toString()) >
+                        mockserver.getLoggedInUser().getAccount().get(mockserver.getAccountIndex()).getBalance()){
+                    amount.setError("Can't transfer more than account balance");
+                    incomplete = true;
+                }
+                if(incomplete)
+                    break;
+                checkIfInputsAreFilled();
         }
     }
+
 
     public void checkIfInputsAreFilled(){
 
