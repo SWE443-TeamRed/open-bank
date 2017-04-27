@@ -97,7 +97,8 @@ public  class Account implements SendableEntity
       setOwner(null);
       setBank(null);
       setEmployingBank(null);
-      withoutTransactions(this.getTransactions().toArray(new Transaction[this.getTransactions().size()]));
+      withoutToTransaction(this.getToTransaction().toArray(new Transaction[this.getToTransaction().size()]));
+      withoutFromTransaction(this.getFromTransaction().toArray(new Transaction[this.getFromTransaction().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -298,29 +299,20 @@ public  class Account implements SendableEntity
 
     //User transfer founds to another user,
     // needs to connect and verify destinationAccount connection.
-    public boolean transferToAccount(BigInteger amount, Account reciever, String note)
+    public boolean transferToAccount(BigInteger amount, Account receiver, String note)
     {
        //Requested transfer funds cannot be negative value or undefined
         if(amount.compareTo(BigInteger.ONE) < 0)
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-        else if (reciever==null)
+        else if (receiver==null)
            throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
         if (amount.compareTo(this.getBalance()) <= 0) {
-       //if (amount <= this.getBalance()) {
-           //Check this account is connected to other account
-            /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
-            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
-               //Update this balance to new balance
-                this.setBalance(this.getBalance().subtract(amount));
-                //Request to receiver for a credit of amount
-                   //reciever.receiveFunds(amount,note);
-                reciever.setBalance(reciever.getBalance().add(amount));
-                   recordTransaction(reciever,true,amount, note);
-                   recordTransaction(this, false,amount, note);
-                   return true;
-
-            }
+            this.setBalance(this.getBalance().subtract(amount));
+            receiver.receiveFunds(amount,note);
+            recordTransaction(this,receiver,TransactionTypeEnum.TRANSFER,amount, note);
+            //recordTransaction(this, false,amount, note);
+            return true;
         }
         return false;//transferToUser did not work.
     }
@@ -329,38 +321,19 @@ public  class Account implements SendableEntity
     //User wants to give money to this, recieve the funds if this is able to
    public boolean receiveFunds(BigInteger amount, String note)
    {
-      Transaction transaction;
-      if(amount.compareTo(BigInteger.ONE) <=0)
-         throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
+       if(amount.compareTo(BigInteger.ONE) <=0)
+           throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
-      //Verify the user is logged in and is connected to the other user
-      this.setIsConnected(true);
-      if(this.isIsConnected() && this.getOwner().isLoggedIn())
-      {
-         this.setBalance(this.getBalance().add(amount));
-         return  true;
+       //Verify the user is logged in and is connected to the other user
+       this.setIsConnected(true);
+       if(this.isIsConnected() && this.getOwner().isLoggedIn())
+       {
+           this.setBalance(this.getBalance().add(amount));
+           return  true;
 
-      }
-      return false;//Cannot complete transaction.
+       }
+       return false;//Cannot complete transaction.
    }
-
-   //This sets the information of the transaction.
-   public Transaction recordTransaction(Account recordforAccount, Boolean credit, BigInteger amount, String note )
-   {
-      Transaction trans;
-
-      //Create transaction object
-      trans = new Transaction();
-      trans.setDate(new Date());
-      trans.setAmount(amount);
-      trans.setNote(note);
-      trans.withAccounts(recordforAccount);
-      return trans;
-   }
-
-
-
-
     //To withdraw money from this account.
     public boolean withdraw(BigInteger amount)
     {
@@ -369,7 +342,7 @@ public  class Account implements SendableEntity
        int resBlncGrtAmnt= amount.compareTo(this.getBalance());
 
        if(resBlncGrtAmnt==-1 && resAmntgrtZero==1) {
-            recordTransaction(this, false,amount, "Withdrawing ");
+            recordTransaction(this,null, TransactionTypeEnum.WITHDRAW,amount, "Withdrawing ");
             this.setBalance(this.getBalance().subtract(amount));
             return true;
         }
@@ -385,8 +358,8 @@ public  class Account implements SendableEntity
       int res= amount.compareTo(BigInteger.ZERO);
 
        //if(amount > 0) {
-      if(res==1){
-           recordTransaction(this, true,amount, "Depositing ");
+      if(res==1){//
+           recordTransaction(null,this, TransactionTypeEnum.DEPOSIT,amount, "Depositing ");
            this.setBalance(this.getBalance().add(amount));
            return true;
        }
@@ -395,12 +368,6 @@ public  class Account implements SendableEntity
 
       
    }
-
-   
-
-
-
-   
    //==========================================================================
    
    public void setCreationdate(Date value)
@@ -570,44 +537,32 @@ public  class Account implements SendableEntity
       return value;
    } 
 
-   
-   //==========================================================================
-   public boolean receiveFunds( Account giver, double amount, String note )
-   {
-      return false;
-   }
 
-   
-   //==========================================================================
-   public Transaction recordTransaction( boolean p0, double p1, String p2 )
-   {
-      return null;
-   }
 
    
    /********************************************************************
     * <pre>
-    *              many                       many
+    *              one                       many
     * Account ----------------------------------- Transaction
-    *              accounts                   transactions
+    *              ToAccount                   ToTransaction
     * </pre>
     */
    
-   public static final String PROPERTY_TRANSACTIONS = "transactions";
+   public static final String PROPERTY_TOTRANSACTION = "ToTransaction";
 
-   private TransactionSet transactions = null;
+   private TransactionSet ToTransaction = null;
    
-   public TransactionSet getTransactions()
+   public TransactionSet getToTransaction()
    {
-      if (this.transactions == null)
+      if (this.ToTransaction == null)
       {
          return TransactionSet.EMPTY_SET;
       }
    
-      return this.transactions;
+      return this.ToTransaction;
    }
 
-   public Account withTransactions(Transaction... value)
+   public Account withToTransaction(Transaction... value)
    {
       if(value==null){
          return this;
@@ -616,71 +571,131 @@ public  class Account implements SendableEntity
       {
          if (item != null)
          {
-            if (this.transactions == null)
+            if (this.ToTransaction == null)
             {
-               this.transactions = new TransactionSet();
+               this.ToTransaction = new TransactionSet();
             }
             
-            boolean changed = this.transactions.add (item);
+            boolean changed = this.ToTransaction.add (item);
 
             if (changed)
             {
-               item.withAccounts(this);
-               firePropertyChange(PROPERTY_TRANSACTIONS, null, item);
+               item.withToAccount(this);
+               firePropertyChange(PROPERTY_TOTRANSACTION, null, item);
             }
          }
       }
       return this;
    } 
 
-   public Account withoutTransactions(Transaction... value)
+   public Account withoutToTransaction(Transaction... value)
    {
       for (Transaction item : value)
       {
-         if ((this.transactions != null) && (item != null))
+         if ((this.ToTransaction != null) && (item != null))
          {
-            if (this.transactions.remove(item))
+            if (this.ToTransaction.remove(item))
             {
-               item.withoutAccounts(this);
-               firePropertyChange(PROPERTY_TRANSACTIONS, item, null);
+               item.setToAccount(null);
+               firePropertyChange(PROPERTY_TOTRANSACTION, item, null);
             }
          }
       }
       return this;
    }
 
-   public Transaction createTransactions()
+   public Transaction createToTransaction()
    {
       Transaction value = new Transaction();
-      withTransactions(value);
+      withToTransaction(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Account ----------------------------------- Transaction
+    *              FromAccount                   FromTransaction
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FROMTRANSACTION = "FromTransaction";
+
+   private TransactionSet FromTransaction = null;
+   
+   public TransactionSet getFromTransaction()
+   {
+      if (this.FromTransaction == null)
+      {
+         return TransactionSet.EMPTY_SET;
+      }
+   
+      return this.FromTransaction;
+   }
+
+   public Account withFromTransaction(Transaction... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Transaction item : value)
+      {
+         if (item != null)
+         {
+            if (this.FromTransaction == null)
+            {
+               this.FromTransaction = new TransactionSet();
+            }
+            
+            boolean changed = this.FromTransaction.add (item);
+
+            if (changed)
+            {
+               item.withFromAccount(this);
+               firePropertyChange(PROPERTY_FROMTRANSACTION, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Account withoutFromTransaction(Transaction... value)
+   {
+      for (Transaction item : value)
+      {
+         if ((this.FromTransaction != null) && (item != null))
+         {
+            if (this.FromTransaction.remove(item))
+            {
+               item.setFromAccount(null);
+               firePropertyChange(PROPERTY_FROMTRANSACTION, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Transaction createFromTransaction()
+   {
+      Transaction value = new Transaction();
+      withFromTransaction(value);
       return value;
    } 
 
    
    //==========================================================================
-   public void Account( double initialAmount )
+   public Transaction recordTransaction( Account sender, Account receiver, TransactionTypeEnum type, BigInteger amount, String note )
    {
-      
-   }
-
-   
-   //==========================================================================
-   public boolean transferToAccount( double amount, Account destinationAccount, String note )
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   public boolean withdraw( double amount )
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   public boolean deposit( double amount )
-   {
-      return false;
+      Transaction trans = new Transaction();
+      trans.setDate(new Date());
+      trans.setAmount(amount);
+      trans.setNote(note);
+      trans.setTransType(type);
+      trans.setToAccount(receiver);
+      trans.setFromAccount(sender);
+      trans.setNext(bank.getTransaction());
+      bank.setTransaction(trans);
+      return trans;
    }
 }

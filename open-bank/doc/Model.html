@@ -71,12 +71,11 @@
             "type : AccountTypeEnum"
          ],
          "methods":[
-            "Account(double initialAmount)",
-            "transferToAccount(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
-            "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
-            "recordTransaction(boolean p0, double p1, String p2) org.sdmlib.openbank.Transaction",
-            "withdraw(double amount) boolean",
-            "deposit(double amount) boolean"
+            "transferToAccount(java.math.BigInteger amount, org.sdmlib.openbank.Account receiver, String note) boolean",
+            "receiveFunds(java.math.BigInteger amount, String note) boolean",
+            "recordTransaction(org.sdmlib.openbank.Account sender, org.sdmlib.openbank.Account receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note) org.sdmlib.openbank.Transaction",
+            "withdraw(java.math.BigInteger amount) boolean",
+            "deposit(java.math.BigInteger amount) boolean"
          ]
       },
       {
@@ -152,12 +151,25 @@
          "source":{
             "id":"Transaction",
             "cardinality":"many",
-            "property":"transactions"
+            "property":"ToTransaction"
          },
          "target":{
             "id":"Account",
+            "cardinality":"one",
+            "property":"ToAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
             "cardinality":"many",
-            "property":"accounts"
+            "property":"FromTransaction"
+         },
+         "target":{
+            "id":"Account",
+            "cardinality":"one",
+            "property":"FromAccount"
          }
       },
       {

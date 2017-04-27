@@ -16,6 +16,7 @@ import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
 import org.sdmlib.openbank.util.BankPO;
 import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class AccountPO extends PatternObject<AccountPO, Account>
 {
@@ -417,17 +418,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
-   
-   //==========================================================================
-   
-   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, BigInteger p2, String p3)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2, p3);
-      }
-      return null;
-   }
 
    public AccountPO createCreationdateCondition(String value)
    {
@@ -615,115 +605,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
-   
-   //==========================================================================
-   
-   public org.sdmlib.openbank.Transaction recordTransaction(boolean p0, double p1, String p2)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).recordTransaction(p0, p1, p2);
-      }
-      return null;
-   }
-
-   public TransactionPO createTransactionsPO()
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Account.PROPERTY_TRANSACTIONS, result);
-      
-      return result;
-   }
-
-   public TransactionPO createTransactionsPO(String modifier)
-   {
-      TransactionPO result = new TransactionPO(new Transaction[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Account.PROPERTY_TRANSACTIONS, result);
-      
-      return result;
-   }
-
-   public AccountPO createTransactionsLink(TransactionPO tgt)
-   {
-      return hasLinkConstraint(tgt, Account.PROPERTY_TRANSACTIONS);
-   }
-
-   public AccountPO createTransactionsLink(TransactionPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Account.PROPERTY_TRANSACTIONS, modifier);
-   }
-
-   public TransactionSet getTransactions()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) this.getCurrentMatch()).getTransactions();
-      }
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public void Account(double initialAmount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Account) getCurrentMatch()).Account(initialAmount);
-      }
-   }
-
-   
-   //==========================================================================
-   
-   public boolean transferToAccount(double amount, Account destinationAccount, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).transferToAccount(amount, destinationAccount, note);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean receiveFunds(Account giver, double amount, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean withdraw(double amount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).withdraw(amount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean deposit(double amount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).deposit(amount);
-      }
-      return false;
-   }
+  
 
    public AccountPO createBalanceCondition(BigInteger value)
    {
@@ -753,4 +635,105 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
+   public TransactionPO createToTransactionPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_TOTRANSACTION, result);
+      
+      return result;
+   }
+
+   public TransactionPO createToTransactionPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_TOTRANSACTION, result);
+      
+      return result;
+   }
+
+   public AccountPO createToTransactionLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_TOTRANSACTION);
+   }
+
+   public AccountPO createToTransactionLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_TOTRANSACTION, modifier);
+   }
+
+   public TransactionSet getToTransaction()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getToTransaction();
+      }
+      return null;
+   }
+
+   public TransactionPO createFromTransactionPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Account.PROPERTY_FROMTRANSACTION, result);
+      
+      return result;
+   }
+
+   public TransactionPO createFromTransactionPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Account.PROPERTY_FROMTRANSACTION, result);
+      
+      return result;
+   }
+
+   public AccountPO createFromTransactionLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_FROMTRANSACTION);
+   }
+
+   public AccountPO createFromTransactionLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Account.PROPERTY_FROMTRANSACTION, modifier);
+   }
+
+   public TransactionSet getFromTransaction()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) this.getCurrentMatch()).getFromTransaction();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.openbank.Transaction recordTransaction(Account sender, Account reciever, TransactionTypeEnum type, BigInteger amount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).recordTransaction(sender, reciever, type, amount, note);
+      }
+      return null;
+   }
+
+   //==========================================================================
+   
+   public boolean receiveFunds(BigInteger amount, String note)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).receiveFunds(amount, note);
+      }
+      return false;
+   }
+
 }

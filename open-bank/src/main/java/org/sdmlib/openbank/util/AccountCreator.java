@@ -44,7 +44,8 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_TYPE,
       Account.PROPERTY_BANK,
       Account.PROPERTY_EMPLOYINGBANK,
-      Account.PROPERTY_TRANSACTIONS,
+      Account.PROPERTY_TOTRANSACTION,
+      Account.PROPERTY_FROMTRANSACTION,
    };
    
    @Override
@@ -112,9 +113,15 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getEmployingBank();
       }
 
-      if (Account.PROPERTY_TRANSACTIONS.equalsIgnoreCase(attribute))
+
+      if (Account.PROPERTY_TOTRANSACTION.equalsIgnoreCase(attribute))
       {
-         return ((Account) target).getTransactions();
+         return ((Account) target).getToTransaction();
+      }
+
+      if (Account.PROPERTY_FROMTRANSACTION.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getFromTransaction();
       }
       
       return null;
@@ -176,16 +183,27 @@ public class AccountCreator implements SendableEntityCreator
          ((Account) target).setEmployingBank((Bank) value);
          return true;
       }
-
-      if (Account.PROPERTY_TRANSACTIONS.equalsIgnoreCase(attrName))
+      if (Account.PROPERTY_TOTRANSACTION.equalsIgnoreCase(attrName))
       {
-         ((Account) target).withTransactions((Transaction) value);
+         ((Account) target).withToTransaction((Transaction) value);
          return true;
       }
       
-      if ((Account.PROPERTY_TRANSACTIONS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      if ((Account.PROPERTY_TOTRANSACTION + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Account) target).withoutTransactions((Transaction) value);
+         ((Account) target).withoutToTransaction((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_FROMTRANSACTION.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withFromTransaction((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_FROMTRANSACTION + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutFromTransaction((Transaction) value);
          return true;
       }
       
