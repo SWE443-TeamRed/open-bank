@@ -85,7 +85,7 @@ public class Model {
         */
 
         Clazz account = model.createClazz("Account");
-        account.withAttribute("balance", DataType.DOUBLE);
+        account.withAttribute("balance", DataType.create(BigInteger.class));
         account.withAttribute("accountnum",DataType.INT);
         account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
