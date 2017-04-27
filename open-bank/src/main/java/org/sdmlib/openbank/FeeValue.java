@@ -103,10 +103,10 @@ import org.sdmlib.openbank.util.FeeValueSet;
       return this.transType;
    }
    
-   public void setTransType(TransactionTypeEnum value) {
-      if (value == TransactionTypeEnum.FEE)
-         throw new IllegalArgumentException("The TransactionType of a FeeValue cannot be a FEE");
+   public void setTransType(TransactionTypeEnum value)
+   {
       if (this.transType != value) {
+      
          TransactionTypeEnum oldValue = this.transType;
          this.transType = value;
          this.firePropertyChange(PROPERTY_TRANSTYPE, oldValue, value);
