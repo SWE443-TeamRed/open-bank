@@ -31,7 +31,8 @@ public class TransactionTest {
     // setAmount and get the amount to make sure you get the correct amount
     public void setgetAmount(){
         trans.setAmount(BigInteger.valueOf(50));
-        assertTrue(BigInteger.valueOf(50) == trans.getAmount());
+        System.out.println(trans.getAmount().toString());
+        assertTrue(0== trans.getAmount().compareTo(BigInteger.valueOf(50)));
     }
 
     @Test

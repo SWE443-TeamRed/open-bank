@@ -172,6 +172,8 @@ public class Model {
         // Transactions and Account relation
         account.withBidirectional(transaction, "transactions",Cardinality.MANY,"accounts",Cardinality.MANY);
 
+        //transaction the previous and next associations.
+        transaction.withBidirectional(transaction,"previous", Cardinality.ONE,"next",Cardinality.ONE);
         /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Storyboard storyboard = new Storyboard();
