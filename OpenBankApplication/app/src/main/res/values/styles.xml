@@ -14,7 +14,9 @@
         <item name="android:textColorSecondary">@android:color/background_light</item>
         <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
         <item name="android:colorForeground">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowActionBar">true</item>
     </style>
-
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

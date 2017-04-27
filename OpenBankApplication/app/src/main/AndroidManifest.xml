@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Accounts">
+        <activity android:name=".AccountDetails">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

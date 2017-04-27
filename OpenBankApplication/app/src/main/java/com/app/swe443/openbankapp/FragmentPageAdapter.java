@@ -34,7 +34,7 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
                 trans_fragment.setArguments(bundle1);
                 return trans_fragment;
             case 2:
-                return new TransferFrag();
+                return new Transfer();
             default:
                 Bundle bundle2 = new Bundle();
                 bundle2.putInt("id", accountIndex);

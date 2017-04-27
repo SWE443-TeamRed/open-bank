@@ -206,6 +206,7 @@ public class MockServerSingleton {
 
     public Account getAccount(){
         return loggedInUser.getAccount().get(accountindex);
+
     }
 
 

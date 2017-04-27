@@ -2,14 +2,14 @@ package com.app.swe443.openbankapp;
 
 
 import android.content.Intent;
-        import android.os.Bundle;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-        import android.support.v4.widget.DrawerLayout;
-        import android.support.v7.app.ActionBar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.MenuItem;
-        import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.app.swe443.openbankapp.Support.Account;
@@ -18,10 +18,10 @@ import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.User;
 
 import java.util.Date;
-        import java.util.LinkedList;
+import java.util.LinkedList;
 
 
-public class Accounts extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
+public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
 
 
     //Variables to initalize tabs menu
@@ -61,7 +61,7 @@ public class Accounts extends AppCompatActivity implements AccountFrag.OnAccount
         actionBar.setHomeButtonEnabled(true);
 
 
-        //Create User's and Accounts as dummy data
+        //Create User's and AccountDetails as dummy data
         JsonPersistency jsonp = new JsonPersistency();
 
         /*

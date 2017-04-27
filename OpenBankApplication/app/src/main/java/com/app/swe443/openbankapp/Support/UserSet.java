@@ -21,6 +21,8 @@
    
 package com.app.swe443.openbankapp.Support;
 
+import de.uniks.networkparser.list.BooleanList;
+import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
@@ -28,13 +30,33 @@ import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import java.util.Collections;
+/*
+   Copyright (c) 2017 hlope
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files (the "Software"), to deal in the Software without restriction,
+   including without limitation the rights to use, copy, modify, merge, publish, distribute,
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
+
+   The Software shall be used for Good, not Evil.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 
 public class UserSet extends SimpleSet<User>
 {
-	protected Class<?> getTypClass() {
-		return User.class;
-	}
+   protected Class<?> getTypClass() {
+      return User.class;
+   }
 
    public UserSet()
    {
@@ -89,7 +111,7 @@ public class UserSet extends SimpleSet<User>
       {
          return this;
       }
-      else if (value instanceof Collection)
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<User>)value);
       }
@@ -97,24 +119,24 @@ public class UserSet extends SimpleSet<User>
       {
          this.add((User) value);
       }
-      
+
       return this;
    }
-   
+
    public UserSet without(User value)
    {
       this.remove(value);
       return this;
    }
 
-   
+
    //==========================================================================
-   
-   public BooleanList openAccount(User p0)
+
+   public de.uniks.networkparser.list.BooleanList openAccount(User p0)
    {
-      
-      BooleanList result = new BooleanList();
-      
+
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+
       for (User obj : this)
       {
          result.add( obj.openAccount(p0) );
@@ -122,14 +144,14 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-   
+
    //==========================================================================
-   
-   public BooleanList login(String username, String password)
+
+   public de.uniks.networkparser.list.BooleanList login(String username, String password)
    {
-      
-      BooleanList result = new BooleanList();
-      
+
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+
       for (User obj : this)
       {
          result.add( obj.login(username, password) );
@@ -137,14 +159,14 @@ public class UserSet extends SimpleSet<User>
       return result;
    }
 
-   
+
    //==========================================================================
-   
-   public BooleanList logout()
+
+   public de.uniks.networkparser.list.BooleanList logout()
    {
-      
-      BooleanList result = new BooleanList();
-      
+
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+
       for (User obj : this)
       {
          result.add( obj.logout() );
@@ -154,34 +176,34 @@ public class UserSet extends SimpleSet<User>
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the userID attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the userID attribute values.
+    *
     * @return List of String objects reachable via userID attribute
     */
    public ObjectSet getUserID()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (User obj : this)
       {
          result.add(obj.getUserID());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the userID attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterUserID(String value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value.equals(obj.getUserID()))
@@ -189,23 +211,23 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the userID attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the userID attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterUserID(String lower, String upper)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (lower.compareTo(obj.getUserID()) <= 0 && obj.getUserID().compareTo(upper) <= 0)
@@ -213,16 +235,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the userID attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the userID attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withUserID(String value)
@@ -231,40 +253,40 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setUserID(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the isAdmin attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the isAdmin attribute values.
+    *
     * @return List of boolean objects reachable via isAdmin attribute
     */
    public BooleanList getIsAdmin()
    {
       BooleanList result = new BooleanList();
-      
+
       for (User obj : this)
       {
          result.add(obj.isIsAdmin());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the isAdmin attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the isAdmin attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterIsAdmin(boolean value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value == obj.isIsAdmin())
@@ -272,16 +294,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the isAdmin attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the isAdmin attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withIsAdmin(boolean value)
@@ -290,40 +312,40 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setIsAdmin(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the password attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the password attribute values.
+    *
     * @return List of String objects reachable via password attribute
     */
    public ObjectSet getPassword()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (User obj : this)
       {
          result.add(obj.getPassword());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the password attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the password attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterPassword(String value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value.equals(obj.getPassword()))
@@ -331,23 +353,23 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the password attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the password attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterPassword(String lower, String upper)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (lower.compareTo(obj.getPassword()) <= 0 && obj.getPassword().compareTo(upper) <= 0)
@@ -355,16 +377,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the password attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the password attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withPassword(String value)
@@ -373,40 +395,40 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setPassword(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the name attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the name attribute values.
+    *
     * @return List of String objects reachable via name attribute
     */
    public ObjectSet getName()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (User obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the name attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the name attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterName(String value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value.equals(obj.getName()))
@@ -414,23 +436,23 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the name attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the name attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterName(String lower, String upper)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
@@ -438,16 +460,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the name attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the name attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withName(String value)
@@ -456,40 +478,40 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the email attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the email attribute values.
+    *
     * @return List of String objects reachable via email attribute
     */
    public ObjectSet getEmail()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (User obj : this)
       {
          result.add(obj.getEmail());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the email attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the email attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterEmail(String value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value.equals(obj.getEmail()))
@@ -497,23 +519,23 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the email attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the email attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterEmail(String lower, String upper)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (lower.compareTo(obj.getEmail()) <= 0 && obj.getEmail().compareTo(upper) <= 0)
@@ -521,16 +543,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the email attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the email attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withEmail(String value)
@@ -539,40 +561,40 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setEmail(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the LoggedIn attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the LoggedIn attribute values.
+    *
     * @return List of boolean objects reachable via LoggedIn attribute
     */
    public BooleanList getLoggedIn()
    {
       BooleanList result = new BooleanList();
-      
+
       for (User obj : this)
       {
          result.add(obj.isLoggedIn());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the LoggedIn attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the LoggedIn attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    public UserSet filterLoggedIn(boolean value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value == obj.isLoggedIn())
@@ -580,16 +602,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and assign value to the LoggedIn attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the LoggedIn attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    public UserSet withLoggedIn(boolean value)
@@ -598,41 +620,41 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setLoggedIn(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect a list of the phone attribute values. 
-    * 
+    * Loop through the current set of User objects and collect a list of the phone attribute values.
+    *
     * @return List of int objects reachable via phone attribute
     */
    public NumberList getPhone()
    {
       NumberList result = new NumberList();
-      
+
       for (User obj : this)
       {
          result.add(Integer.parseInt(obj.getPhone()));
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value. 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of User objects that match the parameter
     */
    /*
    public UserSet filterPhone(String value)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (value == obj.getPhone())
@@ -640,24 +662,24 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 */
 
    /**
-    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of User objects that match the parameter
     */
   /*
    public UserSet filterPhone(int lower, int upper)
    {
       UserSet result = new UserSet();
-      
+
       for (User obj : this)
       {
          if (lower <= obj.getPhone() && obj.getPhone() <= upper)
@@ -665,16 +687,16 @@ public class UserSet extends SimpleSet<User>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 */
    /**
-    * Loop through the current set of User objects and assign value to the phone attribute of each of it. 
-    * 
+    * Loop through the current set of User objects and assign value to the phone attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of User objects now with new attribute values.
     */
    /*
@@ -684,32 +706,32 @@ public class UserSet extends SimpleSet<User>
       {
          obj.setPhone(value);
       }
-      
+
       return this;
    }
 */
    /**
-    * Loop through the current set of User objects and collect a set of the Account objects reached via account. 
-    * 
+    * Loop through the current set of User objects and collect a set of the Account objects reached via account.
+    *
     * @return Set of Account objects reachable via account
     */
    public AccountSet getAccount()
    {
       AccountSet result = new AccountSet();
-      
+
       for (User obj : this)
       {
          result.with(obj.getAccount());
       }
-      
+
       return result;
    }
 
    /**
-    * Loop through the current set of User objects and collect all contained objects with reference account pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as account neighbor of the collected results. 
-    * 
+    * Loop through the current set of User objects and collect all contained objects with reference account pointing to the object passed as parameter.
+    *
+    * @param value The object required as account neighbor of the collected results.
+    *
     * @return Set of Account objects referring to value via account
     */
    public UserSet filterAccount(Object value)
@@ -724,9 +746,9 @@ public class UserSet extends SimpleSet<User>
       {
          neighbors.add(value);
       }
-      
+
       UserSet answer = new UserSet();
-      
+
       for (User obj : this)
       {
          if ( ! Collections.disjoint(neighbors, obj.getAccount()))
@@ -734,13 +756,13 @@ public class UserSet extends SimpleSet<User>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Account attribute of each of it. 
-    * 
+    * Loop through current set of ModelType objects and attach the User object passed as parameter to the Account attribute of each of it.
+    *
     * @return The original set of ModelType objects now with the new neighbor attached to their Account attributes.
     */
    public UserSet withAccount(Account value)
@@ -749,13 +771,13 @@ public class UserSet extends SimpleSet<User>
       {
          obj.withAccount(value);
       }
-      
+
       return this;
    }
 
    /**
-    * Loop through current set of ModelType objects and remove the User object passed as parameter from the Account attribute of each of it. 
-    * 
+    * Loop through current set of ModelType objects and remove the User object passed as parameter from the Account attribute of each of it.
+    *
     * @return The original set of ModelType objects now without the old neighbor.
     */
    public UserSet withoutAccount(Account value)
@@ -764,7 +786,155 @@ public class UserSet extends SimpleSet<User>
       {
          obj.withoutAccount(value);
       }
-      
+
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute matches the parameter value.
+    *
+    * @param value Search value
+    *
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String value)
+   {
+      UserSet result = new UserSet();
+
+      for (User obj : this)
+      {
+         if (value.equals(obj.getPhone()))
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the phone attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterPhone(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the phone attribute of each of it.
+    *
+    * @param value New attribute value
+    *
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withPhone(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setPhone(value);
+      }
+
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect a list of the username attribute values.
+    *
+    * @return List of String objects reachable via username attribute
+    */
+   public ObjectSet getUsername()
+   {
+      ObjectSet result = new ObjectSet();
+
+      for (User obj : this)
+      {
+         result.add(obj.getUsername());
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the username attribute matches the parameter value.
+    *
+    * @param value Search value
+    *
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterUsername(String value)
+   {
+      UserSet result = new UserSet();
+
+      for (User obj : this)
+      {
+         if (value.equals(obj.getUsername()))
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the username attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterUsername(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the username attribute of each of it.
+    *
+    * @param value New attribute value
+    *
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withUsername(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setUsername(value);
+      }
+
       return this;
    }
 
