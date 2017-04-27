@@ -169,9 +169,10 @@ public class Model {
 
         // the account in user
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
-        // Transactions and Account relation
-        account.withBidirectional(transaction, "transactions",Cardinality.MANY,"accounts",Cardinality.MANY);
-
+        // ToAccount and ToTransaction relation
+        account.withBidirectional(transaction, "ToTransaction",Cardinality.MANY,"ToAccount",Cardinality.ONE);
+        // FromAccount and FromTransaction relation
+        account.withBidirectional(transaction, "FromTransaction", Cardinality.MANY, "FromAccount",Cardinality.ONE);
         //transaction the previous and next associations.
         transaction.withBidirectional(transaction,"previous", Cardinality.ONE,"next",Cardinality.ONE);
         /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////

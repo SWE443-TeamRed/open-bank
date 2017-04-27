@@ -93,9 +93,10 @@ public  class Transaction implements SendableEntity
    public void removeYou()
    {
       setBank(null);
-      withoutAccounts(this.getAccounts().toArray(new Account[this.getAccounts().size()]));
       setNext(null);
       setPrevious(null);
+      setToAccount(null);
+      setFromAccount(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -370,81 +371,7 @@ public  class Transaction implements SendableEntity
       Bank value = new Bank();
       withBank(value);
       return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Transaction ----------------------------------- Account
-    *              transactions                   accounts
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ACCOUNTS = "accounts";
-
-   private AccountSet accounts = null;
-   
-   public AccountSet getAccounts()
-   {
-      if (this.accounts == null)
-      {
-         return AccountSet.EMPTY_SET;
-      }
-   
-      return this.accounts;
    }
-
-   public Transaction withAccounts(Account... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Account item : value)
-      {
-         if (item != null)
-         {
-            if (this.accounts == null)
-            {
-               this.accounts = new AccountSet();
-            }
-            
-            boolean changed = this.accounts.add (item);
-
-            if (changed)
-            {
-               item.withTransactions(this);
-               firePropertyChange(PROPERTY_ACCOUNTS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Transaction withoutAccounts(Account... value)
-   {
-      for (Account item : value)
-      {
-         if ((this.accounts != null) && (item != null))
-         {
-            if (this.accounts.remove(item))
-            {
-               item.withoutTransactions(this);
-               firePropertyChange(PROPERTY_ACCOUNTS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Account createAccounts()
-   {
-      Account value = new Account();
-      withAccounts(value);
-      return value;
-   } 
-
-   
    //==========================================================================
    
    public void setAmount(BigInteger value)
@@ -590,6 +517,124 @@ public  class Transaction implements SendableEntity
    {
       Transaction value = new Transaction();
       withPrevious(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Transaction ----------------------------------- Account
+    *              ToTransaction                   ToAccount
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TOACCOUNT = "ToAccount";
+
+   private Account ToAccount = null;
+
+   public Account getToAccount()
+   {
+      return this.ToAccount;
+   }
+
+   public boolean setToAccount(Account value)
+   {
+      boolean changed = false;
+      
+      if (this.ToAccount != value)
+      {
+         Account oldValue = this.ToAccount;
+         
+         if (this.ToAccount != null)
+         {
+            this.ToAccount = null;
+            oldValue.withoutToTransaction(this);
+         }
+         
+         this.ToAccount = value;
+         
+         if (value != null)
+         {
+            value.withToTransaction(this);
+         }
+         
+         firePropertyChange(PROPERTY_TOACCOUNT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withToAccount(Account value)
+   {
+      setToAccount(value);
+      return this;
+   } 
+
+   public Account createToAccount()
+   {
+      Account value = new Account();
+      withToAccount(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Transaction ----------------------------------- Account
+    *              FromTransaction                   FromAccount
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FROMACCOUNT = "FromAccount";
+
+   private Account FromAccount = null;
+
+   public Account getFromAccount()
+   {
+      return this.FromAccount;
+   }
+
+   public boolean setFromAccount(Account value)
+   {
+      boolean changed = false;
+      
+      if (this.FromAccount != value)
+      {
+         Account oldValue = this.FromAccount;
+         
+         if (this.FromAccount != null)
+         {
+            this.FromAccount = null;
+            oldValue.withoutFromTransaction(this);
+         }
+         
+         this.FromAccount = value;
+         
+         if (value != null)
+         {
+            value.withFromTransaction(this);
+         }
+         
+         firePropertyChange(PROPERTY_FROMACCOUNT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withFromAccount(Account value)
+   {
+      setFromAccount(value);
+      return this;
+   } 
+
+   public Account createFromAccount()
+   {
+      Account value = new Account();
+      withFromAccount(value);
       return value;
    } 
 }

@@ -97,7 +97,8 @@ public  class Account implements SendableEntity
       setOwner(null);
       setBank(null);
       setEmployingBank(null);
-      withoutTransactions(this.getTransactions().toArray(new Transaction[this.getTransactions().size()]));
+      withoutToTransaction(this.getToTransaction().toArray(new Transaction[this.getToTransaction().size()]));
+      withoutFromTransaction(this.getFromTransaction().toArray(new Transaction[this.getFromTransaction().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -316,9 +317,9 @@ public  class Account implements SendableEntity
                 //Request to receiver for a credit of amount
                    //reciever.receiveFunds(amount,note);
                 reciever.setBalance(reciever.getBalance().add(amount));
-                   recordTransaction(reciever,true,amount, note);
-                   recordTransaction(this, false,amount, note);
-                   return true;
+                recordTransaction(reciever,true,amount, note);
+                //recordTransaction(this, false,amount, note);
+                return true;
 
             }
         }
@@ -354,7 +355,15 @@ public  class Account implements SendableEntity
       trans.setDate(new Date());
       trans.setAmount(amount);
       trans.setNote(note);
-      trans.withAccounts(recordforAccount);
+      if(credit) {
+         trans.setFromAccount(this);
+         trans.setToAccount(recordforAccount);
+      }
+      else{
+         trans.setFromAccount(recordforAccount);
+         trans.setToAccount(this);
+      }
+      //trans.withAccounts(recordforAccount);
       return trans;
    }
 
@@ -585,78 +594,6 @@ public  class Account implements SendableEntity
    }
 
    
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Account ----------------------------------- Transaction
-    *              accounts                   transactions
-    * </pre>
-    */
-   
-   public static final String PROPERTY_TRANSACTIONS = "transactions";
-
-   private TransactionSet transactions = null;
-   
-   public TransactionSet getTransactions()
-   {
-      if (this.transactions == null)
-      {
-         return TransactionSet.EMPTY_SET;
-      }
-   
-      return this.transactions;
-   }
-
-   public Account withTransactions(Transaction... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Transaction item : value)
-      {
-         if (item != null)
-         {
-            if (this.transactions == null)
-            {
-               this.transactions = new TransactionSet();
-            }
-            
-            boolean changed = this.transactions.add (item);
-
-            if (changed)
-            {
-               item.withAccounts(this);
-               firePropertyChange(PROPERTY_TRANSACTIONS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public Account withoutTransactions(Transaction... value)
-   {
-      for (Transaction item : value)
-      {
-         if ((this.transactions != null) && (item != null))
-         {
-            if (this.transactions.remove(item))
-            {
-               item.withoutAccounts(this);
-               firePropertyChange(PROPERTY_TRANSACTIONS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Transaction createTransactions()
-   {
-      Transaction value = new Transaction();
-      withTransactions(value);
-      return value;
-   } 
-
-   
    //==========================================================================
    public void Account( double initialAmount )
    {
@@ -683,4 +620,148 @@ public  class Account implements SendableEntity
    {
       return false;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Account ----------------------------------- Transaction
+    *              ToAccount                   ToTransaction
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TOTRANSACTION = "ToTransaction";
+
+   private TransactionSet ToTransaction = null;
+   
+   public TransactionSet getToTransaction()
+   {
+      if (this.ToTransaction == null)
+      {
+         return TransactionSet.EMPTY_SET;
+      }
+   
+      return this.ToTransaction;
+   }
+
+   public Account withToTransaction(Transaction... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Transaction item : value)
+      {
+         if (item != null)
+         {
+            if (this.ToTransaction == null)
+            {
+               this.ToTransaction = new TransactionSet();
+            }
+            
+            boolean changed = this.ToTransaction.add (item);
+
+            if (changed)
+            {
+               item.withToAccount(this);
+               firePropertyChange(PROPERTY_TOTRANSACTION, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Account withoutToTransaction(Transaction... value)
+   {
+      for (Transaction item : value)
+      {
+         if ((this.ToTransaction != null) && (item != null))
+         {
+            if (this.ToTransaction.remove(item))
+            {
+               item.setToAccount(null);
+               firePropertyChange(PROPERTY_TOTRANSACTION, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Transaction createToTransaction()
+   {
+      Transaction value = new Transaction();
+      withToTransaction(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Account ----------------------------------- Transaction
+    *              FromAccount                   FromTransaction
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FROMTRANSACTION = "FromTransaction";
+
+   private TransactionSet FromTransaction = null;
+   
+   public TransactionSet getFromTransaction()
+   {
+      if (this.FromTransaction == null)
+      {
+         return TransactionSet.EMPTY_SET;
+      }
+   
+      return this.FromTransaction;
+   }
+
+   public Account withFromTransaction(Transaction... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Transaction item : value)
+      {
+         if (item != null)
+         {
+            if (this.FromTransaction == null)
+            {
+               this.FromTransaction = new TransactionSet();
+            }
+            
+            boolean changed = this.FromTransaction.add (item);
+
+            if (changed)
+            {
+               item.withFromAccount(this);
+               firePropertyChange(PROPERTY_FROMTRANSACTION, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Account withoutFromTransaction(Transaction... value)
+   {
+      for (Transaction item : value)
+      {
+         if ((this.FromTransaction != null) && (item != null))
+         {
+            if (this.FromTransaction.remove(item))
+            {
+               item.setFromAccount(null);
+               firePropertyChange(PROPERTY_FROMTRANSACTION, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Transaction createFromTransaction()
+   {
+      Transaction value = new Transaction();
+      withFromTransaction(value);
+      return value;
+   } 
 }
