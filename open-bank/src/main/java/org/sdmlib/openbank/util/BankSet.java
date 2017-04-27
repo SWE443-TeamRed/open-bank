@@ -24,6 +24,8 @@ package org.sdmlib.openbank.util;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.openbank.Bank;
 import de.uniks.networkparser.interfaces.Condition;
+
+import java.math.BigInteger;
 import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
@@ -551,7 +553,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -721,6 +723,21 @@ public class BankSet extends SimpleSet<Bank>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue) );
+      }
+      return result;
    }
 
 }

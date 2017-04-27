@@ -31,6 +31,8 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
 import org.sdmlib.openbank.util.AccountSet;
+import java.math.BigInteger;
+import org.sdmlib.openbank.util.TransactionSet;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -92,6 +94,8 @@ public  class Transaction implements SendableEntity
    {
       setBank(null);
       withoutAccounts(this.getAccounts().toArray(new Account[this.getAccounts().size()]));
+      setNext(null);
+      setPrevious(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -100,13 +104,14 @@ public  class Transaction implements SendableEntity
 
    public static final String PROPERTY_AMOUNT = "amount";
 
-   private double amount;
+   private BigInteger amount;
 
-   public double getAmount()
+   public BigInteger getAmount()
    {
       return this.amount;
    }
 
+   /*
    public void setAmount(double value)
    {
 
@@ -123,12 +128,13 @@ public  class Transaction implements SendableEntity
       }
    }
 
+
    public Transaction withAmount(double value)
    {
       setAmount(value);
       return this;
    }
-
+*/
 
    @Override
    public String toString()
@@ -435,6 +441,155 @@ public  class Transaction implements SendableEntity
    {
       Account value = new Account();
       withAccounts(value);
+      return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public void setAmount(BigInteger value)
+   {
+      if (this.amount != value) {
+      
+         BigInteger oldValue = this.amount;
+         this.amount = value;
+         this.firePropertyChange(PROPERTY_AMOUNT, oldValue, value);
+      }
+   }
+   
+   public Transaction withAmount(BigInteger value)
+   {
+      setAmount(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              previous                   next
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXT = "next";
+
+   private Transaction next = null;
+
+   public Transaction getNext()
+   {
+      return this.next;
+   }
+   public TransactionSet getNextTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getNextTransitive();
+   }
+
+
+   public boolean setNext(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.next != value)
+      {
+         Transaction oldValue = this.next;
+         
+         if (this.next != null)
+         {
+            this.next = null;
+            oldValue.setPrevious(null);
+         }
+         
+         this.next = value;
+         
+         if (value != null)
+         {
+            value.withPrevious(this);
+         }
+         
+         firePropertyChange(PROPERTY_NEXT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withNext(Transaction value)
+   {
+      setNext(value);
+      return this;
+   } 
+
+   public Transaction createNext()
+   {
+      Transaction value = new Transaction();
+      withNext(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              next                   previous
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PREVIOUS = "previous";
+
+   private Transaction previous = null;
+
+   public Transaction getPrevious()
+   {
+      return this.previous;
+   }
+   public TransactionSet getPreviousTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getPreviousTransitive();
+   }
+
+
+   public boolean setPrevious(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.previous != value)
+      {
+         Transaction oldValue = this.previous;
+         
+         if (this.previous != null)
+         {
+            this.previous = null;
+            oldValue.setNext(null);
+         }
+         
+         this.previous = value;
+         
+         if (value != null)
+         {
+            value.withNext(this);
+         }
+         
+         firePropertyChange(PROPERTY_PREVIOUS, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withPrevious(Transaction value)
+   {
+      setPrevious(value);
+      return this;
+   } 
+
+   public Transaction createPrevious()
+   {
+      Transaction value = new Transaction();
+      withPrevious(value);
       return value;
    } 
 }

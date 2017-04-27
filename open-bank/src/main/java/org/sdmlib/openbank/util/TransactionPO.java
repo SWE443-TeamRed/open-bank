@@ -13,6 +13,7 @@ import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.util.BankPO;
 import org.sdmlib.openbank.Bank;
 import org.sdmlib.openbank.util.AccountSet;
+import java.math.BigInteger;
 
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
@@ -92,16 +93,16 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public double getAmount()
+   public BigInteger getAmount()
    {
       if (this.getPattern().getHasMatch())
       {
          return ((Transaction) getCurrentMatch()).getAmount();
       }
-      return 0;
+      return BigInteger.valueOf(0);
    }
    
-   public TransactionPO withAmount(double value)
+   public TransactionPO withAmount(BigInteger value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -432,6 +433,112 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       if (this.getPattern().getHasMatch())
       {
          return ((Transaction) this.getCurrentMatch()).getAccounts();
+      }
+      return null;
+   }
+
+   public TransactionPO createAmountCondition(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createAmountAssignment(BigInteger value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_AMOUNT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createNextPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public TransactionPO createNextPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public TransactionPO createNextLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_NEXT);
+   }
+
+   public TransactionPO createNextLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_NEXT, modifier);
+   }
+
+   public Transaction getNext()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getNext();
+      }
+      return null;
+   }
+
+   public TransactionPO createPreviousPO()
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_PREVIOUS, result);
+      
+      return result;
+   }
+
+   public TransactionPO createPreviousPO(String modifier)
+   {
+      TransactionPO result = new TransactionPO(new Transaction[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_PREVIOUS, result);
+      
+      return result;
+   }
+
+   public TransactionPO createPreviousLink(TransactionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_PREVIOUS);
+   }
+
+   public TransactionPO createPreviousLink(TransactionPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_PREVIOUS, modifier);
+   }
+
+   public Transaction getPrevious()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getPrevious();
       }
       return null;
    }

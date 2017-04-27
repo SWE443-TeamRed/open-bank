@@ -24,6 +24,7 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.math.BigInteger;
 import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
@@ -417,7 +418,7 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   public boolean confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue )
    {
        Account toAcct = findAccountByID(toAcctID);
        Account fromAcct = findAccountByID((fromAcctID));
@@ -427,11 +428,15 @@ import org.sdmlib.openbank.Account;
        if(fromAcct == null){
            return false;
        }
-       if(fromAcct.getBalance() < dollarValue + decimalValue ){
+
+       //if(fromAcct.getBalance() < dollarValue.add(decimalValue) ){
+       int res = fromAcct.getBalance().compareTo(dollarValue.add(decimalValue));
+
+       if(res==-1){
            return false;
        }
        Transaction transferTransation = new Transaction().withBank(this)
-               .withAmount(dollarValue+decimalValue)
+               .withAmount(dollarValue.add(decimalValue))
                .withAccounts(fromAcct,toAcct)
                .withCreationdate(new Date())
                .withTransType(TransactionTypeEnum.TRANSFER);
@@ -582,4 +587,11 @@ import org.sdmlib.openbank.Account;
       withAdminAccounts(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   {
+      return false;
+   }
 }

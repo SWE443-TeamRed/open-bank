@@ -54,7 +54,7 @@
          "typ":"node",
          "id":"Transaction",
          "attributes":[
-            "amount : double",
+            "amount : BigInteger",
             "creationdate : Date",
             "note : String",
             "transType : TransactionTypeEnum"
@@ -64,7 +64,7 @@
          "typ":"node",
          "id":"Account",
          "attributes":[
-            "balance : double",
+            "balance : BigInteger",
             "accountnum : int",
             "creationdate : Date",
             "IsConnected : boolean",
@@ -158,6 +158,19 @@
             "id":"Account",
             "cardinality":"many",
             "property":"accounts"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"previous"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"next"
          }
       },
       {

@@ -24,6 +24,7 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -105,9 +106,9 @@ public  class Account implements SendableEntity
 
    public static final String PROPERTY_BALANCE = "balance";
 
-   private double balance;
+   private BigInteger balance;
 
-   public double getBalance()
+   public BigInteger getBalance()
    {
       /*
          If the user is not logged in, they should not be able to get balance
@@ -115,11 +116,11 @@ public  class Account implements SendableEntity
          return this.balance;
    }
 
-   public void setBalance(double value)
+   public void setBalance(BigInteger value)
    {
-      if (value >0) {
+      if (value.compareTo(value) >0) {
 
-         double oldValue = this.balance;
+         BigInteger oldValue = this.balance;
          this.balance = value;
          this.firePropertyChange(PROPERTY_BALANCE, oldValue, value);
       }else{
@@ -127,7 +128,7 @@ public  class Account implements SendableEntity
       }
    }
 
-   public Account withBalance(double value)
+   public Account withBalance(BigInteger value)
    {
       setBalance(value);
       return this;
@@ -289,7 +290,7 @@ public  class Account implements SendableEntity
    /*
       Constructor setting the initial amount
    */
-   public void Account( double initialAmount )
+   public void Account( BigInteger initialAmount )
    {
       this.setBalance(initialAmount);
    }
@@ -297,23 +298,24 @@ public  class Account implements SendableEntity
 
     //User transfer founds to another user,
     // needs to connect and verify destinationAccount connection.
-    public boolean transferToAccount(double amount, Account reciever, String note)
+    public boolean transferToAccount(BigInteger amount, Account reciever, String note)
     {
        //Requested transfer funds cannot be negative value or undefined
-        if(amount < 0)
+        if(amount.compareTo(BigInteger.ONE) < 0)
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
         else if (reciever==null)
            throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
-        if (amount <= this.getBalance()) {
+        if (amount.compareTo(this.getBalance()) <= 0) {
+       //if (amount <= this.getBalance()) {
            //Check this account is connected to other account
             /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
             if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
                //Update this balance to new balance
-                this.setBalance(this.getBalance() - amount);
+                this.setBalance(this.getBalance().subtract(amount));
                 //Request to receiver for a credit of amount
                    //reciever.receiveFunds(amount,note);
-                reciever.setBalance(reciever.getBalance()+amount);
+                reciever.setBalance(reciever.getBalance().add(amount));
                    recordTransaction(reciever,true,amount, note);
                    recordTransaction(this, false,amount, note);
                    return true;
@@ -325,17 +327,17 @@ public  class Account implements SendableEntity
 
 
     //User wants to give money to this, recieve the funds if this is able to
-   public boolean receiveFunds(double amount, String note)
+   public boolean receiveFunds(BigInteger amount, String note)
    {
       Transaction transaction;
-      if(amount<=0)
+      if(amount.compareTo(BigInteger.ONE) <=0)
          throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
       //Verify the user is logged in and is connected to the other user
       this.setIsConnected(true);
       if(this.isIsConnected() && this.getOwner().isLoggedIn())
       {
-         this.setBalance(this.getBalance()+amount);
+         this.setBalance(this.getBalance().add(amount));
          return  true;
 
       }
@@ -343,7 +345,7 @@ public  class Account implements SendableEntity
    }
 
    //This sets the information of the transaction.
-   public Transaction recordTransaction(Account recordforAccount, Boolean credit, double amount, String note )
+   public Transaction recordTransaction(Account recordforAccount, Boolean credit, BigInteger amount, String note )
    {
       Transaction trans;
 
@@ -360,11 +362,15 @@ public  class Account implements SendableEntity
 
 
     //To withdraw money from this account.
-    public boolean withdraw(double amount)
+    public boolean withdraw(BigInteger amount)
     {
-        if(amount <= this.getBalance() && amount > 0) {
+        //if(amount <= this.getBalance() && amount > 0) {
+       int resAmntgrtZero= amount.compareTo(BigInteger.ZERO);
+       int resBlncGrtAmnt= amount.compareTo(this.getBalance());
+
+       if(resBlncGrtAmnt==-1 && resAmntgrtZero==1) {
             recordTransaction(this, false,amount, "Withdrawing ");
-            this.setBalance(this.getBalance() - amount);
+            this.setBalance(this.getBalance().subtract(amount));
             return true;
         }
         else
@@ -374,10 +380,14 @@ public  class Account implements SendableEntity
     }
 
    //=========================================================================
-   public boolean deposit( double amount ){
-       if(amount > 0) {
+   public boolean deposit( BigInteger amount ){
+
+      int res= amount.compareTo(BigInteger.ZERO);
+
+       //if(amount > 0) {
+      if(res==1){
            recordTransaction(this, true,amount, "Depositing ");
-           this.setBalance(this.getBalance() + amount);
+           this.setBalance(this.getBalance().add(amount));
            return true;
        }
        else
@@ -645,4 +655,32 @@ public  class Account implements SendableEntity
       withTransactions(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public void Account( double initialAmount )
+   {
+      
+   }
+
+   
+   //==========================================================================
+   public boolean transferToAccount( double amount, Account destinationAccount, String note )
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   public boolean withdraw( double amount )
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   public boolean deposit( double amount )
+   {
+      return false;
+   }
 }

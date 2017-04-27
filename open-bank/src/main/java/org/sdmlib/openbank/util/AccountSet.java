@@ -24,6 +24,8 @@ package org.sdmlib.openbank.util;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.openbank.Account;
 import de.uniks.networkparser.interfaces.Condition;
+
+import java.math.BigInteger;
 import java.util.Collection;
 import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.list.NumberList;
@@ -128,7 +130,7 @@ public class AccountSet extends SimpleSet<Account>
    //==========================================================================
 
 
-   public de.uniks.networkparser.list.BooleanList transferToUser(double amount, Account destinationAccount, String note)
+   public de.uniks.networkparser.list.BooleanList transferToUser(BigInteger amount, Account destinationAccount, String note)
    {
 
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -227,7 +229,7 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterBalance(double value)
+   public AccountSet filterBalance(BigInteger value)
    {
       AccountSet result = new AccountSet();
       
@@ -251,13 +253,17 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterBalance(double lower, double upper)
+   public AccountSet filterBalance(BigInteger lower, BigInteger upper)
    {
       AccountSet result = new AccountSet();
       
       for (Account obj : this)
       {
-         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         int resLowerGrtBlance= lower.compareTo(obj.getBalance());
+         int resBlncGrtUppr= obj.getBalance().compareTo(upper);
+
+         //if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         if (resLowerGrtBlance==-1 && resBlncGrtUppr==-1)
          {
             result.add(obj);
          }
@@ -274,7 +280,7 @@ public class AccountSet extends SimpleSet<Account>
     * 
     * @return Current set of Account objects now with new attribute values.
     */
-   public AccountSet withBalance(double value)
+   public AccountSet withBalance(BigInteger value)
    {
       for (Account obj : this)
       {
@@ -596,7 +602,7 @@ public class AccountSet extends SimpleSet<Account>
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList receiveFunds(Account giver, double amount, String note)
+   public de.uniks.networkparser.list.BooleanList receiveFunds(Account giver, BigInteger amount, String note)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -611,7 +617,7 @@ public class AccountSet extends SimpleSet<Account>
    
    //==========================================================================
    
-   public TransactionSet recordTransaction(Account p0, boolean p1, double p2, String p3)
+   public TransactionSet recordTransaction(Account p0, boolean p1, BigInteger p2, String p3)
    {
       
       TransactionSet result = new TransactionSet();
@@ -715,7 +721,7 @@ public class AccountSet extends SimpleSet<Account>
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   public de.uniks.networkparser.list.BooleanList transferToAccount(BigInteger amount, Account destinationAccount, String note)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -954,6 +960,36 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList receiveFunds(Account giver, double amount, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.receiveFunds(giver, amount, note) );
+      }
+      return result;
    }
 
 }

@@ -15,6 +15,8 @@ class CreatorCreator{
       jsonIdMap.with(new AccountPOCreator());
       jsonIdMap.with(new BankCreator());
       jsonIdMap.with(new BankPOCreator());
+      jsonIdMap.with(new BigIntegerCreator());
+      jsonIdMap.with(new BigIntegerPOCreator());
       return jsonIdMap;
    }
 }
