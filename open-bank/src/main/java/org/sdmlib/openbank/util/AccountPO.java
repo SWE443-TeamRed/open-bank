@@ -725,17 +725,6 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
-   
-   //==========================================================================
-   
-   public void Account(double initialAmount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Account) getCurrentMatch()).Account(initialAmount);
-      }
-   }
-   
    //==========================================================================
    
    public boolean receiveFunds(BigInteger amount, String note)

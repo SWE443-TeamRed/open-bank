@@ -368,12 +368,6 @@ public  class Account implements SendableEntity
 
       
    }
-
-   
-
-
-
-   
    //==========================================================================
    
    public void setCreationdate(Date value)
@@ -703,13 +697,5 @@ public  class Account implements SendableEntity
       trans.setNext(bank.getTransaction());
       bank.setTransaction(trans);
       return trans;
-   }
-
-   
-
-   //==========================================================================
-   public void Account( double initialAmount )
-   {
-      
    }
 }

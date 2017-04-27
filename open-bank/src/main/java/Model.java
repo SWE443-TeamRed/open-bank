@@ -95,7 +95,7 @@ public class Model {
         //Account Methods
 
         //void Account(double initialAmount), constructor
-        account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
+       // account.withMethod("Account", DataType.VOID, new Parameter(DataType.DOUBLE).with("initialAmount"));
 
         //Transaction takes place between this and a user
         account.withMethod("transferToAccount", DataType.BOOLEAN,
