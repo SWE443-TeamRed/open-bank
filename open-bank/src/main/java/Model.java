@@ -2,6 +2,7 @@ import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -109,24 +110,26 @@ public class Model {
         //this is given money either by deposit or someone trasnfered to them
         account.withMethod("receiveFunds", DataType.BOOLEAN,
                 new Parameter(account).with("giver"),
-                new Parameter(DataType.DOUBLE).with("amount"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"));
 
         //Send information from transaction to Transaction class
         account.withMethod("recordTransaction", DataType.create(Transaction.class),
-                new Parameter(DataType.BOOLEAN),
-                new Parameter(DataType.DOUBLE),
-                new Parameter(DataType.STRING));
+                new Parameter(account).with("sender"),
+                new Parameter(account).with("reciever"),
+                new Parameter(transTypeEnum).with("type"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.STRING).with("note"));
 
         //void withdraw(double amount)
         //Withdraw funds from account
         account.withMethod("withdraw", DataType.BOOLEAN,
-                new Parameter(DataType.DOUBLE).with("amount"));
+                new Parameter(DataType.create(BigInteger.class)).with("amount"));
 
         //void deposit(double amount, Account account)
         //Deposit funds with account
         account.withMethod("deposit", DataType.BOOLEAN,
-                new Parameter(DataType.DOUBLE).with("amount"));
+                new Parameter(DataType.create(BigInteger.class)).with("amount"));
 
         // ************* Bank class ************
         Clazz bank = model.createClazz("Bank");

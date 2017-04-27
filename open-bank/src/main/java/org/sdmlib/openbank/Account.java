@@ -308,20 +308,13 @@ public  class Account implements SendableEntity
            throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
         if (amount.compareTo(this.getBalance()) <= 0) {
-       //if (amount <= this.getBalance()) {
-           //Check this account is connected to other account
-            /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
-            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
-               //Update this balance to new balance
-                this.setBalance(this.getBalance().subtract(amount));
-                //Request to receiver for a credit of amount
-                   //reciever.receiveFunds(amount,note);
-                reciever.setBalance(reciever.getBalance().add(amount));
-                recordTransaction(reciever,true,amount, note);
-                //recordTransaction(this, false,amount, note);
-                return true;
-
-            }
+            this.setBalance(this.getBalance().subtract(amount));
+            //Request to receiver for a credit of amount
+            //reciever.receiveFunds(amount,note);
+            reciever.setBalance(reciever.getBalance().add(amount));
+            recordTransaction(this,reciever,TransactionTypeEnum.TRANSFER,amount, note);
+            //recordTransaction(this, false,amount, note);
+            return true;
         }
         return false;//transferToUser did not work.
     }
@@ -330,7 +323,6 @@ public  class Account implements SendableEntity
     //User wants to give money to this, recieve the funds if this is able to
    public boolean receiveFunds(BigInteger amount, String note)
    {
-      Transaction transaction;
       if(amount.compareTo(BigInteger.ONE) <=0)
          throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
@@ -344,32 +336,6 @@ public  class Account implements SendableEntity
       }
       return false;//Cannot complete transaction.
    }
-
-   //This sets the information of the transaction.
-   public Transaction recordTransaction(Account recordforAccount, Boolean credit, BigInteger amount, String note )
-   {
-      Transaction trans;
-
-      //Create transaction object
-      trans = new Transaction();
-      trans.setDate(new Date());
-      trans.setAmount(amount);
-      trans.setNote(note);
-      if(credit) {
-         trans.setFromAccount(this);
-         trans.setToAccount(recordforAccount);
-      }
-      else{
-         trans.setFromAccount(recordforAccount);
-         trans.setToAccount(this);
-      }
-      //trans.withAccounts(recordforAccount);
-      return trans;
-   }
-
-
-
-
     //To withdraw money from this account.
     public boolean withdraw(BigInteger amount)
     {
@@ -378,7 +344,7 @@ public  class Account implements SendableEntity
        int resBlncGrtAmnt= amount.compareTo(this.getBalance());
 
        if(resBlncGrtAmnt==-1 && resAmntgrtZero==1) {
-            recordTransaction(this, false,amount, "Withdrawing ");
+            recordTransaction(this,null, TransactionTypeEnum.WITHDRAW,amount, "Withdrawing ");
             this.setBalance(this.getBalance().subtract(amount));
             return true;
         }
@@ -394,8 +360,8 @@ public  class Account implements SendableEntity
       int res= amount.compareTo(BigInteger.ZERO);
 
        //if(amount > 0) {
-      if(res==1){
-           recordTransaction(this, true,amount, "Depositing ");
+      if(res==1){//
+           recordTransaction(null,this, TransactionTypeEnum.DEPOSIT,amount, "Depositing ");
            this.setBalance(this.getBalance().add(amount));
            return true;
        }
@@ -579,47 +545,7 @@ public  class Account implements SendableEntity
       return value;
    } 
 
-   
-   //==========================================================================
-   public boolean receiveFunds( Account giver, double amount, String note )
-   {
-      return false;
-   }
 
-   
-   //==========================================================================
-   public Transaction recordTransaction( boolean p0, double p1, String p2 )
-   {
-      return null;
-   }
-
-   
-   //==========================================================================
-   public void Account( double initialAmount )
-   {
-      
-   }
-
-   
-   //==========================================================================
-   public boolean transferToAccount( double amount, Account destinationAccount, String note )
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   public boolean withdraw( double amount )
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   public boolean deposit( double amount )
-   {
-      return false;
-   }
 
    
    /********************************************************************
@@ -764,4 +690,41 @@ public  class Account implements SendableEntity
       withFromTransaction(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public Transaction recordTransaction( Account sender, Account reciever, TransactionTypeEnum type, BigInteger amount, String note )
+   {
+      Transaction trans = new Transaction();
+      trans.setDate(new Date());
+      trans.setAmount(amount);
+      trans.setNote(note);
+      trans.setTransType(type);
+      trans.setToAccount(reciever);
+      trans.setFromAccount(sender);
+      trans.setNext(bank.getTransaction());
+      bank.setTransaction(trans);
+      return trans;
+   }
+
+   
+   //==========================================================================
+   public boolean receiveFunds( Account giver, BigInteger amount, String note )
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   public void Account( double initialAmount )
+   {
+      
+   }
+
+   
+   //==========================================================================
+   public boolean transferToAccount( double amount, Account destinationAccount, String note )
+   {
+      return false;
+   }
 }

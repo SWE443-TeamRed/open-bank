@@ -40,6 +40,7 @@ import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.AccountTypeEnum;
 import org.sdmlib.openbank.util.BankSet;
 import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class AccountSet extends SimpleSet<Account>
 {
@@ -616,18 +617,6 @@ public class AccountSet extends SimpleSet<Account>
 
    
    //==========================================================================
-   
-   public TransactionSet recordTransaction(Account p0, boolean p1, BigInteger p2, String p3)
-   {
-      
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.recordTransaction(p0, p1, p2, p3) );
-      }
-      return result;
-   }
 
 
    /**
@@ -867,51 +856,10 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
-   {
-      
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.recordTransaction(p0, p1, p2) );
-      }
-      return result;
-   }
 
 
    
    //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.transferToAccount(amount, destinationAccount, note) );
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList receiveFunds(Account giver, double amount, String note)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.receiveFunds(giver, amount, note) );
-      }
-      return result;
-   }
 
    /**
     * Loop through the current set of Account objects and collect a set of the Transaction objects reached via ToTransaction. 
@@ -1071,6 +1019,66 @@ public class AccountSet extends SimpleSet<Account>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSet recordTransaction(Account sender, Account reciever, TransactionTypeEnum type, BigInteger amount, String note)
+   {
+      
+      TransactionSet result = new TransactionSet();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(sender, reciever, type, amount, note) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList withdraw(BigInteger amount)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.withdraw(amount) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList deposit(BigInteger amount)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.deposit(amount) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+      }
+      return result;
    }
 
 }
