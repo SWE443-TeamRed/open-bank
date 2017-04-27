@@ -1,6 +1,4 @@
-<p align="center">
-     <h1>Open Bank</h1>
-</p>
+<h1>Open Bank</h1>
 SWE-443 Team Red
 
 An open-source bank (transaction) server.
@@ -47,13 +45,17 @@ open-bank/
 │   └── ToDo
 └── scenarios/
 ```
-
+<br>
+OpenBankApplication:    front-end<br>
+open-bank:              back-end<br>
+kanban:                 task management<br>
+scenarios:              story-driven-modeling<br>
 <br>
 
 ## Bugs and Feature Requests
-Found a bug or want to request a new feature?  [please open a new issue](https://github.com/SWE-443-TeamRed/open-bank/issues/new)
-Requesting a new feature? Please e-mail at [please request a new feature](mal9727@gmail.com)
-
+Found a bug or want to request a new feature?  [Please open a new issue.](https://github.com/SWE-443-TeamRed/open-bank/issues/new)
+<br>
+Requesting a new feature? Please e-mail at [Please request a new feature](https://github.com/SWE-443-TeamRed/open-bank/issues/new)
 
 
 ## Creators
@@ -90,4 +92,4 @@ Requesting a new feature? Please e-mail at [please request a new feature](mal972
 <br>
 
 ## Copyright
-Code released under the [MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE-443-TeamRed/open-bank/master/docs/LICENSE).
+Code released under the [MIT License](https://github.com/SWE-443-TeamRed/open-bank/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE-443-TeamRed/open-bank/blob/master/COMMONS).
