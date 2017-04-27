@@ -609,31 +609,40 @@ import org.sdmlib.openbank.FeeValue;
       return this.feeValue;
    }
 
-   public Bank withFeeValue(FeeValue... value)
-   {
-      if(value==null){
+   public Bank withFeeValue(FeeValue... value) {
+      if(value == null || this.getFeeValue().size() >= 5){
          return this;
       }
-      for (FeeValue item : value)
-      {
-         if (item != null)
-         {
-            if (this.feeValue == null)
-            {
+
+      for (FeeValue item : value) {
+         if (item != null) {
+            if (this.feeValue == null) {
                this.feeValue = new FeeValueSet();
             }
-            
-            boolean changed = this.feeValue.add (item);
 
-            if (changed)
-            {
-               item.withBank(this);
-               firePropertyChange(PROPERTY_FEEVALUE, null, item);
+            // Search for duplicate FeeValues
+            boolean skip = false;
+            FeeValueSet pulledFeeValues = this.getFeeValue();
+            for (FeeValue i : pulledFeeValues) {
+               for (FeeValue j : value){
+                  if (j.getTransType() == null)
+                     break;
+                  if (j != null && i.getTransType() == j.getTransType())
+                     skip = true;
+               }
+            }
+
+            if (!skip) {
+               boolean changed = this.feeValue.add(item);
+               if (changed) {
+                  item.withBank(this);
+                  firePropertyChange(PROPERTY_FEEVALUE, null, item);
+               }
             }
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutFeeValue(FeeValue... value)
    {
