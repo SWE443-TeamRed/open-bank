@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Random;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.util.UserSet;
@@ -593,5 +594,10 @@ import org.sdmlib.openbank.Account;
    public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
    {
       return false;
+   }
+
+   public static int getNextID() {
+      Random r = new Random(System.currentTimeMillis());
+      return Math.abs(1000000000 + r.nextInt(2000000000));
    }
 }
