@@ -1,5 +1,5 @@
 <p align="center">
-    ## Open Bank
+     <h1>Open Bank</h1>
 </p>
 SWE-443 Team Red
 
@@ -60,25 +60,33 @@ Requesting a new feature? Please e-mail at [please request a new feature](mal972
 
 **Mitchell Ly**
     - <https://github.com/mitchell3>
+<br>
 **Vincent Liu**
     - <https://github.com/Wavecore>
+<br>
 **Cycielya Shultz**
     - <https://github.com/cshultz>
+<br>
 **Daniel Krinke**
     - <https://github.com/dkrinke>
+<br>
 **Henry Lopez**
     - <https://github.com/henryapez>
+<br>
 **Fatih Andican**
     - <https://github.com/fandican>
+<br>
 **Kimberly Perez**
     - <https://github.com/KimberlyPerezCruz>
+<br>
 **Savindi Ranasinghe**
     - <https://github.com/SavindiRanasinghe>
+<br>
 **Samuel Luu**
     - <https://github.com/Samluu95>
+<br>
 **Victor Nguyen**
     - <https://github.com/nnguye35>
-
 <br>
 
 ## Copyright
