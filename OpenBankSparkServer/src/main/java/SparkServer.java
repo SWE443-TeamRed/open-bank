@@ -442,14 +442,18 @@ public class SparkServer {
                                                 .withTransType(transactionTypeEnum)
                                                 .withTime(new Date())
                                                 .withNote(accountFrom.getOwner().getName() + " has transferred money to " + accountTo.getOwner().getName());
-                                        accountFrom.transferToAccount(amount, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName());
-                                        // have to add to the transactionSet
-
-                                        responseJSON.put("request", "success");
-                                        responseJSON.put("note", transaction.getNote());
-                                        responseJSON.put("balance", (accountFrom.getBalance()));
-                                        responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
-                                        responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+                                        if(accountFrom.transferToAccount(amount, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName()))
+                                        {
+                                            // have to add to the transactionSet
+                                            responseJSON.put("request", "success");
+                                            responseJSON.put("note", transaction.getNote());
+                                            responseJSON.put("balance", (accountFrom.getBalance()));
+                                            responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
+                                            responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+                                        }else {
+                                            responseJSON.put("request", "fail");
+                                            responseJSON.put("reason", "user may not be logged in");
+                                        }
                                     }
                                     else{
                                         responseJSON.put("request", "fail");

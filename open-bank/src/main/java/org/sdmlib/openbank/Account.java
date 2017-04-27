@@ -22,17 +22,11 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.TransactionSet;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.AccountTypeEnum;
-import org.sdmlib.openbank.Bank;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Date;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -460,18 +454,18 @@ public  class Account implements SendableEntity
 
         if (amount <= this.getBalance()) {
            //Check this account is connected to other account
-            /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
-            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
-               //Update this balance to new balance
-                this.setBalance(this.getBalance() - amount);
-                //Request to receiver for a credit of amount
-                   //reciever.receiveFunds(amount,note);
-                reciever.setBalance(reciever.getBalance()+amount);
-                   recordTransaction(reciever,true,amount, note);
-                   recordTransaction(this, false,amount, note);
-                   return true;
+             /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
+           if (/*reciever.getOwner().isLoggedIn() &&*/ this.getOwner().isLoggedIn()) {
+              //Update this balance to new balance
+              this.setBalance(this.getBalance() - amount);
+              //Request to receiver for a credit of amount
+              //reciever.receiveFunds(amount,note);
+              reciever.setBalance(reciever.getBalance()+amount);
+              recordTransaction(reciever,true,amount, note);
+              recordTransaction(this, false,amount, note);
+              return true;
 
-            }
+           }
         }
         return false;//transferToUser did not work.
     }

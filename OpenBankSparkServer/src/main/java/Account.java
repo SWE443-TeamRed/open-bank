@@ -453,7 +453,7 @@ public  class Account implements SendableEntity
         if (amount <= this.getBalance()) {
            //Check this account is connected to other account
             /*TODO: Discuss with creater or isConneccted what it refers to, Accounts must be connected or Users?*/
-            if (reciever.getOwner().isLoggedIn() && this.getOwner().isLoggedIn()) {
+            if (/*reciever.getOwner().isLoggedIn() &&*/ this.getOwner().isLoggedIn()) {
                //Update this balance to new balance
                 this.setBalance(this.getBalance() - amount);
                 //Request to receiver for a credit of amount
