@@ -23,10 +23,10 @@ Author(s):
 Assigned persons (currently working on task):
 
  - Henry
- - Savindi
  - Kimberly
 
 Log entries (who worked when and how long on this):
+
 - Kimberly 04/015/2017 1 hr
   	Started working on making the json worked with the app.
 - Kimberly 04/016/2017 6 hr
@@ -37,8 +37,3 @@ Log entries (who worked when and how long on this):
   	Worked on User and open account code and interface. Worked on
   	setting up the app to take the required screenshots and helped 
   	a teammate with other parts of the code.
-
-
-
-
-	

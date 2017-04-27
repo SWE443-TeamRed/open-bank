@@ -37,6 +37,7 @@ Assigned persons (currently working on task):
   - Kimberly
 
 Log entries (who worked when and how long on this):
+
   - Kimberly 04/07/2017 7hr
   	Setting up the application and fixing critical errors.
   	(This includes the lambdas errors that did not let us 
@@ -59,8 +60,3 @@ Log entries (who worked when and how long on this):
   - Kimberly 04/014/2017 2 hr
   	Worked on fixing the tabs according to what we agreed on class
   	for the new home interface.
-  
-
-
-
-

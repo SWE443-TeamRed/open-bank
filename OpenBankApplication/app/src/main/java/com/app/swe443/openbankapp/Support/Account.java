@@ -112,7 +112,7 @@ public  class Account implements SendableEntity
 
    public void setBalance(double value)
    {
-      if (value >0) {
+      if (value >=0) {
 
          double oldValue = this.balance;
          this.balance = value;
@@ -483,7 +483,7 @@ public  class Account implements SendableEntity
                         .withCreationdate(new Date())
                         .withToAccount(this)
                         .withDate(new Date())
-                        .withNote("Transfer "+amount+" to " +reciever.getOwner().getName())
+                        .withNote(this.getOwner().getName() + " transferred "+amount+" to " +reciever.getOwner().getName())
                         .withFromAccount(reciever);
                 this.withDebit(newTrans);
                 accountTransactions.addFirst(newTrans);
