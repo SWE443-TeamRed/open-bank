@@ -11,7 +11,6 @@ import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.util.TransactionPO;
 import org.sdmlib.openbank.util.TransactionSet;
 
-import java.math.BigInteger;
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
 import org.sdmlib.openbank.util.BankPO;
@@ -55,7 +54,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public void Account(BigInteger initialAmount)
+   public void Account(double initialAmount)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -66,7 +65,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
 
-   public boolean transferToUser(BigInteger amount, Account destinationAccount, String note)
+   public boolean transferToUser(double amount, Account destinationAccount, String note)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -114,7 +113,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public void withdraw(BigInteger amount)
+   public void withdraw(double amount)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -125,7 +124,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public void deposit(BigInteger amount)
+   public void deposit(double amount)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -176,16 +175,16 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return this;
    }
    
-   public BigInteger getBalance()
+   public double getBalance()
    {
       if (this.getPattern().getHasMatch())
       {
          return ((Account) getCurrentMatch()).getBalance();
       }
-      return BigInteger.valueOf(0);
+      return 0;
    }
    
-   public AccountPO withBalance(BigInteger value)
+   public AccountPO withBalance(double value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -408,7 +407,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean receiveFunds(Account giver, BigInteger amount, String note)
+   public boolean receiveFunds(Account giver, double amount, String note)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -420,7 +419,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, BigInteger p2, String p3)
+   public org.sdmlib.openbank.Transaction recordTransaction(Account p0, boolean p1, double p2, String p3)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -526,7 +525,7 @@ public class AccountPO extends PatternObject<AccountPO, Account>
    
    //==========================================================================
    
-   public boolean transferToAccount(BigInteger amount, Account destinationAccount, String note)
+   public boolean transferToAccount(double amount, Account destinationAccount, String note)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -666,91 +665,4 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return null;
    }
 
-   
-   //==========================================================================
-   
-   public void Account(double initialAmount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Account) getCurrentMatch()).Account(initialAmount);
-      }
-   }
-
-   
-   //==========================================================================
-   
-   public boolean transferToAccount(double amount, Account destinationAccount, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).transferToAccount(amount, destinationAccount, note);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean receiveFunds(Account giver, double amount, String note)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).receiveFunds(giver, amount, note);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean withdraw(double amount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).withdraw(amount);
-      }
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean deposit(double amount)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Account) getCurrentMatch()).deposit(amount);
-      }
-      return false;
-   }
-
-   public AccountPO createBalanceCondition(BigInteger value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_BALANCE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public AccountPO createBalanceAssignment(BigInteger value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Account.PROPERTY_BALANCE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
 }

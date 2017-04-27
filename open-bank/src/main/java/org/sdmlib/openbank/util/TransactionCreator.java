@@ -26,8 +26,6 @@ import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.Account;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
@@ -160,7 +158,7 @@ public class TransactionCreator implements SendableEntityCreator
 
       if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setAmount(((BigDecimal) value).toBigInteger());
+         ((Transaction) target).setAmount(Double.parseDouble(value.toString()));
          return true;
       }
 

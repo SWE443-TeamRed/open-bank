@@ -3,8 +3,6 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
-import java.math.BigInteger;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
@@ -39,7 +37,7 @@ public class Test_S1_S3_S13_S14 {
         Account checking = new Account()
                 .withAccountnum(1)
                 .withOwner(tina)
-                .withBalance(BigInteger.valueOf(100));
+                .withBalance(100);
 
 
         storyboard.addObjectDiagram("Tina", tina);
@@ -120,7 +118,7 @@ public class Test_S1_S3_S13_S14 {
             Account checking = new Account()
                     .withAccountnum(1)
                     .withOwner(tina)
-                    .withBalance(BigInteger.valueOf(100));
+                    .withBalance(100);
             System.out.println("Inital Scenario: Tina has a checking account and credentials" + "\n"+ tina.toString());
             assertNotNull("Tina exists",tina);
             assertEquals("Tina's name: Tina","Tina",tina.getName());
@@ -188,7 +186,7 @@ public class Test_S1_S3_S13_S14 {
         Account checking = new Account()
                 .withAccountnum(1)
                 .withOwner(tina)
-                .withBalance(BigInteger.valueOf(100));
+                .withBalance(100);
         storyboard.addObjectDiagram("Initial scenario: Tina attempts to login with wrong credentials", tina);
         System.out.println("Inital User: " + tina.toString() +"\n----");
 
