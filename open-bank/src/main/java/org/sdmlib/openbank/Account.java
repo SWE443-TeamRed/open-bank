@@ -165,11 +165,21 @@ public  class Account implements SendableEntity
          throw new IllegalArgumentException("Account number is not valid!");
       }
 
-      if (this.accountnum != value) {
 
-         int oldValue = this.accountnum;
-         this.accountnum = value;
-         this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
+      if (this.accountnum!= value) {
+
+         if(this.getBank().getCustomerAccounts().filterAccountnum(value).size() == 0 &&
+                 this.getBank().getAdminAccounts().filterAccountnum(value).size() == 0) {
+            int oldValue = this.accountnum;
+            this.accountnum = value;
+            this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
+         }
+         else {
+            value = this.getBank().getNextID();
+            int oldValue = this.accountnum;
+            this.accountnum = value;
+            this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
+         }
       }
    }
 

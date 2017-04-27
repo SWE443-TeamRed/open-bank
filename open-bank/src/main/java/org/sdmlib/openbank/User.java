@@ -177,6 +177,7 @@ import org.sdmlib.openbank.Bank;
                }
                else {
                 //   throw new IllegalArgumentException("User ID " + value + " has already been used");
+
                    value = String.valueOf(this.getBank().getNextID());
                    String oldValue = this.UserID;
                    this.UserID = value;
