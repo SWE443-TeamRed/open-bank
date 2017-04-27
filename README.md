@@ -92,4 +92,4 @@ Requesting a new feature? Please e-mail at [Please request a new feature](https:
 <br>
 
 ## Copyright
-Code released under the [MIT License](https://github.com/SWE-443-TeamRed/open-bank/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE-443-TeamRed/open-bank/blob/master/COMMONS).
+Code released under the [MIT License](https://github.com/SWE-443-TeamRed/open-bank/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE-443-TeamRed/open-bank/master/COMMONS).
