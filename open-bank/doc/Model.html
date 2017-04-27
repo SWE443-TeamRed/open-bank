@@ -62,14 +62,6 @@
       },
       {
          "typ":"node",
-         "id":"FeeValue",
-         "attributes":[
-            "transType : TransactionTypeEnum",
-            "percent : double"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"Account",
          "attributes":[
             "balance : double",
@@ -147,19 +139,6 @@
          "source":{
             "id":"Transaction",
             "cardinality":"one",
-            "property":"fee"
-         },
-         "target":{
-            "id":"Transaction",
-            "cardinality":"one",
-            "property":"owner"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Transaction",
-            "cardinality":"one",
             "property":"transaction"
          },
          "target":{
@@ -179,19 +158,6 @@
             "id":"Account",
             "cardinality":"many",
             "property":"accounts"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"FeeValue",
-            "cardinality":"many",
-            "property":"feeValue"
-         },
-         "target":{
-            "id":"Bank",
-            "cardinality":"one",
-            "property":"bank"
          }
       },
       {

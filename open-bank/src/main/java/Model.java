@@ -75,12 +75,6 @@ public class Model {
 
         //Transaction Methods
 
-        Clazz feeValue = model.createClazz("FeeValue");
-        feeValue.withAttribute("transType", DataType.create(transTypeEnum));
-        feeValue.withAttribute("percent", DataType.DOUBLE);
-
-        transaction.withBidirectional(transaction, "fee", Cardinality.ONE, "owner", Cardinality.ONE);
-
     /////////Account////////////////////////////////////////////////////////////////////////////////////////////////////////
        /*
         Account class:
@@ -144,7 +138,6 @@ public class Model {
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
         bank.withBidirectional(user, "customerUser", Cardinality.MANY, "bank", Cardinality.ONE);
         bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
-        bank.withBidirectional(feeValue, "feeValue", Cardinality.MANY, "bank", Cardinality.ONE);
 
         bank.withBidirectional(account, "adminAccounts", Cardinality.MANY, "employingBank", Cardinality.ONE);
         bank.withBidirectional(user, "adminUsers", Cardinality.MANY, "employingBank", Cardinality.ONE);

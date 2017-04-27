@@ -13,9 +13,6 @@ import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.util.AccountPO;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.util.FeeValuePO;
-import org.sdmlib.openbank.FeeValue;
-import org.sdmlib.openbank.util.FeeValueSet;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -413,45 +410,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) this.getCurrentMatch()).getAdminAccounts();
-      }
-      return null;
-   }
-
-   public FeeValuePO createFeeValuePO()
-   {
-      FeeValuePO result = new FeeValuePO(new FeeValue[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Bank.PROPERTY_FEEVALUE, result);
-      
-      return result;
-   }
-
-   public FeeValuePO createFeeValuePO(String modifier)
-   {
-      FeeValuePO result = new FeeValuePO(new FeeValue[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Bank.PROPERTY_FEEVALUE, result);
-      
-      return result;
-   }
-
-   public BankPO createFeeValueLink(FeeValuePO tgt)
-   {
-      return hasLinkConstraint(tgt, Bank.PROPERTY_FEEVALUE);
-   }
-
-   public BankPO createFeeValueLink(FeeValuePO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Bank.PROPERTY_FEEVALUE, modifier);
-   }
-
-   public FeeValueSet getFeeValue()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Bank) this.getCurrentMatch()).getFeeValue();
       }
       return null;
    }

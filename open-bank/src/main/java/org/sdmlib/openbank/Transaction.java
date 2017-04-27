@@ -31,7 +31,6 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.util.TransactionSet;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -93,8 +92,6 @@ public  class Transaction implements SendableEntity
    {
       setBank(null);
       withoutAccounts(this.getAccounts().toArray(new Account[this.getAccounts().size()]));
-      setOwner(null);
-      setFee(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -438,136 +435,6 @@ public  class Transaction implements SendableEntity
    {
       Account value = new Account();
       withAccounts(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Transaction ----------------------------------- Transaction
-    *              fee                   owner
-    * </pre>
-    */
-   
-   public static final String PROPERTY_OWNER = "owner";
-
-   private Transaction owner = null;
-
-   public Transaction getOwner()
-   {
-      return this.owner;
-   }
-   public TransactionSet getOwnerTransitive()
-   {
-      TransactionSet result = new TransactionSet().with(this);
-      return result.getOwnerTransitive();
-   }
-
-
-   public boolean setOwner(Transaction value)
-   {
-      boolean changed = false;
-      
-      if (this.owner != value)
-      {
-         Transaction oldValue = this.owner;
-         
-         if (this.owner != null)
-         {
-            this.owner = null;
-            oldValue.setFee(null);
-         }
-         
-         this.owner = value;
-         
-         if (value != null)
-         {
-            value.withFee(this);
-         }
-         
-         firePropertyChange(PROPERTY_OWNER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Transaction withOwner(Transaction value)
-   {
-      setOwner(value);
-      return this;
-   } 
-
-   public Transaction createOwner()
-   {
-      Transaction value = new Transaction();
-      withOwner(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Transaction ----------------------------------- Transaction
-    *              owner                   fee
-    * </pre>
-    */
-   
-   public static final String PROPERTY_FEE = "fee";
-
-   private Transaction fee = null;
-
-   public Transaction getFee()
-   {
-      return this.fee;
-   }
-   public TransactionSet getFeeTransitive()
-   {
-      TransactionSet result = new TransactionSet().with(this);
-      return result.getFeeTransitive();
-   }
-
-
-   public boolean setFee(Transaction value)
-   {
-      boolean changed = false;
-      
-      if (this.fee != value)
-      {
-         Transaction oldValue = this.fee;
-         
-         if (this.fee != null)
-         {
-            this.fee = null;
-            oldValue.setOwner(null);
-         }
-         
-         this.fee = value;
-         
-         if (value != null)
-         {
-            value.withOwner(this);
-         }
-         
-         firePropertyChange(PROPERTY_FEE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Transaction withFee(Transaction value)
-   {
-      setFee(value);
-      return this;
-   } 
-
-   public Transaction createFee()
-   {
-      Transaction value = new Transaction();
-      withFee(value);
       return value;
    } 
 }
