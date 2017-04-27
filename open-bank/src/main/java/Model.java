@@ -99,24 +99,19 @@ public class Model {
 
         //Transaction takes place between this and a user
         account.withMethod("transferToAccount", DataType.BOOLEAN,
-                new Parameter(DataType.DOUBLE).with("amount"),
-                new Parameter(account).with("destinationAccount"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(account).with("receiver"),
                 new Parameter(DataType.STRING).with("note"));
-
-        //transaction from my bank accounts
-//        account.withMethod("myBankTransaction", DataType.BOOLEAN, new Parameter(DataType.DOUBLE).with("amount"),
-//                new Parameter(account).with("destinationAccount"));
 
         //this is given money either by deposit or someone trasnfered to them
         account.withMethod("receiveFunds", DataType.BOOLEAN,
-                new Parameter(account).with("giver"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"));
 
         //Send information from transaction to Transaction class
         account.withMethod("recordTransaction", DataType.create(Transaction.class),
                 new Parameter(account).with("sender"),
-                new Parameter(account).with("reciever"),
+                new Parameter(account).with("receiver"),
                 new Parameter(transTypeEnum).with("type"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"));

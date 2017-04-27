@@ -299,20 +299,18 @@ public  class Account implements SendableEntity
 
     //User transfer founds to another user,
     // needs to connect and verify destinationAccount connection.
-    public boolean transferToAccount(BigInteger amount, Account reciever, String note)
+    public boolean transferToAccount(BigInteger amount, Account receiver, String note)
     {
        //Requested transfer funds cannot be negative value or undefined
         if(amount.compareTo(BigInteger.ONE) < 0)
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-        else if (reciever==null)
+        else if (receiver==null)
            throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
         if (amount.compareTo(this.getBalance()) <= 0) {
             this.setBalance(this.getBalance().subtract(amount));
-            //Request to receiver for a credit of amount
-            //reciever.receiveFunds(amount,note);
-            reciever.setBalance(reciever.getBalance().add(amount));
-            recordTransaction(this,reciever,TransactionTypeEnum.TRANSFER,amount, note);
+            receiver.receiveFunds(amount,note);
+            recordTransaction(this,receiver,TransactionTypeEnum.TRANSFER,amount, note);
             //recordTransaction(this, false,amount, note);
             return true;
         }
@@ -323,18 +321,18 @@ public  class Account implements SendableEntity
     //User wants to give money to this, recieve the funds if this is able to
    public boolean receiveFunds(BigInteger amount, String note)
    {
-      if(amount.compareTo(BigInteger.ONE) <=0)
-         throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
+       if(amount.compareTo(BigInteger.ONE) <=0)
+           throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
 
-      //Verify the user is logged in and is connected to the other user
-      this.setIsConnected(true);
-      if(this.isIsConnected() && this.getOwner().isLoggedIn())
-      {
-         this.setBalance(this.getBalance().add(amount));
-         return  true;
+       //Verify the user is logged in and is connected to the other user
+       this.setIsConnected(true);
+       if(this.isIsConnected() && this.getOwner().isLoggedIn())
+       {
+           this.setBalance(this.getBalance().add(amount));
+           return  true;
 
-      }
-      return false;//Cannot complete transaction.
+       }
+       return false;//Cannot complete transaction.
    }
     //To withdraw money from this account.
     public boolean withdraw(BigInteger amount)
@@ -693,14 +691,14 @@ public  class Account implements SendableEntity
 
    
    //==========================================================================
-   public Transaction recordTransaction( Account sender, Account reciever, TransactionTypeEnum type, BigInteger amount, String note )
+   public Transaction recordTransaction( Account sender, Account receiver, TransactionTypeEnum type, BigInteger amount, String note )
    {
       Transaction trans = new Transaction();
       trans.setDate(new Date());
       trans.setAmount(amount);
       trans.setNote(note);
       trans.setTransType(type);
-      trans.setToAccount(reciever);
+      trans.setToAccount(receiver);
       trans.setFromAccount(sender);
       trans.setNext(bank.getTransaction());
       bank.setTransaction(trans);
@@ -708,23 +706,10 @@ public  class Account implements SendableEntity
    }
 
    
-   //==========================================================================
-   public boolean receiveFunds( Account giver, BigInteger amount, String note )
-   {
-      return false;
-   }
 
-   
    //==========================================================================
    public void Account( double initialAmount )
    {
       
-   }
-
-   
-   //==========================================================================
-   public boolean transferToAccount( double amount, Account destinationAccount, String note )
-   {
-      return false;
    }
 }

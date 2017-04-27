@@ -735,15 +735,14 @@ public class AccountPO extends PatternObject<AccountPO, Account>
           ((Account) getCurrentMatch()).Account(initialAmount);
       }
    }
-
    
    //==========================================================================
    
-   public boolean transferToAccount(double amount, Account destinationAccount, String note)
+   public boolean receiveFunds(BigInteger amount, String note)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Account) getCurrentMatch()).transferToAccount(amount, destinationAccount, note);
+         return ((Account) getCurrentMatch()).receiveFunds(amount, note);
       }
       return false;
    }

@@ -1069,14 +1069,14 @@ public class AccountSet extends SimpleSet<Account>
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   public de.uniks.networkparser.list.BooleanList receiveFunds(BigInteger amount, String note)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
       
       for (Account obj : this)
       {
-         result.add( obj.transferToAccount(amount, destinationAccount, note) );
+         result.add( obj.receiveFunds(amount, note) );
       }
       return result;
    }

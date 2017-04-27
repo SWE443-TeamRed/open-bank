@@ -72,9 +72,9 @@
          ],
          "methods":[
             "Account(double initialAmount)",
-            "transferToAccount(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
-            "receiveFunds(org.sdmlib.openbank.Account giver, java.math.BigInteger amount, String note) boolean",
-            "recordTransaction(org.sdmlib.openbank.Account sender, org.sdmlib.openbank.Account reciever, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note) org.sdmlib.openbank.Transaction",
+            "transferToAccount(java.math.BigInteger amount, org.sdmlib.openbank.Account receiver, String note) boolean",
+            "receiveFunds(java.math.BigInteger amount, String note) boolean",
+            "recordTransaction(org.sdmlib.openbank.Account sender, org.sdmlib.openbank.Account receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note) org.sdmlib.openbank.Transaction",
             "withdraw(java.math.BigInteger amount) boolean",
             "deposit(java.math.BigInteger amount) boolean"
          ]
