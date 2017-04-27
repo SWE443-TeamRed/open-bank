@@ -68,7 +68,7 @@ public class Model {
         // create class Transaction
         Clazz transaction = model.createClazz("Transaction");
         //transaction.withAttribute("amount", DataType.DOUBLE);
-        transaction.withAttribute("amount", DataType.create(BigInteger.class));
+        transaction.withAttribute("amount", DataType.create(BigInteger.class)); // type changed from double to Biginteger
         transaction.withAttribute("creationdate",DataType.create(Date.class));
         transaction.withAttribute("note",DataType.STRING);
         transaction.withAttribute("transType", DataType.create(transTypeEnum));
@@ -85,7 +85,7 @@ public class Model {
         */
 
         Clazz account = model.createClazz("Account");
-        account.withAttribute("balance", DataType.create(BigInteger.class));
+        account.withAttribute("balance", DataType.create(BigInteger.class)); // type changed from double to Biginteger
         account.withAttribute("accountnum",DataType.INT);
         account.withAttribute("creationdate", DataType.create(Date.class));
         account.withAttribute("IsConnected", DataType.BOOLEAN);
