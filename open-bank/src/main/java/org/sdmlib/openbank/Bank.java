@@ -32,6 +32,8 @@ import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.FeeValue;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -96,6 +98,7 @@ import org.sdmlib.openbank.Account;
       withoutCustomerAccounts(this.getCustomerAccounts().toArray(new Account[this.getCustomerAccounts().size()]));
       withoutAdminUsers(this.getAdminUsers().toArray(new User[this.getAdminUsers().size()]));
       withoutAdminAccounts(this.getAdminAccounts().toArray(new Account[this.getAdminAccounts().size()]));
+      withoutFeeValue(this.getFeeValue().toArray(new FeeValue[this.getFeeValue().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -580,6 +583,78 @@ import org.sdmlib.openbank.Account;
    {
       Account value = new Account();
       withAdminAccounts(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Bank ----------------------------------- FeeValue
+    *              bank                   feeValue
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FEEVALUE = "feeValue";
+
+   private FeeValueSet feeValue = null;
+   
+   public FeeValueSet getFeeValue()
+   {
+      if (this.feeValue == null)
+      {
+         return FeeValueSet.EMPTY_SET;
+      }
+   
+      return this.feeValue;
+   }
+
+   public Bank withFeeValue(FeeValue... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (FeeValue item : value)
+      {
+         if (item != null)
+         {
+            if (this.feeValue == null)
+            {
+               this.feeValue = new FeeValueSet();
+            }
+            
+            boolean changed = this.feeValue.add (item);
+
+            if (changed)
+            {
+               item.withBank(this);
+               firePropertyChange(PROPERTY_FEEVALUE, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Bank withoutFeeValue(FeeValue... value)
+   {
+      for (FeeValue item : value)
+      {
+         if ((this.feeValue != null) && (item != null))
+         {
+            if (this.feeValue.remove(item))
+            {
+               item.setBank(null);
+               firePropertyChange(PROPERTY_FEEVALUE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public FeeValue createFeeValue()
+   {
+      FeeValue value = new FeeValue();
+      withFeeValue(value);
       return value;
    } 
 }

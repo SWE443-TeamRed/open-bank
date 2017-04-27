@@ -29,6 +29,7 @@ import java.util.Date;
 
 import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.AccountTypeEnum;
@@ -314,9 +315,20 @@ public  class Account implements SendableEntity
                 //Request to receiver for a credit of amount
                    //reciever.receiveFunds(amount,note);
                 reciever.setBalance(reciever.getBalance()+amount);
-                   recordTransaction(reciever,true,amount, note);
-                   recordTransaction(this, false,amount, note);
-                   return true;
+
+               Transaction transTo = recordTransaction(reciever,true,amount, note);
+               transTo.setTransType(TransactionTypeEnum.TRANSFER);
+               Transaction transFrom = recordTransaction(this, false,amount, note);
+               transFrom.setTransType(TransactionTypeEnum.TRANSFER);
+
+               FeeValueSet pulledFeeValues = this.getBank().getFeeValue();
+               for (FeeValue i : pulledFeeValues) {
+                  if (i != null && i.getTransType() == TransactionTypeEnum.TRANSFER) {
+                     transFrom.setFee(this.recordFee(i, amount));
+                     break;
+                  }
+               }
+               return true;
 
             }
         }
@@ -356,41 +368,71 @@ public  class Account implements SendableEntity
       return trans;
    }
 
+   /* SAM - NEEDS TO BE CLARIFIED*/
+   public Transaction recordFee(FeeValue i, double amount) {
+      Account pulledAdminAccount = this.getBank().getAdminAccounts().first();
+      //Create an admin account if none exist
+      if (pulledAdminAccount == null) {
+         this.getBank().createAdminAccounts();
+         pulledAdminAccount = this.getBank().getAdminAccounts().first();
+      }
+      double calculatedFee = amount * i.getPercent();
+      Transaction trans = new Transaction();
+      trans.setDate(new Date());
+      trans.setAmount(calculatedFee);
+      //trans.setFromAccount(this);
+      //trans.setToAccount(pulledAdminAccount);
+      trans.setTransType(TransactionTypeEnum.FEE);
 
-
+      this.setBalance(this.getBalance() - calculatedFee);
+      pulledAdminAccount.setBalance(pulledAdminAccount.getBalance() + calculatedFee);
+      return trans;
+   }
 
     //To withdraw money from this account.
-    public boolean withdraw(double amount)
-    {
-        if(amount <= this.getBalance() && amount > 0) {
-            recordTransaction(this, false,amount, "Withdrawing ");
-            this.setBalance(this.getBalance() - amount);
-            return true;
-        }
-        else
-            throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
-                    "and greater than 0.");
+    public boolean withdraw(double amount) {
+       if(amount <= this.getBalance() && amount > 0) {
+          Transaction transWith = recordTransaction(this, false,amount, "Withdrawing ");
+          transWith.setTransType(TransactionTypeEnum.WITHDRAWAL);
+          this.setBalance(this.getBalance() - amount);
+
+          // If there exists a fee associated with a withdrawal, create a transaction Fee
+          FeeValueSet pulledFeeValues = this.getBank().getFeeValue();
+          for (FeeValue i : pulledFeeValues) {
+             if (i != null && i.getTransType() == TransactionTypeEnum.WITHDRAWAL) {
+                transWith.setFee(this.recordFee(i, amount));
+                break;
+             }
+          }
+          return true;
+       }
+       else
+          throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                  "and greater than 0.");
 
     }
 
    //=========================================================================
    public boolean deposit( double amount ){
-       if(amount > 0) {
-           recordTransaction(this, true,amount, "Depositing ");
-           this.setBalance(this.getBalance() + amount);
-           return true;
-       }
-       else
-           throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
+      if(amount > 0) {
+         Transaction transDep = recordTransaction(this, true,amount, "Depositing ");
+         transDep.setTransType(TransactionTypeEnum.DEPOSIT);
+         System.out.println(this.getBalance());
+         this.setBalance(this.getBalance() + amount);
 
-      
+         // If there exists a fee associated with a deposit, create a transaction Fee
+         FeeValueSet pulledFeeValues = this.getBank().getFeeValue();
+         for (FeeValue i : pulledFeeValues) {
+            if (i != null && i.getTransType() == TransactionTypeEnum.DEPOSIT) {
+               transDep.setFee(this.recordFee(i, amount));
+               break;
+            }
+         }
+         return true;
+      }
+      else
+         throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
    }
-
-   
-
-
-
-   
    //==========================================================================
    
    public void setCreationdate(Date value)
