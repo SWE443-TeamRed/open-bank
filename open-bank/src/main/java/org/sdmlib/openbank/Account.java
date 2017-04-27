@@ -165,7 +165,6 @@ public  class Account implements SendableEntity
          throw new IllegalArgumentException("Account number is not valid!");
       }
 
-
       if (this.accountnum!= value) {
 
          if(this.getBank().getCustomerAccounts().filterAccountnum(value).size() == 0 &&
