@@ -105,8 +105,23 @@ import org.sdmlib.openbank.util.FeeValueSet;
    }
    
    public void setTransType(TransactionTypeEnum value) {
-      if (value == TransactionTypeEnum.FEE)
+      // Initial cases for if value is null or if value is TransActionTypeEnum.FEE
+      if (value == null)
+         throw new IllegalArgumentException("value is null");
+      else if (value == TransactionTypeEnum.FEE)
          throw new IllegalArgumentException("transType cannot be TransactionTypeEnum.FEE");
+
+      // Checks for an existing feeValue of the same transType
+      Bank pulledBank = this.getBank();
+      if (pulledBank != null) {
+         FeeValueSet pulledFeeValues = pulledBank.getFeeValue();
+         for (FeeValue i : pulledFeeValues){
+            if (i != null && i.getTransType() == value){
+               throw new IllegalArgumentException("duplicate feeValues");
+            }
+         }
+      }
+
       if (this.transType != value) {
          TransactionTypeEnum oldValue = this.transType;
          this.transType = value;

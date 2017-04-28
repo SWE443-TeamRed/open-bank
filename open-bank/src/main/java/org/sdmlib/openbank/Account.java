@@ -341,7 +341,7 @@ public  class Account implements SendableEntity
    public boolean receiveFunds(BigInteger amount, String note)
    {
        if(amount.compareTo(BigInteger.ONE) <=0)
-           throw new IllegalArgumentException("Can't have negative or zero amount. You gave: "+amount);
+           throw new IllegalArgumentException("Can't have negative or zero amount. You gave: " + amount);
 
        //Verify the user is logged in and is connected to the other user
        this.setIsConnected(true);
@@ -367,6 +367,7 @@ public  class Account implements SendableEntity
             for (FeeValue i : pulledFeeValues) {
                if (i != null && i.getTransType() == TransactionTypeEnum.WITHDRAW) {
                   transWith.setFee(this.recordFee(i, amount));
+                  //System.out.println(transWith.getFee().getTransType() == TransactionTypeEnum.FEE);
                   break;
                }
             }
@@ -726,7 +727,7 @@ public  class Account implements SendableEntity
       trans.setTransType(type);
       trans.setToAccount(receiver);
       trans.setFromAccount(sender);
-      trans.setNext(bank.getTransaction());
+      trans.setPrevious(bank.getTransaction());
       bank.setTransaction(trans);
       return trans;
    }
@@ -738,7 +739,7 @@ public  class Account implements SendableEntity
          this.getBank().createAdminAccounts();
          pulledAdminAccount = this.getBank().getAdminAccounts().first();
       }
-      BigInteger calculatedFee = amount.multiply(i.getPercent());
+      BigInteger calculatedFee = (amount.multiply(i.getPercent())).divide(new BigInteger("1000000000"));
       Transaction trans = new Transaction();
       trans.setDate(new Date());
       trans.setAmount(calculatedFee);
