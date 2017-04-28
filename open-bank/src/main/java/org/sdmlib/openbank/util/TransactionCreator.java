@@ -47,6 +47,8 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_PREVIOUS,
       Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_FROMACCOUNT,
+      Transaction.PROPERTY_OWNER,
+      Transaction.PROPERTY_FEE,
    };
    
    @Override
@@ -127,6 +129,16 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getFromAccount();
       }
+
+      if (Transaction.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getOwner();
+      }
+
+      if (Transaction.PROPERTY_FEE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getFee();
+      }
       
       return null;
    }
@@ -202,6 +214,18 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setFromAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setOwner((Transaction) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_FEE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setFee((Transaction) value);
          return true;
       }
       

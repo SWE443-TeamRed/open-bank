@@ -53,6 +53,10 @@ public class Model {
                 .withAttribute("note",DataType.STRING)
                 .withAttribute("transType", DataType.create(transTypeEnum));
 
+        Clazz feeValue = model.createClazz("FeeValue")
+                .withAttribute("transType", DataType.create(transTypeEnum))
+                .withAttribute("percent", DataType.create(BigInteger.class));
+
         Clazz account = model.createClazz("Account")
                 .withAttribute("balance", DataType.create(BigInteger.class)) // type changed from double to Biginteger
                 .withAttribute("accountnum",DataType.INT)
@@ -126,10 +130,12 @@ public class Model {
         bank.withBidirectional(transaction, "transaction", Cardinality.ONE, "bank", Cardinality.ONE);
         bank.withBidirectional(account, "adminAccounts", Cardinality.MANY, "employingBank", Cardinality.ONE);
         bank.withBidirectional(user, "adminUsers", Cardinality.MANY, "employingBank", Cardinality.ONE);
+        bank.withBidirectional(feeValue, "feeValue", Cardinality.MANY, "bank", Cardinality.ONE);
         user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
         account.withBidirectional(transaction, "ToTransaction",Cardinality.MANY,"ToAccount",Cardinality.ONE);
         account.withBidirectional(transaction, "FromTransaction", Cardinality.MANY, "FromAccount",Cardinality.ONE);
         transaction.withBidirectional(transaction,"previous", Cardinality.ONE,"next",Cardinality.ONE);
+        transaction.withBidirectional(transaction, "fee", Cardinality.ONE, "owner", Cardinality.ONE);
 
         /////////Storyboard/////////////////////////////////////////////////////////////////////////////////////////////////////
         Storyboard storyboard = new Storyboard();
