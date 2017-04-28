@@ -119,7 +119,7 @@ public  class Account implements SendableEntity
 
    public void setBalance(BigInteger value)
    {
-      if (value.compareTo(value) >0) {
+      if (value.compareTo(BigInteger.ONE) > 0) {
 
          BigInteger oldValue = this.balance;
          this.balance = value;
@@ -166,7 +166,7 @@ public  class Account implements SendableEntity
       }
 
       if (this.accountnum!= value) {
-
+/*
          if(this.getBank().getCustomerAccounts().filterAccountnum(value).size() == 0 &&
                  this.getBank().getAdminAccounts().filterAccountnum(value).size() == 0) {
             int oldValue = this.accountnum;
@@ -174,11 +174,12 @@ public  class Account implements SendableEntity
             this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
          }
          else {
+         */
             value = this.getBank().getNextID();
             int oldValue = this.accountnum;
             this.accountnum = value;
             this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
-         }
+         //}
       }
    }
 

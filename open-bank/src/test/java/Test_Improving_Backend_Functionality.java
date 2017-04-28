@@ -1145,4 +1145,23 @@ public class Test_Improving_Backend_Functionality {
         User usrGet = bnk.findUserByID("steverog1");
         assertTrue(usrGet == null);
     }
+
+    @Test
+    public void testfindUser() {
+
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usr1);
+
+        System.out.println(usr1.getUserID());
+        User usrGet = bnk.findUserByID("steverog1");
+        assertTrue(usrGet == null);
+    }
 }
