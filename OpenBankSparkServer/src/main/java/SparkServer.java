@@ -10,8 +10,6 @@ import spark.utils.IOUtils;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -20,19 +18,12 @@ import static spark.Spark.*;
 
 public class SparkServer {
     private static final Logger logger = Logger.getLogger(SparkServer.class.getName());
-
-    static boolean BANKMODE = true;
-
     static PrintClass print = new PrintClass();
-
-    static Transaction transaction = null;
 
     static private JsonPersistency jsonPersistency;
 
     static int i = 1;
     static int j = 1;
-
-   static Map<Integer, Account> accountMap;
 
     static Bank bank;
 
@@ -51,44 +42,15 @@ public class SparkServer {
             logger.info("Loaded bank: " + bank.getBankName());
 
         apiLogSetup();
-        accountMapSetup();
 
-        //sort(list, Comparable::<String>compareTo);
-//        before("/*", (q, a) -> {
-//            return logger.info("Received api call from ip: " + q.ip()
-//                    + "\n\t" + q.pathInfo()
-//                    + "\n\tMessage Content"
-//                    + "\n\tcontentType: " + q.contentType()
-//                    + "\n\theaders: " + q.headers().toString()
-//                    + "\n\tquery params: " + q.queryParams().toString());
-//        });
         get("/", (Request request, Response response) -> {
             return "TeamRed OpenBank";
         });
 
         path("/admin", () -> {
-            get("", (Request request, Response response) -> {return "<HTML>\n" +
-                    "<HEAD>\n" +
-                    "<TITLE>Admin Page Place Holder</TITLE>\n" +
-                    "</HEAD>\n" +
-                    "<BODY BGCOLOR=\"FFFFFF\">\n" +
-                    "<HR>\n" +
-                    "This is a place holder for the admin page\n" +
-                    "<H1>Header Example</H1>\n" +
-                    "<H2>Medium Header Example</H2>\n" +
-                    "<P>Paragraph Example\n" +
-                    "<P><B>Bold Paragraph Example</B>\n" +
-                    "<BR><B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>\n" +
-                    "<HR>\n" +
-                    "</BODY>\n" +
-                    "</HTML>";
-            });
 
-            path("/login", () -> {
-                get("", (Request request, Response response) -> {
-
-                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
-                });
+            get("", (Request request, Response response) -> {
+                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
             });
 
             path("/viewTransactions", () -> {
@@ -97,6 +59,118 @@ public class SparkServer {
                     return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/viewTransactions.html"));
                 });
             });
+
+            path("/login", () -> {
+                post("", (Request request, Response response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+
+                        String username = request.queryParams("username");
+                        String password = request.queryParams("password");
+
+                        String id = bank.Login(username, password);
+
+                        if(id != null) {
+//                            bank.findUserByID(id).login(id, password);
+                            if (bank.findUserByID(id).isLoggedIn()) {
+                                responseJSON.put("authentication", true);
+                                responseJSON.put("userID", id);
+                            } else {
+                                responseJSON.put("authentication", false);
+                                responseJSON.put("reason", "failed to login the user");
+                            }
+                        } else {
+                            responseJSON.put("authentication", false);
+                            responseJSON.put("reason", "user could not be found");
+                        }
+
+                    } else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason","missing required parameters in body");
+                    }
+                    return responseJSON;
+                });
+            });
+
+            path("/createAdmin", () -> {
+                post("", (Request request, Response response) -> {
+                    return null;
+                });
+            });
+
+            path("/listOf", () -> {
+                path("/users", () -> {
+                    get("", (Request request, Response response) -> {
+                        JSONArray responseJSON = new JSONArray();
+
+                        UserSet customerUser = bank.getCustomerUser();
+
+                        for (User user : customerUser) {
+                            JSONObject multUserJson = new JSONObject();
+                            logger.info("User: " + user.toString());
+                            if (user != null) {
+                                multUserJson.put("name", user.getName());
+                                multUserJson.put("id", user.getUserID());
+                                multUserJson.put("email", user.getEmail());
+                                multUserJson.put("phoneNumber", user.getPhone());
+                                multUserJson.put("username", user.getUsername());
+                                multUserJson.put("password", user.getPassword());
+
+                                responseJSON.add(multUserJson);
+                            }
+                        }
+
+                        return responseJSON;
+                    });
+                });
+                path("/accounts", () -> {
+                    get("", (Request request, Response response) -> {
+                        JSONArray responseJSON = new JSONArray();
+
+                        AccountSet customerAccounts = bank.getCustomerAccounts();
+
+                        for (Account account : customerAccounts) {
+                            JSONObject multAccountJson = new JSONObject();
+                            logger.info("Account: " + account.toString());
+                            if (account != null) {
+                                multAccountJson.put("accountNum", account.getAccountnum());
+                                multAccountJson.put("balance", account.getBalance());
+                                multAccountJson.put("creationDate", account.getCreationdate());
+                                multAccountJson.put("owner", account.getOwner());
+                                multAccountJson.put("type", account.getType());
+                                responseJSON.add(multAccountJson);
+                            }
+                        }
+
+                        return responseJSON;
+                    });
+                });
+                path("/transactions", () -> {
+                    get("", (Request request, Response response) -> {
+                        JSONArray responseJSON = new JSONArray();
+
+//                        TransactionSet customerTransactions = bank.getTransaction();
+//
+//                        for (Transaction transaction : customerTransactions) {
+//                            JSONObject multTransactionJson = new JSONObject();
+//                            logger.info("User: " + transaction.toString());
+//                            if (transaction != null) {
+//                                multTransactionJson.put("from", transaction.getFromAccount());
+//                                multTransactionJson.put("to", transaction.getToAccount());
+//                                multTransactionJson.put("ammount", transaction.getAmount());
+//                                multTransactionJson.put("creationDate", transaction.getCreationdate());
+//                                multTransactionJson.put("note", transaction.getNote());
+//
+//                                responseJSON.add(multTransactionJson);
+//                            }
+//                        }
+
+                        return responseJSON;
+                    });
+                });
+            });
+
 
             path("/passwordReset", () -> {
                 post("", (Request request, Response response) -> {
@@ -161,7 +235,7 @@ public class SparkServer {
                         String id = bank.Login(username, password);
 
                         if(id != null) {
-                            bank.findUserByID(id).login(id, password);
+//                            bank.findUserByID(id).login(id, password);
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
@@ -506,10 +580,6 @@ public class SparkServer {
                 });
             });
         });
-    }
-
-    private static void accountMapSetup() {
-        accountMap = new HashMap<>();
     }
 
     private static void apiLogSetup() {
