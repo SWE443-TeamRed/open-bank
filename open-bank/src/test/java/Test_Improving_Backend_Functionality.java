@@ -1,4 +1,3 @@
-import de.uniks.networkparser.list.NumberList;
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
@@ -1227,6 +1226,359 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(usrGet == null);
     }
 
+//    @Test
+//    public void testBankLogin() {
+//        User usr1 = new User()
+//                .withName("Tina")
+//                .withUsername("tina")
+//                .withUserID("tina1")
+//                .withPassword("testtina");
+//
+//        User usr2 = new User()
+//                .withName("Steve")
+//                .withUsername("steve")
+//                .withUserID("steverog1")
+//                .withPassword("teststeve");
+//
+//        Bank bnk = new Bank();
+//        bnk.withCustomerUser(usr1);
+//        bnk.withCustomerUser(usr2);
+//
+//
+//        System.out.println(bnk.Login("tina","testtina"));
+//
+//        String usrID = bnk.Login("tina","testtina");
+//
+//        assertTrue("tina1"==usrID);
+//    }
+//
+//    @Test
+//    public void testBankLoginNull() {
+//        User usr1 = new User()
+//                .withName("Tina")
+//                .withUsername("tina")
+//                .withUserID("tina1")
+//                .withPassword("testtina");
+//
+//        User usr2 = new User()
+//                .withName("Steve")
+//                .withUsername("steve")
+//                .withUserID("steverog1")
+//                .withPassword("teststeve");
+//
+//        Bank bnk = new Bank();
+//        bnk.withCustomerUser(usr1);
+//        bnk.withCustomerUser(usr2);
+//
+//
+//        System.out.println(bnk.Login("tina","testtina1"));
+//
+//        String usrID = bnk.Login("tina","testtina1");
+//
+//        assertTrue(null==usrID);
+//    }
+//
+//
+//
+//    //********** Bank withDrawFunds method tests *************
+//    @Test
+//    public void testBankWithdraw() {
+//        Date dt = new Date("03/19/2017");
+//
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        //Setting the account information.
+//        Account usrBobAccnt = new Account()
+//                .withAccountnum(12345)
+//                .withBalance(30)
+//                .withDebit()
+//                .withOwner(usrBob)
+//                .withCreationdate(dt);
+//
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerAccounts();
+//        bnk.withCustomerAccounts(usrBobAccnt);
+//
+//        StringBuilder msg = new StringBuilder("");
+//
+//        double amnt = bnk.withDrawFunds(12345,20,msg);
+//
+//
+//        System.out.println("amnt:" + amnt + "--msg: " + msg);
+//        assertTrue(10==amnt);
+//    }
+//
+//
+//    @Test
+//    public void testBankWithdrawAccntNotFound() {
+//        Date dt = new Date("03/19/2017");
+//
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        //Setting the account information.
+//        Account usrBobAccnt = new Account()
+//                .withAccountnum(12345)
+//                .withBalance(30)
+//                .withDebit()
+//                .withOwner(usrBob)
+//                .withCreationdate(dt);
+//
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerAccounts();
+//        bnk.withCustomerAccounts(usrBobAccnt);
+//
+//        StringBuilder msg = new StringBuilder("");
+//
+//        double amnt = bnk.withDrawFunds(123456,20,msg);
+//
+//
+//        System.out.println("amnt:" + amnt + "--msg: " + msg);
+//        assertTrue(0==amnt);
+//
+//    }
+//
+//    @Test
+//    public void testBankWithdrawNotEnougFunds() {
+//        Date dt = new Date("03/19/2017");
+//
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        //Setting the account information.
+//        Account usrBobAccnt = new Account()
+//                .withAccountnum(12345)
+//                .withBalance(30)
+//                .withDebit()
+//                .withOwner(usrBob)
+//                .withCreationdate(dt);
+//
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerAccounts();
+//        bnk.withCustomerAccounts(usrBobAccnt);
+//
+//        StringBuilder msg = new StringBuilder("");
+//
+//        double amnt = bnk.withDrawFunds(12345,40,msg);
+//
+//
+//        System.out.println("amnt:" + amnt + "--msg: " + msg);
+//        assertTrue(30==amnt);
+//    }
+//
+//
+//    //********** Bank depositFunds method tests *************
+//    @Test
+//    public void testdepositFunds() {
+//        Date dt = new Date("03/19/2017");
+//
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        //Setting the account information.
+//        Account usrBobAccnt = new Account()
+//                .withAccountnum(12345)
+//                .withBalance(30)
+//                .withDebit()
+//                .withOwner(usrBob)
+//                .withCreationdate(dt);
+//
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerAccounts();
+//        bnk.withCustomerAccounts(usrBobAccnt);
+//
+//        StringBuilder msg = new StringBuilder("");
+//
+//        double amnt = bnk.depositFunds(12345,20,msg);
+//
+//
+//        System.out.println("amnt:" + amnt + "--msg: " + msg);
+//        assertTrue(50==amnt);
+//    }
+//
+//
+//    @Test
+//    public void testdepositFundsAccntNotFound() {
+//        Date dt = new Date("03/19/2017");
+//
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        //Setting the account information.
+//        Account usrBobAccnt = new Account()
+//                .withAccountnum(12345)
+//                .withBalance(30)
+//                .withDebit()
+//                .withOwner(usrBob)
+//                .withCreationdate(dt);
+//
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerAccounts();
+//        bnk.withCustomerAccounts(usrBobAccnt);
+//
+//        StringBuilder msg = new StringBuilder("");
+//
+//        double amnt = bnk.depositFunds(123456,20,msg);
+//
+//
+//        System.out.println("amnt:" + amnt + "--msg: " + msg);
+//        assertTrue(0==amnt);
+//
+//    }
+//
+//    //********** Bank updateUserInfo method tests *************
+//    @Test
+//    public void testupdateUserInfoChangeName() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob12","name","jack");
+//
+//        System.out.println("name:" + bnk.getCustomerUser().withUserID("bob12").getName().toString());
+//        System.out.println("result:" + result);
+//        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getName().toString());
+//    }
+//
+//    @Test
+//    public void testupdateUserInfoChangeUserName() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob12","username","jack");
+//
+//        System.out.println("usrName:" + bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
+//        System.out.println("result:" + result);
+//        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
+//    }
+//
+//    @Test
+//    public void testupdateUserInfoChangeEmail() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withEmail("bob12@gmail.com")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk = bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob12","email","jack@gmail.com");
+//
+//        System.out.println("email:" + bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+//        System.out.println("usrBob:" + usrBob.getEmail());
+//        System.out.println("result:" + result);
+//        assertEquals("(jack@gmail.com)",bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+//    }
+//
+//    @Test
+//    public void testupdateUserInfoChangePhone() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withEmail("bob12@gmail.com")
+//                .withPhone("123456789")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob12","phone","3333333334");
+//
+//        /*
+//        NumberList phnNums = bnk.getCustomerUser().withUserID("bob12").getPhone();
+//
+//        for (Number x : phnNums) {
+//            System.out.println("usrBob:" + x.intValue());
+//        }
+//*/
+//        //System.out.println("phone:" + bnk.getCustomerUser().withUserID("bob12").getPhone().toArray());
+//        System.out.println("usrBob Phone:" + usrBob.getPhone());
+//        System.out.println("result:" + result);
+//        assertEquals("3333333334",usrBob.getPhone());
+//    }
+//
+//    @Test
+//    public void testupdateUserInfoInvalidUser() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withEmail("bob12@gmail.com")
+//                .withPhone("123456789")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob10","phone","3333333334");
+//
+//        System.out.println("usrBob Phone:" + usrBob.getPhone());
+//        System.out.println("result:" + result);
+//        assertEquals("UserID bob10 is not valid.",result);
+//    }
+//
+//    @Test
+//    public void testupdateUserInfoInvalidField() {
+//        User usrBob = new User()
+//                .withName("Bob")
+//                .withUsername("bob")
+//                .withUserID("bob12")
+//                .withEmail("bob12@gmail.com")
+//                .withPhone("123456789")
+//                .withPassword("testbobacnt");
+//
+//        Bank bnk = new Bank();
+//        bnk.createCustomerUser();
+//        bnk.withCustomerUser(usrBob);
+//
+//        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
+//
+//        System.out.println("usrBob Phone:" + usrBob.getPhone());
+//        System.out.println("result:" + result);
+//        assertEquals("Field phone2 is not valid.",result);
+//    }
+//
+//
     @Test
     public void testfindUser() {
 

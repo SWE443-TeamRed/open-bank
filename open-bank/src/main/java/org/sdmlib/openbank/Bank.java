@@ -24,15 +24,14 @@ package org.sdmlib.openbank;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Date;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.Random;
-import org.sdmlib.openbank.util.FeeValueSet;
-
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -602,7 +601,30 @@ import org.sdmlib.openbank.util.FeeValueSet;
       return value;
    }
 
-   
+   public String Login(String username, String password ) {
+      if (username == null || password == null) {
+         return null;
+      }
+
+      UserSet custUserSet = this.getCustomerUser();
+      for (User custUsr : custUserSet) {
+         if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
+            //custUsr.setLoggedIn(true);
+            return custUsr.getUserID();
+         }
+      }
+
+      UserSet admnUserSet = this.getAdminUsers();
+      for (User admUsr : admnUserSet) {
+         if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            //admUsr.setLoggedIn(true);
+            return admUsr.getUserID();
+         }
+      }
+
+      return null;
+   }
+
    //==========================================================================
    public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
    {
