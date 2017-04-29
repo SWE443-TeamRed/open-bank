@@ -644,11 +644,9 @@ import org.sdmlib.openbank.FeeValue;
 
       // check which user will be created
       if(isAdmin){
-         this.createAdminUsers();
          this.withAdminUsers(usr);
 
       }else{
-         this.createCustomerUser();
          this.withCustomerUser(usr);
       }
 
@@ -683,10 +681,8 @@ import org.sdmlib.openbank.FeeValue;
 
       // check which user will be created
       if(isAdminAccount){
-         this.createAdminAccounts();
          this.withAdminAccounts(accnt);
       }else{
-         this.createCustomerAccounts();
          this.withCustomerAccounts(accnt);
       }
 

@@ -1220,7 +1220,6 @@ public class Test_Improving_Backend_Functionality {
     @Test
     public void testfindUserByIDWithNull() {
         Bank bnk = new Bank();
-        bnk.createCustomerUser();
         bnk.withCustomerUser(null);
 
         User usrGet = bnk.findUserByID("steverog1");
