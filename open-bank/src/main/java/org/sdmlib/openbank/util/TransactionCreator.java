@@ -26,6 +26,8 @@ import org.sdmlib.openbank.Transaction;
 import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.Account;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
@@ -38,11 +40,15 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_DATE,
       Transaction.PROPERTY_TIME,
       Transaction.PROPERTY_NOTE,
-      Transaction.PROPERTY_FROMACCOUNT,
-      Transaction.PROPERTY_TOACCOUNT,
       Transaction.PROPERTY_TRANSTYPE,
       Transaction.PROPERTY_CREATIONDATE,
       Transaction.PROPERTY_BANK,
+      Transaction.PROPERTY_NEXT,
+      Transaction.PROPERTY_PREVIOUS,
+      Transaction.PROPERTY_TOACCOUNT,
+      Transaction.PROPERTY_FROMACCOUNT,
+      Transaction.PROPERTY_OWNER,
+      Transaction.PROPERTY_FEE,
    };
    
    @Override
@@ -88,15 +94,6 @@ public class TransactionCreator implements SendableEntityCreator
          return ((Transaction) target).getNote();
       }
 
-      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getFromAccount();
-      }
-
-      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attribute))
-      {
-         return ((Transaction) target).getToAccount();
-      }
 
       if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attribute))
       {
@@ -111,6 +108,36 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attribute))
       {
          return ((Transaction) target).getBank();
+      }
+
+      if (Transaction.PROPERTY_NEXT.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getNext();
+      }
+
+      if (Transaction.PROPERTY_PREVIOUS.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getPrevious();
+      }
+
+      if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getToAccount();
+      }
+
+      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getFromAccount();
+      }
+
+      if (Transaction.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getOwner();
+      }
+
+      if (Transaction.PROPERTY_FEE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getFee();
       }
       
       return null;
@@ -151,7 +178,7 @@ public class TransactionCreator implements SendableEntityCreator
 
       if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setAmount(Double.parseDouble(value.toString()));
+         ((Transaction) target).setAmount(((BigDecimal) value).toBigInteger());
          return true;
       }
 
@@ -160,9 +187,21 @@ public class TransactionCreator implements SendableEntityCreator
          attrName = attrName + type;
       }
 
-      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setFromAccount((Account) value);
+         ((Transaction) target).setBank((Bank) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setNext((Transaction) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_PREVIOUS.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setPrevious((Transaction) value);
          return true;
       }
 
@@ -172,9 +211,21 @@ public class TransactionCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      if (Transaction.PROPERTY_FROMACCOUNT.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setBank((Bank) value);
+         ((Transaction) target).setFromAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setOwner((Transaction) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_FEE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setFee((Transaction) value);
          return true;
       }
       
