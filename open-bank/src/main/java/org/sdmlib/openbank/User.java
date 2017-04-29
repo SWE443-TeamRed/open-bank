@@ -447,16 +447,18 @@ import org.sdmlib.openbank.Bank;
    
    public void setUsername(String value)
    {
+       /*
       if ( ! EntityUtil.stringEquals(this.username, value)) {
           if(this.getBank().getCustomerUser().filterUsername(value).size() == 0 &&
                   this.getBank().getAdminUsers().filterUsername(value).size() == 0) {
+                  */
               String oldValue = this.username;
               this.username = value;
               this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-          }
-          else
-              throw new IllegalArgumentException("Username "+value+" has already been used");
-      }
+          //}
+          //else
+         //     throw new IllegalArgumentException("Username "+value+" has already been used");
+      //}
    }
    
    public User withUsername(String value)

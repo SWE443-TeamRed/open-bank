@@ -392,6 +392,10 @@ import org.sdmlib.openbank.FeeValue;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      if (accountID<=0) {
+         throw new IllegalArgumentException("Invalid accountID.");
+      }
+
       AccountSet accountSets = this.getCustomerAccounts();
 
       for (Account acnt : accountSets) {
@@ -399,10 +403,18 @@ import org.sdmlib.openbank.FeeValue;
             return acnt;
          }
       }
+
+      AccountSet adminAccnts = this.getAdminAccounts();
+      for (Account AdminAccnt : adminAccnts) {
+         if (AdminAccnt.getAccountnum()==accountID) {
+            return AdminAccnt;
+         }
+      }
+
       return null;
    }
 
-   
+
    //==========================================================================
    public User findUserByID(String userID) {
        UserSet pulledUsers = this.getCustomerUser();
@@ -600,6 +612,84 @@ import org.sdmlib.openbank.FeeValue;
       return false;
    }
 
+   public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
+
+      // get the next userID, check to make sure it is not used
+      boolean loop=true;
+      String valID=null;
+      while(loop) {
+         valID=String.valueOf(this.getNextID());
+
+         if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
+                 this.getAdminUsers().filterUserID(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==null) return "unsuccessful. UserID is null";
+
+      // check if username is already used
+      if(this.getCustomerUser().filterUsername(username).size() != 0 ||
+              this.getAdminUsers().filterUsername(username).size() != 0) {
+         throw new IllegalArgumentException("Username " + username + " has already been used");
+      }
+
+      //set user attributes
+      User usr = new User();
+      usr.setUserID(valID);
+      usr.setUsername(username);
+      usr.setPassword(password);
+      usr.setPhone(phoneNumber);
+      usr.setIsAdmin(isAdmin);
+
+      // check which user will be created
+      if(isAdmin){
+         this.withAdminUsers(usr);
+
+      }else{
+         this.withCustomerUser(usr);
+      }
+
+      return "successful";
+   }
+
+   public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
+
+      // get the next accountnumber, check to make sure it is not used
+      boolean loop=true;
+      int valID=0;
+      while(loop) {
+         valID=this.getNextID();
+
+         if(this.getCustomerAccounts().filterAccountnum(valID).size() == 0 &&
+                 this.getAdminAccounts().filterAccountnum(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==0) return "failure. Account Number is null.";
+
+      User usr = this.findUserByID(userID);
+
+      if (usr==null) return "failure. UserID " + userID + " not found.";
+
+      Account accnt = new Account()
+              .withAccountnum(valID)
+              .withOwner(usr)
+              .withBalance(initialBalance);
+
+
+      // check which user will be created
+      if(isAdminAccount){
+         this.withAdminAccounts(accnt);
+      }else{
+         this.withCustomerAccounts(accnt);
+      }
+
+      return "successful";
+   }
+
+   // get 10 digit ID
    public static int getNextID() {
       Random r = new Random(System.currentTimeMillis());
       return Math.abs(1000000000 + r.nextInt(2000000000));
