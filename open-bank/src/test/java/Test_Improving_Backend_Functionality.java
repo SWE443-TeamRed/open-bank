@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
+import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
@@ -1111,6 +1112,86 @@ public class Test_Improving_Backend_Functionality {
         bnk.withCustomerUser(usr1);
         bnk.validateLogin(1, "karli25", null);
     }
+
+    // create user with given parameters.
+    @Test
+    public void testCreateUser() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+    }
+
+    // Should throw an IllegalArgument Exception when trying to create user with exsiting usernanme
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreateUserWithExistingUsername() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+    }
+
+    // create 2 users with given parameters.
+    @Test
+    public void testCreateUsers() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Pam","Pam211","Pam Lake","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Pam").getUserID());
+    }
+
+    // create account with given parameters.
+    @Test
+    public void testCreateAccount() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
+
+        AccountSet accountSets = bnk.getCustomerAccounts();
+
+        for (Account acnt : accountSets) {
+            if(acnt.getAccountnum()!=0){
+                System.out.println("Accountnum:" + acnt.getAccountnum());
+            }
+        }
+    }
+
+
+    // create accounts with given parameters.
+    @Test
+    public void testCreateMultipleAccounts() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+
+        // create a user account
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(500));
+
+        AccountSet accountSets = bnk.getCustomerAccounts();
+
+        for (Account acnt : accountSets) {
+            if(acnt.getAccountnum()!=0){
+                System.out.println("Accountnum:" + acnt.getAccountnum());
+                System.out.println("Account Balance: $" + acnt.getBalance());
+            }
+        }
+    }
+
 
     // Tests if findUserByID can find all users associated with the bank
     // Also tests for the case in which the user cannot be found
