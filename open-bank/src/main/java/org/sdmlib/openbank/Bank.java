@@ -22,16 +22,27 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Wrapper;
+import java.util.Date;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
+
+import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.openbank.util.UserSet;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.FeeValue;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -670,6 +681,114 @@ import java.util.Random;
       }
 
       return "successful";
+   }
+
+   // withDrawFunds from given account
+   public double withDrawFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account withDrawAccnt = findAccountByID(accountNum);
+
+      if (withDrawAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+      if (withDrawAccnt.getBalance()<amount){
+         msg.append("Not enough funds exists.");
+         return withDrawAccnt.getBalance();
+      }
+
+      withDrawAccnt.withdraw(amount);
+      balance=  withDrawAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
+
+   // depositFunds to given account
+   public double depositFunds(int accountNum,double amount, StringBuilder msg){
+      double balance=0;
+
+      Account depositAccnt = findAccountByID(accountNum);
+
+      if (depositAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+
+      depositAccnt.deposit(amount);
+      balance=  depositAccnt.getBalance();
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
+
+   // update given user's info
+   public String updateUserInfo(String userID, String fieldName, String fieldValue){
+
+      UserSet usr= this.getCustomerUser().filterUserID(userID);
+
+      if(usr.size()==0){
+         return "UserID " + userID  + " is not valid.";
+      }
+
+      //this.findUserByID(userID).setName(fieldValue);
+      //this.getCustomerUser().withUserID(userID).filterUserID(userID).getName();
+      //return "successful";
+
+      //usr.setIsAdmin(Boolean.valueOf(fieldValue));
+
+      /*
+      user.withAttribute("name", DataType.STRING);
+      user.withAttribute("userID",DataType.STRING); NO
+      user.withAttribute("isAdmin", DataType.BOOLEAN);
+      user.withAttribute("password", DataType.STRING);
+      user.withAttribute("email", DataType.STRING);
+      user.withAttribute("LoggedIn", DataType.BOOLEAN);
+      user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
+      user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
+      */
+
+      //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
+
+      switch (fieldName.toUpperCase()) {
+         case "NAME":
+            usr.withName(fieldValue);
+            break;
+         case "USERID":
+            usr.withUserID(fieldValue);
+            break;
+         case "ISADMIN":
+            usr.withIsAdmin(Boolean.valueOf(fieldValue));
+            break;
+         case "PASSWORD":
+            usr.withPassword(fieldValue);
+            break;
+         case "EMAIL":
+            usr.withEmail(fieldValue);
+            break;
+         case "LOGGEDIN":
+            usr.withLoggedIn(Boolean.valueOf(fieldValue));
+            break;
+         case "PHONE":
+            usr.withPhone(fieldValue);
+            break;
+         case "USERNAME":
+            usr.withUsername(fieldValue);
+            break;
+         default:
+            return "Field " + fieldName + " is not valid.";
+      }
+
+      //System.out.println("updateUserInfo:" + usr.getPhone());
+      return "successful";
+
    }
 
    public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
