@@ -4,6 +4,8 @@ import org.sdmlib.openbank.*;
 import org.sdmlib.storyboards.Storyboard;
 
 import static org.junit.Assert.*;
+
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -22,14 +24,14 @@ public class TransactionJSONTestCases {
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
     public void testSetAmountNegative()throws Exception{
-        trans.setAmount(-5);
+        trans.setAmount(BigInteger.valueOf(-5));
     }
 
     @Test
     // setAmount and get the amount to make sure you get the correct amount
     public void setgetAmount(){
-        trans.setAmount(50.55);
-        assertTrue(50.55 == trans.getAmount());
+        trans.setAmount(BigInteger.valueOf(50));
+        assertTrue(BigInteger.valueOf(50) == trans.getAmount());
     }
 
     @Test
@@ -84,7 +86,7 @@ public class TransactionJSONTestCases {
         // set type
         trans.setTransType(null);
     }
-
+/*
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
@@ -102,7 +104,7 @@ public class TransactionJSONTestCases {
 
         assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Deposit == trans.getTransType());
     }
-
+*/
     // JSON Test Case
     @Test(expected=NullPointerException.class)
     // set user with null should throws NullPointerException exception
@@ -126,7 +128,7 @@ public class TransactionJSONTestCases {
         Date dt = new Date("03/19/2017");
         Date dtime = new Date("03/19/2017 13:13:26");
 
-        trans.setAmount(50.00);
+        trans.setAmount(BigInteger.valueOf(50));
         // set date
         trans.setCreationdate(dt);
         // set time
@@ -135,8 +137,8 @@ public class TransactionJSONTestCases {
 
 
         Account accountBeforeJson = new Account().withOwner(usr1)
-                .withBalance(550.00).withCreationdate(dt)
-                .withCredit(trans);
+                .withBalance(BigInteger.valueOf(550)).withCreationdate(dt);
+               //.withCredit(trans);
 /*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
@@ -180,7 +182,7 @@ public class TransactionJSONTestCases {
         System.out.println("Name: " + accountAfterJson.getOwner().getName().toString());
         assertEquals(usr1.getUserID().toString(),accountAfterJson.getOwner().getUserID().toString());
         assertEquals(usr1.getName().toString(),accountAfterJson.getOwner().getName().toString());
-        assertTrue(540 == accountAfterJson.getBalance());
+        assertTrue(BigInteger.valueOf(540) == accountAfterJson.getBalance());
     }
 
     //******** ACCOUNT Test Cases ***********************
@@ -193,15 +195,15 @@ public class TransactionJSONTestCases {
             .withAccountnum(1)
             .withIsConnected(true)
             .withOwner(peter)
-            .withBalance(100)
-            .withCreationdate(new Date())
-            .withCredit()
-            .withDebit();
+            .withBalance(BigInteger.valueOf(100))
+            .withCreationdate(new Date());
+            //.withCredit()
+            //.withDebit();
     Storyboard storyboard = new Storyboard();
 
     @Test(expected = IllegalArgumentException.class)
     public void testwithBalance(){
-        Account accountWithNegative = new Account().withBalance(-100);
+        Account accountWithNegative = new Account().withBalance(BigInteger.valueOf(-100));
     }
     /**
      *
@@ -249,18 +251,18 @@ public class TransactionJSONTestCases {
     @Test
     public void testgetCredit(){
 
-        Account creditAccount = new Account().withCredit();
+        Account creditAccount = new Account(); //.withCredit();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testTransferToAccount(){
-        Account receivingAccount = new Account().withBalance(100);
-        account1.transferToAccount(-1,receivingAccount,"Testing negative");
+        Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
+        account1.transferToAccount(BigInteger.valueOf(-1),receivingAccount,"Testing negative");
     }
     @Test(expected = IllegalArgumentException.class)
     public void testTransferToAccount2(){
-        Account receivingAccount = new Account().withBalance(100);
-        account1.transferToAccount(100,null,"Testing null account");
+        Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
+        account1.transferToAccount(BigInteger.valueOf(100),null,"Testing null account");
     }
     /*@Test
     public void testTransferToAccount3(){
@@ -292,10 +294,10 @@ public class TransactionJSONTestCases {
                 .withAccountnum(2)
                 .withIsConnected(true)
                 .withOwner(victor)
-                .withBalance(100)
-                .withCreationdate(new Date())
-                .withCredit()
-                .withDebit();
+                .withBalance(BigInteger.valueOf(100))
+                .withCreationdate(new Date());
+                //.withCredit()
+                //.withDebit();
         User tina = new User()
                 .withName("Tina")
                 .withUserID("peter1")
@@ -305,11 +307,11 @@ public class TransactionJSONTestCases {
                 .withAccountnum(1)
                 .withIsConnected(true)
                 .withOwner(victor)
-                .withBalance(100)
-                .withCreationdate(new Date())
-                .withCredit()
-                .withDebit();
-        originAccount.transferToAccount(50,receivingAccount,"Testing balance after transfer amount account");
+                .withBalance(BigInteger.valueOf(100))
+                .withCreationdate(new Date());
+                //.withCredit()
+                //.withDebit();
+        originAccount.transferToAccount(BigInteger.valueOf(50),receivingAccount,"Testing balance after transfer amount account");
         System.out.println(originAccount.getBalance());
         System.out.println(receivingAccount.getBalance());
     }

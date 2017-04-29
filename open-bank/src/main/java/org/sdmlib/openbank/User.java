@@ -172,9 +172,9 @@ import org.sdmlib.openbank.Bank;
            result.append(" ").append("Password: " + this.getPassword());
            result.append(" ").append("Admin: " + this.isIsAdmin());
            result.append(" ").append(this.getEmail());
-      result.append(" ").append(this.getPhone());
-      result.append(" ").append(this.getUsername());
-      return result.substring(1);
+           result.append(" ").append(this.getPhone());
+           result.append(" ").append(this.getUsername());
+           return result.substring(1);
        }
 
 
@@ -191,12 +191,24 @@ import org.sdmlib.openbank.Bank;
        }
 
        public void setUserID(String value) {
-           if (!EntityUtil.stringEquals(this.UserID, value)) {
+           //if (!EntityUtil.stringEquals(this.UserID, value)) {
+           /*
+               if(this.getBank().getCustomerUser().filterUserID(value).size() == 0 &&
+                       this.getBank().getAdminUsers().filterUserID(value).size() == 0) {
+                   String oldValue = this.UserID;
+                   this.UserID = value;
+                   this.firePropertyChange(PROPERTY_USERID, oldValue, value);
+               }
+               else {
+               */
+                //   throw new IllegalArgumentException("User ID " + value + " has already been used");
 
-               String oldValue = this.UserID;
-               this.UserID = value;
-               this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-           }
+                   value = String.valueOf(this.getBank().getNextID());
+                   String oldValue = this.UserID;
+                   this.UserID = value;
+                   this.firePropertyChange(PROPERTY_USERID, oldValue, value);
+               //}
+           //}
        }
 
        public User withUserID(String value) {
@@ -458,12 +470,18 @@ import org.sdmlib.openbank.Bank;
    
    public void setUsername(String value)
    {
+       /*
       if ( ! EntityUtil.stringEquals(this.username, value)) {
-      
-         String oldValue = this.username;
-         this.username = value;
-         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-      }
+          if(this.getBank().getCustomerUser().filterUsername(value).size() == 0 &&
+                  this.getBank().getAdminUsers().filterUsername(value).size() == 0) {
+                  */
+              String oldValue = this.username;
+              this.username = value;
+              this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+          //}
+          //else
+         //     throw new IllegalArgumentException("Username "+value+" has already been used");
+      //}
    }
    
    public User withUsername(String value)

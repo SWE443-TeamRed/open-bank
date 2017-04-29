@@ -34,6 +34,9 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.util.BankSet;
 import org.sdmlib.openbank.Bank;
+import java.util.Collections;
+import java.math.BigInteger;
+import org.sdmlib.openbank.util.TransactionSet;
 
 public class TransactionSet extends SimpleSet<Transaction>
 {
@@ -138,6 +141,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
+  /*
    public TransactionSet filterAmount(double value)
    {
       TransactionSet result = new TransactionSet();
@@ -153,7 +157,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       return result;
    }
 
-
+*/
    /**
     * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute is between lower and upper. 
     * 
@@ -162,13 +166,17 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterAmount(double lower, double upper)
+   public TransactionSet filterAmount(BigInteger lower, BigInteger upper)
    {
       TransactionSet result = new TransactionSet();
       
       for (Transaction obj : this)
       {
-         if (lower <= obj.getAmount() && obj.getAmount() <= upper)
+         int resAmntgrtLower= lower.compareTo(obj.getAmount());
+         int resBlncGrtAmnt= obj.getAmount().compareTo(upper);
+
+         // if (lower <= obj.getAmount() && obj.getAmount() <= upper)
+         if (resAmntgrtLower==-1 && resBlncGrtAmnt==-1)
          {
             result.add(obj);
          }
@@ -185,6 +193,7 @@ public class TransactionSet extends SimpleSet<Transaction>
     * 
     * @return Current set of Transaction objects now with new attribute values.
     */
+   /*
    public TransactionSet withAmount(double value)
    {
       for (Transaction obj : this)
@@ -194,7 +203,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       
       return this;
    }
-
+*/
 
    /**
     * Loop through the current set of Transaction objects and collect a list of the date attribute values. 
@@ -396,136 +405,6 @@ public class TransactionSet extends SimpleSet<Transaction>
       return this;
    }
 
-   /**
-    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via fromAccount. 
-    * 
-    * @return Set of Account objects reachable via fromAccount
-    */
-   public AccountSet getFromAccount()
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Transaction obj : this)
-      {
-         result.with(obj.getFromAccount());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Transaction objects and collect all contained objects with reference fromAccount pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as fromAccount neighbor of the collected results. 
-    * 
-    * @return Set of Account objects referring to value via fromAccount
-    */
-   public TransactionSet filterFromAccount(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TransactionSet answer = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (neighbors.contains(obj.getFromAccount()) || (neighbors.isEmpty() && obj.getFromAccount() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the FromAccount attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their FromAccount attributes.
-    */
-   public TransactionSet withFromAccount(Account value)
-   {
-      for (Transaction obj : this)
-      {
-         obj.withFromAccount(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via toAccount. 
-    * 
-    * @return Set of Account objects reachable via toAccount
-    */
-   public AccountSet getToAccount()
-   {
-      AccountSet result = new AccountSet();
-      
-      for (Transaction obj : this)
-      {
-         result.with(obj.getToAccount());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Transaction objects and collect all contained objects with reference toAccount pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as toAccount neighbor of the collected results. 
-    * 
-    * @return Set of Account objects referring to value via toAccount
-    */
-   public TransactionSet filterToAccount(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TransactionSet answer = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (neighbors.contains(obj.getToAccount()) || (neighbors.isEmpty() && obj.getToAccount() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the ToAccount attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their ToAccount attributes.
-    */
-   public TransactionSet withToAccount(Account value)
-   {
-      for (Transaction obj : this)
-      {
-         obj.withToAccount(value);
-      }
-      
-      return this;
-   }
-
 
    /**
     * Loop through the current set of Transaction objects and collect a list of the transType attribute values. 
@@ -704,6 +583,562 @@ public class TransactionSet extends SimpleSet<Transaction>
       for (Transaction obj : this)
       {
          obj.withBank(value);
+      }
+      
+      return this;
+   }
+
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterAmount(BigInteger value)
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (value == obj.getAmount())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the amount attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withAmount(BigInteger value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setAmount(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via next. 
+    * 
+    * @return Set of Transaction objects reachable via next
+    */
+   public TransactionSet getNext()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getNext());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference next pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as next neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via next
+    */
+   public TransactionSet filterNext(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getNext()) || (neighbors.isEmpty() && obj.getNext() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow next reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via next transitively (including the start set)
+    */
+   public TransactionSet getNextTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getNext()))
+            {
+               todo.with(current.getNext());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Next attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Next attributes.
+    */
+   public TransactionSet withNext(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via previous. 
+    * 
+    * @return Set of Transaction objects reachable via previous
+    */
+   public TransactionSet getPrevious()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getPrevious());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference previous pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as previous neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via previous
+    */
+   public TransactionSet filterPrevious(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getPrevious()) || (neighbors.isEmpty() && obj.getPrevious() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow previous reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via previous transitively (including the start set)
+    */
+   public TransactionSet getPreviousTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getPrevious()))
+            {
+               todo.with(current.getPrevious());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Previous attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Previous attributes.
+    */
+   public TransactionSet withPrevious(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withPrevious(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via ToAccount. 
+    * 
+    * @return Set of Account objects reachable via ToAccount
+    */
+   public AccountSet getToAccount()
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getToAccount());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference ToAccount pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as ToAccount neighbor of the collected results. 
+    * 
+    * @return Set of Account objects referring to value via ToAccount
+    */
+   public TransactionSet filterToAccount(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getToAccount()) || (neighbors.isEmpty() && obj.getToAccount() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the ToAccount attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their ToAccount attributes.
+    */
+   public TransactionSet withToAccount(Account value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withToAccount(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via FromAccount. 
+    * 
+    * @return Set of Account objects reachable via FromAccount
+    */
+   public AccountSet getFromAccount()
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getFromAccount());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference FromAccount pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as FromAccount neighbor of the collected results. 
+    * 
+    * @return Set of Account objects referring to value via FromAccount
+    */
+   public TransactionSet filterFromAccount(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getFromAccount()) || (neighbors.isEmpty() && obj.getFromAccount() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the FromAccount attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their FromAccount attributes.
+    */
+   public TransactionSet withFromAccount(Account value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withFromAccount(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via owner. 
+    * 
+    * @return Set of Transaction objects reachable via owner
+    */
+   public TransactionSet getOwner()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getOwner());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference owner pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as owner neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via owner
+    */
+   public TransactionSet filterOwner(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getOwner()) || (neighbors.isEmpty() && obj.getOwner() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow owner reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via owner transitively (including the start set)
+    */
+   public TransactionSet getOwnerTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getOwner()))
+            {
+               todo.with(current.getOwner());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Owner attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Owner attributes.
+    */
+   public TransactionSet withOwner(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withOwner(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Transaction objects reached via fee. 
+    * 
+    * @return Set of Transaction objects reachable via fee
+    */
+   public TransactionSet getFee()
+   {
+      TransactionSet result = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getFee());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference fee pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as fee neighbor of the collected results. 
+    * 
+    * @return Set of Transaction objects referring to value via fee
+    */
+   public TransactionSet filterFee(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TransactionSet answer = new TransactionSet();
+      
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getFee()) || (neighbors.isEmpty() && obj.getFee() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Follow fee reference zero or more times and collect all reachable objects. Detect cycles and deal with them. 
+    * 
+    * @return Set of Transaction objects reachable via fee transitively (including the start set)
+    */
+   public TransactionSet getFeeTransitive()
+   {
+      TransactionSet todo = new TransactionSet().with(this);
+      
+      TransactionSet result = new TransactionSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Transaction current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getFee()))
+            {
+               todo.with(current.getFee());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Fee attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Fee attributes.
+    */
+   public TransactionSet withFee(Transaction value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withFee(value);
       }
       
       return this;

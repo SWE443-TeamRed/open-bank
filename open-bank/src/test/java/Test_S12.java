@@ -7,6 +7,7 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.math.BigInteger;
 import java.util.Date;
 public class Test_S12 {
     Account tinaAccount;
@@ -29,7 +30,7 @@ public class Test_S12 {
                 .withName("Tina")
                 .withPassword("1234")
                 .withUserID("Tina");
-        tinaAccount.Account(50.00);
+        tinaAccount.Account(BigInteger.valueOf(50));
         tinaAccount.withOwner(tina)
                 .withCreationdate(new Date());
         //Tina logs in
@@ -50,13 +51,13 @@ public class Test_S12 {
     public void testDeposit() {
         creatingTinaAccount();
         storyboard = new Storyboard();
-        tinaAccount.setBalance(50.00);
+        tinaAccount.setBalance(BigInteger.valueOf(50));
         assert (tina.isLoggedIn());
 
         storyboard.add("Precondition: Tina has $50 in her account and she deposit $30 to her account.");
         storyboard.addObjectDiagram("Tina", tina, "Savings", tinaAccount);
 
-        tinaAccount.deposit(30.00);//Making withdraw
+        tinaAccount.deposit(BigInteger.valueOf(30));//Making withdraw
         storyboard.assertEquals("Tina makes transaction: ",
                 tinaAccount.getBalance(), 50.00 + 30.00);//Making sure it worked.
         storyboard.add("Post-condition: Tina has $80 in her account");
