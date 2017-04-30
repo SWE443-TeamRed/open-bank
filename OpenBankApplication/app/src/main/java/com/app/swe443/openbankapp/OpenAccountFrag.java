@@ -185,7 +185,6 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                         .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);
-
                 break;
             case R.id.completeTransferButton:
                 //Go to login

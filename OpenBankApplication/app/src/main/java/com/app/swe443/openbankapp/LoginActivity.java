@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +32,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.app.swe443.openbankapp.Support.Bank;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
@@ -50,6 +48,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //Used to call OpenAccoutnFrag
     private FragmentManager fm;
     private FragmentTransaction transaction;
+    String username;
+    String password;
+    String email;
+    String phone;
+    String name;
+
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -63,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -113,32 +119,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-
-    public void createAccount(View v){
+//
+//    public void createAccount(View v){
+//        fm = getSupportFragmentManager();
+//        Fragment openAccount_fragment = new OpenAccountFrag();
+//        //Initiate homepage Fragment when app opens
+//        transaction = fm.beginTransaction();
+//        transaction.replace(R.id.drawer_layout, new OpenAccountFrag(), "openAccount_fragment");
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
+///Register information.
+    public void register(View v){//Click on the register button
         fm = getSupportFragmentManager();
-        Fragment openAccount_fragment = new OpenAccountFrag();
-        //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
-        transaction.replace(R.id.drawer_layout, openAccount_fragment, "openAccount_fragment");
+        transaction.add(R.id.drawer_layout, new SignUpFrag1(), "SignUpFrag1");
         transaction.addToBackStack(null);
         transaction.commit();
     }
+    public void setSingnUp1(String userName, String password, String email){
+            this.username = userName;
+            this.password = password;
+            this.email = email;
+    }
+    public void setSingnUp2(String name, String phone){
+        this.name = name;
+        this.phone = phone;
+    }
+
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
-        }
-
-        getLoaderManager().initLoader(0, null, this);
+        }getLoaderManager().initLoader(0, null, this);
     }
-
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        }if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+        }if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mUsernameView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
@@ -147,9 +167,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                         }
                     });
-        } else {
+        } else
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
         return false;
     }
 
@@ -165,7 +184,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -218,10 +236,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     focusView = mPasswordView;
                     cancel = true;
                 }
-
             }
         }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -257,7 +273,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String username,String password) {
         //TODO: Replace this with your own logic
-        String correctpassword = mockBankServer.getBank().getCustomerUser().filterUsername(username).get(0).getPassword();
+        String correctpassword = mockBankServer.getBank().getCustomerUser().get(0).getPassword();
         return correctpassword.equals(password);
     }
 

@@ -798,20 +798,20 @@ public class UserSet extends SimpleSet<User>
     *
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterPhone(String value)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (value.equals(obj.getPhone()))
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
+//   public UserSet filterPhone(String value)
+//   {
+//      UserSet result = new UserSet();
+//
+//      for (User obj : this)
+//      {
+//         if (value.equals(obj.getPhone()))
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -905,20 +905,20 @@ public class UserSet extends SimpleSet<User>
     *
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterUsername(String lower, String upper)
-   {
-      UserSet result = new UserSet();
-
-      for (User obj : this)
-      {
-         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-
-      return result;
-   }
+//   public UserSet filterUsername(String lower, String upper)
+//   {
+//      UserSet result = new UserSet();
+//
+//      for (User obj : this)
+//      {
+//         if (lower.compareTo(obj.getUsername()) <= 0 && obj.getUsername().compareTo(upper) <= 0)
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -969,21 +969,21 @@ public class UserSet extends SimpleSet<User>
     * @param upper Upper bound 
     * 
     * @return Subset of User objects that match the parameter
-    */
-   public UserSet filterPhone(String lower, String upper)
-   {
-      UserSet result = new UserSet();
-      
-      for (User obj : this)
-      {
-         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
+//    */
+//   public UserSet filterPhone(String lower, String upper)
+//   {
+//      UserSet result = new UserSet();
+//
+//      for (User obj : this)
+//      {
+//         if (lower.compareTo(obj.getPhone()) <= 0 && obj.getPhone().compareTo(upper) <= 0)
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -993,15 +993,15 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Current set of User objects now with new attribute values.
     */
-   public UserSet withPhone(String value)
-   {
-      for (User obj : this)
-      {
-         obj.setPhone(value);
-      }
-      
-      return this;
-   }
+//   public UserSet withPhone(String value)
+//   {
+//      for (User obj : this)
+//      {
+//         obj.setPhone(value);
+//      }
+//
+//      return this;
+//   }
 
 
    /**
@@ -1009,17 +1009,17 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return List of String objects reachable via username attribute
     */
-   public ObjectSet getUsername()
-   {
-      ObjectSet result = new ObjectSet();
-      
-      for (User obj : this)
-      {
-         result.add(obj.getUsername());
-      }
-      
-      return result;
-   }
+//   public ObjectSet getUsername()
+//   {
+//      ObjectSet result = new ObjectSet();
+//
+//      for (User obj : this)
+//      {
+//         result.add(obj.getUsername());
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -1029,20 +1029,20 @@ public class UserSet extends SimpleSet<User>
     * 
     * @return Subset of User objects that match the parameter
     */
-   public UserSet filterUsername(String value)
-   {
-      UserSet result = new UserSet();
-      
-      for (User obj : this)
-      {
-         if (value.equals(obj.getUsername()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
+//   public UserSet filterUsername(String value)
+//   {
+//      UserSet result = new UserSet();
+//
+//      for (User obj : this)
+//      {
+//         if (value.equals(obj.getUsername()))
+//         {
+//            result.add(obj);
+//         }
+//      }
+//
+//      return result;
+//   }
 
 
    /**
@@ -1075,16 +1075,16 @@ public class UserSet extends SimpleSet<User>
     * @param value New attribute value
     * 
     * @return Current set of User objects now with new attribute values.
-    */
-   public UserSet withUsername(String value)
-   {
-      for (User obj : this)
-      {
-         obj.setUsername(value);
-      }
-      
-      return this;
-   }
+//    */
+//   public UserSet withUsername(String value)
+//   {
+//      for (User obj : this)
+//      {
+//         obj.setUsername(value);
+//      }
+//
+//      return this;
+//   }
 
    /**
     * Loop through the current set of User objects and collect a set of the Bank objects reached via bank. 

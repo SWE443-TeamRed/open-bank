@@ -89,7 +89,7 @@
             <Button
                 android:id="@+id/username_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -100,17 +100,17 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/createAccountbutton"
+                android:id="@+id/register"
                 style="?android:textAppearanceSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="#0b3c5d"
-                android:onClick="createAccount"
+                android:onClick="register"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
-                android:text="Open an Account"
+                android:text="Register"
                 android:textStyle="bold" />
 
         </LinearLayout>
