@@ -1226,60 +1226,50 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(usrGet == null);
     }
 
-//    @Test
-//    public void testBankLogin() {
-//        User usr1 = new User()
-//                .withName("Tina")
-//                .withUsername("tina")
-//                .withUserID("tina1")
-//                .withPassword("testtina");
-//
-//        User usr2 = new User()
-//                .withName("Steve")
-//                .withUsername("steve")
-//                .withUserID("steverog1")
-//                .withPassword("teststeve");
-//
-//        Bank bnk = new Bank();
-//        bnk.withCustomerUser(usr1);
-//        bnk.withCustomerUser(usr2);
-//
-//
-//        System.out.println(bnk.Login("tina","testtina"));
-//
-//        String usrID = bnk.Login("tina","testtina");
-//
-//        assertTrue("tina1"==usrID);
-//    }
-//
-//    @Test
-//    public void testBankLoginNull() {
-//        User usr1 = new User()
-//                .withName("Tina")
-//                .withUsername("tina")
-//                .withUserID("tina1")
-//                .withPassword("testtina");
-//
-//        User usr2 = new User()
-//                .withName("Steve")
-//                .withUsername("steve")
-//                .withUserID("steverog1")
-//                .withPassword("teststeve");
-//
-//        Bank bnk = new Bank();
-//        bnk.withCustomerUser(usr1);
-//        bnk.withCustomerUser(usr2);
-//
-//
-//        System.out.println(bnk.Login("tina","testtina1"));
-//
-//        String usrID = bnk.Login("tina","testtina1");
-//
-//        assertTrue(null==usrID);
-//    }
-//
-//
-//
+    @Test
+    public void testBankLogin() {
+        User usr1 = new User()
+                .withName("Tina")
+                .withUsername("tina")
+                .withUserID("tina1")
+                .withPassword("testtina");
+
+        User usr2 = new User()
+                .withName("Steve")
+                .withUsername("steve")
+                .withUserID("steverog1")
+                .withPassword("teststeve");
+
+        Bank bnk = new Bank();
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+
+
+
+        System.out.println(bnk.Login("Tom","TommyBoy11"));
+
+        String usrID = bnk.Login("Tom","TommyBoy11");
+
+        System.out.println("usrID:" + usrID);
+
+        //assertTrue("Tom"==usrID);
+    }
+
+    @Test
+    public void testBankLoginNull() {
+        Bank bnk = new Bank();
+        bnk.withCustomerUser(null);
+       
+
+        System.out.println(bnk.Login("tina","testtina1"));
+
+        String usrID = bnk.Login("tina","testtina1");
+
+        assertTrue(null==usrID);
+    }
+
+
+
 //    //********** Bank withDrawFunds method tests *************
     @Test
     public void testBankWithdraw() {
