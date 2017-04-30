@@ -669,50 +669,50 @@ public String createUser(String username, String password,String name, String ph
 }
 
 // withDrawFunds from given account
-//   public double withDrawFunds(int accountNum,double amount, StringBuilder msg){
-//      double balance=0;
-//
-//      Account withDrawAccnt = findAccountByID(accountNum);
-//
-//      if (withDrawAccnt==null){
-//         msg.append("Account number " + accountNum + " not found.");
-//         return balance;
-//      }
-//
-//      if (withDrawAccnt.getBalance()<amount){
-//         msg.append("Not enough funds exists.");
-//         return withDrawAccnt.getBalance();
-//      }
-//
-//      withDrawAccnt.withdraw(amount);
-//      balance=  withDrawAccnt.getBalance();
-//
-//      // set the message
-//      msg.append("successful");
-//
-//      return balance;
-//   }
+public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
+   BigInteger balance=BigInteger.ZERO;
+
+   Account withDrawAccnt = this.findAccountByID(accountNum);
+
+   if (withDrawAccnt==null){
+      msg.append("Account number " + accountNum + " not found.");
+      return balance;
+   }
+
+   if (withDrawAccnt.getBalance().compareTo(amount)!=1){
+      msg.append("Not enough funds exists.");
+      return withDrawAccnt.getBalance();
+   }
+
+   withDrawAccnt.withdraw(amount);
+   balance=  withDrawAccnt.getBalance();
+
+   // set the message
+   msg.append("successful");
+
+   return balance;
+}
 
 // depositFunds to given account
-//   public double depositFunds(int accountNum,double amount, StringBuilder msg){
-//      double balance=0;
-//
-//      Account depositAccnt = findAccountByID(accountNum);
-//
-//      if (depositAccnt==null){
-//         msg.append("Account number " + accountNum + " not found.");
-//         return balance;
-//      }
-//
-//
-//      depositAccnt.deposit(amount);
-//      balance=  depositAccnt.getBalance();
-//
-//      // set the message
-//      msg.append("successful");
-//
-//      return balance;
-//   }
+public BigInteger depositFunds(int accountNum,BigInteger amount, StringBuilder msg){
+   BigInteger balance=BigInteger.ZERO;
+
+   Account depositAccnt = findAccountByID(accountNum);
+
+   if (depositAccnt==null){
+      msg.append("Account number " + accountNum + " not found.");
+      return balance;
+   }
+
+
+   depositAccnt.deposit(amount);
+   balance=  depositAccnt.getBalance();
+
+   // set the message
+   msg.append("successful");
+
+   return balance;
+}
 
 // update given user's info
 public String updateUserInfo(String userID, String fieldName, String fieldValue){
@@ -776,6 +776,7 @@ public String updateUserInfo(String userID, String fieldName, String fieldValue)
 
 }
 
+// create user Account
 public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
 
    // get the next accountnumber, check to make sure it is not used
