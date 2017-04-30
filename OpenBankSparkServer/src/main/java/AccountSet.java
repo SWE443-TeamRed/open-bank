@@ -25,6 +25,7 @@ import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -118,7 +119,7 @@ public class AccountSet extends SimpleSet<Account>
    //==========================================================================
 
 
-   public BooleanList transferToUser(double amount, Account destinationAccount, String note)
+   public BooleanList transferToUser(BigInteger amount, Account destinationAccount, String note)
    {
 
       BooleanList result = new BooleanList();
@@ -133,7 +134,7 @@ public class AccountSet extends SimpleSet<Account>
 
 //   //==========================================================================
 //
-//   var de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
+//   public de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -148,7 +149,7 @@ public class AccountSet extends SimpleSet<Account>
 //
 //   //==========================================================================
 //
-//   var de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
+//   public de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -163,7 +164,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-//   var de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
+//   public de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
 //   {
 //
 //      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -217,7 +218,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterBalance(double value)
+   public AccountSet filterBalance(BigInteger value)
    {
       AccountSet result = new AccountSet();
 
@@ -241,13 +242,17 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Subset of Account objects that match the parameter
     */
-   public AccountSet filterBalance(double lower, double upper)
+   public AccountSet filterBalance(BigInteger lower, BigInteger upper)
    {
       AccountSet result = new AccountSet();
 
       for (Account obj : this)
       {
-         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         int resLowerGrtBlance= lower.compareTo(obj.getBalance());
+         int resBlncGrtUppr= obj.getBalance().compareTo(upper);
+
+         //if (lower <= obj.getBalance() && obj.getBalance() <= upper)
+         if (resLowerGrtBlance==-1 && resBlncGrtUppr==-1)
          {
             result.add(obj);
          }
@@ -264,7 +269,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Current set of Account objects now with new attribute values.
     */
-   public AccountSet withBalance(double value)
+   public AccountSet withBalance(BigInteger value)
    {
       for (Account obj : this)
       {
@@ -383,7 +388,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Subset of Account objects that match the parameter
     */
-//   var AccountSet filterCreationdate(Date value)
+//   public AccountSet filterCreationdate(Date value)
 //   {
 //      AccountSet result = new AccountSet();
 //
@@ -406,7 +411,7 @@ public class AccountSet extends SimpleSet<Account>
     *
     * @return Current set of Account objects now with new attribute values.
     */
-//   var AccountSet withCreationdate(Date value)
+//   public AccountSet withCreationdate(Date value)
 //   {
 //      for (Account obj : this)
 //      {
@@ -540,210 +545,7 @@ public class AccountSet extends SimpleSet<Account>
       return this;
    }
 
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via credit.
-    *
-    * @return Set of Transaction objects reachable via credit
-    */
-   public TransactionSet getCredit()
-   {
-      TransactionSet result = new TransactionSet();
 
-      for (Account obj : this)
-      {
-         result.with(obj.getCredit());
-      }
-
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference credit pointing to the object passed as parameter.
-    *
-    * @param value The object required as credit neighbor of the collected results.
-    *
-    * @return Set of Transaction objects referring to value via credit
-    */
-   public AccountSet filterCredit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-
-      AccountSet answer = new AccountSet();
-
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getCredit()))
-         {
-            answer.add(obj);
-         }
-      }
-
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Credit attribute of each of it.
-    *
-    * @return The original set of ModelType objects now with the new neighbor attached to their Credit attributes.
-    */
-   public AccountSet withCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withCredit(value);
-      }
-
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Credit attribute of each of it.
-    *
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutCredit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutCredit(value);
-      }
-
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via debit.
-    *
-    * @return Set of Transaction objects reachable via debit
-    */
-   public TransactionSet getDebit()
-   {
-      TransactionSet result = new TransactionSet();
-
-      for (Account obj : this)
-      {
-         result.with(obj.getDebit());
-      }
-
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Account objects and collect all contained objects with reference debit pointing to the object passed as parameter.
-    *
-    * @param value The object required as debit neighbor of the collected results.
-    *
-    * @return Set of Transaction objects referring to value via debit
-    */
-   public AccountSet filterDebit(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-
-      AccountSet answer = new AccountSet();
-
-      for (Account obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDebit()))
-         {
-            answer.add(obj);
-         }
-      }
-
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Debit attribute of each of it.
-    *
-    * @return The original set of ModelType objects now with the new neighbor attached to their Debit attributes.
-    */
-   public AccountSet withDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withDebit(value);
-      }
-
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the Debit attribute of each of it.
-    *
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AccountSet withoutDebit(Transaction value)
-   {
-      for (Account obj : this)
-      {
-         obj.withoutDebit(value);
-      }
-
-      return this;
-   }
-
-
-   //==========================================================================
-
-//   var de.uniks.networkparser.list.BooleanList myBankTransaction(double amount, Account destinationAccount)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.myBankTransaction(amount, destinationAccount) );
-//      }
-//      return result;
-//   }
-
-
-   //==========================================================================
-
-//   var de.uniks.networkparser.list.BooleanList receiveFound(double amount, Account sourceAccount)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.receiveFound(amount, sourceAccount) );
-//      }
-//      return result;
-//   }
-
-
-   //==========================================================================
-
-//   var de.uniks.networkparser.list.BooleanList sendTransactionInfo(Transaction transaction, double amount, Date p0, Date p1, String note)
-//   {
-//
-//      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-//
-//      for (Account obj : this)
-//      {
-//         result.add( obj.sendTransactionInfo(transaction, amount, p0, p1, note) );
-//      }
-//      return result;
-//   }
 
 
    /**
@@ -789,7 +591,7 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-   public BooleanList receiveFunds(Account giver, double amount, String note)
+   public BooleanList receiveFunds(Account giver, BigInteger amount, String note)
    {
 
       BooleanList result = new BooleanList();
@@ -803,18 +605,6 @@ public class AccountSet extends SimpleSet<Account>
 
 
    //==========================================================================
-
-   public TransactionSet recordTransaction(Account p0, boolean p1, double p2, String p3)
-   {
-
-      TransactionSet result = new TransactionSet();
-
-      for (Account obj : this)
-      {
-         result.add( obj.recordTransaction(p0, p1, p2, p3) );
-      }
-      return result;
-   }
 
 
    /**
@@ -908,11 +698,11 @@ public class AccountSet extends SimpleSet<Account>
 
    //==========================================================================
 
-   public BooleanList transferToAccount(double amount, Account destinationAccount, String note)
+   public BooleanList transferToAccount(BigInteger amount, Account destinationAccount, String note)
    {
 
       BooleanList result = new BooleanList();
-      
+
       for (Account obj : this)
       {
          result.add( obj.transferToAccount(amount, destinationAccount, note) );
@@ -920,43 +710,32 @@ public class AccountSet extends SimpleSet<Account>
       return result;
    }
 
-   
+
    //==========================================================================
-   
-   public TransactionSet recordTransaction(boolean p0, double p1, String p2)
-   {
-      
-      TransactionSet result = new TransactionSet();
-      
-      for (Account obj : this)
-      {
-         result.add( obj.recordTransaction(p0, p1, p2) );
-      }
-      return result;
-   }
+
 
    /**
-    * Loop through the current set of Account objects and collect a set of the Bank objects reached via bank. 
-    * 
+    * Loop through the current set of Account objects and collect a set of the Bank objects reached via bank.
+    *
     * @return Set of Bank objects reachable via bank
     */
    public BankSet getBank()
    {
       BankSet result = new BankSet();
-      
+
       for (Account obj : this)
       {
          result.with(obj.getBank());
       }
-      
+
       return result;
    }
 
    /**
-    * Loop through the current set of Account objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as bank neighbor of the collected results. 
-    * 
+    * Loop through the current set of Account objects and collect all contained objects with reference bank pointing to the object passed as parameter.
+    *
+    * @param value The object required as bank neighbor of the collected results.
+    *
     * @return Set of Bank objects referring to value via bank
     */
    public AccountSet filterBank(Object value)
@@ -971,9 +750,9 @@ public class AccountSet extends SimpleSet<Account>
       {
          neighbors.add(value);
       }
-      
+
       AccountSet answer = new AccountSet();
-      
+
       for (Account obj : this)
       {
          if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
@@ -981,13 +760,13 @@ public class AccountSet extends SimpleSet<Account>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Bank attribute of each of it. 
-    * 
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the Bank attribute of each of it.
+    *
     * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
     */
    public AccountSet withBank(Bank value)
@@ -996,32 +775,32 @@ public class AccountSet extends SimpleSet<Account>
       {
          obj.withBank(value);
       }
-      
+
       return this;
    }
 
    /**
-    * Loop through the current set of Account objects and collect a set of the Bank objects reached via employingBank. 
-    * 
+    * Loop through the current set of Account objects and collect a set of the Bank objects reached via employingBank.
+    *
     * @return Set of Bank objects reachable via employingBank
     */
    public BankSet getEmployingBank()
    {
       BankSet result = new BankSet();
-      
+
       for (Account obj : this)
       {
          result.with(obj.getEmployingBank());
       }
-      
+
       return result;
    }
 
    /**
-    * Loop through the current set of Account objects and collect all contained objects with reference employingBank pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as employingBank neighbor of the collected results. 
-    * 
+    * Loop through the current set of Account objects and collect all contained objects with reference employingBank pointing to the object passed as parameter.
+    *
+    * @param value The object required as employingBank neighbor of the collected results.
+    *
     * @return Set of Bank objects referring to value via employingBank
     */
    public AccountSet filterEmployingBank(Object value)
@@ -1036,9 +815,9 @@ public class AccountSet extends SimpleSet<Account>
       {
          neighbors.add(value);
       }
-      
+
       AccountSet answer = new AccountSet();
-      
+
       for (Account obj : this)
       {
          if (neighbors.contains(obj.getEmployingBank()) || (neighbors.isEmpty() && obj.getEmployingBank() == null))
@@ -1046,13 +825,13 @@ public class AccountSet extends SimpleSet<Account>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the EmployingBank attribute of each of it. 
-    * 
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the EmployingBank attribute of each of it.
+    *
     * @return The original set of ModelType objects now with the new neighbor attached to their EmployingBank attributes.
     */
    public AccountSet withEmployingBank(Bank value)
@@ -1061,8 +840,233 @@ public class AccountSet extends SimpleSet<Account>
       {
          obj.withEmployingBank(value);
       }
-      
+
       return this;
+   }
+
+
+
+
+   //==========================================================================
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via ToTransaction.
+    *
+    * @return Set of Transaction objects reachable via ToTransaction
+    */
+   public TransactionSet getToTransaction()
+   {
+      TransactionSet result = new TransactionSet();
+
+      for (Account obj : this)
+      {
+         result.with(obj.getToTransaction());
+      }
+
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference ToTransaction pointing to the object passed as parameter.
+    *
+    * @param value The object required as ToTransaction neighbor of the collected results.
+    *
+    * @return Set of Transaction objects referring to value via ToTransaction
+    */
+   public AccountSet filterToTransaction(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+
+      AccountSet answer = new AccountSet();
+
+      for (Account obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getToTransaction()))
+         {
+            answer.add(obj);
+         }
+      }
+
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the ToTransaction attribute of each of it.
+    *
+    * @return The original set of ModelType objects now with the new neighbor attached to their ToTransaction attributes.
+    */
+   public AccountSet withToTransaction(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withToTransaction(value);
+      }
+
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the ToTransaction attribute of each of it.
+    *
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public AccountSet withoutToTransaction(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withoutToTransaction(value);
+      }
+
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect a set of the Transaction objects reached via FromTransaction.
+    *
+    * @return Set of Transaction objects reachable via FromTransaction
+    */
+   public TransactionSet getFromTransaction()
+   {
+      TransactionSet result = new TransactionSet();
+
+      for (Account obj : this)
+      {
+         result.with(obj.getFromTransaction());
+      }
+
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Account objects and collect all contained objects with reference FromTransaction pointing to the object passed as parameter.
+    *
+    * @param value The object required as FromTransaction neighbor of the collected results.
+    *
+    * @return Set of Transaction objects referring to value via FromTransaction
+    */
+   public AccountSet filterFromTransaction(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+
+      AccountSet answer = new AccountSet();
+
+      for (Account obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFromTransaction()))
+         {
+            answer.add(obj);
+         }
+      }
+
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Account object passed as parameter to the FromTransaction attribute of each of it.
+    *
+    * @return The original set of ModelType objects now with the new neighbor attached to their FromTransaction attributes.
+    */
+   public AccountSet withFromTransaction(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withFromTransaction(value);
+      }
+
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Account object passed as parameter from the FromTransaction attribute of each of it.
+    *
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public AccountSet withoutFromTransaction(Transaction value)
+   {
+      for (Account obj : this)
+      {
+         obj.withoutFromTransaction(value);
+      }
+
+      return this;
+   }
+
+
+   //==========================================================================
+
+   public TransactionSet recordTransaction(Account sender, Account reciever, TransactionTypeEnum type, BigInteger amount, String note)
+   {
+
+      TransactionSet result = new TransactionSet();
+
+      for (Account obj : this)
+      {
+         result.add( obj.recordTransaction(sender, reciever, type, amount, note) );
+      }
+      return result;
+   }
+
+
+   //==========================================================================
+
+   public BooleanList withdraw(BigInteger amount)
+   {
+
+      BooleanList result = new BooleanList();
+
+      for (Account obj : this)
+      {
+         result.add( obj.withdraw(amount) );
+      }
+      return result;
+   }
+
+
+   //==========================================================================
+
+   public BooleanList deposit(BigInteger amount)
+   {
+
+      BooleanList result = new BooleanList();
+
+      for (Account obj : this)
+      {
+         result.add( obj.deposit(amount) );
+      }
+      return result;
+   }
+
+
+   //==========================================================================
+
+   public BooleanList receiveFunds(BigInteger amount, String note)
+   {
+
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add( obj.receiveFunds(amount, note) );
+      }
+      return result;
    }
 
 }

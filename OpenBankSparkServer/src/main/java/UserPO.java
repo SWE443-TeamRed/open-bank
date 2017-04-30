@@ -424,7 +424,7 @@ public class UserPO extends PatternObject<UserPO, User>
    }
 
    /*
-   var UserPO createPhoneCondition(int lower, int upper)
+   public UserPO createPhoneCondition(int lower, int upper)
    {
       new AttributeConstraint()
       .withAttrName(User.PROPERTY_PHONE)

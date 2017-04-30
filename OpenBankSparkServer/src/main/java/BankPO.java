@@ -2,6 +2,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
+import java.math.BigInteger;
+
 public class BankPO extends PatternObject<BankPO, Bank>
 {
 
@@ -315,7 +317,7 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
-   public boolean confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   public boolean confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -398,6 +400,57 @@ public class BankPO extends PatternObject<BankPO, Bank>
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) this.getCurrentMatch()).getAdminAccounts();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue);
+      }
+      return false;
+   }
+
+   public FeeValuePO createFeeValuePO()
+   {
+      FeeValuePO result = new FeeValuePO(new FeeValue[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Bank.PROPERTY_FEEVALUE, result);
+      
+      return result;
+   }
+
+   public FeeValuePO createFeeValuePO(String modifier)
+   {
+      FeeValuePO result = new FeeValuePO(new FeeValue[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Bank.PROPERTY_FEEVALUE, result);
+      
+      return result;
+   }
+
+   public BankPO createFeeValueLink(FeeValuePO tgt)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_FEEVALUE);
+   }
+
+   public BankPO createFeeValueLink(FeeValuePO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Bank.PROPERTY_FEEVALUE, modifier);
+   }
+
+   public FeeValueSet getFeeValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) this.getCurrentMatch()).getFeeValue();
       }
       return null;
    }
