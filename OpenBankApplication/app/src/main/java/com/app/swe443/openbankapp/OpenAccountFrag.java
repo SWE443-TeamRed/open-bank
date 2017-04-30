@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.Transaction;
+import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 
 import java.util.Date;
@@ -147,7 +149,7 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                 }
                 if (!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString()))) {
                     //Toast.makeText(getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
-                    passwordInput.setError("Passwords don't match");
+                    confirmpasswordInput.setError("Passwords don't match");
                     incomplete = true;
                 }
                 if(incomplete)
@@ -177,12 +179,22 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                     TODO AS THE SIZE OF ALL THE ACCOUNTS+1
                  */
                 int newAccountNum= mockserver.getUniqueAccountNum();
-                user.withAccount(new Account()
-                    .withAccountnum(newAccountNum)
+                Account newAccount = new Account()
+                        .withAccountnum(newAccountNum)
                         .withType(type)
                         .withOwner(user)
                         .withCreationdate(new Date())
-                        .withBalance(Double.valueOf(initalBalanceInput.getText().toString())));
+                        .withBalance(Double.valueOf("0.0"));
+                user.withAccount(newAccount);
+                Transaction t = new Transaction()
+                        .withAmount(Double.valueOf(initalBalanceInput.getText().toString()))
+                        .withBank(mockserver.getBank())
+                        .withDate(new Date())
+                        .withToAccount(newAccount)
+                        .withNote("Initial Seeding")
+                        .withTransType(TransactionTypeEnum.Create);
+                newAccount.getAccountTransactions().addFirst(t);
+                newAccount.setBalance(Double.valueOf(initalBalanceInput.getText().toString()));
                 mockserver.getBank().withCustomerUser(user);
                completeNewAccount(newAccountNum);
                 break;

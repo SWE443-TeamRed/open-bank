@@ -32,10 +32,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -84,12 +86,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         System.out.println("Creating Login Activity");
         //Initialize bank instance
         mockBankServer = MockServerSingleton.getInstance();
+
+
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
@@ -246,11 +251,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
+            //mAuthTask = new UserLoginTask(username, password);
+            //mAuthTask = new UserLoginTask(username, password);
             /*
                TODO  TRACK WHICH USER JUST LOGGED IN, SERVER TASK
              */
-            mAuthTask.execute((Void) null);
+            //mAuthTask.execute((Void) null);
+
+           // setContentView(R.layout.activity_accounts);
+
+            mockBankServer.setLoggedInUser( mockBankServer.getBank().getCustomerUser().filterUsername(username).get(0).getEmail());
+            Intent main = new Intent(LoginActivity.this, MainActivity.class);
+
+            startActivity(main);
+
         }
     }
 
