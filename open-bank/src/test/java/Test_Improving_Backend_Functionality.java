@@ -1,8 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
+import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -24,14 +26,14 @@ public class Test_Improving_Backend_Functionality {
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
     public void testSetAmountNegative()throws Exception{
-        trans.setAmount(-5);
+        trans.setAmount(BigInteger.valueOf(-5));
     }
 
     @Test
     // setAmount and get the amount to make sure you get the correct amount
     public void setgetAmount(){
-        trans.setAmount(50.55);
-        assertTrue(50.55 == trans.getAmount());
+        trans.setAmount(BigInteger.valueOf(50));
+        assertTrue(BigInteger.valueOf(50) == trans.getAmount());
     }
 
     @Test
@@ -91,18 +93,18 @@ public class Test_Improving_Backend_Functionality {
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeWithdraw(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Withdraw);
+        trans.setTransType(TransactionTypeEnum.WITHDRAW);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Withdraw == trans.getTransType());
+        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.WITHDRAW == trans.getTransType());
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
     public void setgetTransTypeDeposit(){
         // set type
-        trans.setTransType(org.sdmlib.openbank.TransactionTypeEnum.Deposit);
+        trans.setTransType(TransactionTypeEnum.DEPOSIT);
 
-        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.Deposit == trans.getTransType());
+        assertTrue(org.sdmlib.openbank.TransactionTypeEnum.DEPOSIT == trans.getTransType());
     }
 
     // JSON Test Case
@@ -128,7 +130,7 @@ public class Test_Improving_Backend_Functionality {
         Date dt = new Date("03/19/2017");
         Date dtime = new Date("03/19/2017 13:13:26");
 
-        trans.setAmount(50.00);
+        trans.setAmount(BigInteger.valueOf(50));
         // set date
         trans.setCreationdate(dt);
         // set time
@@ -137,8 +139,8 @@ public class Test_Improving_Backend_Functionality {
 
 
         Account accountBeforeJson = new Account().withOwner(usr1)
-                .withBalance(550.00).withCreationdate(dt)
-                .withCredit(trans);
+                .withBalance(BigInteger.valueOf(550)).withCreationdate(dt);
+                //.withCredit(trans);
 /*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
@@ -182,7 +184,7 @@ public class Test_Improving_Backend_Functionality {
         System.out.println("Name: " + accountAfterJson.getOwner().getName().toString());
         assertEquals(usr1.getUserID().toString(),accountAfterJson.getOwner().getUserID().toString());
         assertEquals(usr1.getName().toString(),accountAfterJson.getOwner().getName().toString());
-        assertTrue(540 == accountAfterJson.getBalance());
+        assertTrue(BigInteger.valueOf(540) == accountAfterJson.getBalance());
     }
 
     //******** ACCOUNT Test Cases ***********************
@@ -195,15 +197,15 @@ public class Test_Improving_Backend_Functionality {
             .withAccountnum(1)
             .withIsConnected(true)
             .withOwner(peter)
-            .withBalance(100)
-            .withCreationdate(new Date())
-            .withCredit()
-            .withDebit();
+            .withBalance(BigInteger.valueOf(100))
+            .withCreationdate(new Date());
+            //.withCredit()
+            //.withDebit();
     Storyboard storyboard = new Storyboard();
 
     @Test(expected = IllegalArgumentException.class)
     public void testwithBalance(){
-        Account accountWithNegative = new Account().withBalance(-100);
+        Account accountWithNegative = new Account().withBalance(BigInteger.valueOf(-100));
     }
     /**
      *
@@ -251,18 +253,18 @@ public class Test_Improving_Backend_Functionality {
     @Test
     public void testgetCredit(){
 
-        Account creditAccount = new Account().withCredit();
+        Account creditAccount = new Account(); //.withCredit();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testTransferToAccount(){
-        Account receivingAccount = new Account().withBalance(100);
-        account1.transferToAccount(-1,receivingAccount,"Testing negative");
+        Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
+        account1.transferToAccount(BigInteger.valueOf(-1),receivingAccount,"Testing negative");
     }
     @Test(expected = IllegalArgumentException.class)
     public void testTransferToAccount2(){
-        Account receivingAccount = new Account().withBalance(100);
-        account1.transferToAccount(100,null,"Testing null account");
+        Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
+        account1.transferToAccount(BigInteger.valueOf(100),null,"Testing null account");
     }
     /*@Test
     public void testTransferToAccount3(){
@@ -294,10 +296,10 @@ public class Test_Improving_Backend_Functionality {
                 .withAccountnum(2)
                 .withIsConnected(true)
                 .withOwner(victor)
-                .withBalance(100)
-                .withCreationdate(new Date())
-                .withCredit()
-                .withDebit();
+                .withBalance(BigInteger.valueOf(100))
+                .withCreationdate(new Date());
+                //.withCredit()
+                //.withDebit();
         User tina = new User()
                 .withName("Tina")
                 .withUserID("peter1")
@@ -307,11 +309,11 @@ public class Test_Improving_Backend_Functionality {
                 .withAccountnum(1)
                 .withIsConnected(true)
                 .withOwner(victor)
-                .withBalance(100)
-                .withCreationdate(new Date())
-                .withCredit()
-                .withDebit();
-        originAccount.transferToAccount(50,receivingAccount,"Testing balance after transfer amount account");
+                .withBalance(BigInteger.valueOf(100))
+                .withCreationdate(new Date());
+                //.withCredit()
+                //.withDebit();
+        originAccount.transferToAccount(BigInteger.valueOf(50),receivingAccount,"Testing balance after transfer amount account");
         System.out.println(originAccount.getBalance());
         System.out.println(receivingAccount.getBalance());
     }
@@ -986,7 +988,7 @@ public class Test_Improving_Backend_Functionality {
         Account checking = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
-                .withBalance(100);
+                .withBalance(BigInteger.valueOf(100));
 
 
         Bank bnk = new Bank();
@@ -1035,15 +1037,15 @@ public class Test_Improving_Backend_Functionality {
         Account checking1 = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
-                .withBalance(100);
+                .withBalance(BigInteger.valueOf(100));
         Account checking2 = new Account()
                 .withAccountnum(2)
                 .withOwner(usr2)
-                .withBalance(1000);
+                .withBalance(BigInteger.valueOf(1000));
         Account checking3 = new Account()
                 .withAccountnum(3)
                 .withOwner(usr3)
-                .withBalance(12300000);
+                .withBalance(BigInteger.valueOf(12300000));
         Bank bnk = new Bank();
         bnk.withCustomerAccounts(checking1);
         bnk.withCustomerAccounts(checking2);
@@ -1070,7 +1072,7 @@ public class Test_Improving_Backend_Functionality {
         Account checking1 = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
-                .withBalance(100);
+                .withBalance(BigInteger.valueOf(100));
         Bank bnk = new Bank();
         bnk.withCustomerAccounts(checking1);
         bnk.withCustomerUser(usr1);
@@ -1087,7 +1089,7 @@ public class Test_Improving_Backend_Functionality {
         Account checking1 = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
-                .withBalance(100);
+                .withBalance(BigInteger.valueOf(100));
         Bank bnk = new Bank();
         bnk.withCustomerAccounts(checking1);
         bnk.withCustomerUser(usr1);
@@ -1104,12 +1106,92 @@ public class Test_Improving_Backend_Functionality {
         Account checking1 = new Account()
                 .withAccountnum(1)
                 .withOwner(usr1)
-                .withBalance(100);
+                .withBalance(BigInteger.valueOf(100));
         Bank bnk = new Bank();
         bnk.withCustomerAccounts(checking1);
         bnk.withCustomerUser(usr1);
         bnk.validateLogin(1, "karli25", null);
     }
+
+    // create user with given parameters.
+    @Test
+    public void testCreateUser() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+    }
+
+    // Should throw an IllegalArgument Exception when trying to create user with exsiting usernanme
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreateUserWithExistingUsername() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+    }
+
+    // create 2 users with given parameters.
+    @Test
+    public void testCreateUsers() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+
+        bnk.createUser("Pam","Pam211","Pam Lake","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Pam").getUserID());
+    }
+
+    // create account with given parameters.
+    @Test
+    public void testCreateAccount() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
+
+        AccountSet accountSets = bnk.getCustomerAccounts();
+
+        for (Account acnt : accountSets) {
+            if(acnt.getAccountnum()!=0){
+                System.out.println("Accountnum:" + acnt.getAccountnum());
+            }
+        }
+    }
+
+
+    // create accounts with given parameters.
+    @Test
+    public void testCreateMultipleAccounts() {
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+
+        // create a user account
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(500));
+
+        AccountSet accountSets = bnk.getCustomerAccounts();
+
+        for (Account acnt : accountSets) {
+            if(acnt.getAccountnum()!=0){
+                System.out.println("Accountnum:" + acnt.getAccountnum());
+                System.out.println("Account Balance: $" + acnt.getBalance());
+            }
+        }
+    }
+
 
     // Tests if findUserByID can find all users associated with the bank
     // Also tests for the case in which the user cannot be found
@@ -1138,9 +1220,27 @@ public class Test_Improving_Backend_Functionality {
     @Test
     public void testfindUserByIDWithNull() {
         Bank bnk = new Bank();
-        bnk.createCustomerUser();
         bnk.withCustomerUser(null);
 
+        User usrGet = bnk.findUserByID("steverog1");
+        assertTrue(usrGet == null);
+    }
+
+    @Test
+    public void testfindUser() {
+
+        User usr1 = new User()
+                .withName("tina")
+                .withUserID("tina1");
+        User usr2 = new User()
+                .withName("steve")
+                .withUserID("steverog1");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usr1);
+
+        System.out.println(usr1.getUserID());
         User usrGet = bnk.findUserByID("steverog1");
         assertTrue(usrGet == null);
     }

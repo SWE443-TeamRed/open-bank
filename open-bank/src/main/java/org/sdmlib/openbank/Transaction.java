@@ -30,6 +30,9 @@ import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.util.AccountSet;
+import java.math.BigInteger;
+import org.sdmlib.openbank.util.TransactionSet;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -89,9 +92,13 @@ public  class Transaction implements SendableEntity
 
    public void removeYou()
    {
-      setFromAccount(null);
-      setToAccount(null);
       setBank(null);
+      setNext(null);
+      setPrevious(null);
+      setToAccount(null);
+      setFromAccount(null);
+      setOwner(null);
+      setFee(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -100,13 +107,14 @@ public  class Transaction implements SendableEntity
 
    public static final String PROPERTY_AMOUNT = "amount";
 
-   private double amount;
+   private BigInteger amount;
 
-   public double getAmount()
+   public BigInteger getAmount()
    {
       return this.amount;
    }
 
+   /*
    public void setAmount(double value)
    {
 
@@ -123,12 +131,13 @@ public  class Transaction implements SendableEntity
       }
    }
 
+
    public Transaction withAmount(double value)
    {
       setAmount(value);
       return this;
    }
-
+*/
 
    @Override
    public String toString()
@@ -235,124 +244,6 @@ public  class Transaction implements SendableEntity
    }
 
 
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Transaction ----------------------------------- Account
-    *              credit                   fromAccount
-    * </pre>
-    */
-
-   public static final String PROPERTY_FROMACCOUNT = "fromAccount";
-
-   private Account fromAccount = null;
-
-   public Account getFromAccount()
-   {
-      return this.fromAccount;
-   }
-
-   public boolean setFromAccount(Account value)
-   {
-      boolean changed = false;
-
-      if (this.fromAccount != value)
-      {
-         Account oldValue = this.fromAccount;
-
-         if (this.fromAccount != null)
-         {
-            this.fromAccount = null;
-            oldValue.withoutCredit(this);
-         }
-
-         this.fromAccount = value;
-
-         if (value != null)
-         {
-            value.withCredit(this);
-         }
-
-         firePropertyChange(PROPERTY_FROMACCOUNT, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Transaction withFromAccount(Account value)
-   {
-      setFromAccount(value);
-      return this;
-   }
-
-   public Account createFromAccount()
-   {
-      Account value = new Account();
-      withFromAccount(value);
-      return value;
-   }
-
-
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Transaction ----------------------------------- Account
-    *              debit                   toAccount
-    * </pre>
-    */
-
-   public static final String PROPERTY_TOACCOUNT = "toAccount";
-
-   private Account toAccount = null;
-
-   public Account getToAccount()
-   {
-      return this.toAccount;
-   }
-
-   public boolean setToAccount(Account value)
-   {
-      boolean changed = false;
-
-      if (this.toAccount != value)
-      {
-         Account oldValue = this.toAccount;
-
-         if (this.toAccount != null)
-         {
-            this.toAccount = null;
-            oldValue.withoutDebit(this);
-         }
-
-         this.toAccount = value;
-
-         if (value != null)
-         {
-            value.withDebit(this);
-         }
-
-         firePropertyChange(PROPERTY_TOACCOUNT, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Transaction withToAccount(Account value)
-   {
-      setToAccount(value);
-      return this;
-   }
-
-   public Account createToAccount()
-   {
-      Account value = new Account();
-      withToAccount(value);
-      return value;
-   }
-
-   
    //==========================================================================
    
    public static final String PROPERTY_TRANSTYPE = "transType";
@@ -481,6 +372,401 @@ public  class Transaction implements SendableEntity
    {
       Bank value = new Bank();
       withBank(value);
+      return value;
+   }
+   //==========================================================================
+   
+   public void setAmount(BigInteger value)
+   {
+      if (this.amount != value) {
+      
+         BigInteger oldValue = this.amount;
+         this.amount = value;
+         this.firePropertyChange(PROPERTY_AMOUNT, oldValue, value);
+      }
+   }
+   
+   public Transaction withAmount(BigInteger value)
+   {
+      setAmount(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              previous                   next
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXT = "next";
+
+   private Transaction next = null;
+
+   public Transaction getNext()
+   {
+      return this.next;
+   }
+   public TransactionSet getNextTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getNextTransitive();
+   }
+
+
+   public boolean setNext(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.next != value)
+      {
+         Transaction oldValue = this.next;
+         
+         if (this.next != null)
+         {
+            this.next = null;
+            oldValue.setPrevious(null);
+         }
+         
+         this.next = value;
+         
+         if (value != null)
+         {
+            value.withPrevious(this);
+         }
+         
+         firePropertyChange(PROPERTY_NEXT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withNext(Transaction value)
+   {
+      setNext(value);
+      return this;
+   } 
+
+   public Transaction createNext()
+   {
+      Transaction value = new Transaction();
+      withNext(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              next                   previous
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PREVIOUS = "previous";
+
+   private Transaction previous = null;
+
+   public Transaction getPrevious()
+   {
+      return this.previous;
+   }
+   public TransactionSet getPreviousTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getPreviousTransitive();
+   }
+
+
+   public boolean setPrevious(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.previous != value)
+      {
+         Transaction oldValue = this.previous;
+         
+         if (this.previous != null)
+         {
+            this.previous = null;
+            oldValue.setNext(null);
+         }
+         
+         this.previous = value;
+         
+         if (value != null)
+         {
+            value.withNext(this);
+         }
+         
+         firePropertyChange(PROPERTY_PREVIOUS, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withPrevious(Transaction value)
+   {
+      setPrevious(value);
+      return this;
+   } 
+
+   public Transaction createPrevious()
+   {
+      Transaction value = new Transaction();
+      withPrevious(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Transaction ----------------------------------- Account
+    *              ToTransaction                   ToAccount
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TOACCOUNT = "ToAccount";
+
+   private Account ToAccount = null;
+
+   public Account getToAccount()
+   {
+      return this.ToAccount;
+   }
+
+   public boolean setToAccount(Account value)
+   {
+      boolean changed = false;
+      
+      if (this.ToAccount != value)
+      {
+         Account oldValue = this.ToAccount;
+         
+         if (this.ToAccount != null)
+         {
+            this.ToAccount = null;
+            oldValue.withoutToTransaction(this);
+         }
+         
+         this.ToAccount = value;
+         
+         if (value != null)
+         {
+            value.withToTransaction(this);
+         }
+         
+         firePropertyChange(PROPERTY_TOACCOUNT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withToAccount(Account value)
+   {
+      setToAccount(value);
+      return this;
+   } 
+
+   public Account createToAccount()
+   {
+      Account value = new Account();
+      withToAccount(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Transaction ----------------------------------- Account
+    *              FromTransaction                   FromAccount
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FROMACCOUNT = "FromAccount";
+
+   private Account FromAccount = null;
+
+   public Account getFromAccount()
+   {
+      return this.FromAccount;
+   }
+
+   public boolean setFromAccount(Account value)
+   {
+      boolean changed = false;
+      
+      if (this.FromAccount != value)
+      {
+         Account oldValue = this.FromAccount;
+         
+         if (this.FromAccount != null)
+         {
+            this.FromAccount = null;
+            oldValue.withoutFromTransaction(this);
+         }
+         
+         this.FromAccount = value;
+         
+         if (value != null)
+         {
+            value.withFromTransaction(this);
+         }
+         
+         firePropertyChange(PROPERTY_FROMACCOUNT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withFromAccount(Account value)
+   {
+      setFromAccount(value);
+      return this;
+   } 
+
+   public Account createFromAccount()
+   {
+      Account value = new Account();
+      withFromAccount(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              fee                   owner
+    * </pre>
+    */
+   
+   public static final String PROPERTY_OWNER = "owner";
+
+   private Transaction owner = null;
+
+   public Transaction getOwner()
+   {
+      return this.owner;
+   }
+   public TransactionSet getOwnerTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getOwnerTransitive();
+   }
+
+
+   public boolean setOwner(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.owner != value)
+      {
+         Transaction oldValue = this.owner;
+         
+         if (this.owner != null)
+         {
+            this.owner = null;
+            oldValue.setFee(null);
+         }
+         
+         this.owner = value;
+         
+         if (value != null)
+         {
+            value.withFee(this);
+         }
+         
+         firePropertyChange(PROPERTY_OWNER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withOwner(Transaction value)
+   {
+      setOwner(value);
+      return this;
+   } 
+
+   public Transaction createOwner()
+   {
+      Transaction value = new Transaction();
+      withOwner(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Transaction ----------------------------------- Transaction
+    *              owner                   fee
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FEE = "fee";
+
+   private Transaction fee = null;
+
+   public Transaction getFee()
+   {
+      return this.fee;
+   }
+   public TransactionSet getFeeTransitive()
+   {
+      TransactionSet result = new TransactionSet().with(this);
+      return result.getFeeTransitive();
+   }
+
+
+   public boolean setFee(Transaction value)
+   {
+      boolean changed = false;
+      
+      if (this.fee != value)
+      {
+         Transaction oldValue = this.fee;
+         
+         if (this.fee != null)
+         {
+            this.fee = null;
+            oldValue.setOwner(null);
+         }
+         
+         this.fee = value;
+         
+         if (value != null)
+         {
+            value.withOwner(this);
+         }
+         
+         firePropertyChange(PROPERTY_FEE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Transaction withFee(Transaction value)
+   {
+      setFee(value);
+      return this;
+   } 
+
+   public Transaction createFee()
+   {
+      Transaction value = new Transaction();
+      withFee(value);
       return value;
    } 
 }

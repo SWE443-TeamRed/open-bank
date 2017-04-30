@@ -27,6 +27,7 @@ import de.uniks.networkparser.IdMap;
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import org.sdmlib.openbank.AccountTypeEnum;
 import org.sdmlib.openbank.Bank;
@@ -40,11 +41,11 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_CREATIONDATE,
       Account.PROPERTY_ISCONNECTED,
       Account.PROPERTY_OWNER,
-      Account.PROPERTY_CREDIT,
-      Account.PROPERTY_DEBIT,
       Account.PROPERTY_TYPE,
       Account.PROPERTY_BANK,
       Account.PROPERTY_EMPLOYINGBANK,
+      Account.PROPERTY_TOTRANSACTION,
+      Account.PROPERTY_FROMTRANSACTION,
    };
    
    @Override
@@ -95,15 +96,7 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getOwner();
       }
 
-      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getCredit();
-      }
 
-      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attribute))
-      {
-         return ((Account) target).getDebit();
-      }
 
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
@@ -118,6 +111,17 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_EMPLOYINGBANK.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getEmployingBank();
+      }
+
+
+      if (Account.PROPERTY_TOTRANSACTION.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getToTransaction();
+      }
+
+      if (Account.PROPERTY_FROMTRANSACTION.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).getFromTransaction();
       }
       
       return null;
@@ -152,7 +156,8 @@ public class AccountCreator implements SendableEntityCreator
 
       if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
-         ((Account) target).setBalance(Double.parseDouble(value.toString()));
+         //((Account) target).setBalance(Double.parseDouble(value.toString()));
+         ((Account) target).setBalance(((BigDecimal) value).toBigInteger());
          return true;
       }
 
@@ -167,30 +172,6 @@ public class AccountCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Account.PROPERTY_CREDIT.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).withCredit((Transaction) value);
-         return true;
-      }
-      
-      if ((Account.PROPERTY_CREDIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Account) target).withoutCredit((Transaction) value);
-         return true;
-      }
-
-      if (Account.PROPERTY_DEBIT.equalsIgnoreCase(attrName))
-      {
-         ((Account) target).withDebit((Transaction) value);
-         return true;
-      }
-      
-      if ((Account.PROPERTY_DEBIT + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Account) target).withoutDebit((Transaction) value);
-         return true;
-      }
-
       if (Account.PROPERTY_BANK.equalsIgnoreCase(attrName))
       {
          ((Account) target).setBank((Bank) value);
@@ -200,6 +181,29 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_EMPLOYINGBANK.equalsIgnoreCase(attrName))
       {
          ((Account) target).setEmployingBank((Bank) value);
+         return true;
+      }
+      if (Account.PROPERTY_TOTRANSACTION.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withToTransaction((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_TOTRANSACTION + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutToTransaction((Transaction) value);
+         return true;
+      }
+
+      if (Account.PROPERTY_FROMTRANSACTION.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withFromTransaction((Transaction) value);
+         return true;
+      }
+      
+      if ((Account.PROPERTY_FROMTRANSACTION + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Account) target).withoutFromTransaction((Transaction) value);
          return true;
       }
       

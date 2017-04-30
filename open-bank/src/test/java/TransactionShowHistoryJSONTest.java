@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
+
+import java.math.BigInteger;
 import java.util.Date;
 import static org.junit.Assert.*;
 
@@ -32,8 +34,8 @@ public class TransactionShowHistoryJSONTest {
         System.out.println(resultAccnt.toString());
         System.out.println("UserID: " + resultAccnt.getOwner().getUserID());
         System.out.println("Name: " + resultAccnt.getOwner().getName());
-        System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getCreationdate().toString());
-        System.out.println("Debit: " + resultAccnt.getDebit().toString());
+        //System.out.println("Credit: Amount:" + resultAccnt.getCredit().toString() + ". Time:" + resultAccnt.getCredit().getCreationdate().toString());
+       // System.out.println("Debit: " + resultAccnt.getDebit().toString());
         System.out.println("Balance: " + resultAccnt.getBalance());
     }
 
@@ -58,7 +60,7 @@ public class TransactionShowHistoryJSONTest {
         Date dt = new Date("03/19/2017");
         Date dtime = new Date("03/19/2017 13:13:26");
 
-        trans.setAmount(50.00);
+        trans.setAmount(BigInteger.valueOf(50));
         // set date
         trans.setCreationdate(dt);
         // set time
@@ -69,7 +71,7 @@ public class TransactionShowHistoryJSONTest {
         dt = new Date("03/19/2017");
         dtime = new Date("03/19/2017 13:16:30");
 
-        trans2.setAmount(20.00);
+        trans2.setAmount(BigInteger.valueOf(20));
         // set date
         trans2.setCreationdate(dt);
         // set time
@@ -80,7 +82,7 @@ public class TransactionShowHistoryJSONTest {
         dt = new Date("03/19/2017");
         dtime = new Date("03/19/2017 13:20:30");
 
-        trans3.setAmount(40.00);
+        trans3.setAmount(BigInteger.valueOf(40));
         // set date
         trans3.setCreationdate(dt);
         // set time
@@ -89,14 +91,14 @@ public class TransactionShowHistoryJSONTest {
 
 
         Account accountBeforeJson = new Account().withOwner(usr1)
-                .withBalance(550.00).withCreationdate(dt)
-                .withCredit(trans);
+                .withBalance(BigInteger.valueOf(550)).withCreationdate(dt);
+                //.withCredit(trans);
 
-        accountBeforeJson.withBalance(570.00).withCreationdate(dt);
-        accountBeforeJson.withCredit(trans2);
+        accountBeforeJson.withBalance(BigInteger.valueOf(570)).withCreationdate(dt);
+       //accountBeforeJson.withCredit(trans2);
 
-        accountBeforeJson.withBalance(540.00).withCreationdate(dt);
-        accountBeforeJson.withDebit(trans3);
+        //accountBeforeJson.withBalance(540.00).withCreationdate(dt);
+        //accountBeforeJson.withDebit(trans3);
 
         System.out.println("*********************************toJson*********************************");
         json.toJson(accountBeforeJson);
@@ -108,8 +110,8 @@ public class TransactionShowHistoryJSONTest {
         System.out.println(accountAfterJson.toString());
         System.out.println("UserID: " + accountAfterJson.getOwner().getUserID());
         System.out.println("Name: " + accountAfterJson.getOwner().getName());
-        System.out.println("Credit: Amount:" + accountAfterJson.getCredit().toString() + ". Time:" + accountAfterJson.getCredit().getCreationdate().toString());
-        System.out.println("Debit: " + accountAfterJson.getDebit().toString());
+        //System.out.println("Credit: Amount:" + accountAfterJson.getCredit().toString() + ". Time:" + accountAfterJson.getCredit().getCreationdate().toString());
+        //System.out.println("Debit: " + accountAfterJson.getDebit().toString());
 
         System.out.println("Balance: " + accountAfterJson.getBalance());
 
@@ -138,7 +140,7 @@ public class TransactionShowHistoryJSONTest {
         Date dt = new Date("03/19/2017");
         Date dtime = new Date("03/19/2017 13:13:26");
 
-        trans.setAmount(50.00);
+        trans.setAmount(BigInteger.valueOf(50));
         // set date
         trans.setCreationdate(dt);
         // set time
@@ -147,8 +149,8 @@ public class TransactionShowHistoryJSONTest {
 
 
         Account accountBeforeJson = new Account().withOwner(usr1)
-                .withBalance(550.00).withCreationdate(dt)
-                .withCredit(trans);
+                .withBalance(BigInteger.valueOf(550)).withCreationdate(dt);
+                //.withCredit(trans);
 /*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
@@ -190,7 +192,7 @@ public class TransactionShowHistoryJSONTest {
 
         assertTrue("tina1" == accountAfterJson.getOwner().getUserID());
         assertTrue("tina" == accountAfterJson.getOwner().getName());
-        assertTrue(540 == accountAfterJson.getBalance());
+        assertTrue(BigInteger.valueOf(540) == accountAfterJson.getBalance());
     }
 
 }
