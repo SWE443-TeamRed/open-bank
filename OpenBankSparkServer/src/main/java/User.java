@@ -39,7 +39,7 @@ public  class User implements SendableEntity {
      */
 
     /*
-    var String login(String userName, String password) {
+    public String login(String userName, String password) {
         if (getName().equals(userName) && getPassword().equals(password)) {
             File jsonfile = new File(getUserID()+".json");
             if(jsonfile.exists()) {
@@ -168,9 +168,9 @@ public  class User implements SendableEntity {
         result.append(" ").append("Password: " + this.getPassword());
         result.append(" ").append("Admin: " + this.isIsAdmin());
         result.append(" ").append(this.getEmail());
-   result.append(" ").append(this.getPhone());
-   result.append(" ").append(this.getUsername());
-   return result.substring(1);
+        result.append(" ").append(this.getPhone());
+        result.append(" ").append(this.getUsername());
+        return result.substring(1);
     }
 
 
@@ -187,12 +187,24 @@ public  class User implements SendableEntity {
     }
 
     public void setUserID(String value) {
-        if (!EntityUtil.stringEquals(this.UserID, value)) {
+        //if (!EntityUtil.stringEquals(this.UserID, value)) {
+        /*
+            if(this.getBank().getCustomerUser().filterUserID(value).size() == 0 &&
+                    this.getBank().getAdminUsers().filterUserID(value).size() == 0) {
+                String oldValue = this.UserID;
+                this.UserID = value;
+                this.firePropertyChange(PROPERTY_USERID, oldValue, value);
+            }
+            else {
+            */
+             //   throw new IllegalArgumentException("User ID " + value + " has already been used");
 
-            String oldValue = this.UserID;
-            this.UserID = value;
-            this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-        }
+                value = String.valueOf(this.getBank().getNextID());
+                String oldValue = this.UserID;
+                this.UserID = value;
+                this.firePropertyChange(PROPERTY_USERID, oldValue, value);
+            //}
+        //}
     }
 
     public User withUserID(String value) {
@@ -370,15 +382,15 @@ public  class User implements SendableEntity {
 
     //==========================================================================
 /*
-    var static final String PROPERTY_PHONE = "phone";
+    public static final String PROPERTY_PHONE = "phone";
 
     private String phone;
 
-    var int getPhone() {
+    public int getPhone() {
         return this.phone;
     }
 
-    var void setPhone(int value) {
+    public void setPhone(int value) {
         if (this.phone != value) {
 
             int oldValue = this.phone;
@@ -387,7 +399,7 @@ public  class User implements SendableEntity {
         }
     }
 
-    var User withPhone(int value) {
+    public User withPhone(int value) {
         setPhone(value);
         return this;
     }
@@ -454,12 +466,18 @@ public String getUsername()
 
 public void setUsername(String value)
 {
+    /*
    if ( ! EntityUtil.stringEquals(this.username, value)) {
-
-      String oldValue = this.username;
-      this.username = value;
-      this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-   }
+       if(this.getBank().getCustomerUser().filterUsername(value).size() == 0 &&
+               this.getBank().getAdminUsers().filterUsername(value).size() == 0) {
+               */
+           String oldValue = this.username;
+           this.username = value;
+           this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+       //}
+       //else
+      //     throw new IllegalArgumentException("Username "+value+" has already been used");
+   //}
 }
 
 public User withUsername(String value)

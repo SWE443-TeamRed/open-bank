@@ -22,27 +22,16 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.sql.Wrapper;
-import java.util.Date;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
-
-import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.util.FeeValueSet;
-import org.sdmlib.openbank.FeeValue;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
