@@ -684,17 +684,17 @@ import org.sdmlib.openbank.FeeValue;
    }
 
    // withDrawFunds from given account
-   public double withDrawFunds(int accountNum,double amount, StringBuilder msg){
-      double balance=0;
+   public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
+      BigInteger balance=BigInteger.ZERO;
 
-      Account withDrawAccnt = findAccountByID(accountNum);
+      Account withDrawAccnt = this.findAccountByID(accountNum);
 
       if (withDrawAccnt==null){
          msg.append("Account number " + accountNum + " not found.");
          return balance;
       }
 
-      if (withDrawAccnt.getBalance()<amount){
+      if (withDrawAccnt.getBalance().compareTo(amount)!=1){
          msg.append("Not enough funds exists.");
          return withDrawAccnt.getBalance();
       }
@@ -709,8 +709,8 @@ import org.sdmlib.openbank.FeeValue;
    }
 
    // depositFunds to given account
-   public double depositFunds(int accountNum,double amount, StringBuilder msg){
-      double balance=0;
+   public BigInteger depositFunds(int accountNum,BigInteger amount, StringBuilder msg){
+      BigInteger balance=BigInteger.ZERO;
 
       Account depositAccnt = findAccountByID(accountNum);
 
@@ -791,6 +791,7 @@ import org.sdmlib.openbank.FeeValue;
 
    }
 
+   // create user Account
    public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
 
       // get the next accountnumber, check to make sure it is not used
