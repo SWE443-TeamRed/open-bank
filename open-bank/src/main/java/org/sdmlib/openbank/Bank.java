@@ -30,13 +30,8 @@ import org.sdmlib.openbank.util.UserSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.FeeValue;
-import org.sdmlib.openbank.Account;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -794,6 +789,7 @@ import org.sdmlib.openbank.Account;
       //set user attributes
       User usr = new User();
       usr.setUserID(valID);
+      usr.setName(name);
       usr.setUsername(username);
       usr.setPassword(password);
       usr.setPhone(phoneNumber);
