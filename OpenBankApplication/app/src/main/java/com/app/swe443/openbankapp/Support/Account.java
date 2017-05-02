@@ -1,17 +1,13 @@
 /*
    Copyright (c) 2017 FA
-
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software
    and associated documentation files (the "Software"), to deal in the Software without restriction,
    including without limitation the rights to use, copy, modify, merge, publish, distribute,
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
    furnished to do so, subject to the following conditions:
-
    The above copyright notice and this permission notice shall be included in all copies or
    substantial portions of the Software.
-
    The Software shall be used for Good, not Evil.
-
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -107,12 +103,12 @@ public  class Account implements SendableEntity
       /*
          If the user is not logged in, they should not be able to get balance
        */
-         return this.balance;
+      return this.balance;
    }
 
    public void setBalance(double value)
    {
-      if (value >0) {
+      if (value >=0) {
 
          double oldValue = this.balance;
          this.balance = value;
@@ -130,6 +126,9 @@ public  class Account implements SendableEntity
 
    private LinkedList<Transaction> accountTransactions = new LinkedList<Transaction>();
 
+   public void setCreateTransaction(Transaction trans){
+      accountTransactions.add(trans);
+   }
    public LinkedList<Transaction> getAccountTransactions()
    {
       if (this.accountTransactions == null)
@@ -443,7 +442,6 @@ public  class Account implements SendableEntity
    *     Kimberly 03/29/17
    *     4/3 - Henry -> refactored and incorporated transaction serialization
    * /
-
    /*
       Constructor setting the initial amount
    */
@@ -453,53 +451,52 @@ public  class Account implements SendableEntity
    }
 
 
-    //User transfer founds to another user,
-    // needs to connect and verify destinationAccount connection.
-    public boolean transferToAccount(double amount, Account reciever, String note)
-    {
-       //Requested transfer funds cannot be negative value or undefined
-        if(amount < 0)
-            throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
-        else if (reciever==null)
-           throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
+   //User transfer founds to another user,
+   // needs to connect and verify destinationAccount connection.
+   public boolean transferToAccount(double amount, Account reciever, String note)
+   {
+      //Requested transfer funds cannot be negative value or undefined
+      if(amount < 0)
+         throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
+      else if (reciever==null)
+         throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
 
-        if (amount <= this.getBalance()) {
-           //Check this account is connected to other account
+      if (amount <= this.getBalance()) {
+         //Check this account is connected to other account
             /*TODO: Discuss with creater or isConneccted what it refers to, AccountDetails must be connected or Users?*/
-            if (true) {
-               //Update this balance to new balance
-                this.setBalance(this.getBalance() - amount);
-                reciever.setBalance(reciever.getBalance()+amount);
+         if (true) {
+            //Update this balance to new balance
+            this.setBalance(this.getBalance() - amount);
+            reciever.setBalance(reciever.getBalance()+amount);
                 /*
                     TODO FIX TRANSACTION RECORDING, TOAMOUNT SHOULD NOT BE SET TO THE ACCOUNT THAT IS SENDING THE MONEY TO WORK
                     TODO CURRENTY SETTING TOACCOUNT TO RECEIVER CAUSES THERE TO BE A DEBIT ON RECIERVER AND CREDIT ON SENDER
-
                     accountTransactions is a linked list that keeps track of the user's transaction irrelevant
                     of whether it is credit or debit, It needs to keep order so it is a linkedlist
                  */
-                Transaction newTrans = new Transaction()
-                        .withTransType(TransactionTypeEnum.Transfer)
-                        .withAmount(amount)
-                        .withCreationdate(new Date())
-                        .withToAccount(this)
-                        .withCreationdate(new Date())
-                        .withNote("Transfer "+amount+" to " +reciever.getOwner().getName())
-                        .withFromAccount(reciever);
-                this.withDebit(newTrans);
-                accountTransactions.addFirst(newTrans);
-                reciever.accountTransactions.addFirst(newTrans.withNote(this.getOwner().getName() +" sent you "+amount));
-                System.out.println("RECIEVER HAS BALANCE OF "+reciever.getBalance() +" credit of "+reciever.getCredit().size());
-                System.out.println("GIVER HAS BALANCE OF "+this.getBalance()+" debit of "+this.getDebit().size());
+            Transaction newTrans = new Transaction()
+                    .withTransType(TransactionTypeEnum.Transfer)
+                    .withAmount(amount)
+                    .withCreationdate(new Date())
+                    .withToAccount(this)
+                    .withCreationdate(new Date())
+                    .withNote(this.getOwner().getName() + " transferred "+amount+" to " +reciever.getOwner().getName())
+                    .withFromAccount(reciever);
+            this.withDebit(newTrans);
+            accountTransactions.addFirst(newTrans);
+            reciever.accountTransactions.addFirst(newTrans.withNote(this.getOwner().getName() +" sent you "+amount));
+            System.out.println("RECIEVER HAS BALANCE OF "+reciever.getBalance() +" credit of "+reciever.getCredit().size());
+            System.out.println("GIVER HAS BALANCE OF "+this.getBalance()+" debit of "+this.getDebit().size());
 
-                return true;
+            return true;
 
-            }
-        }
-        return false;//transferToUser did not work.
-    }
+         }
+      }
+      return false;//transferToUser did not work.
+   }
 
 
-    //User wants to give money to this, recieve the funds if this is able to
+   //User wants to give money to this, recieve the funds if this is able to
    public boolean receiveFunds(double amount, String note)
    {
       Transaction transaction;
@@ -522,11 +519,11 @@ public  class Account implements SendableEntity
    {
       Transaction trans;
 
-         //Create transaction object
-         trans = new Transaction();
-         trans.setCreationdate(new Date());
-         trans.setAmount(amount);
-         trans.setNote(note);
+      //Create transaction object
+      trans = new Transaction();
+      trans.setCreationdate(new Date());
+      trans.setAmount(amount);
+      trans.setNote(note);
 
       trans.setNote(note);
       if(recordforAccount != this)
@@ -548,45 +545,42 @@ public  class Account implements SendableEntity
    }
 
 
-   public void setCreateTransaction(Transaction trans){
-      accountTransactions.add(trans);
+
+
+   //To withdraw money from this account.
+   public boolean withdraw(double amount)
+   {
+      if(amount <= this.getBalance() && amount > 0) {
+         recordTransaction(this, false,amount, "Withdrawing ");
+         this.setBalance(this.getBalance() - amount);
+         return true;
+      }
+      else
+         throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
+                 "and greater than 0.");
+
    }
-
-
-    //To withdraw money from this account.
-    public boolean withdraw(double amount)
-    {
-        if(amount <= this.getBalance() && amount > 0) {
-            recordTransaction(this, false,amount, "Withdrawing ");
-            this.setBalance(this.getBalance() - amount);
-            return true;
-        }
-        else
-            throw new IllegalArgumentException("Amount to withdraw should be less or equal to your current balance" +
-                    "and greater than 0.");
-
-    }
 
    //=========================================================================
    public boolean deposit( double amount ){
-       if(amount > 0) {
-           recordTransaction(this, true,amount, "Depositing ");
-           this.setBalance(this.getBalance() + amount);
-           return true;
-       }
-       else
-           throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
+      if(amount > 0) {
+         recordTransaction(this, true,amount, "Depositing ");
+         this.setBalance(this.getBalance() + amount);
+         return true;
+      }
+      else
+         throw new IllegalArgumentException("Amount to deposit should be greater than 0. You entered " + amount);
 
-      
+
    }
 
-   
 
 
 
-   
+
+
    //==========================================================================
-   
+
    public void setCreationdate(Date value)
    {
       if (this.creationdate != value) {
@@ -596,50 +590,62 @@ public  class Account implements SendableEntity
          this.firePropertyChange(PROPERTY_CREATIONDATE, oldValue, value);
       }
    }
-   
+
    public Account withCreationdate(Date value)
    {
       setCreationdate(value);
       return this;
    }
 
-   
 
 
-   
+
+
    //==========================================================================
-   
+
    public static final String PROPERTY_TYPE = "type";
-   
+
    private AccountTypeEnum type;
 
    public AccountTypeEnum getType()
    {
       return this.type;
    }
-   
+
    public void setType(AccountTypeEnum value)
    {
       if (this.type != value) {
-      
+
          AccountTypeEnum oldValue = this.type;
          this.type = value;
          this.firePropertyChange(PROPERTY_TYPE, oldValue, value);
       }
    }
-   
+
    public Account withType(AccountTypeEnum value)
    {
       setType(value);
       return this;
-   } 
-
-   
+   }
 
 
 
 
-   
+
+   //==========================================================================
+   public boolean receiveFunds( Account giver, double amount, String note )
+   {
+      return false;
+   }
+
+
+   //==========================================================================
+   public Transaction recordTransaction( boolean p0, double p1, String p2 )
+   {
+      return null;
+   }
+
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -647,7 +653,7 @@ public  class Account implements SendableEntity
     *              customerAccounts                   bank
     * </pre>
     */
-   
+
    public static final String PROPERTY_BANK = "bank";
 
    private Bank bank = null;
@@ -660,28 +666,28 @@ public  class Account implements SendableEntity
    public boolean setBank(Bank value)
    {
       boolean changed = false;
-      
+
       if (this.bank != value)
       {
          Bank oldValue = this.bank;
-         
+
          if (this.bank != null)
          {
             this.bank = null;
             oldValue.withoutCustomerAccounts(this);
          }
-         
+
          this.bank = value;
-         
+
          if (value != null)
          {
             value.withCustomerAccounts(this);
          }
-         
+
          firePropertyChange(PROPERTY_BANK, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -689,16 +695,16 @@ public  class Account implements SendableEntity
    {
       setBank(value);
       return this;
-   } 
+   }
 
    public Bank createBank()
    {
       Bank value = new Bank();
       withBank(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -706,7 +712,7 @@ public  class Account implements SendableEntity
     *              adminAccounts                   employingBank
     * </pre>
     */
-   
+
    public static final String PROPERTY_EMPLOYINGBANK = "employingBank";
 
    private Bank employingBank = null;
@@ -719,28 +725,28 @@ public  class Account implements SendableEntity
    public boolean setEmployingBank(Bank value)
    {
       boolean changed = false;
-      
+
       if (this.employingBank != value)
       {
          Bank oldValue = this.employingBank;
-         
+
          if (this.employingBank != null)
          {
             this.employingBank = null;
             oldValue.withoutAdminAccounts(this);
          }
-         
+
          this.employingBank = value;
-         
+
          if (value != null)
          {
             value.withAdminAccounts(this);
          }
-         
+
          firePropertyChange(PROPERTY_EMPLOYINGBANK, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -748,12 +754,12 @@ public  class Account implements SendableEntity
    {
       setEmployingBank(value);
       return this;
-   } 
+   }
 
    public Bank createEmployingBank()
    {
       Bank value = new Bank();
       withEmployingBank(value);
       return value;
-   } 
+   }
 }

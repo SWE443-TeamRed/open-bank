@@ -21,14 +21,21 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.util.UserSet;
-
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.Random;
+
+import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.openbank.util.UserSet;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.FeeValue;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -93,6 +100,7 @@ import java.util.Date;
       withoutCustomerAccounts(this.getCustomerAccounts().toArray(new Account[this.getCustomerAccounts().size()]));
       withoutAdminUsers(this.getAdminUsers().toArray(new User[this.getAdminUsers().size()]));
       withoutAdminAccounts(this.getAdminAccounts().toArray(new Account[this.getAdminAccounts().size()]));
+      withoutFeeValue(this.getFeeValue().toArray(new FeeValue[this.getFeeValue().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -384,6 +392,10 @@ import java.util.Date;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      if (accountID<=0) {
+         throw new IllegalArgumentException("Invalid accountID.");
+      }
+
       AccountSet accountSets = this.getCustomerAccounts();
 
       for (Account acnt : accountSets) {
@@ -392,10 +404,17 @@ import java.util.Date;
          }
       }
 
+      AccountSet adminAccnts = this.getAdminAccounts();
+      for (Account AdminAccnt : adminAccnts) {
+         if (AdminAccnt.getAccountnum()==accountID) {
+            return AdminAccnt;
+         }
+      }
+
       return null;
    }
 
-   
+
    //==========================================================================
    public User findUserByID(String userID) {
        UserSet pulledUsers = this.getCustomerUser();
@@ -415,7 +434,7 @@ import java.util.Date;
 
    
    //==========================================================================
-   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   public boolean confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue )
    {
        Account toAcct = findAccountByID(toAcctID);
        Account fromAcct = findAccountByID((fromAcctID));
@@ -425,15 +444,19 @@ import java.util.Date;
        if(fromAcct == null){
            return false;
        }
-       if(fromAcct.getBalance() < dollarValue + decimalValue ){
+
+       //if(fromAcct.getBalance() < dollarValue.add(decimalValue) ){
+       int res = fromAcct.getBalance().compareTo(dollarValue.add(decimalValue));
+
+       if(res==-1){
            return false;
        }
        Transaction transferTransation = new Transaction().withBank(this)
-               .withAmount(dollarValue+decimalValue)
-               .withFromAccount(fromAcct)
+               .withAmount(dollarValue.add(decimalValue))
                .withToAccount(toAcct)
+               .withFromAccount(fromAcct)
                .withCreationdate(new Date())
-               .withTransType(TransactionTypeEnum.Transfer);
+               .withTransType(TransactionTypeEnum.TRANSFER);
        this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
        return true;
    }
@@ -580,66 +603,172 @@ import java.util.Date;
       Account value = new Account();
       withAdminAccounts(value);
       return value;
-   }
+   } 
 
-   public String Login(String username, String password ) {
-      if (username == null || password == null) {
-         return null;
-      }
-
-      UserSet custUserSet = this.getCustomerUser();
-      for (User custUsr : custUserSet) {
-         if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
-            return custUsr.getUserID();
-         }
-      }
-
-      UserSet admnUserSet = this.getAdminUsers();
-      for (User admUsr : admnUserSet) {
-         if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
-            return admUsr.getUserID();
-         }
-      }
-
-      return null;
+   
+   //==========================================================================
+   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   {
+      return false;
    }
 
    public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
 
+      // get the next userID, check to make sure it is not used
+      boolean loop=true;
+      String valID=null;
+      while(loop) {
+         valID=String.valueOf(this.getNextID());
+
+         if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
+                 this.getAdminUsers().filterUserID(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==null) return "unsuccessful. UserID is null";
+
+      // check if username is already used
+      if(this.getCustomerUser().filterUsername(username).size() != 0 ||
+              this.getAdminUsers().filterUsername(username).size() != 0) {
+         throw new IllegalArgumentException("Username " + username + " has already been used");
+      }
+
+      //set user attributes
       User usr = new User();
+      usr.setUserID(valID);
       usr.setUsername(username);
       usr.setPassword(password);
       usr.setPhone(phoneNumber);
       usr.setIsAdmin(isAdmin);
 
+      // check which user will be created
       if(isAdmin){
-         this.createAdminUsers();
          this.withAdminUsers(usr);
 
       }else{
-         this.createCustomerUser();
          this.withCustomerUser(usr);
       }
 
       return "successful";
    }
 
-   public String createAccount(String username) {
+   public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
 
-      User usr1 = new User()
-              .withName(username)
-              .withUserID("tina1");
+      // get the next accountnumber, check to make sure it is not used
+      boolean loop=true;
+      int valID=0;
+      while(loop) {
+         valID=this.getNextID();
 
-      Account checking = new Account()
-              .withAccountnum(1)
-              .withOwner(usr1)
-              .withBalance(100);
+         if(this.getCustomerAccounts().filterAccountnum(valID).size() == 0 &&
+                 this.getAdminAccounts().filterAccountnum(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==0) return "failure. Account Number is null.";
+
+      User usr = this.findUserByID(userID);
+
+      if (usr==null) return "failure. UserID " + userID + " not found.";
+
+      Account accnt = new Account()
+              .withAccountnum(valID)
+              .withOwner(usr)
+              .withBalance(initialBalance);
 
 
-      this.createCustomerAccounts();
-      this.withCustomerAccounts(checking);
+      // check which user will be created
+      if(isAdminAccount){
+         this.withAdminAccounts(accnt);
+      }else{
+         this.withCustomerAccounts(accnt);
+      }
 
       return "successful";
    }
 
+   // get 10 digit ID
+   public static int getNextID() {
+      Random r = new Random(System.currentTimeMillis());
+      return Math.abs(1000000000 + r.nextInt(2000000000));
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Bank ----------------------------------- FeeValue
+    *              bank                   feeValue
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FEEVALUE = "feeValue";
+
+   private FeeValueSet feeValue = null;
+   
+   public FeeValueSet getFeeValue()
+   {
+      if (this.feeValue == null)
+      {
+         return FeeValueSet.EMPTY_SET;
+      }
+   
+      return this.feeValue;
+   }
+
+   //WILL COME BACK TO THIS
+   public Bank withFeeValue(FeeValue... value) {
+      if(value==null){
+         return this;
+      }
+      for (FeeValue item : value) {
+         boolean skip = (this.getFeeValue().size() >= 5); //If the FeeValue set size is less than 5, skip = false
+         if (item != null) {
+            if (this.feeValue == null) {
+               this.feeValue = new FeeValueSet();
+            }
+            else {
+               // Search for duplicate FeeValues
+               FeeValueSet pulledFeeValues = this.getFeeValue();
+               for (FeeValue i : pulledFeeValues) {
+                  if (item.getTransType() != null && item.getTransType() == i.getTransType())
+                     skip = true;
+               }
+            }
+            if (!skip) {
+               boolean changed = this.feeValue.add(item);
+               if (changed) {
+                  item.withBank(this);
+                  firePropertyChange(PROPERTY_FEEVALUE, null, item);
+               }
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Bank withoutFeeValue(FeeValue... value)
+   {
+      for (FeeValue item : value)
+      {
+         if ((this.feeValue != null) && (item != null))
+         {
+            if (this.feeValue.remove(item))
+            {
+               item.setBank(null);
+               firePropertyChange(PROPERTY_FEEVALUE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public FeeValue createFeeValue()
+   {
+      FeeValue value = new FeeValue();
+      withFeeValue(value);
+      return value;
+   } 
 }

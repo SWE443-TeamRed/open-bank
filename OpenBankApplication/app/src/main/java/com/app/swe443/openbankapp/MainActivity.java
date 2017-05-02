@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
 
         //INITIALIZE LEFT ACTIONBAR
         //This sets the navigation drawer and the top actionbar.
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         Drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
+        fm = getSupportFragmentManager();
         //Initlaize all necessary fragments for MainActivity
         initFragments();
         //Draw the actionbar
@@ -150,7 +151,6 @@ public class MainActivity extends AppCompatActivity
 
     public void initFragments() {
 
-        fm = getSupportFragmentManager();
 
         /********Home Fragment********/
         home_fragment = new HomeFrag();
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 
         //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
-        transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
+        transaction.replace(R.id.contentFragment, home_fragment);//, "Home_FRAGMENT");
         transaction.addToBackStack(null);
         transaction.commit();
 

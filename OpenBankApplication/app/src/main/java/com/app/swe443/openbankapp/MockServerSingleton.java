@@ -120,7 +120,7 @@ public class MockServerSingleton {
 
     public void updateUser(String name,String email,String phone,
                 String pass,String username){
-        User oldUser = mainBank.getCustomerUser().filterUserName(username).get(0);
+        User oldUser = mainBank.getCustomerUser().filterUsername(username).get(0);
         oldUser.setEmail(email);
         oldUser.setName(name);
         oldUser.setPhone(phone);
