@@ -4,6 +4,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 
+
+import java.util.Date;
+
+
 public class TransactionPO extends PatternObject<TransactionPO, Transaction>
 {
 
@@ -100,7 +104,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createDateCondition(String value)
+   public TransactionPO createDateCondition(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_DATE)
@@ -114,22 +118,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createDateCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_DATE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TransactionPO createDateAssignment(String value)
+   public TransactionPO createDateAssignment(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_DATE)
@@ -143,7 +132,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public String getDate()
+   public Date getDate()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -152,7 +141,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
    
-   public TransactionPO withDate(String value)
+   public TransactionPO withDate(Date value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -161,7 +150,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createTimeCondition(String value)
+   public TransactionPO createTimeCondition(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_TIME)
@@ -175,22 +164,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public TransactionPO createTimeCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Transaction.PROPERTY_TIME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TransactionPO createTimeAssignment(String value)
+   public TransactionPO createTimeAssignment(Date value)
    {
       new AttributeConstraint()
       .withAttrName(Transaction.PROPERTY_TIME)
@@ -204,7 +178,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return this;
    }
    
-   public String getTime()
+   public Date getTime()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -213,7 +187,7 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       return null;
    }
    
-   public TransactionPO withTime(String value)
+   public TransactionPO withTime(Date value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -357,6 +331,137 @@ public class TransactionPO extends PatternObject<TransactionPO, Transaction>
       if (this.getPattern().getHasMatch())
       {
          return ((Transaction) this.getCurrentMatch()).getToAccount();
+      }
+      return null;
+   }
+
+   public TransactionPO createTransTypeCondition(TransactionTypeEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_TRANSTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createTransTypeAssignment(TransactionTypeEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_TRANSTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionTypeEnum getTransType()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getTransType();
+      }
+      return null;
+   }
+   
+   public TransactionPO withTransType(TransactionTypeEnum value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setTransType(value);
+      }
+      return this;
+   }
+   
+   public TransactionPO createCreationdateCondition(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TransactionPO createCreationdateAssignment(Date value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Transaction.PROPERTY_CREATIONDATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public Date getCreationdate()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) getCurrentMatch()).getCreationdate();
+      }
+      return null;
+   }
+   
+   public TransactionPO withCreationdate(Date value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Transaction) getCurrentMatch()).setCreationdate(value);
+      }
+      return this;
+   }
+   
+   public BankPO createBankPO()
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Transaction.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public BankPO createBankPO(String modifier)
+   {
+      BankPO result = new BankPO(new Bank[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Transaction.PROPERTY_BANK, result);
+      
+      return result;
+   }
+
+   public TransactionPO createBankLink(BankPO tgt)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_BANK);
+   }
+
+   public TransactionPO createBankLink(BankPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Transaction.PROPERTY_BANK, modifier);
+   }
+
+   public Bank getBank()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Transaction) this.getCurrentMatch()).getBank();
       }
       return null;
    }

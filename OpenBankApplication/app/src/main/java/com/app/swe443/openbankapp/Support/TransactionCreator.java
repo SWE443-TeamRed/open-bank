@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,9 @@ package com.app.swe443.openbankapp.Support;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 
+import java.util.Date;
+
+
 public class TransactionCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
@@ -34,6 +37,9 @@ public class TransactionCreator implements SendableEntityCreator
       Transaction.PROPERTY_NOTE,
       Transaction.PROPERTY_FROMACCOUNT,
       Transaction.PROPERTY_TOACCOUNT,
+      Transaction.PROPERTY_TRANSTYPE,
+      Transaction.PROPERTY_CREATIONDATE,
+      Transaction.PROPERTY_BANK,
    };
    
    @Override
@@ -88,6 +94,21 @@ public class TransactionCreator implements SendableEntityCreator
       {
          return ((Transaction) target).getToAccount();
       }
+
+      if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getTransType();
+      }
+
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getCreationdate();
+      }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attribute))
+      {
+         return ((Transaction) target).getBank();
+      }
       
       return null;
    }
@@ -95,6 +116,18 @@ public class TransactionCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Transaction.PROPERTY_CREATIONDATE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setCreationdate((Date) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_TRANSTYPE.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setTransType(TransactionTypeEnum.valueOf((String) value));
+         return true;
+      }
+
       if (Transaction.PROPERTY_NOTE.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setNote((String) value);
@@ -103,13 +136,13 @@ public class TransactionCreator implements SendableEntityCreator
 
       if (Transaction.PROPERTY_TIME.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setTime((String) value);
+         ((Transaction) target).setTime((Date) value);
          return true;
       }
 
       if (Transaction.PROPERTY_DATE.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setDate((String) value);
+         ((Transaction) target).setDate((Date) value);
          return true;
       }
 
@@ -133,6 +166,12 @@ public class TransactionCreator implements SendableEntityCreator
       if (Transaction.PROPERTY_TOACCOUNT.equalsIgnoreCase(attrName))
       {
          ((Transaction) target).setToAccount((Account) value);
+         return true;
+      }
+
+      if (Transaction.PROPERTY_BANK.equalsIgnoreCase(attrName))
+      {
+         ((Transaction) target).setBank((Bank) value);
          return true;
       }
       

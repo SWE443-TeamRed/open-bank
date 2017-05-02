@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ <ScrollView
+     android:layout_width="wrap_content"
+     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/content"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/transfer_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:text="Update My Information"
+            android:textColor="@color/colorAccent"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/first_name_txt"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_text"
+            android:ems="10"
+            android:text="Name:"
+            android:textSize="20sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/first_name_txt"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="first name"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/email_txt"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/first_name"
+            android:ems="10"
+            android:text="Email:"
+            android:textSize="20sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/email_txt"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="email"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/phone_number_txt"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/user_email"
+            android:ems="10"
+            android:text="Phone Number:"
+            android:textSize="20sp" />
+
+         <AutoCompleteTextView
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/phone_number_txt"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="phone number"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/password_txt"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:ems="10"
+            android:text="Password:"
+            android:textSize="20sp"
+            android:layout_above="@+id/password"
+            android:layout_below="@id/phone_number"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+            <AutoCompleteTextView
+                android:id="@+id/user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:hint="**********"
+                android:textSize="15sp"
+                android:layout_below="@+id/password_txt"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/user_address_line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Address Line 1"
+                android:inputType="textPostalAddress"
+                android:layout_below="@+id/user_password"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="26dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/user_address_line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Address Line 2"
+                android:inputType="textPostalAddress"
+                android:layout_below="@+id/user_address_line1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <AutoCompleteTextView
+                android:id="@+id/user_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="City"
+                android:inputType="text"
+                android:layout_below="@+id/user_address_line2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <AutoCompleteTextView
+                android:id="@+id/user_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="State"
+                android:inputType="text"
+                android:layout_below="@+id/user_city"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/submit_users_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorSecondaryDark"
+            android:text="Submit"
+            android:layout_below="@+id/user_state" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="20sp"
+            android:layout_below="@+id/user_password"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+ </ScrollView>
+
+</LinearLayout>

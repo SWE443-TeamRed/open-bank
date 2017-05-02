@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 FA
+   Copyright (c) 2017 hlope
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,14 +24,38 @@ package com.app.swe443.openbankapp.Support;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Date;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 
+/*
+   Copyright (c) 2017 hlope
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files (the "Software"), to deal in the Software without restriction,
+   including without limitation the rights to use, copy, modify, merge, publish, distribute,
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
+
+   The Software shall be used for Good, not Evil.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+
 public class TransactionSet extends SimpleSet<Transaction>
 {
-	protected Class<?> getTypClass() {
-		return Transaction.class;
-	}
+   protected Class<?> getTypClass() {
+      return Transaction.class;
+   }
 
    public TransactionSet()
    {
@@ -62,7 +86,7 @@ public class TransactionSet extends SimpleSet<Transaction>
 
    public String getEntryType()
    {
-      return "org.sdmlib.openbank.Transaction";
+      return "Transaction";
    }
 
 
@@ -86,7 +110,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          return this;
       }
-      else if (value instanceof Collection)
+      else if (value instanceof java.util.Collection)
       {
          this.addAll((Collection<Transaction>)value);
       }
@@ -94,10 +118,10 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          this.add((Transaction) value);
       }
-      
+
       return this;
    }
-   
+
    public TransactionSet without(Transaction value)
    {
       this.remove(value);
@@ -106,34 +130,34 @@ public class TransactionSet extends SimpleSet<Transaction>
 
 
    /**
-    * Loop through the current set of Transaction objects and collect a list of the amount attribute values. 
-    * 
+    * Loop through the current set of Transaction objects and collect a list of the amount attribute values.
+    *
     * @return List of double objects reachable via amount attribute
     */
    public NumberList getAmount()
    {
       NumberList result = new NumberList();
-      
+
       for (Transaction obj : this)
       {
          result.add(obj.getAmount());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute matches the parameter value. 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of Transaction objects that match the parameter
     */
    public TransactionSet filterAmount(double value)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
          if (value == obj.getAmount())
@@ -141,23 +165,23 @@ public class TransactionSet extends SimpleSet<Transaction>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the amount attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of Transaction objects that match the parameter
     */
    public TransactionSet filterAmount(double lower, double upper)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
          if (lower <= obj.getAmount() && obj.getAmount() <= upper)
@@ -165,16 +189,16 @@ public class TransactionSet extends SimpleSet<Transaction>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and assign value to the amount attribute of each of it. 
-    * 
+    * Loop through the current set of Transaction objects and assign value to the amount attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of Transaction objects now with new attribute values.
     */
    public TransactionSet withAmount(double value)
@@ -183,206 +207,164 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          obj.setAmount(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect a list of the date attribute values. 
-    * 
-    * @return List of String objects reachable via date attribute
+<<<<<<< HEAD
+    * Loop through the current set of Transaction objects and collect a list of the date attribute values.
+    *
+=======
+    * Loop through the current set of Transaction objects and collect a list of the date attribute values.
+    *
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
+    * @return List of java.util.Date objects reachable via date attribute
     */
    public ObjectSet getDate()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (Transaction obj : this)
       {
          result.add(obj.getDate());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute matches the parameter value. 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterDate(String value)
+   public TransactionSet filterDate(Date value)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getDate()))
+         if (value == obj.getDate())
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the date attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterDate(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getDate()) <= 0 && obj.getDate().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and assign value to the date attribute of each of it. 
-    * 
+    * Loop through the current set of Transaction objects and assign value to the date attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withDate(String value)
+   public TransactionSet withDate(Date value)
    {
       for (Transaction obj : this)
       {
          obj.setDate(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect a list of the time attribute values. 
-    * 
-    * @return List of String objects reachable via time attribute
+    * Loop through the current set of Transaction objects and collect a list of the time attribute values.
+    *
+>>>>>>> 7162c4114ef22f45bca36cb41256ee6943ca3c7b
+    * @return List of java.util.Date objects reachable via time attribute
     */
    public ObjectSet getTime()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (Transaction obj : this)
       {
          result.add(obj.getTime());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute matches the parameter value. 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of Transaction objects that match the parameter
     */
-   public TransactionSet filterTime(String value)
+   public TransactionSet filterTime(Date value)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
-         if (value.equals(obj.getTime()))
+         if (value == obj.getTime())
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the time attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Transaction objects that match the parameter
-    */
-   public TransactionSet filterTime(String lower, String upper)
-   {
-      TransactionSet result = new TransactionSet();
-      
-      for (Transaction obj : this)
-      {
-         if (lower.compareTo(obj.getTime()) <= 0 && obj.getTime().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of Transaction objects and assign value to the time attribute of each of it. 
-    * 
+    * Loop through the current set of Transaction objects and assign value to the time attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of Transaction objects now with new attribute values.
     */
-   public TransactionSet withTime(String value)
+   public TransactionSet withTime(Date value)
    {
       for (Transaction obj : this)
       {
          obj.setTime(value);
       }
-      
+
       return this;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect a list of the note attribute values. 
-    * 
+    * Loop through the current set of Transaction objects and collect a list of the note attribute values.
+    *
     * @return List of String objects reachable via note attribute
     */
    public ObjectSet getNote()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (Transaction obj : this)
       {
          result.add(obj.getNote());
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the note attribute matches the parameter value. 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the note attribute matches the parameter value.
+    *
     * @param value Search value
-    * 
+    *
     * @return Subset of Transaction objects that match the parameter
     */
    public TransactionSet filterNote(String value)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
          if (value.equals(obj.getNote()))
@@ -390,23 +372,23 @@ public class TransactionSet extends SimpleSet<Transaction>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and collect those Transaction objects where the note attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the note attribute is between lower and upper.
+    *
+    * @param lower Lower bound
+    * @param upper Upper bound
+    *
     * @return Subset of Transaction objects that match the parameter
     */
    public TransactionSet filterNote(String lower, String upper)
    {
       TransactionSet result = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
          if (lower.compareTo(obj.getNote()) <= 0 && obj.getNote().compareTo(upper) <= 0)
@@ -414,16 +396,16 @@ public class TransactionSet extends SimpleSet<Transaction>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
 
    /**
-    * Loop through the current set of Transaction objects and assign value to the note attribute of each of it. 
-    * 
+    * Loop through the current set of Transaction objects and assign value to the note attribute of each of it.
+    *
     * @param value New attribute value
-    * 
+    *
     * @return Current set of Transaction objects now with new attribute values.
     */
    public TransactionSet withNote(String value)
@@ -432,32 +414,32 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          obj.setNote(value);
       }
-      
+
       return this;
    }
 
    /**
-    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via fromAccount. 
-    * 
+    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via fromAccount.
+    *
     * @return Set of Account objects reachable via fromAccount
     */
    public AccountSet getFromAccount()
    {
       AccountSet result = new AccountSet();
-      
+
       for (Transaction obj : this)
       {
          result.with(obj.getFromAccount());
       }
-      
+
       return result;
    }
 
    /**
-    * Loop through the current set of Transaction objects and collect all contained objects with reference fromAccount pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as fromAccount neighbor of the collected results. 
-    * 
+    * Loop through the current set of Transaction objects and collect all contained objects with reference fromAccount pointing to the object passed as parameter.
+    *
+    * @param value The object required as fromAccount neighbor of the collected results.
+    *
     * @return Set of Account objects referring to value via fromAccount
     */
    public TransactionSet filterFromAccount(Object value)
@@ -472,9 +454,9 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          neighbors.add(value);
       }
-      
+
       TransactionSet answer = new TransactionSet();
-      
+
       for (Transaction obj : this)
       {
          if (neighbors.contains(obj.getFromAccount()) || (neighbors.isEmpty() && obj.getFromAccount() == null))
@@ -482,13 +464,13 @@ public class TransactionSet extends SimpleSet<Transaction>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the FromAccount attribute of each of it. 
-    * 
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the FromAccount attribute of each of it.
+    *
     * @return The original set of ModelType objects now with the new neighbor attached to their FromAccount attributes.
     */
    public TransactionSet withFromAccount(Account value)
@@ -497,35 +479,217 @@ public class TransactionSet extends SimpleSet<Transaction>
       {
          obj.withFromAccount(value);
       }
-      
+
       return this;
    }
 
    /**
-    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via toAccount. 
-    * 
+    * Loop through the current set of Transaction objects and collect a set of the Account objects reached via toAccount.
+    *
     * @return Set of Account objects reachable via toAccount
     */
    public AccountSet getToAccount()
    {
       AccountSet result = new AccountSet();
-      
+
       for (Transaction obj : this)
       {
          result.with(obj.getToAccount());
+      }
+
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect all contained objects with reference toAccount pointing to the object passed as parameter.
+    *
+    * @param value The object required as toAccount neighbor of the collected results.
+    *
+    * @return Set of Account objects referring to value via toAccount
+    */
+   public TransactionSet filterToAccount(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+
+      TransactionSet answer = new TransactionSet();
+
+      for (Transaction obj : this)
+      {
+         if (neighbors.contains(obj.getToAccount()) || (neighbors.isEmpty() && obj.getToAccount() == null))
+         {
+            answer.add(obj);
+         }
+      }
+
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the ToAccount attribute of each of it.
+    *
+    * @return The original set of ModelType objects now with the new neighbor attached to their ToAccount attributes.
+    */
+   public TransactionSet withToAccount(Account value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.withToAccount(value);
+      }
+
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the transType attribute values.
+    *
+    * @return List of org.sdmlib.openbank.TransactionTypeEnum objects reachable via transType attribute
+    */
+   public TransactionTypeEnumSet getTransType()
+   {
+      TransactionTypeEnumSet result = new TransactionTypeEnumSet();
+
+      for (Transaction obj : this)
+      {
+         result.add(obj.getTransType());
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the transType attribute matches the parameter value.
+    *
+    * @param value Search value
+    *
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterTransType(TransactionTypeEnum value)
+   {
+      TransactionSet result = new TransactionSet();
+
+      for (Transaction obj : this)
+      {
+         if (value == obj.getTransType())
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the transType attribute of each of it.
+    *
+    * @param value New attribute value
+    *
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withTransType(TransactionTypeEnum value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setTransType(value);
+      }
+
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a list of the creationdate attribute values. 
+    *
+    * @return List of java.util.Date objects reachable via creationdate attribute
+    */
+   public ObjectSet getCreationdate()
+   {
+      ObjectSet result = new ObjectSet();
+
+      for (Transaction obj : this)
+      {
+         result.add(obj.getCreationdate());
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and collect those Transaction objects where the creationdate attribute matches the parameter value. 
+    *
+    * @param value Search value
+    *
+    * @return Subset of Transaction objects that match the parameter
+    */
+   public TransactionSet filterCreationdate(Date value)
+   {
+      TransactionSet result = new TransactionSet();
+
+      for (Transaction obj : this)
+      {
+         if (value == obj.getCreationdate())
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Transaction objects and assign value to the creationdate attribute of each of it. 
+    *
+    * @param value New attribute value
+    *
+    * @return Current set of Transaction objects now with new attribute values.
+    */
+   public TransactionSet withCreationdate(Date value)
+   {
+      for (Transaction obj : this)
+      {
+         obj.setCreationdate(value);
+      }
+
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Transaction objects and collect a set of the Bank objects reached via bank. 
+    * 
+    * @return Set of Bank objects reachable via bank
+    */
+   public BankSet getBank()
+   {
+      BankSet result = new BankSet();
+      
+      for (Transaction obj : this)
+      {
+         result.with(obj.getBank());
       }
       
       return result;
    }
 
    /**
-    * Loop through the current set of Transaction objects and collect all contained objects with reference toAccount pointing to the object passed as parameter. 
+    * Loop through the current set of Transaction objects and collect all contained objects with reference bank pointing to the object passed as parameter. 
     * 
-    * @param value The object required as toAccount neighbor of the collected results. 
+    * @param value The object required as bank neighbor of the collected results. 
     * 
-    * @return Set of Account objects referring to value via toAccount
+    * @return Set of Bank objects referring to value via bank
     */
-   public TransactionSet filterToAccount(Object value)
+   public TransactionSet filterBank(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -542,7 +706,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       
       for (Transaction obj : this)
       {
-         if (neighbors.contains(obj.getToAccount()) || (neighbors.isEmpty() && obj.getToAccount() == null))
+         if (neighbors.contains(obj.getBank()) || (neighbors.isEmpty() && obj.getBank() == null))
          {
             answer.add(obj);
          }
@@ -552,15 +716,15 @@ public class TransactionSet extends SimpleSet<Transaction>
    }
 
    /**
-    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the ToAccount attribute of each of it. 
+    * Loop through current set of ModelType objects and attach the Transaction object passed as parameter to the Bank attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their ToAccount attributes.
+    * @return The original set of ModelType objects now with the new neighbor attached to their Bank attributes.
     */
-   public TransactionSet withToAccount(Account value)
+   public TransactionSet withBank(Bank value)
    {
       for (Transaction obj : this)
       {
-         obj.withToAccount(value);
+         obj.withBank(value);
       }
       
       return this;
