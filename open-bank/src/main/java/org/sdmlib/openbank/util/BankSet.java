@@ -24,6 +24,8 @@ package org.sdmlib.openbank.util;
 import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.openbank.Bank;
 import de.uniks.networkparser.interfaces.Condition;
+
+import java.math.BigInteger;
 import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
@@ -34,6 +36,8 @@ import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.FeeValue;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -551,7 +555,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
-   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue)
    {
       
       de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
@@ -718,6 +722,101 @@ public class BankSet extends SimpleSet<Bank>
       for (Bank obj : this)
       {
          obj.withoutAdminAccounts(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue) );
+      }
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Bank objects and collect a set of the FeeValue objects reached via feeValue. 
+    * 
+    * @return Set of FeeValue objects reachable via feeValue
+    */
+   public FeeValueSet getFeeValue()
+   {
+      FeeValueSet result = new FeeValueSet();
+      
+      for (Bank obj : this)
+      {
+         result.with(obj.getFeeValue());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Bank objects and collect all contained objects with reference feeValue pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as feeValue neighbor of the collected results. 
+    * 
+    * @return Set of FeeValue objects referring to value via feeValue
+    */
+   public BankSet filterFeeValue(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BankSet answer = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFeeValue()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Bank object passed as parameter to the FeeValue attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their FeeValue attributes.
+    */
+   public BankSet withFeeValue(FeeValue value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withFeeValue(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Bank object passed as parameter from the FeeValue attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public BankSet withoutFeeValue(FeeValue value)
+   {
+      for (Bank obj : this)
+      {
+         obj.withoutFeeValue(value);
       }
       
       return this;
