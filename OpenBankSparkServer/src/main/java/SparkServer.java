@@ -338,6 +338,10 @@ public class SparkServer {
                                 .withEmail(email);
                         bank.withCustomerUser(user);
 
+
+                        //TODO added email to createUser
+                        //String userId = bank.createUser(username, password, name, phoneNumber, isAdmin);
+
                         if(bank.findUserByID(user.getUserID()) != null) {
                             responseJSON.put("request", "successful");
                             responseJSON.put("userID", bank.findUserByID(user.getUserID()).getUserID());
@@ -460,11 +464,13 @@ public class SparkServer {
                                     .withType(accountTypeEnum)
                                     .withBalance(new BigInteger(initialBalance));
                             bank.withCustomerAccounts(account);
+
+                            //TODO add required fields to createAccount
+//                            bank.createAccount(id, false, new BigInteger(initialBalance));
+
                             if (account != null) {
                                 responseJSON.put("request", "successful");
                                 responseJSON.put("accountNum", account.getAccountnum());
-//                                responseJSON.put("test", account.toString());
-//                                i++;
                             } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason","bank failed to create account");
