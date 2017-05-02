@@ -636,55 +636,6 @@ import org.sdmlib.openbank.Account;
       return false;
    }
 
-   public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg) {
-
-      // get the next userID, check to make sure it is not used
-      boolean loop=true;
-      String valID=null;
-      while(loop) {
-         valID=String.valueOf(this.getNextID());
-
-         if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
-                 this.getAdminUsers().filterUserID(valID).size() == 0) {
-            loop=false;
-         }
-      }
-
-      if(valID==null){
-         // set the message
-         msg.append("unsuccessful. UserID is null");
-
-         return "-1";
-      }
-
-      // check if username is already used
-      if(this.getCustomerUser().filterUsername(username).size() != 0 ||
-              this.getAdminUsers().filterUsername(username).size() != 0) {
-         throw new IllegalArgumentException("Username " + username + " has already been used");
-      }
-
-      //set user attributes
-      User usr = new User();
-      usr.setUserID(valID);
-      usr.setUsername(username);
-      usr.setPassword(password);
-      usr.setPhone(phoneNumber);
-      usr.setEmail(email);
-      usr.setIsAdmin(isAdmin);
-
-      // check which user will be created
-      if(isAdmin){
-         this.withAdminUsers(usr);
-      }else{
-         this.withCustomerUser(usr);
-      }
-
-      // set the message
-      msg.append("successful");
-
-      return valID;
-   }
-
    // withDrawFunds from given account
    public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
       BigInteger balance=BigInteger.ZERO;
@@ -812,8 +763,58 @@ import org.sdmlib.openbank.Account;
 
    }
 
+   public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg)
+   {
+
+      // get the next userID, check to make sure it is not used
+      boolean loop=true;
+      String valID=null;
+      while(loop) {
+         valID=String.valueOf(this.getNextID());
+
+         if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
+                 this.getAdminUsers().filterUserID(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==null){
+         // set the message
+         msg.append("unsuccessful. UserID is null");
+
+         return "-1";
+      }
+
+      // check if username is already used
+      if(this.getCustomerUser().filterUsername(username).size() != 0 ||
+              this.getAdminUsers().filterUsername(username).size() != 0) {
+         throw new IllegalArgumentException("Username " + username + " has already been used");
+      }
+
+      //set user attributes
+      User usr = new User();
+      usr.setUserID(valID);
+      usr.setUsername(username);
+      usr.setPassword(password);
+      usr.setPhone(phoneNumber);
+      usr.setEmail(email);
+      usr.setIsAdmin(isAdmin);
+
+      // check which user will be created
+      if(isAdmin){
+         this.withAdminUsers(usr);
+      }else{
+         this.withCustomerUser(usr);
+      }
+
+      // set the message
+      msg.append("successful");
+
+      return valID;
+   }
+
    // create user Account
-   public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
+   public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance, AccountTypeEnum accountType, StringBuilder msg) {
 
       // get the next accountnumber, check to make sure it is not used
       boolean loop=true;
@@ -827,15 +828,22 @@ import org.sdmlib.openbank.Account;
          }
       }
 
-      if(valID==0) return "failure. Account Number is null.";
+      if(valID==0) {
+         msg.append("failure. Account Number is null.");
+         return "-1";
+      }
 
       User usr = this.findUserByID(userID);
 
-      if (usr==null) return "failure. UserID " + userID + " not found.";
+      if (usr==null) {
+         msg.append("failure. UserID " + userID + " not found.");
+         return "-1";
+      }
 
       Account accnt = new Account()
               .withAccountnum(valID)
               .withOwner(usr)
+              .withType(accountType)
               .withBalance(initialBalance);
 
 
@@ -846,7 +854,9 @@ import org.sdmlib.openbank.Account;
          this.withCustomerAccounts(accnt);
       }
 
-      return "successful";
+      msg.append("successful");
+
+      return String.valueOf(valID);
    }
 
    // get 10 digit ID
