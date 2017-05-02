@@ -426,9 +426,9 @@ public class SparkServer {
                                                 .withToAccount(accountTo)
                                                 .withTransType(transactionTypeEnum)
                                                 .withTime(new Date())
-                                                .withNote(accountFrom.getOwner().getName() + " has transferred money to " + accountTo.getOwner().getName());
-                                        accountFrom.transferToAccount(amount, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName());
-                                        // have to add to the transactionSet
+                                                .withNote(accountFrom.getOwner().getName() + " has transferred funds to " + accountTo.getOwner().getName());
+                                        accountFrom.transferToAccount(amount, accountTo, accountFrom.getOwner().getName() + "has transferred funds to" + accountTo.getOwner().getName());
+                                       // accountFrom.
 
                                         responseJSON.put("request", "success");
                                         responseJSON.put("note", transaction.getNote());
@@ -472,9 +472,16 @@ public class SparkServer {
                                 amount = Double.parseDouble(request.queryParams("amount"));
                                 fromAccount = Integer.parseInt(request.queryParams("fromAccount"));
                                 Account withdrawFromAccount  = bank.findAccountByID(fromAccount);
-                                withdrawFromAccount.withdraw(amount);
-                                responseJSON.put("request", "success");
-                                responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+                                if (withdrawFromAccount.getBalance() > amount) {
+                                    withdrawFromAccount.withdraw(amount);
+                                    responseJSON.put("request", "success");
+                                    responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+                                }
+                                else
+                                {
+                                    responseJSON.put("request", "fail");
+                                    responseJSON.put("reason", "you do not have enough funds to ");
+                                }
                             }
                             else
                             {
