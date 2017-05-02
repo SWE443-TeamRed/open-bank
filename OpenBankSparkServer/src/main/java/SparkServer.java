@@ -702,7 +702,7 @@ public class SparkServer {
     private static void loadBank() {
         jsonPersistency = new JsonPersistency();
 
-        try {
+//        try {
             bank = jsonPersistency.bankFromJson("OpenBank");
 
             if (bank == null) {
@@ -711,11 +711,11 @@ public class SparkServer {
             } else {
                 logger.info("Loaded bank: " + bank.getBankName());
             }
-        }catch(Exception ex) {
-            logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
-            bank = new Bank().withBankName("OpenBank");
-            logger.info("Creating new Bank: " + bank.getBankName());
-        }
+//        }catch(Exception ex) {
+//            logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
+//            bank = new Bank().withBankName("OpenBank");
+//            logger.info("Creating new Bank: " + bank.getBankName());
+//        }
     }
 
     private static void apiLogSetup() {
