@@ -1116,45 +1116,49 @@ public class Test_Improving_Backend_Functionality {
     // create user with given parameters.
     @Test
     public void testCreateUser() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+        //bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false);
+       // System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
     }
 
-    // Should throw an IllegalArgument Exception when trying to create user with exsiting usernanme
+    // Should throw an IllegalArgument Exception when trying to create user with existing usernanme
     @Test (expected = IllegalArgumentException.class)
     public void testCreateUserWithExistingUsername() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
     }
 
     // create 2 users with given parameters.
     @Test
     public void testCreateUsers() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
-        bnk.createUser("Pam","Pam211","Pam Lake","1234567890",false);
+        bnk.createUser("Pam","Pam211","Pam Lake","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Pam").getUserID());
     }
 
     // create account with given parameters.
     @Test
     public void testCreateAccount() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
         bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
@@ -1172,9 +1176,10 @@ public class Test_Improving_Backend_Functionality {
     // create accounts with given parameters.
     @Test
     public void testCreateMultipleAccounts() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
         // create a user account
@@ -1240,8 +1245,10 @@ public class Test_Improving_Backend_Functionality {
                 .withUserID("steverog1")
                 .withPassword("teststeve");
 
+        StringBuilder msg = new StringBuilder("");
+
         Bank bnk = new Bank();
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
 
@@ -1259,7 +1266,7 @@ public class Test_Improving_Backend_Functionality {
     public void testBankLoginNull() {
         Bank bnk = new Bank();
         bnk.withCustomerUser(null);
-       
+
 
         System.out.println(bnk.Login("tina","testtina1"));
 
@@ -1273,19 +1280,19 @@ public class Test_Improving_Backend_Functionality {
 //    //********** Bank withDrawFunds method tests *************
     @Test
     public void testBankWithdraw() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
         bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
 
         int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
 
-        StringBuilder msg = new StringBuilder("");
-
         BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(20),msg);
 
+        System.out.println("Transaction:" + bnk.getTransaction());
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
         assertTrue(amnt.compareTo(BigInteger.valueOf(230))==0);
@@ -1326,16 +1333,15 @@ public class Test_Improving_Backend_Functionality {
 
     @Test
     public void testBankWithdrawNotEnougFunds() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
         bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
 
         int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
-
-        StringBuilder msg = new StringBuilder("");
 
         BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(300),msg);
 
@@ -1347,17 +1353,15 @@ public class Test_Improving_Backend_Functionality {
 //    //********** Bank depositFunds method tests *************
     @Test
     public void testdepositFunds() {
+        StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890",false);
+        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
         bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250));
 
         int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
-
-        StringBuilder msg = new StringBuilder("");
-
 
         BigInteger amnt = bnk.depositFunds(acctNum,BigInteger.valueOf(50),msg);
 

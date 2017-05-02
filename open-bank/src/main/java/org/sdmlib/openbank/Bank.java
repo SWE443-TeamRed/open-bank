@@ -30,8 +30,13 @@ import org.sdmlib.openbank.util.UserSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.FeeValue;
+import org.sdmlib.openbank.Account;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -631,7 +636,7 @@ import java.util.Random;
       return false;
    }
 
-   public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
+   public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg) {
 
       // get the next userID, check to make sure it is not used
       boolean loop=true;
@@ -645,7 +650,12 @@ import java.util.Random;
          }
       }
 
-      if(valID==null) return "unsuccessful. UserID is null";
+      if(valID==null){
+         // set the message
+         msg.append("unsuccessful. UserID is null");
+
+         return "-1";
+      }
 
       // check if username is already used
       if(this.getCustomerUser().filterUsername(username).size() != 0 ||
@@ -659,17 +669,20 @@ import java.util.Random;
       usr.setUsername(username);
       usr.setPassword(password);
       usr.setPhone(phoneNumber);
+      usr.setEmail(email);
       usr.setIsAdmin(isAdmin);
 
       // check which user will be created
       if(isAdmin){
          this.withAdminUsers(usr);
-
       }else{
          this.withCustomerUser(usr);
       }
 
-      return "successful";
+      // set the message
+      msg.append("successful");
+
+      return valID;
    }
 
    // withDrawFunds from given account
@@ -691,6 +704,16 @@ import java.util.Random;
       withDrawAccnt.withdraw(amount);
       balance=  withDrawAccnt.getBalance();
 
+      //create a transaction
+      Transaction trans = new Transaction();
+      Date dt = new Date(System.currentTimeMillis());
+
+      trans.setAmount(amount);
+      trans.setCreationdate(dt);
+      trans.setNote("Withdraw. Amount " + amount);
+      trans.setTransType(TransactionTypeEnum.WITHDRAW);
+      this.withTransaction(trans);
+
       // set the message
       msg.append("successful");
 
@@ -708,9 +731,18 @@ import java.util.Random;
          return balance;
       }
 
-
       depositAccnt.deposit(amount);
       balance=  depositAccnt.getBalance();
+
+      //create a transaction
+      Transaction trans = new Transaction();
+      Date dt = new Date(System.currentTimeMillis());
+
+      trans.setAmount(amount);
+      trans.setCreationdate(dt);
+      trans.setNote("Deposit. Amount " + amount);
+      trans.setTransType(TransactionTypeEnum.DEPOSIT);
+      this.withTransaction(trans);
 
       // set the message
       msg.append("successful");
