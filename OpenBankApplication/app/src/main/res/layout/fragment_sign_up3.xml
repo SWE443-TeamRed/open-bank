@@ -47,7 +47,10 @@
                     android:layout_below="@+id/sign_up_txt"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="13dp" />
+                    android:layout_marginBottom="13dp"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/address_line2"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -67,7 +70,9 @@
                     android:layout_below="@+id/address_line1"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="13dp" />
+                    android:layout_marginBottom="13dp"
+                    android:imeOptions="actionNext"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -86,7 +91,9 @@
                 android:layout_below="@+id/address_line2"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="13dp" />
+                android:layout_marginBottom="13dp"
+                android:imeOptions="actionNext"
+                />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -105,7 +112,9 @@
                     android:layout_below="@+id/city"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="30dp" />
+                    android:layout_marginBottom="30dp"
+                    android:imeOptions="actionDone"
+                    />
             </android.support.design.widget.TextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

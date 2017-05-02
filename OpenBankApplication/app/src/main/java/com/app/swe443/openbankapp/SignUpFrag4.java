@@ -3,7 +3,6 @@ package com.app.swe443.openbankapp;
 
 import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -13,7 +12,8 @@ import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class SignUpFrag4 extends android.support.v4.app.Fragment implements View.OnClickListener {
 
@@ -21,7 +21,7 @@ public class SignUpFrag4 extends android.support.v4.app.Fragment implements View
     CheckBox checkBox;
     Button backButton3;
     Button continueButton3;
-
+    ArrayList<String>values;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +75,8 @@ public class SignUpFrag4 extends android.support.v4.app.Fragment implements View
         text+= "</p></body></html>";
         terms.loadData(text, "text/html", "utf-8");
         terms.setBackgroundColor(view.getSolidColor());
+
+        values = getArguments().getStringArrayList("signupData");
         // Inflate the layout for this fragment
         return view;
     }
@@ -101,10 +103,16 @@ public class SignUpFrag4 extends android.support.v4.app.Fragment implements View
                             .show();
                 }
                 else {
+
+                    //To pass the values from fragments to fragments.
+                    OpenFirstAccountFrag openFirstAccountFrag = new OpenFirstAccountFrag();
+                    Bundle args = new Bundle();
+                    args.putStringArrayList("signupData", values);
+                    openFirstAccountFrag.setArguments(args);
+
+
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//                    Intent intent = new Intent(getActivity(), HomeFrag.class);
-//                    startActivity(intent);
-                    fragmentTransaction.add(R.id.drawer_layout, new CreateAccountFrag(), "SignUpFrag4");
+                    fragmentTransaction.add(R.id.drawer_layout, openFirstAccountFrag, "OpenFirstAccountFrag");
                     fragmentTransaction.hide(this);
                     fragmentTransaction.addToBackStack(this.getClass().getName());
                     fragmentTransaction.commit();

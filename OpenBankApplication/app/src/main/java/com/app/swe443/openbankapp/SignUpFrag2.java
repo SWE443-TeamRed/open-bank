@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 
 public class SignUpFrag2 extends android.support.v4.app.Fragment implements View.OnClickListener{
@@ -16,6 +19,8 @@ public class SignUpFrag2 extends android.support.v4.app.Fragment implements View
     private AutoCompleteTextView phoneNumber;
     Button backButton2;
     Button continueButton2;
+    ArrayList<String> value;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,6 +38,7 @@ public class SignUpFrag2 extends android.support.v4.app.Fragment implements View
         lastName = (AutoCompleteTextView) view.findViewById(R.id.last_name);
         phoneNumber = (AutoCompleteTextView) view.findViewById(R.id.phone_number);
 
+        value = getArguments().getStringArrayList("signupData");
         // Inflate the layout for this fragment
         return view;
     }
@@ -66,7 +72,16 @@ public class SignUpFrag2 extends android.support.v4.app.Fragment implements View
                         activity.setSingnUp2(firstName.getText().toString() + " "+
                                 lastName.getText().toString(), phoneNumber.getText().toString());
 
-                        fragmentTransaction.add(R.id.drawer_layout,  new SignUpFrag3(), "SignUpFrag3");
+                        //To pass the values from fragments to fragments.
+                        SignUpFrag3 signUpFrag3 = new SignUpFrag3 ();
+                        Bundle args = new Bundle();
+                        value.add(firstName.getText().toString() +" "+ lastName.getText().toString());
+                        value.add(phoneNumber.getText().toString());
+
+                        args.putStringArrayList("signupData", value);
+                        signUpFrag3.setArguments(args);
+
+                        fragmentTransaction.add(R.id.drawer_layout,   signUpFrag3, "SignUpFrag3");
                         fragmentTransaction.hide(this);
                         fragmentTransaction.addToBackStack(this.getClass().getName());
                         fragmentTransaction.commit();

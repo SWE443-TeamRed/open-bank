@@ -33,18 +33,15 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/sign_up_txt">
+                android:layout_height="wrap_content">
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="E-mail"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
                     android:layout_marginBottom="13dp"
+                    android:imeOptions="actionNext"
                     />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -64,6 +61,7 @@
                     android:hint="User Name"
                     android:inputType="textEmailAddress"
                     android:layout_marginBottom="13dp"
+                    android:imeOptions="actionNext"
                     />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -82,6 +80,7 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:layout_marginBottom="13dp"
+                    android:imeOptions="actionNext"
                     />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -101,6 +100,7 @@
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
                     android:layout_marginBottom="30dp"
+                    android:imeOptions="actionDone"
                     />
             </android.support.design.widget.TextInputLayout>
 

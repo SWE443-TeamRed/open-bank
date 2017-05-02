@@ -37,7 +37,6 @@ import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -50,11 +49,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //Used to call OpenAccoutnFrag
     private FragmentManager fm;
     private FragmentTransaction transaction;
-    String username;
-    String password;
-    String email;
-    String phone;
-    String name;
+    String username; //= "testUser";
+    String password;// = "12345";
+    String email;// = "test@email.com";
+    String phone;// = "111-222-201";
+    String name;// = "First and Last";
 
 
 
@@ -147,9 +146,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             this.password = password;
             this.email = email;
     }
+    public String getUsername(){
+        return this.username;
+    }
+    public String getPassword(){
+        return this.password;
+    }
+    public String getEmail(){
+        return this.email;
+    }
     public void setSingnUp2(String name, String phone){
         this.name = name;
         this.phone = phone;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getPhone(){
+        return this.phone;
     }
 
 

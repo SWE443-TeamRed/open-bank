@@ -1,6 +1,7 @@
 package com.app.swe443.openbankapp;
 
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,9 +101,22 @@ public class SignUpFrag1 extends android.support.v4.app.Fragment implements View
                     activity.setSingnUp1(userNameV.getText().toString(),
                             pass_word.getText().toString(), emailV.getText().toString());
 
+                    //To pass the values from fragments to fragments.
+                    SignUpFrag2 signUpFrag2 = new SignUpFrag2 ();
+                    Bundle args = new Bundle();
+
+                    ArrayList<String> values = new ArrayList<String>();
+                    values.add(userNameV.getText().toString());
+                    values.add(pass_word.getText().toString());
+                    values.add(emailV.getText().toString());
+
+                    args.putStringArrayList("signupData", values);
+                    signUpFrag2.setArguments(args);
+
+                    //Inflate the fragment
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.drawer_layout, new SignUpFrag2(), "SignUpFrag2");
+                    fragmentTransaction.add(R.id.drawer_layout, signUpFrag2, "SignUpFrag2");
                     fragmentTransaction.hide(this);
                     fragmentTransaction.addToBackStack(this.getClass().getName());
                     fragmentTransaction.commit();
