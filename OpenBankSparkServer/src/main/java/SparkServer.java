@@ -100,7 +100,48 @@ public class SparkServer {
 
             path("/createAdmin", () -> {
                 post("", (Request request, Response response) -> {
-                    return null;
+                    JSONObject responseJSON = new JSONObject();
+
+                    String name = "";
+                    String username = "";
+                    String password = "";
+                    String phoneNumber = "";
+                    String email = "";
+
+                    if(request.queryParams().contains("name")
+                            && request.queryParams().contains("username")
+                            && request.queryParams().contains("password")
+                            && request.queryParams().contains("phoneNumber")
+                            && request.queryParams().contains("email")) {
+                        name = request.queryParams("name");
+                        username = request.queryParams("username");
+                        password = request.queryParams("password");
+                        phoneNumber = request.queryParams("phoneNumber");
+                        email = request.queryParams("email");
+
+                        StringBuilder msg = new StringBuilder();
+                        try {
+                            String userId = bank.createUser(username, password, name, phoneNumber, email, true, msg);
+                            logger.info("Message: " + msg.toString());
+                            logger.info("userId: " + userId.toString());
+
+                            if(bank.findUserByID(userId) != null) {
+                                responseJSON.put("request", "successful");
+                                responseJSON.put("userID", bank.findUserByID(userId));
+                            }
+                            else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason","bank failed to create user");
+                            }
+                        }catch (Exception e) {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason","username already exists");
+                        }
+                    }else {
+                        responseJSON.put("request","failed");
+                        responseJSON.put("reason","missing required parameters in body");
+                    }
+                    return responseJSON;
                 });
             });
 
@@ -152,7 +193,14 @@ public class SparkServer {
                 path("/transactions", () -> {
                     get("", (Request request, Response response) -> {
                         JSONArray responseJSON = new JSONArray();
+                        JSONObject placeHolder = new JSONObject();
 
+                        placeHolder.put("request", "failed");
+                        placeHolder.put("reason","bank failed to create user");
+
+                        responseJSON.add(placeHolder);
+
+                        //TODO add TransactionSet
 //                        TransactionSet customerTransactions = bank.getTransaction();
 //
 //                        for (Transaction transaction : customerTransactions) {
@@ -227,7 +275,6 @@ public class SparkServer {
                 });
 
                 post("", (Request request, Response response) -> {
-
                     JSONObject responseJSON = new JSONObject();
 
                     if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
@@ -238,7 +285,6 @@ public class SparkServer {
                         String id = bank.Login(username, password);
 
                         if(id != null) {
-//                            bank.findUserByID(id).login(id, password);
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
@@ -293,6 +339,7 @@ public class SparkServer {
 
             path("/user", () -> {
 
+                //TODO this will be edited in the future to only allow a user to get their own info
                 get("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
@@ -309,46 +356,36 @@ public class SparkServer {
                     String username = "";
                     String password = "";
                     String phoneNumber = "";
-                    boolean isAdmin = false;
                     String email = "";
-
 
                     if(request.queryParams().contains("name")
                             && request.queryParams().contains("username")
                             && request.queryParams().contains("password")
-                            && request.queryParams().contains("isAdmin")
                             && request.queryParams().contains("phoneNumber")
                             && request.queryParams().contains("email")) {
                         name = request.queryParams("name");
                         username = request.queryParams("username");
                         password = request.queryParams("password");
-                        isAdmin = Boolean.parseBoolean(request.queryParams("isAdmin"));
                         phoneNumber = request.queryParams("phoneNumber");
                         email = request.queryParams("email");
 
-                        String userId = "";
+                        StringBuilder msg = new StringBuilder();
+                        try {
+                            String userId = bank.createUser(username, password, name, phoneNumber, email, false, msg);
+                            logger.info("Message: " + msg.toString());
+                            logger.info("userId: " + userId.toString());
 
-                        User user = new User()
-                                .withName(name)
-                                .withUsername(username)
-                                .withPhone(phoneNumber)
-                                .withUserID(userId)
-                                .withPassword(password)
-                                .withIsAdmin(isAdmin)
-                                .withEmail(email);
-                        bank.withCustomerUser(user);
-
-
-                        //TODO added email to createUser
-                        //String userId = bank.createUser(username, password, name, phoneNumber, isAdmin);
-
-                        if(bank.findUserByID(user.getUserID()) != null) {
-                            responseJSON.put("request", "successful");
-                            responseJSON.put("userID", bank.findUserByID(user.getUserID()).getUserID());
-                        }
-                        else {
+                            if(bank.findUserByID(userId) != null) {
+                                responseJSON.put("request", "successful");
+                                responseJSON.put("userID", bank.findUserByID(userId));
+                            }
+                            else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason","bank failed to create user");
+                            }
+                        }catch (Exception e) {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason","bank failed to create user");
+                            responseJSON.put("reason","username already exists");
                         }
                     }else {
                         responseJSON.put("request","failed");
@@ -455,22 +492,12 @@ public class SparkServer {
                         AccountTypeEnum accountTypeEnum = AccountTypeEnum.valueOf(accountType);
 
                         if(bank.findUserByID(id) != null) {
+                            //TODO add accountType and have the method return the accountID
+                            String success = bank.createAccount(id, false, new BigInteger(initialBalance));
 
-                            int intialAccountId = 1;
-
-                            Account account = bank.findUserByID(id).createAccount()
-                                    .withAccountnum(intialAccountId)
-                                    .withOwner(bank.findUserByID(id))
-                                    .withType(accountTypeEnum)
-                                    .withBalance(new BigInteger(initialBalance));
-                            bank.withCustomerAccounts(account);
-
-                            //TODO add required fields to createAccount
-//                            bank.createAccount(id, false, new BigInteger(initialBalance));
-
-                            if (account != null) {
+                            if (success.equals("success")){//account != null) {
                                 responseJSON.put("request", "successful");
-                                responseJSON.put("accountNum", account.getAccountnum());
+                                responseJSON.put("accountNum", 0000);
                             } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason","bank failed to create account");

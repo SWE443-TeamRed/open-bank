@@ -199,7 +199,7 @@ public  class User implements SendableEntity {
             */
              //   throw new IllegalArgumentException("User ID " + value + " has already been used");
 
-                value = String.valueOf(this.getBank().getNextID());
+//                value = String.valueOf(this.getBank().getNextID());
                 String oldValue = this.UserID;
                 this.UserID = value;
                 this.firePropertyChange(PROPERTY_USERID, oldValue, value);

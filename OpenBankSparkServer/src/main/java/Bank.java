@@ -627,7 +627,7 @@ public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarV
    return false;
 }
 
-public String createUser(String username, String password,String name, String phoneNumber,boolean isAdmin) {
+public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg) {
 
    // get the next userID, check to make sure it is not used
    boolean loop=true;
@@ -641,7 +641,12 @@ public String createUser(String username, String password,String name, String ph
       }
    }
 
-   if(valID==null) return "unsuccessful. UserID is null";
+   if(valID==null){
+      // set the message
+      msg.append("unsuccessful. UserID is null");
+
+      return "-1";
+   }
 
    // check if username is already used
    if(this.getCustomerUser().filterUsername(username).size() != 0 ||
@@ -655,17 +660,20 @@ public String createUser(String username, String password,String name, String ph
    usr.setUsername(username);
    usr.setPassword(password);
    usr.setPhone(phoneNumber);
+   usr.setEmail(email);
    usr.setIsAdmin(isAdmin);
 
    // check which user will be created
    if(isAdmin){
       this.withAdminUsers(usr);
-
    }else{
       this.withCustomerUser(usr);
    }
 
-   return "successful";
+   // set the message
+   msg.append("successful");
+
+   return valID;
 }
 
 // withDrawFunds from given account
@@ -687,6 +695,16 @@ public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder 
    withDrawAccnt.withdraw(amount);
    balance=  withDrawAccnt.getBalance();
 
+   //create a transaction
+   Transaction trans = new Transaction();
+   Date dt = new Date(System.currentTimeMillis());
+
+   trans.setAmount(amount);
+   trans.setCreationdate(dt);
+   trans.setNote("Withdraw. Amount " + amount);
+   trans.setTransType(TransactionTypeEnum.WITHDRAW);
+   this.withTransaction(trans);
+
    // set the message
    msg.append("successful");
 
@@ -704,9 +722,18 @@ public BigInteger depositFunds(int accountNum,BigInteger amount, StringBuilder m
       return balance;
    }
 
-
    depositAccnt.deposit(amount);
    balance=  depositAccnt.getBalance();
+
+   //create a transaction
+   Transaction trans = new Transaction();
+   Date dt = new Date(System.currentTimeMillis());
+
+   trans.setAmount(amount);
+   trans.setCreationdate(dt);
+   trans.setNote("Deposit. Amount " + amount);
+   trans.setTransType(TransactionTypeEnum.DEPOSIT);
+   this.withTransaction(trans);
 
    // set the message
    msg.append("successful");
