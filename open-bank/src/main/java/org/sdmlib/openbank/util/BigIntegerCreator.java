@@ -19,27 +19,61 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.openbank;
+package org.sdmlib.openbank.util;
 
-public enum TransactionTypeEnum
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
+
+public class BigIntegerCreator implements SendableEntityCreator
 {
-		DEPOSIT,
-        WITHDRAW,
-        TRANSFER,
-        SEED,
-        CLOSE,
-		FEE;
-
+   private final String[] properties = new String[]
+   {
+   };
    
-   //==========================================================================
-   public String toString(  )
+   @Override
+   public String[] getProperties()
+   {
+      return properties;
+   }
+   
+   @Override
+   public Object getSendableInstance(boolean reference)
    {
       return null;
    }
-
+   
+   @Override
+   public Object getValue(Object target, String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+   
+   @Override
+   public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      
+      return false;
+   }
+   public static IdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.openbank.util.CreatorCreator.createIdMap(sessionID);
+   }
    
    //==========================================================================
-     TransactionTypeEnum(  )
+      public void removeObject(Object entity)
    {
+      // wrapped object has no removeYou method
    }
 }
