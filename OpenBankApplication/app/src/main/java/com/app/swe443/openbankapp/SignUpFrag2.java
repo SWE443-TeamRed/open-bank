@@ -68,9 +68,9 @@ public class SignUpFrag2 extends android.support.v4.app.Fragment implements View
                         phoneNumber.requestFocus();
                     }
                     else {
-                        LoginActivity activity = (LoginActivity) getActivity();
-                        activity.setSingnUp2(firstName.getText().toString() + " "+
-                                lastName.getText().toString(), phoneNumber.getText().toString());
+//                        LoginActivity activity = (LoginActivity) getActivity();
+//                        activity.setSingnUp2(firstName.getText().toString() + " "+
+//                                lastName.getText().toString(), phoneNumber.getText().toString());
 
                         //To pass the values from fragments to fragments.
                         SignUpFrag3 signUpFrag3 = new SignUpFrag3 ();

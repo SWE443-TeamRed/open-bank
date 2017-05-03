@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity
 
     private MockServerSingleton mockBankServer;
 
+    String userID;
+    String username;
+
 
 
     @Override
@@ -75,8 +78,13 @@ public class MainActivity extends AppCompatActivity
         //Draw the actionbar
         addDrawerItems();
 
-        //Create User's and AccountDetails as dummy data
 
+
+        //TODO Getting username and id, with this can get accounts info from server.
+        userID = getIntent().getStringArrayExtra("UsernameAdnId")[1];
+        username = getIntent().getStringArrayExtra("UsernameAdnId")[0];
+
+        //Create User's and AccountDetails as dummy data
         JsonPersistency jsonp = new JsonPersistency();
 
         mockBankServer = MockServerSingleton.getInstance();

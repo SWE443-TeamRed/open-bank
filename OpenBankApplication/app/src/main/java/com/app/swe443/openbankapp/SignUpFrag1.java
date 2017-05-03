@@ -89,7 +89,7 @@ public class SignUpFrag1 extends android.support.v4.app.Fragment implements View
                     userNameV.requestFocus();
                 }
                 else if(!validatePassword(pass_word.getText().toString())){
-                    pass_word.setError("Invalid password.");
+                    pass_word.setError("Invalid password, 4 characters or more .");
                     pass_word.requestFocus();
                 }
                 else if(!pass_word.getText().toString().equals(comfirmPassword.getText().toString())) {
@@ -97,9 +97,9 @@ public class SignUpFrag1 extends android.support.v4.app.Fragment implements View
                     comfirmPassword.requestFocus();
                 }
                 else {
-                    LoginActivity activity = (LoginActivity) getActivity();
-                    activity.setSingnUp1(userNameV.getText().toString(),
-                            pass_word.getText().toString(), emailV.getText().toString());
+//                    LoginActivity activity = (LoginActivity) getActivity();
+//                    activity.setSingnUp1(userNameV.getText().toString(),
+//                            pass_word.getText().toString(), emailV.getText().toString());
 
                     //To pass the values from fragments to fragments.
                     SignUpFrag2 signUpFrag2 = new SignUpFrag2 ();

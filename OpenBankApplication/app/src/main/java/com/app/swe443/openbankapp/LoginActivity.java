@@ -3,12 +3,15 @@ package com.app.swe443.openbankapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -22,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,15 +35,28 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.swe443.openbankapp.Support.User;
 import com.app.swe443.openbankapp.Support.UserSet;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.content.ContentValues.TAG;
 
 /**
  * A login screen that offers login via username/password.
@@ -49,31 +66,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //Used to call OpenAccoutnFrag
     private FragmentManager fm;
     private FragmentTransaction transaction;
-    String username; //= "testUser";
-    String password;// = "12345";
-    String email;// = "test@email.com";
-    String phone;// = "111-222-201";
-    String name;// = "First and Last";
-
-
-
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -81,7 +73,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private MockServerSingleton mockBankServer;
+    /**
+     * Id to identity READ_CONTACTS permission request.
+     */
+    private static final int REQUEST_READ_CONTACTS = 0;
+
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +88,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        System.out.println("Creating Login Activity");
-        //Initialize bank instance
-        mockBankServer = MockServerSingleton.getInstance();
-
-
-
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -123,85 +114,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-//
-//    public void createAccount(View v){
-//        fm = getSupportFragmentManager();
-//        Fragment openAccount_fragment = new OpenAccountFrag();
-//        //Initiate homepage Fragment when app opens
-//        transaction = fm.beginTransaction();
-//        transaction.replace(R.id.drawer_layout, new OpenAccountFrag(), "openAccount_fragment");
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
-///Register information.
+    //Register information.
     public void register(View v){//Click on the register button
         fm = getSupportFragmentManager();
         transaction = fm.beginTransaction();
         transaction.add(R.id.drawer_layout, new SignUpFrag1(), "SignUpFrag1");
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-    public void setSingnUp1(String userName, String password, String email){
-            this.username = userName;
-            this.password = password;
-            this.email = email;
-    }
-    public String getUsername(){
-        return this.username;
-    }
-    public String getPassword(){
-        return this.password;
-    }
-    public String getEmail(){
-        return this.email;
-    }
-    public void setSingnUp2(String name, String phone){
-        this.name = name;
-        this.phone = phone;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public String getPhone(){
-        return this.phone;
-    }
-
-
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }getLoaderManager().initLoader(0, null, this);
-    }
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mUsernameView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        return false;
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
     }
 
     /**
@@ -210,10 +129,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mUsernameView.setError(null);
         mPasswordView.setError(null);
@@ -224,13 +139,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
 
         // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
@@ -243,66 +151,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mPasswordView;
             cancel = true;
         }
-        else
-         {
-            if (!doesUserExist(username)) {
-                mUsernameView.setError("This username is not registered");
-                focusView = mUsernameView;
-                cancel = true;
-            }else{
-                if(!isPasswordValid(username, password)) {
-                    mPasswordView.setError("Incorrect Password");
-                    focusView = mPasswordView;
-                    cancel = true;
-                }
-            }
-        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            //mAuthTask = new UserLoginTask(username, password);
-            //mAuthTask = new UserLoginTask(username, password);
-            /*
-               TODO  TRACK WHICH USER JUST LOGGED IN, SERVER TASK
-             */
-            //mAuthTask.execute((Void) null);
+            String URL = "http://54.87.197.206:8080/SparkServer/api/v1/login";
 
-           // setContentView(R.layout.activity_accounts);
-
-            mockBankServer.setLoggedInUser( mockBankServer.getBank().getCustomerUser().filterUsername(username).get(0).getEmail());
-            Intent main = new Intent(LoginActivity.this, MainActivity.class);
-
-            startActivity(main);
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("username", username);
+            params.put("password", password);
+            loginPostRequest(URL,params);
 
         }
-    }
-
-    public boolean doesUserExist(String username) {
-        /*
-            TODO MUST CONTACT SERVER TO REQUEST USER VALIDATION, SHOULD NOT GET USERS HERE
-         */
-        UserSet users = mockBankServer.getBank().getCustomerUser();
-        for (User user : users) {
-            if (user.getUsername().equals(username))
-                return true;
-        }
-        return false;
-    }
-
-//    private boolean isUsernameValid(String username) {
-//        //TODO: Replace this with your own logic
-//
-//    }
-
-    private boolean isPasswordValid(String username,String password) {
-        //TODO: Replace this with your own logic
-        String correctpassword = mockBankServer.getBank().getCustomerUser().get(0).getPassword();
-        return correctpassword.equals(password);
     }
 
     /**
@@ -366,7 +227,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             usernames.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addUsernamesToAutoComplete(usernames);
     }
 
@@ -384,7 +244,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mUsernameView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -395,69 +254,83 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    //This makes the post request to verufy username & password and login.
+    StringRequest stringRequest;
+    RequestQueue requestQueue;
+    String auth;
+    public void loginPostRequest(String REGISTER_URL, Map<String, String> params){
+        stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //TODO Erase latter, for testing.
+                        // System.out.println("Success********"+response +"********");
+                        Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            checkAuth(obj);
 
-        private final String mUsername;
-        private final String mPassword;
-
-        UserLoginTask(String username, String password) {
-            mUsername = username;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                            Log.d(TAG,response);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //TODO Erase latter, for testing.
+                        //System.out.println("Error********"+error +"********");
+                        Toast.makeText(getBaseContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                mockBankServer.setLoggedInUser(mUsername);
-
-                Intent main = new Intent(LoginActivity.this, MainActivity.class);
-
-                startActivity(main);
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+        };
+        requestQueue = Volley.newRequestQueue(getBaseContext());
+        requestQueue.add(stringRequest);
     }
 
+    //Deals with the response received by the post request.
+    private void checkAuth(JSONObject obj){
+        try {
+            auth = obj.get("authentication").toString();
+            if (auth.equals("false")) {
+                obj.get("reason").toString();
+                if (obj.equals("user does not have any accounts")) {
+                    new AlertDialog.Builder(getBaseContext())
+                            .setTitle("Username not Registered")
+                            .setMessage("Please create an account before signing in.")
+                            .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } else {
+                    mPasswordView.setError("Wrong password and username combination.");
+                    mUsernameView.setError("Wrong password and username combination.");
+                    mUsernameView.requestFocus();
+                    mPasswordView.requestFocus();
+                }
 
+            } else {
+                // Show a progress spinner, and kick off a background task.
+                String[] UsernameAdnId = {mUsernameView.getText().toString(),
+                        obj.get("userID").toString()};
+                showProgress(true);
+                Intent main = new Intent(LoginActivity.this, MainActivity.class);
+                main.putExtra("UsernameAdnId", UsernameAdnId);
+                startActivity(main);
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+            Log.d(TAG,"Problem with response");
+    }
+
+}
 
 }
 

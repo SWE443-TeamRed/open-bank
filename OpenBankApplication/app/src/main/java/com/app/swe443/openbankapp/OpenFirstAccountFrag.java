@@ -176,10 +176,10 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     params.put("isAdmin", "false");
                     params.put("email", user.getEmail());
 
-                    openAccountPostRequest(false, REGISTER_URL, getActivity(), params, account);
+                    openAccountPostRequest(false, REGISTER_URL, getActivity(), params);
                     // TODO: 5/1/17 Erase latter
-//                  createAccount("1758261247");For testing
-                    completeNewAccount(account.getAccountnum());
+//                    createAccount("1136056093");//For testing
+
                 }
                 break;
         }
@@ -194,8 +194,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
     //Function that makes the post request.
     StringRequest stringRequest;
     RequestQueue requestQueue;
-
-    public void openAccountPostRequest (boolean accountCreated, String REGISTER_URL, Context activity, Map<String, String> params, Account account){
+    public void openAccountPostRequest (boolean accountCreated, String REGISTER_URL, Context activity, Map<String, String> params){
             stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                     new Response.Listener<String>() {
                         @Override
@@ -205,13 +204,19 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                             Toast.makeText(activity,response,Toast.LENGTH_LONG).show();
                             try {
                                 JSONObject obj = new JSONObject(response);
-                                response = obj.get("userID").toString();
+
+                                //Created user, still need to create account.
+                                if(!accountCreated){
+                                    response = obj.get("userID").toString();
+                                    createAccount(response);
+                                }
+                                //Account created, give account number to user and change views.
+                                else if(accountCreated)completeNewAccount(Integer.parseInt(obj.get("accountNum").toString()));
 
                             }catch(JSONException e){
                                 e.printStackTrace();
                                 Log.d(TAG,response);
                             }
-                            if(!accountCreated)createAccount(response);
                         }
                     },
                     new Response.ErrorListener() {
@@ -226,7 +231,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                 protected Map<String,String> getParams(){
                     return params;
                 }
-
             };
             requestQueue = Volley.newRequestQueue(activity);
             requestQueue.add(stringRequest);
@@ -243,6 +247,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
         params.put("accountType", account.getType().toString());
         params.put("initialBalance", account.getBalance() + "");
 
-        openAccountPostRequest(true, REGISTER_URL2, getContext(), params, account);
+        openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
     }
 }
