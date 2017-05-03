@@ -26,13 +26,14 @@ public class SparkServer {
 
     static private JsonPersistency jsonPersistency;
     static Bank bank;
+    static FileHandler fh;
 
     public static void main(String[] args) {
 
         Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 
-        loadBank();
         apiLogSetup();
+        loadBank();
 
         before("/*", (q, a) -> {
             logger.info("Received api call from ip: " + q.ip()
@@ -702,7 +703,7 @@ public class SparkServer {
     private static void loadBank() {
         jsonPersistency = new JsonPersistency();
 
-//        try {
+        try {
             bank = jsonPersistency.bankFromJson("OpenBank");
 
             if (bank == null) {
@@ -711,16 +712,15 @@ public class SparkServer {
             } else {
                 logger.info("Loaded bank: " + bank.getBankName());
             }
-//        }catch(Exception ex) {
-//            logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
-//            bank = new Bank().withBankName("OpenBank");
-//            logger.info("Creating new Bank: " + bank.getBankName());
-//        }
+        }catch(Exception ex) {
+            logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
+            bank = new Bank().withBankName("OpenBank");
+            logger.info("Creating new Bank: " + bank.getBankName());
+        }
     }
 
     private static void apiLogSetup() {
         try {
-            FileHandler fh;
             fh = new FileHandler("api.log", true);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -730,11 +730,16 @@ public class SparkServer {
         } catch (IOException ioe) {};
     }
 
+    private static void apiLogClose() {
+            fh.close();
+    }
+
     static class ShutdownThread extends Thread {
         ShutdownThread() {}
 
         public void run() {
             logger.info("*************************************Shutting Down Session*************************************");
+            apiLogClose();
             jsonPersistency.bankToJson(bank);
         }
     }
