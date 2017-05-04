@@ -427,7 +427,7 @@ public class SparkServer {
 
                             if(bank.findUserByID(userId) != null) {
                                 responseJSON.put("request", "successful");
-                                responseJSON.put("userID", bank.findUserByID(userId));
+                                responseJSON.put("userID", userId.toString());
                             }
                             else {
                                 responseJSON.put("request", "failed");
@@ -553,7 +553,7 @@ public class SparkServer {
 
                             if (accountID != null) {
                                 responseJSON.put("request", "successful");
-                                responseJSON.put("accountNum", accountID);
+                                responseJSON.put("accountNum", accountID.toString());
                             } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason","bank failed to create account");

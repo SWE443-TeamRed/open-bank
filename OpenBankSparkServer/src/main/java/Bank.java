@@ -605,7 +605,7 @@ public String Login(String username, String password ) {
    UserSet custUserSet = this.getCustomerUser();
    for (User custUsr : custUserSet) {
       if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
-         //custUsr.setLoggedIn(true);
+         custUsr.setLoggedIn(true);
          return custUsr.getUserID();
       }
    }
@@ -613,7 +613,7 @@ public String Login(String username, String password ) {
    UserSet admnUserSet = this.getAdminUsers();
    for (User admUsr : admnUserSet) {
       if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
-         //admUsr.setLoggedIn(true);
+         admUsr.setLoggedIn(true);
          return admUsr.getUserID();
       }
    }
