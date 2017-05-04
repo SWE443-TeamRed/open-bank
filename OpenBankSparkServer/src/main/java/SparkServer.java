@@ -50,8 +50,78 @@ public class SparkServer {
 
         path("/admin", () -> {
 
-            get("", (Request request, Response response) -> {
-                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+            path("/www/var/js", () -> {
+                get("/ui-bootstrap-tpls-0.11.2.min.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/ui-bootstrap-tpls-0.11.2.min.js"));
+                });
+                get("/app.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/app.js"));
+                });
+                get("/routing.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/routing.js"));
+                });
+                get("/globalFunctions.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/globalFunctions.js"));
+                });
+                get("/authInterceptor.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/authInterceptor.js"));
+                });
+                get("/parentController.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/parentController.js"));
+                });
+                get("/login.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/login.js"));
+                });
+                get("/auth.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/auth.js"));
+                });
+                get("/session.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/session.js"));
+                });
+            });
+
+            path("/index", () -> {
+
+                get("", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                });
+            });
+
+            path("/login", () -> {
+
+                get("", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/login.html"));
+                });
+
+                post("", (Request request, Response response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+
+                        String username = request.queryParams("username");
+                        String password = request.queryParams("password");
+
+                        String id = bank.Login(username, password);
+
+                        if(id != null) {
+                            if (bank.findUserByID(id).isLoggedIn()) {
+                                responseJSON.put("authentication", true);
+                                responseJSON.put("userID", id);
+                            } else {
+                                responseJSON.put("authentication", false);
+                                responseJSON.put("reason", "failed to login the user");
+                            }
+                        } else {
+                            responseJSON.put("authentication", false);
+                            responseJSON.put("reason", "user could not be found");
+                        }
+
+                    } else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason","missing required parameters in body");
+                    }
+                    return responseJSON;
+                });
             });
 
             path("/info", () -> {
@@ -745,6 +815,17 @@ public class SparkServer {
             logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
             bank = new Bank().withBankName("OpenBank");
             logger.info("Creating new Bank: " + bank.getBankName());
+        }
+
+        if(bank.getAdminAccounts().size() < 1)
+        {
+            Account adminAccount = bank.createAdminAccounts();
+            adminAccount.setBalance(new BigInteger("1000000000000"));
+            adminAccount.setCreationdate(new Date());
+            adminAccount.setAccountnum(bank.getNextID());
+            adminAccount.setType(AccountTypeEnum.SAVINGS);
+            adminAccount.setIsConnected(true);
+            logger.info("adminAccount: " + adminAccount.toString());
         }
     }
 
