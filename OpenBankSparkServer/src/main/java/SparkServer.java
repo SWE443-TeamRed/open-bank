@@ -11,6 +11,7 @@ import spark.utils.IOUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.logging.FileHandler;
@@ -25,6 +26,7 @@ public class SparkServer {
 
     static private JsonPersistency jsonPersistency;
     static Bank bank;
+    static FileHandler fh;
 
     public static void main(String[] args) {
 
