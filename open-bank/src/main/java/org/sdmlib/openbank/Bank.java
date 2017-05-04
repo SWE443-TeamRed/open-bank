@@ -30,7 +30,7 @@ import org.sdmlib.openbank.util.UserSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 import org.sdmlib.openbank.User;
@@ -733,26 +733,14 @@ import org.sdmlib.openbank.Account;
          case "NAME":
             usr.withName(fieldValue);
             break;
-         case "USERID":
-            usr.withUserID(fieldValue);
-            break;
-         case "ISADMIN":
-            usr.withIsAdmin(Boolean.valueOf(fieldValue));
-            break;
          case "PASSWORD":
             usr.withPassword(fieldValue);
             break;
          case "EMAIL":
             usr.withEmail(fieldValue);
             break;
-         case "LOGGEDIN":
-            usr.withLoggedIn(Boolean.valueOf(fieldValue));
-            break;
          case "PHONE":
             usr.withPhone(fieldValue);
-            break;
-         case "USERNAME":
-            usr.withUsername(fieldValue);
             break;
          default:
             return "Field " + fieldName + " is not valid.";
