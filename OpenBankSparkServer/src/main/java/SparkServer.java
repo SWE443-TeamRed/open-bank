@@ -137,6 +137,11 @@ public class SparkServer {
             });
 
             path("/login", () -> {
+
+                get("", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/login.html"));
+                });
+
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
@@ -151,20 +156,24 @@ public class SparkServer {
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
+                                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
                             } else {
                                 responseJSON.put("authentication", false);
                                 responseJSON.put("reason", "failed to login the user");
+                                return responseJSON;
                             }
                         } else {
                             responseJSON.put("authentication", false);
                             responseJSON.put("reason", "user could not be found");
+                            return responseJSON;
                         }
 
                     } else {
                         responseJSON.put("authentication", false);
                         responseJSON.put("reason","missing required parameters in body");
+                        return responseJSON;
+
                     }
-                    return responseJSON;
                 });
             });
 
