@@ -22,19 +22,13 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.TransactionSet;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.AccountTypeEnum;
-import org.sdmlib.openbank.Bank;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.math.BigInteger;
+import java.util.Date;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -176,7 +170,7 @@ public  class Account implements SendableEntity
          }
          else {
          */
-            value = this.getBank().getNextID();
+//            value = this.getBank().getNextID();
             int oldValue = this.accountnum;
             this.accountnum = value;
             this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);
@@ -317,7 +311,6 @@ public  class Account implements SendableEntity
             throw new IllegalArgumentException("Can't have an amount less than 0 or an undefined Account");
         else if (receiver==null)
            throw new IllegalArgumentException("Passed in a null for an account to recieve the funds");
-
         if (amount.compareTo(this.getBalance()) <= 0) {
             this.setBalance(this.getBalance().subtract(amount));
             receiver.receiveFunds(amount,note);
