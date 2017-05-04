@@ -28,6 +28,8 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
 
+//import java.time.LocalDate;
+
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -627,55 +629,6 @@ public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarV
    return false;
 }
 
-public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg) {
-
-   // get the next userID, check to make sure it is not used
-   boolean loop=true;
-   String valID=null;
-   while(loop) {
-      valID=String.valueOf(this.getNextID());
-
-      if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
-              this.getAdminUsers().filterUserID(valID).size() == 0) {
-         loop=false;
-      }
-   }
-
-   if(valID==null){
-      // set the message
-      msg.append("unsuccessful. UserID is null");
-
-      return "-1";
-   }
-
-   // check if username is already used
-   if(this.getCustomerUser().filterUsername(username).size() != 0 ||
-           this.getAdminUsers().filterUsername(username).size() != 0) {
-      throw new IllegalArgumentException("Username " + username + " has already been used");
-   }
-
-   //set user attributes
-   User usr = new User();
-   usr.setUserID(valID);
-   usr.setUsername(username);
-   usr.setPassword(password);
-   usr.setPhone(phoneNumber);
-   usr.setEmail(email);
-   usr.setIsAdmin(isAdmin);
-
-   // check which user will be created
-   if(isAdmin){
-      this.withAdminUsers(usr);
-   }else{
-      this.withCustomerUser(usr);
-   }
-
-   // set the message
-   msg.append("successful");
-
-   return valID;
-}
-
 // withDrawFunds from given account
 public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
    BigInteger balance=BigInteger.ZERO;
@@ -773,26 +726,14 @@ public String updateUserInfo(String userID, String fieldName, String fieldValue)
       case "NAME":
          usr.withName(fieldValue);
          break;
-      case "USERID":
-         usr.withUserID(fieldValue);
-         break;
-      case "ISADMIN":
-         usr.withIsAdmin(Boolean.valueOf(fieldValue));
-         break;
       case "PASSWORD":
          usr.withPassword(fieldValue);
          break;
       case "EMAIL":
          usr.withEmail(fieldValue);
          break;
-      case "LOGGEDIN":
-         usr.withLoggedIn(Boolean.valueOf(fieldValue));
-         break;
       case "PHONE":
          usr.withPhone(fieldValue);
-         break;
-      case "USERNAME":
-         usr.withUsername(fieldValue);
          break;
       default:
          return "Field " + fieldName + " is not valid.";
@@ -803,8 +744,58 @@ public String updateUserInfo(String userID, String fieldName, String fieldValue)
 
 }
 
+public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg)
+{
+
+   // get the next userID, check to make sure it is not used
+   boolean loop=true;
+   String valID=null;
+   while(loop) {
+      valID=String.valueOf(this.getNextID());
+
+      if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
+              this.getAdminUsers().filterUserID(valID).size() == 0) {
+         loop=false;
+      }
+   }
+
+   if(valID==null){
+      // set the message
+      msg.append("unsuccessful. UserID is null");
+
+      return "-1";
+   }
+
+   // check if username is already used
+   if(this.getCustomerUser().filterUsername(username).size() != 0 ||
+           this.getAdminUsers().filterUsername(username).size() != 0) {
+      throw new IllegalArgumentException("Username " + username + " has already been used");
+   }
+
+   //set user attributes
+   User usr = new User();
+   usr.setUserID(valID);
+   usr.setUsername(username);
+   usr.setPassword(password);
+   usr.setPhone(phoneNumber);
+   usr.setEmail(email);
+   usr.setIsAdmin(isAdmin);
+
+   // check which user will be created
+   if(isAdmin){
+      this.withAdminUsers(usr);
+   }else{
+      this.withCustomerUser(usr);
+   }
+
+   // set the message
+   msg.append("successful");
+
+   return valID;
+}
+
 // create user Account
-public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance) {
+public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance, AccountTypeEnum accountType, StringBuilder msg) {
 
    // get the next accountnumber, check to make sure it is not used
    boolean loop=true;
@@ -818,15 +809,22 @@ public String createAccount(String userID,boolean isAdminAccount,BigInteger init
       }
    }
 
-   if(valID==0) return "failure. Account Number is null.";
+   if(valID==0) {
+      msg.append("failure. Account Number is null.");
+      return "-1";
+   }
 
    User usr = this.findUserByID(userID);
 
-   if (usr==null) return "failure. UserID " + userID + " not found.";
+   if (usr==null) {
+      msg.append("failure. UserID " + userID + " not found.");
+      return "-1";
+   }
 
    Account accnt = new Account()
            .withAccountnum(valID)
            .withOwner(usr)
+           .withType(accountType)
            .withBalance(initialBalance);
 
 
@@ -837,7 +835,9 @@ public String createAccount(String userID,boolean isAdminAccount,BigInteger init
       this.withCustomerAccounts(accnt);
    }
 
-   return "successful";
+   msg.append("successful");
+
+   return String.valueOf(valID);
 }
 
 // get 10 digit ID
@@ -921,5 +921,12 @@ public FeeValue createFeeValue()
    FeeValue value = new FeeValue();
    withFeeValue(value);
    return value;
+}
+
+
+//==========================================================================
+public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date )
+{
+   return null;
 }
 }

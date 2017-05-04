@@ -3,6 +3,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -451,6 +452,78 @@ public class BankPO extends PatternObject<BankPO, Bank>
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) this.getCurrentMatch()).getFeeValue();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public String Login(String username, String password)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).Login(username, password);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public BigInteger withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).withDrawFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+
+   //==========================================================================
+
+   public BigInteger depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).depositFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public String updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).updateUserInfo(userID, fieldName, fieldValue);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public int getNextID()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getNextID();
+      }
+      return 0;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
       }
       return null;
    }
