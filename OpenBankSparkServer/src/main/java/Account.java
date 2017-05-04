@@ -167,7 +167,7 @@ public  class Account implements SendableEntity
          }
          else {
          */
-//            value = this.getBank().getNextID();
+            value = this.getBank().getNextID();
             int oldValue = this.accountnum;
             this.accountnum = value;
             this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);

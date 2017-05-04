@@ -21,12 +21,16 @@
    
 package org.sdmlib.openbank.util;
 
-import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.openbank.*;
+import org.sdmlib.openbank.Account;
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.Bank;
 
 public class AccountCreator implements SendableEntityCreator
 {
@@ -153,7 +157,7 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
          //((Account) target).setBalance(Double.parseDouble(value.toString()));
-         ((Account) target).setBalance(new BigDecimal(Double.parseDouble(value.toString())).toBigInteger());
+         ((Account) target).setBalance(((BigDecimal) value).toBigInteger());
          return true;
       }
 

@@ -22,13 +22,22 @@
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.TransactionSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.math.BigInteger;
 import java.util.Date;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import de.uniks.networkparser.EntityUtil;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.Bank;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -170,7 +179,7 @@ public  class Account implements SendableEntity
          }
          else {
          */
-//            value = this.getBank().getNextID();
+            value = this.getBank().getNextID();
             int oldValue = this.accountnum;
             this.accountnum = value;
             this.firePropertyChange(PROPERTY_ACCOUNTNUM, oldValue, value);

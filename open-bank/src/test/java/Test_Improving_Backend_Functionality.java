@@ -1,11 +1,17 @@
+import de.uniks.networkparser.list.SimpleSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
@@ -1552,5 +1558,302 @@ public class Test_Improving_Backend_Functionality {
         System.out.println(usr1.getUserID());
         User usrGet = bnk.findUserByID("steverog1");
         assertTrue(usrGet == null);
+    }
+
+    @Test
+    public void testGetTrans() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+
+        //String accntNum=null;
+        BigInteger amount = BigInteger.valueOf(20);
+        Date date = new Date("05/04/2017");
+
+        Set<TransactionSet> st = new SimpleSet<TransactionSet>();
+        Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
+
+        //filter by account Number
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }else {
+            if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+        }
+
+        if (amount.compareTo(BigInteger.ZERO) > 0)
+        {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterAmount(amount);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+
+
+        if (date !=null) {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterDatebyMonthDateYear(date);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+/*
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }
+
+        if(amount.compareTo(BigInteger.ZERO) > 0) {
+
+            if (bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getToTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getToTransaction().filterAmount(amount));
+            }
+        }
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50))
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterCreationDate(dt)
+
+
+       //Set st= bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50));
+
+*/
+
+
+    }
+
+    @Test
+    public void testGetTrans2() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+
+        //String accntNum=null;
+        BigInteger amount = BigInteger.valueOf(20);
+        Date date = new Date("05/04/2017");
+
+        Set<TransactionSet> st = new SimpleSet<TransactionSet>();
+        Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
+
+        //filter by account Number
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }else {
+            if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+        }
+
+        if (amount.compareTo(BigInteger.ZERO) > 0)
+        {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterAmount(amount);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+
+
+        if (date !=null) {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterDatebyMonthDateYear(date);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+/*
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }
+
+        if(amount.compareTo(BigInteger.ZERO) > 0) {
+
+            if (bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getToTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getToTransaction().filterAmount(amount));
+            }
+        }
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50))
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterCreationDate(dt)
+
+
+       //Set st= bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50));
+
+*/
+
+
+
     }
 }
