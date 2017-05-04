@@ -730,6 +730,7 @@ public  class Account implements SendableEntity
       trans.setToAccount(receiver);
       trans.setFromAccount(sender);
       trans.setPrevious(bank.getTransaction());
+
       bank.setTransaction(trans);
       return trans;
    }

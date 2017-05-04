@@ -630,11 +630,6 @@ import java.lang.StringBuilder;
       return null;
    }
 
-   //==========================================================================
-   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
-   {
-      return false;
-   }
 
    // withDrawFunds from given account
    public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
@@ -846,6 +841,9 @@ import java.lang.StringBuilder;
               .withOwner(usr)
               .withType(accountType)
               .withIsClosed(false)
+              /*=================================================
+              TODO Create an initial transaction to seed balance
+              =================================================== */
               .withBalance(initialBalance);
 
 
@@ -986,7 +984,18 @@ import java.lang.StringBuilder;
       /*============================================
       TODO: Transfer balance of the account to the bank root account
       ==============================================*/
-
+      if(adminAccounts.size() == 0)
+         throw new RuntimeException("Initial Admin Account does not exist");
+      Transaction trans = new Transaction();
+      trans.setFromAccount(acc);
+      trans.setToAccount(adminAccounts.get(0));
+      trans.setTransType(TransactionTypeEnum.CLOSE);
+      trans.setAmount(acc.getBalance());
+      trans.setBank(this);
+      trans.setCreationdate(new Date());
+      Account adminAcc = adminAccounts.get(0);
+      adminAcc.setBalance(adminAcc.getBalance().add(acc.getBalance()));
+      acc.setBalance(new BigInteger("0"));
       msg.append("successful");
       return true;
    }
