@@ -38,6 +38,9 @@ import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.FeeValue;
+import de.uniks.networkparser.list.StringList;
+import java.lang.StringBuilder;
+import org.sdmlib.openbank.util.BigIntegerSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -820,6 +823,66 @@ public class BankSet extends SimpleSet<Bank>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList Login(String username, String password)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.Login(username, password) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BigIntegerSet withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.withDrawFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BigIntegerSet depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.depositFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.updateUserInfo(userID, fieldName, fieldValue) );
+      }
+      return result;
    }
 
 }

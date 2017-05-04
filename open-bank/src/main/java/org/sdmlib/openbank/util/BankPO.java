@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import org.sdmlib.openbank.util.FeeValuePO;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.util.FeeValueSet;
+import java.lang.StringBuilder;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -466,6 +467,54 @@ public class BankPO extends PatternObject<BankPO, Bank>
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) this.getCurrentMatch()).getFeeValue();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public String Login(String username, String password)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).Login(username, password);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public java.math.BigInteger withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).withDrawFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public java.math.BigInteger depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).depositFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public String updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).updateUserInfo(userID, fieldName, fieldValue);
       }
       return null;
    }
