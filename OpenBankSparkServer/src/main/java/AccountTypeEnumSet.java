@@ -18,24 +18,17 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
-package org.sdmlib.openbank;
 
-public enum AccountTypeEnum
+import org.sdmlib.models.modelsets.SDMSet;
+
+public class AccountTypeEnumSet extends SDMSet<AccountTypeEnum>
 {
-		SAVINGS,
-		CHECKING;
 
-   
-   //==========================================================================
-//   public String toString(  )
-//   {
-//      return null;
-//   }
+   public static final AccountTypeEnumSet EMPTY_SET = new AccountTypeEnumSet().withFlag(AccountTypeEnumSet.READONLY);
 
-   
-   //==========================================================================
-     AccountTypeEnum(  )
+
+   public String getEntryType()
    {
+      return "org.sdmlib.openbank.AccountTypeEnum";
    }
 }

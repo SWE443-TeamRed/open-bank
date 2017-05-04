@@ -18,12 +18,9 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
-package org.sdmlib.openbank.util;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.openbank.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -207,7 +204,7 @@ public class AccountCreator implements SendableEntityCreator
    }
    public static IdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.openbank.util.CreatorCreator.createIdMap(sessionID);
+      return CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================

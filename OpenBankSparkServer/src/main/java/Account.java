@@ -19,16 +19,13 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.sdmlib.openbank;
-
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.openbank.util.FeeValueSet;
-import org.sdmlib.openbank.util.TransactionSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
+
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
