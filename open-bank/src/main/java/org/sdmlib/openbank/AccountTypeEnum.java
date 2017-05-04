@@ -25,14 +25,6 @@ public enum AccountTypeEnum
 {
 		SAVINGS,
 		CHECKING;
-
-   
-   //==========================================================================
-//   public String toString(  )
-//   {
-//      return null;
-//   }
-
    
    //==========================================================================
      AccountTypeEnum(  )
@@ -41,8 +33,8 @@ public enum AccountTypeEnum
 
    
    //==========================================================================
-   public String toString(  )
-   {
-      return null;
-   }
+//   public String toString(  )
+//   {
+//      return null;
+//   }
 }

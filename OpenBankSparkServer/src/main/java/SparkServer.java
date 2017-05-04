@@ -34,6 +34,7 @@ public class SparkServer {
 
         apiLogSetup();
         loadBank();
+        createAdminAccount();
 
         before("/*", (q, a) -> {
             logger.info("Received api call from ip: " + q.ip()
@@ -852,6 +853,18 @@ public class SparkServer {
                 });
             });
         });
+    }
+
+    private static void createAdminAccount() {
+        if(bank.getAdminAccounts().size() < 1)
+        {
+            logger.info("Creating initial Admin account");
+            Account adminAccount = bank.createAdminAccounts();
+            adminAccount.setIsConnected(true);
+            adminAccount.setType(AccountTypeEnum.SAVINGS);
+            adminAccount.setAccountnum(bank.getNextID());
+            adminAccount.setBalance(new BigInteger("10000000000000"));
+        }
     }
 
     private static void loadBank() {
