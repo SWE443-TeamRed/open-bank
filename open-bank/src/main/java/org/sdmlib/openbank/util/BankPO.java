@@ -19,6 +19,7 @@ import org.sdmlib.openbank.util.FeeValuePO;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.util.FeeValueSet;
 import java.lang.StringBuilder;
+import org.sdmlib.openbank.util.TransactionSet;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -515,6 +516,30 @@ public class BankPO extends PatternObject<BankPO, Bank>
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) getCurrentMatch()).updateUserInfo(userID, fieldName, fieldValue);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public int getNextID()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getNextID();
+      }
+      return 0;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.openbank.util.TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
       }
       return null;
    }

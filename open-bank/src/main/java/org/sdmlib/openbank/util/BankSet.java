@@ -41,6 +41,7 @@ import org.sdmlib.openbank.FeeValue;
 import de.uniks.networkparser.list.StringList;
 import java.lang.StringBuilder;
 import org.sdmlib.openbank.util.BigIntegerSet;
+import org.sdmlib.openbank.util.TransactionSetSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -881,6 +882,36 @@ public class BankSet extends SimpleSet<Bank>
       for (Bank obj : this)
       {
          result.add( obj.updateUserInfo(userID, fieldName, fieldValue) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList getNextID()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getNextID() );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public TransactionSetSet getTransactions(String accountNumber, BigInteger amount, Date date)
+   {
+      
+      TransactionSetSet result = new TransactionSetSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getTransactions(accountNumber, amount, date) );
       }
       return result;
    }

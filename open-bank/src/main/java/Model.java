@@ -4,6 +4,7 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
@@ -148,7 +149,14 @@ public class Model {
                 new Parameter(DataType.STRING).with("fieldName"),
                 new Parameter(DataType.STRING).with("fieldValue"));
 
+        // get 10 digit random ID
+        bank.withMethod("getNextID", DataType.INT);
 
+        // getTransactions method, returns all the transactions for given account, date and amoount
+        bank.withMethod("getTransactions", DataType.create(TransactionSet.class),
+                new Parameter(DataType.STRING).with("accountNumber"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(Date.class)).with("date"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
