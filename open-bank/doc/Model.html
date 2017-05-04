@@ -97,7 +97,13 @@
             "validateLogin(int accountID, String username, String password) boolean",
             "findAccountByID(int accountID) org.sdmlib.openbank.Account",
             "findUserByID(String userID) org.sdmlib.openbank.User",
-            "confirmTransaction(int toAcctID, int fromAcctID, java.lang.Integer dollarValue, java.lang.Integer decimalValue) boolean"
+            "confirmTransaction(int toAcctID, int fromAcctID, java.lang.Integer dollarValue, java.lang.Integer decimalValue) boolean",
+            "Login(String username, String password) String",
+            "withDrawFunds(int accountNum, java.math.BigInteger amount, java.lang.StringBuilder msg) java.math.BigInteger",
+            "depositFunds(int accountNum, java.math.BigInteger amount, java.lang.StringBuilder msg) java.math.BigInteger",
+            "updateUserInfo(String userID, String fieldName, String fieldValue) String",
+            "getNextID() int",
+            "getTransactions(String accountNumber, java.math.BigInteger amount, java.util.Date date) org.sdmlib.openbank.util.TransactionSet"
          ]
       }
    ],

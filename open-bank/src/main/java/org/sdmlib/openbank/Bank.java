@@ -25,6 +25,7 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.util.UserSet;
 
 import java.beans.PropertyChangeListener;
@@ -929,4 +930,11 @@ import org.sdmlib.openbank.Account;
       withFeeValue(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date )
+   {
+      return null;
+   }
 }

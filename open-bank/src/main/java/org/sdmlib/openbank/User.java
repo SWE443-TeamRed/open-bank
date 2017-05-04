@@ -28,6 +28,8 @@ import org.sdmlib.openbank.util.AccountSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.Account;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>

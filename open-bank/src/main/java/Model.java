@@ -4,6 +4,7 @@ import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
@@ -123,6 +124,39 @@ public class Model {
                 new Parameter(DataType.INT).with("fromAcctID"),
                 new Parameter(DataType.create(Integer.class)).with("dollarValue"),
                 new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+
+        // Login method, return succesfull if username and password matches
+        bank.withMethod("Login", DataType.STRING,
+                new Parameter(DataType.STRING).with("username"),
+                new Parameter(DataType.STRING).with("password"));
+
+        // withDrawFunds method, withdraws money from given account
+        bank.withMethod("withDrawFunds", DataType.create(BigInteger.class),
+                new Parameter(DataType.INT).with("accountNum"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+
+        // depositFunds method, deposits money into given account
+        bank.withMethod("depositFunds", DataType.create(BigInteger.class),
+                new Parameter(DataType.INT).with("accountNum"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+
+
+        // updateUserInfo method, updates the given field with given value
+        bank.withMethod("updateUserInfo", DataType.STRING,
+                new Parameter(DataType.STRING).with("userID"),
+                new Parameter(DataType.STRING).with("fieldName"),
+                new Parameter(DataType.STRING).with("fieldValue"));
+
+        // get 10 digit random ID
+        bank.withMethod("getNextID", DataType.INT);
+
+        // getTransactions method, returns all the transactions for given account, date and amoount
+        bank.withMethod("getTransactions", DataType.create(TransactionSet.class),
+                new Parameter(DataType.STRING).with("accountNumber"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(Date.class)).with("date"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);
