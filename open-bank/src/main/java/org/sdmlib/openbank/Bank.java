@@ -21,17 +21,17 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.util.Date;
-
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.util.UserSet;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Random;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -96,6 +96,7 @@ import org.sdmlib.openbank.Account;
       withoutCustomerAccounts(this.getCustomerAccounts().toArray(new Account[this.getCustomerAccounts().size()]));
       withoutAdminUsers(this.getAdminUsers().toArray(new User[this.getAdminUsers().size()]));
       withoutAdminAccounts(this.getAdminAccounts().toArray(new Account[this.getAdminAccounts().size()]));
+      withoutFeeValue(this.getFeeValue().toArray(new FeeValue[this.getFeeValue().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -387,6 +388,10 @@ import org.sdmlib.openbank.Account;
    //==========================================================================
    public Account findAccountByID( int accountID )
    {
+      if (accountID<=0) {
+         throw new IllegalArgumentException("Invalid accountID.");
+      }
+
       AccountSet accountSets = this.getCustomerAccounts();
 
       for (Account acnt : accountSets) {
@@ -394,10 +399,18 @@ import org.sdmlib.openbank.Account;
             return acnt;
          }
       }
+
+      AccountSet adminAccnts = this.getAdminAccounts();
+      for (Account AdminAccnt : adminAccnts) {
+         if (AdminAccnt.getAccountnum()==accountID) {
+            return AdminAccnt;
+         }
+      }
+
       return null;
    }
 
-   
+
    //==========================================================================
    public User findUserByID(String userID) {
        UserSet pulledUsers = this.getCustomerUser();
@@ -417,7 +430,7 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   public boolean confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue )
    {
        Account toAcct = findAccountByID(toAcctID);
        Account fromAcct = findAccountByID((fromAcctID));
@@ -427,15 +440,19 @@ import org.sdmlib.openbank.Account;
        if(fromAcct == null){
            return false;
        }
-       if(fromAcct.getBalance() < dollarValue + decimalValue ){
+
+       //if(fromAcct.getBalance() < dollarValue.add(decimalValue) ){
+       int res = fromAcct.getBalance().compareTo(dollarValue.add(decimalValue));
+
+       if(res==-1){
            return false;
        }
        Transaction transferTransation = new Transaction().withBank(this)
-               .withAmount(dollarValue+decimalValue)
-               .withFromAccount(fromAcct)
+               .withAmount(dollarValue.add(decimalValue))
                .withToAccount(toAcct)
+               .withFromAccount(fromAcct)
                .withCreationdate(new Date())
-               .withTransType(TransactionTypeEnum.Transfer);
+               .withTransType(TransactionTypeEnum.TRANSFER);
        this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
        return true;
    }
@@ -581,6 +598,343 @@ import org.sdmlib.openbank.Account;
    {
       Account value = new Account();
       withAdminAccounts(value);
+      return value;
+   }
+
+   public String Login(String username, String password ) {
+      if (username == null || password == null) {
+         return null;
+      }
+
+      UserSet custUserSet = this.getCustomerUser();
+      for (User custUsr : custUserSet) {
+         if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
+            //custUsr.setLoggedIn(true);
+            return custUsr.getUserID();
+         }
+      }
+
+      UserSet admnUserSet = this.getAdminUsers();
+      for (User admUsr : admnUserSet) {
+         if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
+            //admUsr.setLoggedIn(true);
+            return admUsr.getUserID();
+         }
+      }
+
+      return null;
+   }
+
+   //==========================================================================
+   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
+   {
+      return false;
+   }
+
+   // withDrawFunds from given account
+   public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
+      BigInteger balance=BigInteger.ZERO;
+
+      Account withDrawAccnt = this.findAccountByID(accountNum);
+
+      if (withDrawAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+      if (withDrawAccnt.getBalance().compareTo(amount)!=1){
+         msg.append("Not enough funds exists.");
+         return withDrawAccnt.getBalance();
+      }
+
+      withDrawAccnt.withdraw(amount);
+      balance=  withDrawAccnt.getBalance();
+
+      //create a transaction
+      Transaction trans = new Transaction();
+      Date dt = new Date(System.currentTimeMillis());
+
+      trans.setAmount(amount);
+      trans.setCreationdate(dt);
+      trans.setNote("Withdraw. Amount " + amount);
+      trans.setTransType(TransactionTypeEnum.WITHDRAW);
+      this.withTransaction(trans);
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
+
+   // depositFunds to given account
+   public BigInteger depositFunds(int accountNum,BigInteger amount, StringBuilder msg){
+      BigInteger balance=BigInteger.ZERO;
+
+      Account depositAccnt = findAccountByID(accountNum);
+
+      if (depositAccnt==null){
+         msg.append("Account number " + accountNum + " not found.");
+         return balance;
+      }
+
+      depositAccnt.deposit(amount);
+      balance=  depositAccnt.getBalance();
+
+      //create a transaction
+      Transaction trans = new Transaction();
+      Date dt = new Date(System.currentTimeMillis());
+
+      trans.setAmount(amount);
+      trans.setCreationdate(dt);
+      trans.setNote("Deposit. Amount " + amount);
+      trans.setTransType(TransactionTypeEnum.DEPOSIT);
+      this.withTransaction(trans);
+
+      // set the message
+      msg.append("successful");
+
+      return balance;
+   }
+
+   // update given user's info
+   public String updateUserInfo(String userID, String fieldName, String fieldValue){
+
+      UserSet usr= this.getCustomerUser().filterUserID(userID);
+
+      if(usr.size()==0){
+         return "UserID " + userID  + " is not valid.";
+      }
+
+      //this.findUserByID(userID).setName(fieldValue);
+      //this.getCustomerUser().withUserID(userID).filterUserID(userID).getName();
+      //return "successful";
+
+      //usr.setIsAdmin(Boolean.valueOf(fieldValue));
+
+      /*
+      user.withAttribute("name", DataType.STRING);
+      user.withAttribute("userID",DataType.STRING); NO
+      user.withAttribute("isAdmin", DataType.BOOLEAN);
+      user.withAttribute("password", DataType.STRING);
+      user.withAttribute("email", DataType.STRING);
+      user.withAttribute("LoggedIn", DataType.BOOLEAN);
+      user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
+      user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
+      */
+
+      //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
+
+      switch (fieldName.toUpperCase()) {
+         case "NAME":
+            usr.withName(fieldValue);
+            break;
+         case "USERID":
+            usr.withUserID(fieldValue);
+            break;
+         case "ISADMIN":
+            usr.withIsAdmin(Boolean.valueOf(fieldValue));
+            break;
+         case "PASSWORD":
+            usr.withPassword(fieldValue);
+            break;
+         case "EMAIL":
+            usr.withEmail(fieldValue);
+            break;
+         case "LOGGEDIN":
+            usr.withLoggedIn(Boolean.valueOf(fieldValue));
+            break;
+         case "PHONE":
+            usr.withPhone(fieldValue);
+            break;
+         case "USERNAME":
+            usr.withUsername(fieldValue);
+            break;
+         default:
+            return "Field " + fieldName + " is not valid.";
+      }
+
+      //System.out.println("updateUserInfo:" + usr.getPhone());
+      return "successful";
+
+   }
+
+   public String createUser(String username, String password,String name, String phoneNumber,String email,boolean isAdmin, StringBuilder msg)
+   {
+
+      // get the next userID, check to make sure it is not used
+      boolean loop=true;
+      String valID=null;
+      while(loop) {
+         valID=String.valueOf(this.getNextID());
+
+         if(this.getCustomerUser().filterUserID(valID).size() == 0 &&
+                 this.getAdminUsers().filterUserID(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==null){
+         // set the message
+         msg.append("unsuccessful. UserID is null");
+
+         return "-1";
+      }
+
+      // check if username is already used
+      if(this.getCustomerUser().filterUsername(username).size() != 0 ||
+              this.getAdminUsers().filterUsername(username).size() != 0) {
+         throw new IllegalArgumentException("Username " + username + " has already been used");
+      }
+
+      //set user attributes
+      User usr = new User();
+      usr.setUserID(valID);
+      usr.setName(name);
+      usr.setUsername(username);
+      usr.setPassword(password);
+      usr.setPhone(phoneNumber);
+      usr.setEmail(email);
+      usr.setIsAdmin(isAdmin);
+
+      // check which user will be created
+      if(isAdmin){
+         this.withAdminUsers(usr);
+      }else{
+         this.withCustomerUser(usr);
+      }
+
+      // set the message
+      msg.append("successful");
+
+      return valID;
+   }
+
+   // create user Account
+   public String createAccount(String userID,boolean isAdminAccount,BigInteger initialBalance, AccountTypeEnum accountType, StringBuilder msg) {
+
+      // get the next accountnumber, check to make sure it is not used
+      boolean loop=true;
+      int valID=0;
+      while(loop) {
+         valID=this.getNextID();
+
+         if(this.getCustomerAccounts().filterAccountnum(valID).size() == 0 &&
+                 this.getAdminAccounts().filterAccountnum(valID).size() == 0) {
+            loop=false;
+         }
+      }
+
+      if(valID==0) {
+         msg.append("failure. Account Number is null.");
+         return "-1";
+      }
+
+      User usr = this.findUserByID(userID);
+
+      if (usr==null) {
+         msg.append("failure. UserID " + userID + " not found.");
+         return "-1";
+      }
+
+      Account accnt = new Account()
+              .withAccountnum(valID)
+              .withOwner(usr)
+              .withType(accountType)
+              .withBalance(initialBalance);
+
+
+      // check which user will be created
+      if(isAdminAccount){
+         this.withAdminAccounts(accnt);
+      }else{
+         this.withCustomerAccounts(accnt);
+      }
+
+      msg.append("successful");
+
+      return String.valueOf(valID);
+   }
+
+   // get 10 digit ID
+   public static int getNextID() {
+      Random r = new Random(System.currentTimeMillis());
+      return Math.abs(1000000000 + r.nextInt(2000000000));
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Bank ----------------------------------- FeeValue
+    *              bank                   feeValue
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FEEVALUE = "feeValue";
+
+   private FeeValueSet feeValue = null;
+   
+   public FeeValueSet getFeeValue()
+   {
+      if (this.feeValue == null)
+      {
+         return FeeValueSet.EMPTY_SET;
+      }
+   
+      return this.feeValue;
+   }
+
+   //WILL COME BACK TO THIS
+   public Bank withFeeValue(FeeValue... value) {
+      if(value==null){
+         return this;
+      }
+      for (FeeValue item : value) {
+         boolean skip = (this.getFeeValue().size() >= 5); //If the FeeValue set size is less than 5, skip = false
+         if (item != null) {
+            if (this.feeValue == null) {
+               this.feeValue = new FeeValueSet();
+            }
+            else {
+               // Search for duplicate FeeValues
+               FeeValueSet pulledFeeValues = this.getFeeValue();
+               for (FeeValue i : pulledFeeValues) {
+                  if (item.getTransType() != null && item.getTransType() == i.getTransType())
+                     skip = true;
+               }
+            }
+            if (!skip) {
+               boolean changed = this.feeValue.add(item);
+               if (changed) {
+                  item.withBank(this);
+                  firePropertyChange(PROPERTY_FEEVALUE, null, item);
+               }
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Bank withoutFeeValue(FeeValue... value)
+   {
+      for (FeeValue item : value)
+      {
+         if ((this.feeValue != null) && (item != null))
+         {
+            if (this.feeValue.remove(item))
+            {
+               item.setBank(null);
+               firePropertyChange(PROPERTY_FEEVALUE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public FeeValue createFeeValue()
+   {
+      FeeValue value = new FeeValue();
+      withFeeValue(value);
       return value;
    } 
 }
