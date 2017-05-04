@@ -62,6 +62,7 @@ public class Model {
                 .withAttribute("accountnum",DataType.INT)
                 .withAttribute("creationdate", DataType.create(Date.class))
                 .withAttribute("IsConnected", DataType.BOOLEAN)
+                .withAttribute("isClosed", DataType.BOOLEAN)
                 .withAttribute("type", DataType.create(enumeration));
 
         Clazz bank = model.createClazz("Bank")
@@ -123,6 +124,14 @@ public class Model {
                 new Parameter(DataType.INT).with("fromAcctID"),
                 new Parameter(DataType.create(Integer.class)).with("dollarValue"),
                 new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+        //Disable User
+        bank.withMethod("disableUser", DataType.BOOLEAN,
+                new Parameter(DataType.STRING).with("userID"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+        //Close Account
+        bank.withMethod("closeAccount", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("accountNumber"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import org.sdmlib.openbank.util.FeeValuePO;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.util.FeeValueSet;
+import java.lang.StringBuilder;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -468,6 +469,30 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) this.getCurrentMatch()).getFeeValue();
       }
       return null;
+   }
+
+
+   //==========================================================================
+   
+   public boolean disableUser(String userID, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).disableUser(userID, msg);
+      }
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean closeAccount(int accountNumber, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).closeAccount(accountNumber, msg);
+      }
+      return false;
    }
 
 }

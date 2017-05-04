@@ -753,4 +753,32 @@ public  class Account implements SendableEntity
       pulledAdminAccount.setBalance(pulledAdminAccount.getBalance().add(calculatedFee));
       return trans;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISCLOSED = "isClosed";
+   
+   private boolean isClosed;
+
+   public boolean isIsClosed()
+   {
+      return this.isClosed;
+   }
+   
+   public void setIsClosed(boolean value)
+   {
+      if (this.isClosed != value) {
+      
+         boolean oldValue = this.isClosed;
+         this.isClosed = value;
+         this.firePropertyChange(PROPERTY_ISCLOSED, oldValue, value);
+      }
+   }
+   
+   public Account withIsClosed(boolean value)
+   {
+      setIsClosed(value);
+      return this;
+   } 
 }

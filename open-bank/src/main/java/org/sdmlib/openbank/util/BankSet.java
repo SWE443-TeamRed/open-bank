@@ -38,6 +38,7 @@ import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.FeeValue;
+import java.lang.StringBuilder;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -820,6 +821,36 @@ public class BankSet extends SimpleSet<Bank>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList disableUser(String userID, StringBuilder msg)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.disableUser(userID, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList closeAccount(int accountNumber, StringBuilder msg)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.closeAccount(accountNumber, msg) );
+      }
+      return result;
    }
 
 }

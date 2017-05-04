@@ -32,6 +32,11 @@ import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.FeeValue;
+import org.sdmlib.openbank.Account;
+import java.lang.StringBuilder;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -840,6 +845,7 @@ import java.util.Random;
               .withAccountnum(valID)
               .withOwner(usr)
               .withType(accountType)
+              .withIsClosed(false)
               .withBalance(initialBalance);
 
 
@@ -936,5 +942,52 @@ import java.util.Random;
       FeeValue value = new FeeValue();
       withFeeValue(value);
       return value;
-   } 
+   }
+   //==========================================================================
+   public boolean disableUser( String userID, StringBuilder msg )
+   {
+      UserSet usSet = new UserSet()
+              .with(getAdminUsers())
+              .with(getCustomerUser());
+      usSet = usSet.filterUserID(userID);
+      if(usSet.size() == 0){
+         msg.append("unsuccessful. User does not exist");
+         return false;
+      }
+      if(usSet.size() > 1){
+         throw new IllegalArgumentException("Multiple Users have the userID "+userID);
+      }
+      User us = usSet.get(0);
+      us.setUsername(null);
+      us.setPassword(null);
+      AccountSet accSet = us.getAccount();
+      for(int x = 0; x < accSet.size(); x++){
+         closeAccount(accSet.get(x).getAccountnum(),msg);
+      }
+      msg.append("successful");
+      return true;
+   }
+   //==========================================================================
+   public boolean closeAccount( int accountNumber, StringBuilder msg )
+   {
+      AccountSet accSet = new AccountSet()
+              .with(getAdminAccounts())
+              .with(getCustomerAccounts());
+      accSet = accSet.filterAccountnum(accountNumber);
+      if(accSet.size() == 0){
+         msg.append("unsuccessful. Account does not exist");
+         return false;
+      }
+      if(accSet.size() > 1){
+         throw new IllegalArgumentException("Multiple Accounts have the account number "+accountNumber);
+      }
+      Account acc = accSet.get(0);
+      acc.setIsClosed(true);
+      /*============================================
+      TODO: Transfer balance of the account to the bank root account
+      ==============================================*/
+
+      msg.append("successful");
+      return true;
+   }
 }
