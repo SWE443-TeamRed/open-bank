@@ -33,6 +33,7 @@ public class BankCreator implements SendableEntityCreator
       Bank.PROPERTY_CUSTOMERACCOUNTS,
       Bank.PROPERTY_ADMINUSERS,
       Bank.PROPERTY_ADMINACCOUNTS,
+      Bank.PROPERTY_FEEVALUE,
    };
    
    @Override
@@ -91,6 +92,11 @@ public class BankCreator implements SendableEntityCreator
       if (Bank.PROPERTY_ADMINACCOUNTS.equalsIgnoreCase(attribute))
       {
          return ((Bank) target).getAdminAccounts();
+      }
+
+      if (Bank.PROPERTY_FEEVALUE.equalsIgnoreCase(attribute))
+      {
+         return ((Bank) target).getFeeValue();
       }
       
       return null;
@@ -167,6 +173,18 @@ public class BankCreator implements SendableEntityCreator
       if ((Bank.PROPERTY_ADMINACCOUNTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Bank) target).withoutAdminAccounts((Account) value);
+         return true;
+      }
+
+      if (Bank.PROPERTY_FEEVALUE.equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withFeeValue((FeeValue) value);
+         return true;
+      }
+      
+      if ((Bank.PROPERTY_FEEVALUE + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Bank) target).withoutFeeValue((FeeValue) value);
          return true;
       }
       
