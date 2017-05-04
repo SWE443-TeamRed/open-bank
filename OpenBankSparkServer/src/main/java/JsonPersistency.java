@@ -1,9 +1,5 @@
-package org.sdmlib.openbank;
-
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.json.JsonArray;
-import org.sdmlib.openbank.util.AccountCreator;
-import org.sdmlib.openbank.util.BankCreator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
