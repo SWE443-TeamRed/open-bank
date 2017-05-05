@@ -914,7 +914,6 @@ import org.sdmlib.openbank.Account;
       return value;
    } 
 
-   
    //==========================================================================
    public Set getTransactions(int accountNumber, BigInteger amount, Date date )
    {
@@ -986,9 +985,12 @@ import org.sdmlib.openbank.Account;
             Set st2 = s.filterDatebyMonthDateYear(date);
 
             if (st2.size() > 0) {
-               stTemp.add(s.filterAmount(amount));
+               stTemp.add(s.filterDatebyMonthDateYear(date));
                st2 = null;
             }
+         }
+         if(accountNumber==0 && amount.compareTo(BigInteger.ZERO)==0 && stTemp.isEmpty() ){
+            st.clear();
          }
       }
 
