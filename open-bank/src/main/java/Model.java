@@ -9,6 +9,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by FA on 3/23/2017.
@@ -122,8 +123,8 @@ public class Model {
         bank.withMethod("confirmTransaction", DataType.BOOLEAN,
                 new Parameter(DataType.INT).with("toAcctID"),
                 new Parameter(DataType.INT).with("fromAcctID"),
-                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
-                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+                new Parameter(DataType.create(BigInteger.class)).with("dollarValue"),
+                new Parameter(DataType.create(BigInteger.class)).with("decimalValue"));
 
         // Login method, return succesfull if username and password matches
         bank.withMethod("Login", DataType.STRING,
@@ -153,8 +154,8 @@ public class Model {
         bank.withMethod("getNextID", DataType.INT);
 
         // getTransactions method, returns all the transactions for given account, date and amoount
-        bank.withMethod("getTransactions", DataType.create(TransactionSet.class),
-                new Parameter(DataType.STRING).with("accountNumber"),
+        bank.withMethod("getTransactions", DataType.create(Set.class),
+                new Parameter(DataType.INT).with("accountNumber"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.create(Date.class)).with("date"));
 

@@ -30,18 +30,19 @@ import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.openbank.util.UserSet;
+
 import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.FeeValue;
 import de.uniks.networkparser.list.StringList;
 import java.lang.StringBuilder;
-import org.sdmlib.openbank.util.BigIntegerSet;
-import org.sdmlib.openbank.util.TransactionSetSet;
+import java.util.Date;
+import java.util.Set;
+import org.sdmlib.openbank.util.UserSet;
+import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.util.AccountSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -903,11 +904,14 @@ public class BankSet extends SimpleSet<Bank>
 
    
    //==========================================================================
+
    
-   public TransactionSetSet getTransactions(String accountNumber, BigInteger amount, Date date)
+   //==========================================================================
+   
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date)
    {
       
-      TransactionSetSet result = new TransactionSetSet();
+      Set<Set> result = new SimpleSet<>();
       
       for (Bank obj : this)
       {

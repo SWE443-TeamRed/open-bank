@@ -19,6 +19,9 @@ import org.sdmlib.openbank.util.FeeValuePO;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.util.FeeValueSet;
 import java.lang.StringBuilder;
+import java.util.Date;
+import java.util.Set;
+
 import org.sdmlib.openbank.util.TransactionSet;
 
 public class BankPO extends PatternObject<BankPO, Bank>
@@ -535,7 +538,7 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
-   public org.sdmlib.openbank.util.TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date)
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date)
    {
       if (this.getPattern().getHasMatch())
       {

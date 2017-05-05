@@ -23,6 +23,7 @@ package org.sdmlib.openbank;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.list.SimpleSet;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.TransactionSet;
@@ -34,6 +35,8 @@ import java.math.BigInteger;
 //import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
+import java.util.Set;
+
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.FeeValue;
@@ -711,26 +714,7 @@ import org.sdmlib.openbank.Account;
          return "UserID " + userID  + " is not valid.";
       }
 
-      //this.findUserByID(userID).setName(fieldValue);
-      //this.getCustomerUser().withUserID(userID).filterUserID(userID).getName();
-      //return "successful";
-
-      //usr.setIsAdmin(Boolean.valueOf(fieldValue));
-
-      /*
-      user.withAttribute("name", DataType.STRING);
-      user.withAttribute("userID",DataType.STRING); NO
-      user.withAttribute("isAdmin", DataType.BOOLEAN);
-      user.withAttribute("password", DataType.STRING);
-      user.withAttribute("email", DataType.STRING);
-      user.withAttribute("LoggedIn", DataType.BOOLEAN);
-      user.withAttribute("phone", DataType.STRING); // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
-      user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
-      */
-
-      //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
-
-      switch (fieldName.toUpperCase()) {
+       switch (fieldName.toUpperCase()) {
          case "NAME":
             usr.withName(fieldValue);
             break;
@@ -747,7 +731,6 @@ import org.sdmlib.openbank.Account;
             return "Field " + fieldName + " is not valid.";
       }
 
-      //System.out.println("updateUserInfo:" + usr.getPhone());
       return "successful";
 
    }
@@ -933,8 +916,92 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date )
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date )
    {
-      return null;
+      Set<TransactionSet> st = new SimpleSet<TransactionSet>();
+      //TransactionSet st = new TransactionSet>();
+      Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
+
+      //filter by account Number
+      if(accountNumber>0) {
+         if (this.getCustomerAccounts().filterAccountnum(accountNumber).getFromTransaction().size()>0){
+            st.add(this.getCustomerAccounts().filterAccountnum(accountNumber).getFromTransaction());
+         }
+
+         if (this.getCustomerAccounts().filterAccountnum(accountNumber).getToTransaction().size()>0){
+            st.add(this.getCustomerAccounts().filterAccountnum(accountNumber).getToTransaction());
+         }
+
+         if (this.getAdminAccounts().filterAccountnum(accountNumber).getFromTransaction().size()>0){
+            st.add(this.getAdminAccounts().filterAccountnum(accountNumber).getFromTransaction());
+         }
+
+         if (this.getAdminAccounts().filterAccountnum(accountNumber).getToTransaction().size()>0){
+            st.add(this.getAdminAccounts().filterAccountnum(accountNumber).getToTransaction());
+         }
+      }else {
+         // get all the transactions from bank
+         if (this.getCustomerAccounts().getFromTransaction().size() > 0) {
+            st.add(this.getCustomerAccounts().getFromTransaction());
+         }
+
+         if (this.getCustomerAccounts().getToTransaction().size() > 0) {
+            st.add(this.getCustomerAccounts().getToTransaction());
+         }
+
+         if (this.getAdminAccounts().getToTransaction().size() > 0) {
+            st.add(this.getAdminAccounts().getToTransaction());
+         }
+
+         if (this.getAdminAccounts().getToTransaction().size() > 0) {
+            st.add(this.getAdminAccounts().getToTransaction());
+         }
+      }
+
+      //sort by amount
+      if (amount.compareTo(BigInteger.ZERO) > 0)
+      {
+         for (TransactionSet s : st) {
+            Set st2 = s.filterAmount(amount);
+
+            if (st2.size() > 0) {
+               stTemp.add(s.filterAmount(amount));
+               st2 = null;
+            }
+         }
+      }
+
+      //  if temp is not empty add it to the set
+      if(!stTemp.isEmpty()) {
+         st.clear();
+         for (TransactionSet s : stTemp){
+            st.add(s);
+         }
+         stTemp.clear();
+      }
+
+      // sort by date
+      if (date !=null) {
+         for (TransactionSet s : st) {
+            Set st2 = s.filterDatebyMonthDateYear(date);
+
+            if (st2.size() > 0) {
+               stTemp.add(s.filterAmount(amount));
+               st2 = null;
+            }
+         }
+      }
+
+      //  if temp is not empty add it to the set
+      if(!stTemp.isEmpty()) {
+         st.clear();
+         for (TransactionSet s : stTemp){
+            st.add(s);
+         }
+         stTemp.clear();
+      }
+
+      return st;
    }
+
 }
