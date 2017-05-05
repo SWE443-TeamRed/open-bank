@@ -5,6 +5,7 @@ import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -46,14 +47,15 @@ public class Test_S4_S5_S6_S7_S15 {
         //Setting the account information.
         tinachecking = new Account()
                 .withAccountnum(123456789)
-                .withBalance(30)
-                .withDebit()
+                .withBalance(BigInteger.valueOf(30))
                 .withOwner(tina)
                 .withCreationdate(date);
+                //.withDebit()
+
 
         tinasavings = new Account()
                 .withCreationdate(date)
-                .withBalance(5)
+                .withBalance(BigInteger.valueOf(5))
                 .withOwner(tina);
     
 
@@ -61,7 +63,7 @@ public class Test_S4_S5_S6_S7_S15 {
         nickchecking = new Account()
                 .withAccountnum(1234555555)
                 .withCreationdate(date)
-                .withBalance(15)
+                .withBalance(BigInteger.valueOf(15))
                 .withOwner(nick);
     }
 
@@ -93,7 +95,7 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());//Sign in before making transaction.
 
         //Transfer 10 dollars
-        storyboard.assertTrue("Transfer was successfull",tinachecking.transferToAccount(10.00,tinasavings, "Tina transfers 10 from checking to savings"));
+        storyboard.assertTrue("Transfer was successfull",tinachecking.transferToAccount(BigInteger.valueOf(10),tinasavings, "Tina transfers 10 from checking to savings"));
 
         //Checking is reduced
         storyboard.assertEquals("Checking Account reduced by $10.00: ",
@@ -121,7 +123,7 @@ public class Test_S4_S5_S6_S7_S15 {
     public void S5_testWithdraw(){
         storyboard = new Storyboard();
         createAccounts();
-        tinasavings.withBalance(30);
+        tinasavings.withBalance(BigInteger.valueOf(30));
         tina.login("Tina","1234");
         storyboard.assertTrue("Tina is logged in: ",tina.isLoggedIn());
 
@@ -130,7 +132,7 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.assertEquals("Tina has 30 in her bank account ",30.0,tinasavings.getBalance());
         storyboard.addObjectDiagram("Tina", tina,"Savings",tinasavings);
 
-       tinasavings.withdraw(10.00);//Making withdraw
+       tinasavings.withdraw(BigInteger.valueOf(10));//Making withdraw
         storyboard.assertEquals("Tina makes a withdraw of 10 ",
                20.0, tinasavings.getBalance());//Making sure it worked.
         storyboard.add("Post-condition: Tina gets $10 cash and her savings now has $20");
@@ -204,7 +206,7 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.assertEquals("Tina has 5 in her account",15.0,nickchecking.getBalance());
 
         //Calling transferToAccount()
-        tinachecking.transferToAccount(10.00, nickchecking, "Transfering 10 from tina's checking to nicks checking");
+        tinachecking.transferToAccount(BigInteger.valueOf(10), nickchecking, "Transfering 10 from tina's checking to nicks checking");
 
         //Assert each user is connected to their account.
         /*
@@ -260,7 +262,7 @@ public class Test_S4_S5_S6_S7_S15 {
         storyboard.add("2) Tina opnes a checking account with balance of 100");
         //Setting the account information
         tinachecking = new Account()//Could not find a way to actually create a constructor.
-                .withBalance(100.0)
+                .withBalance(BigInteger.valueOf(100))
                 .withOwner(tina)
                 .withCreationdate(new Date());
 

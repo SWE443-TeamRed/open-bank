@@ -54,7 +54,7 @@
          "typ":"node",
          "id":"Transaction",
          "attributes":[
-            "amount : double",
+            "amount : BigInteger",
             "creationdate : Date",
             "note : String",
             "transType : TransactionTypeEnum"
@@ -62,21 +62,28 @@
       },
       {
          "typ":"node",
+         "id":"FeeValue",
+         "attributes":[
+            "transType : TransactionTypeEnum",
+            "percent : BigInteger"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"Account",
          "attributes":[
-            "balance : double",
+            "balance : BigInteger",
             "accountnum : int",
             "creationdate : Date",
             "IsConnected : boolean",
             "type : AccountTypeEnum"
          ],
          "methods":[
-            "Account(double initialAmount)",
-            "transferToAccount(double amount, org.sdmlib.openbank.Account destinationAccount, String note) boolean",
-            "receiveFunds(org.sdmlib.openbank.Account giver, double amount, String note) boolean",
-            "recordTransaction(boolean p0, double p1, String p2) org.sdmlib.openbank.Transaction",
-            "withdraw(double amount) boolean",
-            "deposit(double amount) boolean"
+            "transferToAccount(java.math.BigInteger amount, org.sdmlib.openbank.Account receiver, String note) boolean",
+            "receiveFunds(java.math.BigInteger amount, String note) boolean",
+            "recordTransaction(org.sdmlib.openbank.Account sender, org.sdmlib.openbank.Account receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note) org.sdmlib.openbank.Transaction",
+            "withdraw(java.math.BigInteger amount) boolean",
+            "deposit(java.math.BigInteger amount) boolean"
          ]
       },
       {
@@ -152,12 +159,12 @@
          "source":{
             "id":"Transaction",
             "cardinality":"many",
-            "property":"credit"
+            "property":"ToTransaction"
          },
          "target":{
             "id":"Account",
             "cardinality":"one",
-            "property":"fromAccount"
+            "property":"ToAccount"
          }
       },
       {
@@ -165,12 +172,51 @@
          "source":{
             "id":"Transaction",
             "cardinality":"many",
-            "property":"debit"
+            "property":"FromTransaction"
          },
          "target":{
             "id":"Account",
             "cardinality":"one",
-            "property":"toAccount"
+            "property":"FromAccount"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"previous"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"next"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"fee"
+         },
+         "target":{
+            "id":"Transaction",
+            "cardinality":"one",
+            "property":"owner"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"FeeValue",
+            "cardinality":"many",
+            "property":"feeValue"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
          }
       },
       {

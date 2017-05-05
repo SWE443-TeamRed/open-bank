@@ -11,6 +11,8 @@ import java.io.IOException;
  */
 public class JsonPersistency {
 
+
+
     public void toJson(Account account){
         String jsonText = "";
 

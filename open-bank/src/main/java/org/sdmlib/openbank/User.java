@@ -21,15 +21,13 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.Bank;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.File;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -172,9 +170,9 @@ import org.sdmlib.openbank.Bank;
            result.append(" ").append("Password: " + this.getPassword());
            result.append(" ").append("Admin: " + this.isIsAdmin());
            result.append(" ").append(this.getEmail());
-      result.append(" ").append(this.getPhone());
-      result.append(" ").append(this.getUsername());
-      return result.substring(1);
+           result.append(" ").append(this.getPhone());
+           result.append(" ").append(this.getUsername());
+           return result.substring(1);
        }
 
 
@@ -191,12 +189,9 @@ import org.sdmlib.openbank.Bank;
        }
 
        public void setUserID(String value) {
-           if (!EntityUtil.stringEquals(this.UserID, value)) {
-
-               String oldValue = this.UserID;
-               this.UserID = value;
-               this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-           }
+                    String oldValue = this.UserID;
+                   this.UserID = value;
+                   this.firePropertyChange(PROPERTY_USERID, oldValue, value);
        }
 
        public User withUserID(String value) {
@@ -458,12 +453,18 @@ import org.sdmlib.openbank.Bank;
    
    public void setUsername(String value)
    {
+       /*
       if ( ! EntityUtil.stringEquals(this.username, value)) {
-      
-         String oldValue = this.username;
-         this.username = value;
-         this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
-      }
+          if(this.getBank().getCustomerUser().filterUsername(value).size() == 0 &&
+                  this.getBank().getAdminUsers().filterUsername(value).size() == 0) {
+                  */
+              String oldValue = this.username;
+              this.username = value;
+              this.firePropertyChange(PROPERTY_USERNAME, oldValue, value);
+          //}
+          //else
+         //     throw new IllegalArgumentException("Username "+value+" has already been used");
+      //}
    }
    
    public User withUsername(String value)
