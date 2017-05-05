@@ -38,4 +38,11 @@ public enum AccountTypeEnum
      AccountTypeEnum(  )
    {
    }
+
+   
+   //==========================================================================
+   public String toString(  )
+   {
+      return null;
+   }
 }

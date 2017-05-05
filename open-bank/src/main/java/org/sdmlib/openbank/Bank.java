@@ -32,7 +32,13 @@ import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
-   /**
+import java.util.UUID;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.FeeValue;
+import org.sdmlib.openbank.Account;
+
+/**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
@@ -136,6 +142,7 @@ import java.util.Random;
       
       result.append(" ").append(this.getFee());
       result.append(" ").append(this.getBankName());
+//      result.append(" ").append(this.getPasswordCode());
       return result.substring(1);
    }
 
@@ -936,5 +943,48 @@ import java.util.Random;
       FeeValue value = new FeeValue();
       withFeeValue(value);
       return value;
-   } 
+   }
+
+
+   //==========================================================================
+   public void generateCode(  )
+   {
+      passwordCode = UUID.randomUUID().toString();
+   }
+
+   
+   //==========================================================================
+   public boolean confirmCode( String code )
+   {
+      if(passwordCode.equals(code))return true;
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PASSWORDCODE = "passwordCode";
+   
+   private String passwordCode;
+
+//   public String getPasswordCode()
+//   {
+//      return this.passwordCode;
+//   }
+//
+//   public void setPasswordCode(String value)
+//   {
+//      if ( ! EntityUtil.stringEquals(this.passwordCode, value)) {
+//
+//         String oldValue = this.passwordCode;
+//         this.passwordCode = value;
+//         this.firePropertyChange(PROPERTY_PASSWORDCODE, oldValue, value);
+//      }
+//   }
+//
+//   public Bank withPasswordCode(String value)
+//   {
+//      setPasswordCode(value);
+//      return this;
+//   }
 }
