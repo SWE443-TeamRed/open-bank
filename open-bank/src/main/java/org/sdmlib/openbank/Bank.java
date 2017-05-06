@@ -812,13 +812,13 @@ import java.lang.StringBuilder;
               .withAccountnum(valID)
               .withOwner(usr)
               .withType(accountType)
-              .withIsClosed(false)
+              .withIsClosed(false);
               /*=================================================
               TODO Create an initial transaction to seed balance
               =================================================== */
-              .withBalance(initialBalance);
-
-
+      recordTransaction(this.getAdminAccounts().first().getAccountnum(),
+              accnt.getAccountnum(),TransactionTypeEnum.SEED,initialBalance,
+              "Seeding transaction",msg);
       // check which user will be created
       if(isAdminAccount){
          this.withAdminAccounts(accnt);
@@ -921,7 +921,7 @@ import java.lang.StringBuilder;
               .with(getCustomerUser());
       usSet = usSet.filterUserID(userID);
       if(usSet.size() == 0){
-         msg.append("unsuccessful. User does not exist");
+         msg.append("Unsuccessful. User does not exist");
          return false;
       }
       if(usSet.size() > 1){
@@ -934,7 +934,7 @@ import java.lang.StringBuilder;
       for(int x = 0; x < accSet.size(); x++){
          closeAccount(accSet.get(x).getAccountnum(),msg);
       }
-      msg.append("successful");
+      msg.append("Successful");
       return true;
    }
    //==========================================================================
@@ -953,6 +953,8 @@ import java.lang.StringBuilder;
       }
       Account acc = accSet.get(0);
       acc.setIsClosed(true);
+      recordTransaction(acc.getAccountnum(),this.getAdminAccounts().first().getAccountnum(),
+              TransactionTypeEnum.CLOSE,acc.getBalance(),"Closing account", msg);
       msg.append("successful");
       return true;
    }
@@ -1070,8 +1072,12 @@ import java.lang.StringBuilder;
       newTransaction.setNote(note);
       newTransaction.setCreationdate(new Date());
 
-      Account senderAccount = findAccountByID(sender);
-      Account receiverAccount = findAccountByID(receiver);
+      Account senderAccount = null;
+      Account receiverAccount = null;
+      if(sender == -1)
+         senderAccount = findAccountByID(sender);
+      if(receiver == -1)
+         receiverAccount = findAccountByID(receiver);
 
       if (type.equals(TransactionTypeEnum.TRANSFER)) {
          if (senderAccount != null && receiverAccount != null) {
