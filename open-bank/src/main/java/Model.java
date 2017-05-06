@@ -47,7 +47,7 @@ public class Model {
                 .withAttribute("email", DataType.STRING)
                 .withAttribute("LoggedIn", DataType.BOOLEAN)
                 .withAttribute("phone", DataType.STRING) // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
-                .withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
+                .withAttribute("username", DataType.STRING); // FA 4-12-2017 new
 
         Clazz transaction = model.createClazz("Transaction")
                 .withAttribute("amount", DataType.create(BigInteger.class)) // type changed from double to Biginteger
@@ -64,6 +64,7 @@ public class Model {
                 .withAttribute("accountnum",DataType.INT)
                 .withAttribute("creationdate", DataType.create(Date.class))
                 .withAttribute("IsConnected", DataType.BOOLEAN)
+                .withAttribute("isClosed", DataType.BOOLEAN)
                 .withAttribute("type", DataType.create(enumeration));
 
         Clazz bank = model.createClazz("Bank")
@@ -125,7 +126,14 @@ public class Model {
                 new Parameter(DataType.INT).with("fromAcctID"),
                 new Parameter(DataType.create(BigInteger.class)).with("dollarValue"),
                 new Parameter(DataType.create(BigInteger.class)).with("decimalValue"));
-
+        //Disable User
+        bank.withMethod("disableUser", DataType.BOOLEAN,
+                new Parameter(DataType.STRING).with("userID"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+        //Close Account
+        bank.withMethod("closeAccount", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("accountNumber"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
         // Login method, return succesfull if username and password matches
         bank.withMethod("Login", DataType.STRING,
                 new Parameter(DataType.STRING).with("username"),
@@ -158,6 +166,14 @@ public class Model {
                 new Parameter(DataType.INT).with("accountNumber"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.create(Date.class)).with("date"));
+
+        bank.withMethod("recordTransaction", DataType.VOID,
+                new Parameter(DataType.INT).with("sender"),
+                new Parameter(DataType.INT).with("receiver"),
+                new Parameter(transTypeEnum).with("type"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.STRING).with("note"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

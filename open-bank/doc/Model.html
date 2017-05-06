@@ -76,6 +76,7 @@
             "accountnum : int",
             "creationdate : Date",
             "IsConnected : boolean",
+            "isClosed : boolean",
             "type : AccountTypeEnum"
          ],
          "methods":[
@@ -98,12 +99,15 @@
             "findAccountByID(int accountID) org.sdmlib.openbank.Account",
             "findUserByID(String userID) org.sdmlib.openbank.User",
             "confirmTransaction(int toAcctID, int fromAcctID, java.math.BigInteger dollarValue, java.math.BigInteger decimalValue) boolean",
+            "disableUser(String userID, java.lang.StringBuilder msg) boolean",
+            "closeAccount(int accountNumber, java.lang.StringBuilder msg) boolean",
             "Login(String username, String password) String",
             "withDrawFunds(int accountNum, java.math.BigInteger amount, java.lang.StringBuilder msg) java.math.BigInteger",
             "depositFunds(int accountNum, java.math.BigInteger amount, java.lang.StringBuilder msg) java.math.BigInteger",
             "updateUserInfo(String userID, String fieldName, String fieldValue) String",
             "getNextID() int",
-            "getTransactions(int accountNumber, java.math.BigInteger amount, java.util.Date date) java.util.Set"
+            "getTransactions(int accountNumber, java.math.BigInteger amount, java.util.Date date) java.util.Set",
+            "recordTransaction(int sender, int receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note, java.lang.StringBuilder msg)"
          ]
       }
    ],

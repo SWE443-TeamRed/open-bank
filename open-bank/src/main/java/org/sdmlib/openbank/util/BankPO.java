@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Set;
 
 import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -426,15 +427,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
 
    
    //==========================================================================
-   
-   public boolean confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Bank) getCurrentMatch()).confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue);
-      }
-      return false;
-   }
 
    public FeeValuePO createFeeValuePO()
    {
@@ -475,7 +467,12 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
-   
+   public boolean disableUser(String userID, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
+         return ((Bank) getCurrentMatch()).disableUser(userID, msg);
+      }
+      return false;
+   }
    //==========================================================================
    
    public String Login(String username, String password)
@@ -537,7 +534,14 @@ public class BankPO extends PatternObject<BankPO, Bank>
 
    
    //==========================================================================
-   
+
+   public boolean closeAccount(int accountNumber, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
+         return ((Bank) getCurrentMatch()).closeAccount(accountNumber, msg);
+      }
+      return false;
+   }
+
    public Set getTransactions(int accountNumber, BigInteger amount, Date date)
    {
       if (this.getPattern().getHasMatch())
@@ -545,6 +549,17 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
       }
       return null;
+   }
+
+   
+   //==========================================================================
+   
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, msg);
+      }
    }
 
 }

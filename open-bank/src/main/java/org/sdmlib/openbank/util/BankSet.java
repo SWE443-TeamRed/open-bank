@@ -35,6 +35,7 @@ import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.FeeValue;
+import java.lang.StringBuilder;
 import de.uniks.networkparser.list.StringList;
 import java.lang.StringBuilder;
 import java.util.Date;
@@ -43,6 +44,7 @@ import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -732,21 +734,6 @@ public class BankSet extends SimpleSet<Bank>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Bank obj : this)
-      {
-         result.add( obj.confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue) );
-      }
-      return result;
-   }
-
    /**
     * Loop through the current set of Bank objects and collect a set of the FeeValue objects reached via feeValue. 
     * 
@@ -829,7 +816,7 @@ public class BankSet extends SimpleSet<Bank>
 
    
    //==========================================================================
-   
+
    public StringList Login(String username, String password)
    {
       
@@ -844,7 +831,7 @@ public class BankSet extends SimpleSet<Bank>
 
    
    //==========================================================================
-   
+
    public BigIntegerSet withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
    {
       
@@ -918,6 +905,44 @@ public class BankSet extends SimpleSet<Bank>
          result.add( obj.getTransactions(accountNumber, amount, date) );
       }
       return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList disableUser(String userID, StringBuilder msg)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.disableUser(userID, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList closeAccount(int accountNumber, StringBuilder msg)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.closeAccount(accountNumber, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
+   {
+      return BankSet.EMPTY_SET;
    }
 
 }

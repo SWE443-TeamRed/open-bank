@@ -41,6 +41,7 @@ import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.Account;
+import java.lang.StringBuilder;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -634,11 +635,6 @@ import org.sdmlib.openbank.Account;
       return null;
    }
 
-   //==========================================================================
-   public boolean confirmTransaction( int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue )
-   {
-      return false;
-   }
 
    // withDrawFunds from given account
    public BigInteger withDrawFunds(int accountNum,BigInteger amount, StringBuilder msg){
@@ -816,9 +812,13 @@ import org.sdmlib.openbank.Account;
               .withAccountnum(valID)
               .withOwner(usr)
               .withType(accountType)
-              .withBalance(initialBalance);
-
-
+              .withIsClosed(false);
+              /*=================================================
+              TODO Create an initial transaction to seed balance
+              =================================================== */
+      recordTransaction(this.getAdminAccounts().first().getAccountnum(),
+              accnt.getAccountnum(),TransactionTypeEnum.SEED,initialBalance,
+              "Seeding transaction",msg);
       // check which user will be created
       if(isAdminAccount){
          this.withAdminAccounts(accnt);
@@ -912,7 +912,60 @@ import org.sdmlib.openbank.Account;
       FeeValue value = new FeeValue();
       withFeeValue(value);
       return value;
-   } 
+   }
+   //==========================================================================
+   public boolean disableUser( String userID, StringBuilder msg )
+   {
+      UserSet usSet = new UserSet()
+              .with(getAdminUsers())
+              .with(getCustomerUser());
+      usSet = usSet.filterUserID(userID);
+      if(usSet.size() == 0){
+         msg.append("Unsuccessful. User does not exist");
+         return false;
+      }
+      if(usSet.size() > 1){
+         throw new IllegalArgumentException("Multiple Users have the userID "+userID);
+      }
+      User us = usSet.get(0);
+      us.setUsername(null);
+      us.setPassword(null);
+      AccountSet accSet = us.getAccount();
+
+      for(int x = 0; x < accSet.size(); x++){
+         boolean b = true;
+         b = closeAccount(accSet.get(x).getAccountnum(),msg);
+         if(b == false){
+            msg.append("Unsuccessful.");
+            return false;
+         }
+      }
+      msg.append("Successful");
+      return true;
+   }
+   //==========================================================================
+   public boolean closeAccount( int accountNumber, StringBuilder msg )
+   {
+      AccountSet accSet = new AccountSet()
+              .with(getAdminAccounts())
+              .with(getCustomerAccounts());
+      accSet = accSet.filterAccountnum(accountNumber);
+      if(accSet.size() == 0){
+         msg.append("Unsuccessful. Account does not exist");
+         return false;
+      }
+      if(accSet.size() > 1){
+         throw new IllegalArgumentException("Multiple Accounts have the account number "+accountNumber);
+      }
+      Account acc = accSet.get(0);
+      if(acc.isIsClosed() != true) {
+         acc.setIsClosed(true);
+         recordTransaction(acc.getAccountnum(), this.getAdminAccounts().first().getAccountnum(),
+                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account", msg);
+      }
+      msg.append("Successful");
+      return true;
+   }
 
    //==========================================================================
    public Set getTransactions(int accountNumber, BigInteger amount, Date date )
@@ -1005,5 +1058,132 @@ import org.sdmlib.openbank.Account;
 
       return st;
    }
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg) {
+      if(type == null){
+         msg.append("Unsuccessful. Transaction type is null");
+         return;
+      }
+      if(amount == null || amount.compareTo(new BigInteger("0")) < 1){
+         msg.append("Unsuccessful. Amount is not valid");
+         return;
+      }
+      FeeValueSet pulledFeeValues = this.getFeeValue();
+      FeeValue fee = null;
+      for (FeeValue i : pulledFeeValues) {
+         if (i != null && i.getTransType().equals(type)) {
+            fee = i;
+         }
+      }
+      Transaction newTransaction = new Transaction();
+      newTransaction.setTransType(type);
+      newTransaction.setAmount(amount);
+      newTransaction.setNote(note);
+      newTransaction.setCreationdate(new Date());
 
+      Account senderAccount = null;
+      Account receiverAccount = null;
+      if(sender == -1)
+         senderAccount = findAccountByID(sender);
+      if(receiver == -1)
+         receiverAccount = findAccountByID(receiver);
+
+      if (type.equals(TransactionTypeEnum.TRANSFER)) {
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+               if(fee != null)
+                  newTransaction.setFee(senderAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      else if (type.equals(TransactionTypeEnum.DEPOSIT)) {
+         if (receiverAccount != null) {
+            newTransaction.withToAccount(receiverAccount);
+            receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+            if(fee != null)
+               newTransaction.setFee(receiverAccount.recordFee(fee,amount));
+         }
+         else{
+            msg.append("Unsuccessful. Receiver does not exist");
+         }
+      }
+      else if (type.equals(TransactionTypeEnum.WITHDRAW)) {
+         if (senderAccount != null) {
+            if(senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount);
+               receiverAccount.setBalance(receiverAccount.getBalance().subtract(amount));
+               if(fee != null) newTransaction.setFee(senderAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else {
+            msg.append("Unsuccessful. Sender does not exist");
+         }
+      }
+      else if(type.equals(TransactionTypeEnum.SEED)){
+         if(this.getAdminAccounts().size() == 0){
+            msg.append("Unsuccessful. Bank's root account does not exist");
+            return;
+         }
+         senderAccount = this.getAdminAccounts().first();
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+               if(fee != null)
+                  newTransaction.setFee(receiverAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      else if(type.equals(TransactionTypeEnum.CLOSE)){
+         if(this.getAdminAccounts().size() == 0){
+            msg.append("Unsuccessful. Bank's root account does not exist");
+            return;
+         }
+         receiverAccount = this.getAdminAccounts().first();
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 0) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount does not match closing account's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      newTransaction.setNext(this.getTransaction());
+      newTransaction.setBank(this);
+      msg.append("Successful.");
+   }
 }
