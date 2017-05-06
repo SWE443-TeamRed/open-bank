@@ -125,7 +125,7 @@ public class Model {
                 new Parameter(DataType.create(Integer.class)).with("dollarValue"),
                 new Parameter(DataType.create(Integer.class)).with("decimalValue"));
         // Reset password Code
-        bank.withMethod("generateCode", DataType.VOID);
+        bank.withMethod("generateCode", DataType.STRING);
         bank.withMethod("confirmCode", DataType.BOOLEAN, new Parameter(DataType.STRING).with("code"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////

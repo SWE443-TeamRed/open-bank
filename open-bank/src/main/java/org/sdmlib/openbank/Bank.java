@@ -142,7 +142,6 @@ import org.sdmlib.openbank.Account;
       
       result.append(" ").append(this.getFee());
       result.append(" ").append(this.getBankName());
-//      result.append(" ").append(this.getPasswordCode());
       return result.substring(1);
    }
 
@@ -947,12 +946,14 @@ import org.sdmlib.openbank.Account;
 
 
    //==========================================================================
-   public void generateCode(  )
+   public String generateCode(  )
    {
       passwordCode = UUID.randomUUID().toString();
+      passwordCode = passwordCode.substring(0, 8);
+      return passwordCode;
    }
 
-   
+
    //==========================================================================
    public boolean confirmCode( String code )
    {
@@ -962,29 +963,9 @@ import org.sdmlib.openbank.Account;
 
    
    //==========================================================================
-   
+
    public static final String PROPERTY_PASSWORDCODE = "passwordCode";
-   
+
    private String passwordCode;
 
-//   public String getPasswordCode()
-//   {
-//      return this.passwordCode;
-//   }
-//
-//   public void setPasswordCode(String value)
-//   {
-//      if ( ! EntityUtil.stringEquals(this.passwordCode, value)) {
-//
-//         String oldValue = this.passwordCode;
-//         this.passwordCode = value;
-//         this.firePropertyChange(PROPERTY_PASSWORDCODE, oldValue, value);
-//      }
-//   }
-//
-//   public Bank withPasswordCode(String value)
-//   {
-//      setPasswordCode(value);
-//      return this;
-//   }
 }

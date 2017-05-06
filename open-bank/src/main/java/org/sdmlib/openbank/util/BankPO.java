@@ -535,23 +535,4 @@ public class BankPO extends PatternObject<BankPO, Bank>
       
       return this;
    }
-   
-//   public String getPasswordCode()
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         return ((Bank) getCurrentMatch()).getPasswordCode();
-//      }
-//      return null;
-//   }
-//
-//   public BankPO withPasswordCode(String value)
-//   {
-//      if (this.getPattern().getHasMatch())
-//      {
-//         ((Bank) getCurrentMatch()).setPasswordCode(value);
-//      }
-//      return this;
-//   }
-   
 }
