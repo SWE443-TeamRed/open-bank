@@ -32,16 +32,15 @@ import org.sdmlib.openbank.util.UserSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
-//import java.time.LocalDate;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.FeeValue;
-import org.sdmlib.openbank.Account;
-import java.lang.StringBuilder;
+//import java.time.LocalDate;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -1186,4 +1185,33 @@ import java.lang.StringBuilder;
       newTransaction.setBank(this);
       msg.append("Successful.");
    }
+   private static String getSecureID(String secretWord, byte[] salt)
+   {
+      String generatedWord = null;
+      int i=0;
+      try {
+         MessageDigest msgDigest = MessageDigest.getInstance("SHA");
+         msgDigest.update(salt);
+         byte[] bytes = msgDigest.digest(secretWord.getBytes());
+         StringBuilder sb = new StringBuilder();
+         while(i<  bytes.length)
+         {
+            sb.append(Integer.toString((bytes[i] & 0xffff) + 0x100, 32).substring(1));
+            i++;
+         }
+         generatedWord = sb.toString();
+      }
+      catch (NoSuchAlgorithmException e) {
+         e.printStackTrace();
+      }
+      return generatedWord;
+   }
+   private static byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException
+   {
+      SecureRandom sRandom = SecureRandom.getInstance("SHA1PRNG", "SUN");
+      byte[] salt = new byte[32];
+      sRandom.nextBytes(salt);
+      return salt;
+   }
+
 }
