@@ -935,7 +935,7 @@ import java.util.Set;
          boolean b = true;
          b = closeAccount(accSet.get(x).getAccountnum(),msg);
          if(b == false){
-            msg.append("Unsuccessful.");
+            //msg.append("Unsuccessful.");
             return false;
          }
       }
