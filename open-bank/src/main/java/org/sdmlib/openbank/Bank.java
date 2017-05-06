@@ -945,7 +945,7 @@ import java.lang.StringBuilder;
               .with(getCustomerAccounts());
       accSet = accSet.filterAccountnum(accountNumber);
       if(accSet.size() == 0){
-         msg.append("unsuccessful. Account does not exist");
+         msg.append("Unsuccessful. Account does not exist");
          return false;
       }
       if(accSet.size() > 1){
@@ -953,21 +953,6 @@ import java.lang.StringBuilder;
       }
       Account acc = accSet.get(0);
       acc.setIsClosed(true);
-      /*============================================
-      TODO: Transfer balance of the account to the bank root account
-      ==============================================*/
-      if(adminAccounts.size() == 0)
-         throw new RuntimeException("Initial Admin Account does not exist");
-      Transaction trans = new Transaction();
-      trans.setFromAccount(acc);
-      trans.setToAccount(adminAccounts.get(0));
-      trans.setTransType(TransactionTypeEnum.CLOSE);
-      trans.setAmount(acc.getBalance());
-      trans.setBank(this);
-      trans.setCreationdate(new Date());
-      Account adminAcc = adminAccounts.get(0);
-      adminAcc.setBalance(adminAcc.getBalance().add(acc.getBalance()));
-      acc.setBalance(new BigInteger("0"));
       msg.append("successful");
       return true;
    }
@@ -1062,5 +1047,129 @@ import java.lang.StringBuilder;
       }
 
       return st;
+   }
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg) {
+      if(type == null){
+         msg.append("Unsuccessful. Transaction type is null");
+         return;
+      }
+      if(amount == null || amount.compareTo(new BigInteger("0")) < 1){
+         msg.append("Unsuccessful. Amount is not valid");
+         return;
+      }
+      FeeValueSet pulledFeeValues = this.getFeeValue();
+      FeeValue fee = null;
+      for (FeeValue i : pulledFeeValues) {
+         if (i != null && i.getTransType().equals(type)) {
+            fee = i;
+         }
+      }
+      Transaction newTransaction = new Transaction();
+      newTransaction.setTransType(type);
+      newTransaction.setAmount(amount);
+      newTransaction.setNote(note);
+      newTransaction.setCreationdate(new Date());
+
+      Account senderAccount = findAccountByID(sender);
+      Account receiverAccount = findAccountByID(receiver);
+
+      if (type.equals(TransactionTypeEnum.TRANSFER)) {
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+               if(fee != null)
+                  newTransaction.setFee(senderAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      else if (type.equals(TransactionTypeEnum.DEPOSIT)) {
+         if (receiverAccount != null) {
+            newTransaction.withToAccount(receiverAccount);
+            receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+            if(fee != null)
+               newTransaction.setFee(receiverAccount.recordFee(fee,amount));
+         }
+         else{
+            msg.append("Unsuccessful. Receiver does not exist");
+         }
+      }
+      else if (type.equals(TransactionTypeEnum.WITHDRAW)) {
+         if (senderAccount != null) {
+            if(senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount);
+               receiverAccount.setBalance(receiverAccount.getBalance().subtract(amount));
+               if(fee != null) newTransaction.setFee(senderAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else {
+            msg.append("Unsuccessful. Sender does not exist");
+         }
+      }
+      else if(type.equals(TransactionTypeEnum.SEED)){
+         if(this.getAdminAccounts().size() == 0){
+            msg.append("Unsuccessful. Bank's root account does not exist");
+            return;
+         }
+         senderAccount = this.getAdminAccounts().first();
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 1) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+               if(fee != null)
+                  newTransaction.setFee(receiverAccount.recordFee(fee,amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount exceeds sender's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      else if(type.equals(TransactionTypeEnum.CLOSE)){
+         if(this.getAdminAccounts().size() == 0){
+            msg.append("Unsuccessful. Bank's root account does not exist");
+            return;
+         }
+         receiverAccount = this.getAdminAccounts().first();
+         if (senderAccount != null && receiverAccount != null) {
+            if (senderAccount.getBalance().compareTo(amount) == 0) {
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount);
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
+            }
+            else{
+               msg.append("Unsuccessful. Amount does not match closing account's balance");
+               return;
+            }
+         }
+         else{
+            msg.append("Unsuccessful. Sender or receiver does not exist");
+            return;
+         }
+      }
+      newTransaction.setNext(this.getTransaction());
+      newTransaction.setBank(this);
+      msg.append("Successful.");
    }
 }

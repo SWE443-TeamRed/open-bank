@@ -44,6 +44,7 @@ import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -934,6 +935,14 @@ public class BankSet extends SimpleSet<Bank>
          result.add( obj.closeAccount(accountNumber, msg) );
       }
       return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
+   {
+      return BankSet.EMPTY_SET;
    }
 
 }

@@ -744,6 +744,8 @@ public  class Account implements SendableEntity
       trans.setFromAccount(this);
       trans.setToAccount(pulledAdminAccount);
       trans.setTransType(TransactionTypeEnum.FEE);
+      trans.setNext(this.getBank().getTransaction());
+      trans.setBank(this.getBank());
 
       this.setBalance(this.getBalance().subtract(calculatedFee));
       pulledAdminAccount.setBalance(pulledAdminAccount.getBalance().add(calculatedFee));

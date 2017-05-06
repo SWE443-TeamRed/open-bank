@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Set;
 
 import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -548,6 +549,17 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
       }
       return null;
+   }
+
+   
+   //==========================================================================
+   
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, msg);
+      }
    }
 
 }
