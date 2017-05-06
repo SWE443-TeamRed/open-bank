@@ -27,7 +27,8 @@ import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Random;
-import java.security.SecureRandom;
+
+//import java.time.LocalDate;
 
 /**
  *
@@ -651,17 +652,12 @@ public  class Bank implements SendableEntity {
    user.withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
    */
 
+
       //System.out.println("fieldName.toUpperCase():" + fieldName.toUpperCase());
 
       switch (fieldName.toUpperCase()) {
          case "NAME":
             usr.withName(fieldValue);
-            break;
-         case "USERID":
-            usr.withUserID(fieldValue);
-            break;
-         case "ISADMIN":
-            usr.withIsAdmin(Boolean.valueOf(fieldValue));
             break;
          case "PASSWORD":
             usr.withPassword(fieldValue);
@@ -669,14 +665,8 @@ public  class Bank implements SendableEntity {
          case "EMAIL":
             usr.withEmail(fieldValue);
             break;
-         case "LOGGEDIN":
-            usr.withLoggedIn(Boolean.valueOf(fieldValue));
-            break;
          case "PHONE":
             usr.withPhone(fieldValue);
-            break;
-         case "USERNAME":
-            usr.withUsername(fieldValue);
             break;
          default:
             return "Field " + fieldName + " is not valid.";
@@ -685,10 +675,11 @@ public  class Bank implements SendableEntity {
       //System.out.println("updateUserInfo:" + usr.getPhone());
       return "successful";
 
+
    }
 
-   public String createUser(String username, String password, String name, String phoneNumber, String email, boolean isAdmin, StringBuilder msg) {
 
+   public String createUser(String username, String password, String name, String phoneNumber, String email, boolean isAdmin, StringBuilder msg) {
       // get the next userID, check to make sure it is not used
       boolean loop = true;
       String valID = null;
@@ -732,7 +723,6 @@ public  class Bank implements SendableEntity {
 
       // set the message
       msg.append("successful");
-
       return valID;
    }
 
@@ -788,69 +778,50 @@ public  class Bank implements SendableEntity {
       return Math.abs(1000000000 + r.nextInt(2000000000));
    }
 
-   public void recordTransaction (int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String  note, StringBuilder msg)
-   {
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg) {
       Transaction newTransaction = new Transaction();
       Account senderAccount = findAccountByID(sender);
       Account receiverAccount = findAccountByID(receiver);
 
-      if (type.toString().equals("TRANSFER"))
-      {
-         if(senderAccount != null && receiverAccount != null)
-         {
-            if (amount != null && (senderAccount.getBalance().compareTo(amount)== 1))
-            newTransaction.withFromAccount(senderAccount)
-                           .withToAccount(receiverAccount)
-                           .withNote(note)
-                           .withAmount(amount);
+      if (type.toString().equals("TRANSFER")) {
+         if (senderAccount != null && receiverAccount != null) {
+            if (amount != null && (senderAccount.getBalance().compareTo(amount) == 1))
+               newTransaction.withFromAccount(senderAccount)
+                       .withToAccount(receiverAccount)
+                       .withNote(note)
+                       .withAmount(amount);
             msg.append("Successful.");
-         }
-         else if (receiverAccount == null)
-         {
+         } else if (receiverAccount == null) {
             Account newAccount = getAdminAccounts().get(0);
             newTransaction.withFromAccount(senderAccount)
                     .withToAccount(newAccount)
                     .withNote(note)
                     .withAmount(amount);
-         }
-         else if (senderAccount == null)
-         {
+         } else if (senderAccount == null) {
             msg.append("Failure. Sender's Account does not exist.");
          }
-      }
-      else if (type.toString().equals("DEPOSIT"))
-      {
-         if (receiverAccount == null && senderAccount != null ) {
-            newTransaction.withFromAccount(senderAccount)
-                          .withNote(note)
-                          .withAmount(depositFunds(sender,amount,msg))
-                          .withDate(new Date());
-            msg.append("Successful.");
-         }
-         else if (receiverAccount != null)
-         {
-            msg.append("Failure.");
-         }
-         else if (senderAccount == null)
-         {
-            msg.append("Failure. Account does not exist.");
-         }
-      }
-      else if (type.toString().equals("WITHDRAW"))
-      {
-         if (receiverAccount == null && senderAccount != null ) {
+      } else if (type.toString().equals("DEPOSIT")) {
+         if (receiverAccount == null && senderAccount != null) {
             newTransaction.withFromAccount(senderAccount)
                     .withNote(note)
-                    .withAmount(withDrawFunds(sender,amount,msg))
+                    .withAmount(depositFunds(sender, amount, msg))
                     .withDate(new Date());
             msg.append("Successful.");
-         }
-         else if (receiverAccount != null)
-         {
+         } else if (receiverAccount != null) {
             msg.append("Failure.");
+         } else if (senderAccount == null) {
+            msg.append("Failure. Account does not exist.");
          }
-         else if (senderAccount == null)
-         {
+      } else if (type.toString().equals("WITHDRAW")) {
+         if (receiverAccount == null && senderAccount != null) {
+            newTransaction.withFromAccount(senderAccount)
+                    .withNote(note)
+                    .withAmount(withDrawFunds(sender, amount, msg))
+                    .withDate(new Date());
+            msg.append("Successful.");
+         } else if (receiverAccount != null) {
+            msg.append("Failure.");
+         } else if (senderAccount == null) {
             msg.append("Failure. Account does not exist.");
          }
       }
@@ -925,15 +896,9 @@ public  class Bank implements SendableEntity {
       return value;
    }
 
-   public void generateSessionId() {
-      Random random = new SecureRandom();
-      long seed = System.currentTimeMillis();
 
-      char[] entropy = toString().toCharArray();
-      for (int i = 0; i < entropy.length; i++) {
-         long update = ((byte) entropy[i]) << ((i % 8) * 8);
-         seed ^= update;
-      }
-       random.setSeed(seed);
+   //==========================================================================
+   public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date) {
+      return null;
    }
 }
