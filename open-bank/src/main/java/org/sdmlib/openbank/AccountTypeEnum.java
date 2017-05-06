@@ -25,21 +25,6 @@ public enum AccountTypeEnum
 {
 		SAVINGS,
 		CHECKING;
-   
-   //==========================================================================
-     AccountTypeEnum(  )
-   {
-   }
-
-   
-   //==========================================================================
-//   public String toString(  )
-//   {
-//      return null;
-//   }
-<<<<<<< HEAD
-
-   
    //==========================================================================
      AccountTypeEnum(  )
    {
@@ -51,6 +36,4 @@ public enum AccountTypeEnum
    {
       return null;
    }
-=======
->>>>>>> refs/remotes/origin/open_bank_server
 }

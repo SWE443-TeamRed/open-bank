@@ -124,9 +124,8 @@ public class Model {
         bank.withMethod("confirmTransaction", DataType.BOOLEAN,
                 new Parameter(DataType.INT).with("toAcctID"),
                 new Parameter(DataType.INT).with("fromAcctID"),
-<<<<<<< HEAD
-                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
-                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+                new Parameter(DataType.create(BigInteger.class)).with("dollarValue"),
+                new Parameter(DataType.create(BigInteger.class)).with("decimalValue"));
         //Disable User
         bank.withMethod("disableUser", DataType.BOOLEAN,
                 new Parameter(DataType.STRING).with("userID"),
@@ -135,10 +134,6 @@ public class Model {
         bank.withMethod("closeAccount", DataType.BOOLEAN,
                 new Parameter(DataType.INT).with("accountNumber"),
                 new Parameter(DataType.create(StringBuilder.class)).with("msg"));
-=======
-                new Parameter(DataType.create(BigInteger.class)).with("dollarValue"),
-                new Parameter(DataType.create(BigInteger.class)).with("decimalValue"));
-
         // Login method, return succesfull if username and password matches
         bank.withMethod("Login", DataType.STRING,
                 new Parameter(DataType.STRING).with("username"),
@@ -171,7 +166,6 @@ public class Model {
                 new Parameter(DataType.INT).with("accountNumber"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.create(Date.class)).with("date"));
->>>>>>> refs/remotes/origin/open_bank_server
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

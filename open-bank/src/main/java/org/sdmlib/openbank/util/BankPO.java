@@ -19,13 +19,10 @@ import org.sdmlib.openbank.util.FeeValuePO;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.util.FeeValueSet;
 import java.lang.StringBuilder;
-<<<<<<< HEAD
-=======
 import java.util.Date;
 import java.util.Set;
 
 import org.sdmlib.openbank.util.TransactionSet;
->>>>>>> refs/remotes/origin/open_bank_server
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -429,15 +426,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
 
    
    //==========================================================================
-   
-   public boolean confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Bank) getCurrentMatch()).confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue);
-      }
-      return false;
-   }
 
    public FeeValuePO createFeeValuePO()
    {
@@ -478,19 +466,12 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
-<<<<<<< HEAD
-
-   //==========================================================================
-   
-   public boolean disableUser(String userID, StringBuilder msg)
-   {
-      if (this.getPattern().getHasMatch())
-      {
+   public boolean disableUser(String userID, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
          return ((Bank) getCurrentMatch()).disableUser(userID, msg);
       }
       return false;
-=======
-   
+   }
    //==========================================================================
    
    public String Login(String username, String password)
@@ -548,21 +529,18 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) getCurrentMatch()).getNextID();
       }
       return 0;
->>>>>>> refs/remotes/origin/open_bank_server
    }
 
    
    //==========================================================================
-   
-<<<<<<< HEAD
-   public boolean closeAccount(int accountNumber, StringBuilder msg)
-   {
-      if (this.getPattern().getHasMatch())
-      {
+
+   public boolean closeAccount(int accountNumber, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
          return ((Bank) getCurrentMatch()).closeAccount(accountNumber, msg);
       }
       return false;
-=======
+   }
+
    public Set getTransactions(int accountNumber, BigInteger amount, Date date)
    {
       if (this.getPattern().getHasMatch())
@@ -570,7 +548,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
          return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
       }
       return null;
->>>>>>> refs/remotes/origin/open_bank_server
    }
 
 }

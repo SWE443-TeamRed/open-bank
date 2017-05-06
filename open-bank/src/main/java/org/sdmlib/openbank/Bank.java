@@ -35,19 +35,13 @@ import java.math.BigInteger;
 //import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
-<<<<<<< HEAD
-=======
 import java.util.Set;
 
->>>>>>> refs/remotes/origin/open_bank_server
 import org.sdmlib.openbank.User;
 import org.sdmlib.openbank.Transaction;
 import org.sdmlib.openbank.FeeValue;
 import org.sdmlib.openbank.Account;
-<<<<<<< HEAD
 import java.lang.StringBuilder;
-=======
->>>>>>> refs/remotes/origin/open_bank_server
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -918,7 +912,6 @@ import java.lang.StringBuilder;
       FeeValue value = new FeeValue();
       withFeeValue(value);
       return value;
-<<<<<<< HEAD
    }
    //==========================================================================
    public boolean disableUser( String userID, StringBuilder msg )
@@ -978,8 +971,6 @@ import java.lang.StringBuilder;
       msg.append("successful");
       return true;
    }
-=======
-   } 
 
    //==========================================================================
    public Set getTransactions(int accountNumber, BigInteger amount, Date date )
@@ -1072,6 +1063,4 @@ import java.lang.StringBuilder;
 
       return st;
    }
-
->>>>>>> refs/remotes/origin/open_bank_server
 }

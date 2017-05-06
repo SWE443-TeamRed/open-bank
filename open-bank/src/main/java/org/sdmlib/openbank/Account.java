@@ -29,6 +29,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
+import org.sdmlib.openbank.AccountTypeEnum;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.Bank;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
