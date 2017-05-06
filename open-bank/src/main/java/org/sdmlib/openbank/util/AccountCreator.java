@@ -166,7 +166,7 @@ public class AccountCreator implements SendableEntityCreator
       if (Account.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
          //((Account) target).setBalance(Double.parseDouble(value.toString()));
-         ((Account) target).setBalance(new BigDecimal(Double.parseDouble(value.toString())).toBigInteger());
+         ((Account) target).setBalance(new BigDecimal(value.toString()).toBigInteger());
          return true;
       }
 

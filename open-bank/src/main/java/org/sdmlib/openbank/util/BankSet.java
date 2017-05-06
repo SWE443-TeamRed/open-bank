@@ -30,15 +30,23 @@ import java.util.Collection;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.openbank.util.UserSet;
+
 import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.FeeValue;
+<<<<<<< HEAD
 import java.lang.StringBuilder;
+=======
+import de.uniks.networkparser.list.StringList;
+import java.lang.StringBuilder;
+import java.util.Date;
+import java.util.Set;
+import org.sdmlib.openbank.util.UserSet;
+import org.sdmlib.openbank.util.TransactionSet;
+import org.sdmlib.openbank.util.FeeValueSet;
+import org.sdmlib.openbank.util.AccountSet;
+>>>>>>> refs/remotes/origin/open_bank_server
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -826,6 +834,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
+<<<<<<< HEAD
    public de.uniks.networkparser.list.BooleanList disableUser(String userID, StringBuilder msg)
    {
       
@@ -834,6 +843,16 @@ public class BankSet extends SimpleSet<Bank>
       for (Bank obj : this)
       {
          result.add( obj.disableUser(userID, msg) );
+=======
+   public StringList Login(String username, String password)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.Login(username, password) );
+>>>>>>> refs/remotes/origin/open_bank_server
       }
       return result;
    }
@@ -841,6 +860,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
+<<<<<<< HEAD
    public de.uniks.networkparser.list.BooleanList closeAccount(int accountNumber, StringBuilder msg)
    {
       
@@ -849,6 +869,79 @@ public class BankSet extends SimpleSet<Bank>
       for (Bank obj : this)
       {
          result.add( obj.closeAccount(accountNumber, msg) );
+=======
+   public BigIntegerSet withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.withDrawFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BigIntegerSet depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.depositFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.updateUserInfo(userID, fieldName, fieldValue) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList getNextID()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getNextID() );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+
+   
+   //==========================================================================
+   
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date)
+   {
+      
+      Set<Set> result = new SimpleSet<>();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getTransactions(accountNumber, amount, date) );
+>>>>>>> refs/remotes/origin/open_bank_server
       }
       return result;
    }

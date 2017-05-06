@@ -34,6 +34,7 @@ public class SparkServer {
 
         apiLogSetup();
         loadBank();
+        createAdminAccount();
 
         before("/*", (q, a) -> {
             logger.info("Received api call from ip: " + q.ip()
@@ -50,8 +51,133 @@ public class SparkServer {
 
         path("/admin", () -> {
 
-            get("", (Request request, Response response) -> {
-                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+            path("/www/var/js", () -> {
+                get("/ui-bootstrap-tpls-0.11.2.min.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/ui-bootstrap-tpls-0.11.2.min.js"));
+                });
+                get("/app.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/app.js"));
+                });
+                get("/routing.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/routing.js"));
+                });
+                get("/globalFunctions.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/globalFunctions.js"));
+                });
+                get("/authInterceptor.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/authInterceptor.js"));
+                });
+                get("/parentController.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/parentController.js"));
+                });
+                get("/login.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/login.js"));
+                });
+                get("/auth.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/auth.js"));
+                });
+                get("/session.js", (Request request, Response response) -> {
+                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/js/session.js"));
+                });
+            });
+
+            path("/index", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                    });
+                });
+            });
+
+            path("/home", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/home.html"));
+                    });
+                });
+            });
+
+            path("/login", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/login.html"));
+                    });
+
+                    post("", (Request request, Response response) -> {
+                        JSONObject responseJSON = new JSONObject();
+
+                        if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+
+                            String username = request.queryParams("username");
+                            String password = request.queryParams("password");
+
+                            String id = bank.Login(username, password);
+
+                            if(id != null) {
+                                if (bank.findUserByID(id).isLoggedIn()) {
+                                    responseJSON.put("authentication", true);
+                                    responseJSON.put("userID", id);
+                                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                                } else {
+                                    responseJSON.put("authentication", false);
+                                    responseJSON.put("reason", "failed to login the user");
+                                    response.status(401);
+                                    return responseJSON;
+                                }
+                            } else {
+                                responseJSON.put("authentication", false);
+                                responseJSON.put("reason", "user could not be found");
+                                response.status(401);
+                                return responseJSON;
+                            }
+
+                        } else {
+                            responseJSON.put("authentication", false);
+                            responseJSON.put("reason","missing required parameters in body");
+                            return responseJSON;
+
+                        }
+                    });
+                });
+
+                post("", (Request request, Response response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+
+                        String username = request.queryParams("username");
+                        String password = request.queryParams("password");
+
+                        String id = bank.Login(username, password);
+
+                        if(id != null) {
+                            if (bank.findUserByID(id).isLoggedIn()) {
+                                responseJSON.put("authentication", true);
+                                responseJSON.put("userID", id);
+                                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                            } else {
+                                responseJSON.put("authentication", false);
+                                responseJSON.put("reason", "failed to login the user");
+                                response.status(401);
+                                return responseJSON;
+                            }
+                        } else {
+                            responseJSON.put("authentication", false);
+                            responseJSON.put("reason", "user could not be found");
+                            response.status(401);
+                            return responseJSON;
+                        }
+
+                    } else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason","missing required parameters in body");
+                        return responseJSON;
+
+                    }
+                });
             });
 
             path("/info", () -> {
@@ -589,7 +715,7 @@ public class SparkServer {
             path("/transaction", () -> {
                 get("", (Request request, Response response) -> {
                     int accountId = 0;
-                    //TransactionSet allTransactions = new TransactionSet();
+                    TransactionSet allTransactions = new TransactionSet();
                     JSONObject responseJSON = new JSONObject();
 
                     if(request.queryParams().contains("accountID"))
@@ -597,13 +723,13 @@ public class SparkServer {
                         accountId = Integer.parseInt(request.queryParams("accountID"));
                         Account account = bank.findAccountByID(accountId);
 
-                      /*  for( int i=0; i< allTransactions.size(); i++)
+                       for( int i=0; i< allTransactions.size(); i++)
                         {
                             responseJSON.put("Amount", allTransactions.get(i).getAmount());
                             responseJSON.put("Note",allTransactions.get(i).getNote());
-                        }*/
+                        }
                         responseJSON.put("request", "success");
-                        //responseJSON.put("transactions", account.getCredit());
+                        //responseJSON.put("transactions", account.to);
                         responseJSON.put("transactions", bank.getTransaction());
 
                     } else
@@ -623,10 +749,10 @@ public class SparkServer {
                     if(request.queryParams().contains("transferType"))
                     {
                         transferType = request.queryParams("transferType");
-                        if (transferType.equals("Transfer")) {
+                        if (transferType.equals("TRANSFER")) {
                             if (request.queryParams().contains("amount")
-                                && request.queryParams().contains("fromAccountId")
-                                && request.queryParams().contains("toAccountId")) {
+                                    && request.queryParams().contains("fromAccountId")
+                                    && request.queryParams().contains("toAccountId")) {
                                 //  && request.queryParams().contains("transferType")) {
                                 amount = request.queryParams("amount");
                                 fromAccountId = Integer.parseInt(request.queryParams("fromAccountId"));
@@ -641,7 +767,9 @@ public class SparkServer {
 
                                     BigInteger bigInteger = new BigInteger(amount);
 
-                                    if (accountFrom.getBalance().compareTo(bigInteger) == -1){
+                                    if (accountFrom.getBalance().compareTo(bigInteger) == 1){
+
+
                                         Transaction transaction = bank.createTransaction();
                                         transaction.withAmount(bigInteger)
                                                 .withCreationdate(new Date())
@@ -649,15 +777,17 @@ public class SparkServer {
                                                 .withToAccount(accountTo)
                                                 .withTransType(transactionTypeEnum)
                                                 .withTime(new Date())
-                                                .withNote(accountFrom.getOwner().getName() + " has transferred money to " + accountTo.getOwner().getName());
+                                                .withNote(accountFrom.getOwner().getName() + " has transfer money to " + accountTo.getOwner().getName());
+
                                         if(accountFrom.transferToAccount(bigInteger, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName()))
                                         {
-                                            // have to add to the transactionSet
+                                           // accountFrom.getToTransaction().add(transaction);
                                             responseJSON.put("request", "success");
                                             responseJSON.put("note", transaction.getNote());
                                             responseJSON.put("balance", (accountFrom.getBalance()));
                                             responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
                                             responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+
                                         }else {
                                             responseJSON.put("request", "failed");
                                             responseJSON.put("reason", "user may not be logged in");
@@ -675,37 +805,73 @@ public class SparkServer {
                                 }
                             }
                         }
-                        else if (transferType.equals("Deposit")) {
+                        else if (transferType.equals("DEPOSIT")) {
                                 int toAccount;
-                                if (request.queryParams().contains("amount") && request.queryParams().contains("toAccountId"))
-                                {
+                                if (request.queryParams().contains("amount") && request.queryParams().contains("toAccount")) {
+
                                     amount = request.queryParams("amount");
-                                    toAccount = Integer.parseInt(request.queryParams("toAccountId"));
-                                    Account depositToAccount  = bank.findAccountByID(toAccount);
-                                    if (depositToAccount != null)
-                                    {
-                                        depositToAccount.deposit(new BigDecimal(amount).toBigInteger());
+                                    toAccount = Integer.parseInt(request.queryParams("toAccount"));
+
+                                    Account depositToAccount = bank.findAccountByID(toAccount);
+                                    BigInteger bigInteger = new BigInteger(amount);
+
+                                    if (depositToAccount != null) {
+                                        depositToAccount.deposit(bigInteger);
                                         responseJSON.put("request", "success");
                                         responseJSON.put("balance", (depositToAccount.getBalance()));
-                                    }else
-                                    {
-                                        responseJSON.put("request", "failed");
+                                    } else {
+                                        responseJSON.put("request", "fail");
                                         responseJSON.put("reason", "requested account does not exist");
                                     }
-                                }
-                                else
+/*
+                        else if (transferType.equals("Deposit")) {
+                            int toAccount;
+                            if (request.queryParams().contains("amount") && request.queryParams().contains("toAccountId"))
+                            {
+                                amount = request.queryParams("amount");
+                                toAccount = Integer.parseInt(request.queryParams("toAccountId"));
+                                Account depositToAccount  = bank.findAccountByID(toAccount);
+                                if (depositToAccount != null)
+                                {
+                                    depositToAccount.deposit(new BigDecimal(amount).toBigInteger());
+                                    responseJSON.put("request", "success");
+                                    responseJSON.put("balance", (depositToAccount.getBalance()));
+                                }else
                                 {
                                     responseJSON.put("request", "failed");
-                                    responseJSON.put("reason","missing required parameters in body");
-                                }
+                                    responseJSON.put("reason", "requested account does not exist");
+
+                                }*/
+                            }
+                            else
+                            {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason","missing required parameters in body");
+                            }
                         }
-                        else if (transferType.equals("Withdraw")){
+                        else if (transferType.equals("WITHDRAW")){
                             int fromAccount;
                             if (request.queryParams().contains("amount") && request.queryParams().contains("fromAccountId"))
                             {
                                 amount = request.queryParams("amount");
                                 fromAccount = Integer.parseInt(request.queryParams("fromAccountId"));
                                 Account withdrawFromAccount  = bank.findAccountByID(fromAccount);
+
+                                BigInteger bigInteger = new BigInteger(amount);
+                                if (withdrawFromAccount.getBalance().compareTo(bigInteger) == 1) {
+                                    withdrawFromAccount.withdraw(new BigInteger(amount));
+                                    responseJSON.put("request", "success");
+                                    responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+                                }
+                                else
+                                {
+                                    responseJSON.put("request", "fail");
+                                    responseJSON.put("reason", "you do not have enough funds to ");
+                                }
+                              /*  withdrawFromAccount.withdraw(new BigInteger(amount));
+                                responseJSON.put("request", "success");
+                                responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+/*
                                 if(withdrawFromAccount != null) {
                                     withdrawFromAccount.withdraw(new BigDecimal(amount).toBigInteger());
                                     responseJSON.put("request", "success");
@@ -715,6 +881,7 @@ public class SparkServer {
                                     responseJSON.put("request", "failed");
                                     responseJSON.put("reason", "requested account does not exist");
                                 }
+*/
                             }
                             else
                             {
@@ -722,11 +889,23 @@ public class SparkServer {
                                 responseJSON.put("reason","missing required parameters in body");
                             }
                         }
-                     }
+                    }
                     return responseJSON;
                 });
             });
         });
+    }
+
+    private static void createAdminAccount() {
+        if(bank.getAdminAccounts().size() < 1)
+        {
+            logger.info("Creating initial Admin account");
+            Account adminAccount = bank.createAdminAccounts();
+            adminAccount.setIsConnected(true);
+            adminAccount.setType(AccountTypeEnum.SAVINGS);
+            adminAccount.setAccountnum(bank.getNextID());
+            adminAccount.setBalance(new BigInteger("10000000000000"));
+        }
     }
 
     private static void loadBank() {
@@ -760,7 +939,7 @@ public class SparkServer {
     }
 
     private static void apiLogClose() {
-            fh.close();
+        fh.close();
     }
 
     static class ShutdownThread extends Thread {
