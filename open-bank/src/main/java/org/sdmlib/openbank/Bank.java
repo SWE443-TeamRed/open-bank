@@ -931,8 +931,14 @@ import java.lang.StringBuilder;
       us.setUsername(null);
       us.setPassword(null);
       AccountSet accSet = us.getAccount();
+
       for(int x = 0; x < accSet.size(); x++){
-         closeAccount(accSet.get(x).getAccountnum(),msg);
+         boolean b = true;
+         b = closeAccount(accSet.get(x).getAccountnum(),msg);
+         if(b == false){
+            msg.append("Unsuccessful.");
+            return false;
+         }
       }
       msg.append("Successful");
       return true;
@@ -952,10 +958,12 @@ import java.lang.StringBuilder;
          throw new IllegalArgumentException("Multiple Accounts have the account number "+accountNumber);
       }
       Account acc = accSet.get(0);
-      acc.setIsClosed(true);
-      recordTransaction(acc.getAccountnum(),this.getAdminAccounts().first().getAccountnum(),
-              TransactionTypeEnum.CLOSE,acc.getBalance(),"Closing account", msg);
-      msg.append("successful");
+      if(acc.isIsClosed() != true) {
+         acc.setIsClosed(true);
+         recordTransaction(acc.getAccountnum(), this.getAdminAccounts().first().getAccountnum(),
+                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account", msg);
+      }
+      msg.append("Successful");
       return true;
    }
 
