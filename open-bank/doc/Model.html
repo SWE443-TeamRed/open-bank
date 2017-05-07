@@ -107,7 +107,9 @@
             "updateUserInfo(String userID, String fieldName, String fieldValue) String",
             "getNextID() int",
             "getTransactions(int accountNumber, java.math.BigInteger amount, java.util.Date date) java.util.Set",
-            "recordTransaction(int sender, int receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note, java.lang.StringBuilder msg)"
+            "recordTransaction(int sender, int receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note, java.lang.StringBuilder msg)",
+            "getSecureID(String secretWord, byte salt) String",
+            "getSalt() byte"
          ]
       }
    ],

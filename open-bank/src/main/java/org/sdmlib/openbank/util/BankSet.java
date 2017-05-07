@@ -21,30 +21,22 @@
    
 package org.sdmlib.openbank.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.openbank.Bank;
 import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
+import org.sdmlib.openbank.*;
 
 import java.math.BigInteger;
 import java.util.Collection;
-import de.uniks.networkparser.list.NumberList;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.FeeValue;
-import java.lang.StringBuilder;
-import de.uniks.networkparser.list.StringList;
-import java.lang.StringBuilder;
 import java.util.Date;
 import java.util.Set;
 import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.openbank.util.FeeValueSet;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.TransactionTypeEnum;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -943,6 +935,41 @@ public class BankSet extends SimpleSet<Bank>
    public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
    {
       return BankSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+  
+
+   
+   //==========================================================================
+   
+   public StringList getSecureID(String secretWord, byte salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList getSalt()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSalt() );
+      }
+      return result;
    }
 
 }

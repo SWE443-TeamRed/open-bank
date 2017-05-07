@@ -2,9 +2,7 @@ import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
@@ -174,6 +172,11 @@ public class Model {
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"),
                 new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+
+        bank.withMethod("getSecureID", DataType.STRING,
+                new Parameter(DataType.STRING).with ("secretWord"),
+                new Parameter(DataType.BYTE).with("salt"));
+        bank.withMethod("getSalt", DataType.BYTE);
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

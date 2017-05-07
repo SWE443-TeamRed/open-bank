@@ -1,29 +1,14 @@
 package org.sdmlib.openbank.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.openbank.Bank;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.openbank.util.UserPO;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.util.BankPO;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.util.TransactionPO;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.util.AccountPO;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.openbank.*;
 
 import java.math.BigInteger;
-import org.sdmlib.openbank.util.FeeValuePO;
-import org.sdmlib.openbank.FeeValue;
-import org.sdmlib.openbank.util.FeeValueSet;
-import java.lang.StringBuilder;
 import java.util.Date;
 import java.util.Set;
-
-import org.sdmlib.openbank.util.TransactionSet;
-import org.sdmlib.openbank.TransactionTypeEnum;
+import org.sdmlib.openbank.Bank;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -560,6 +545,34 @@ public class BankPO extends PatternObject<BankPO, Bank>
       {
           ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, msg);
       }
+   }
+
+   
+   //==========================================================================
+   
+
+   
+   //==========================================================================
+   
+   public String getSecureID(String secretWord, byte salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public byte getSalt()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSalt();
+      }
+      return null;
    }
 
 }
