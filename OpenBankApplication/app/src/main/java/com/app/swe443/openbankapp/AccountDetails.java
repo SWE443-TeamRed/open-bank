@@ -2,6 +2,11 @@ package com.app.swe443.openbankapp;
 
 
 import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,11 +24,13 @@ import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.User;
 
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.LinkedList;
 
 
-public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener{
+public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener, NfcAdapter.OnNdefPushCompleteCallback,
+        NfcAdapter.CreateNdefMessageCallback{
 
 
     //Variables to initalize tabs menu
@@ -36,6 +43,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     private int accountIndex;
     private Account account;
     private MockServerSingleton mockBankServer;
+
+    private NfcAdapter mNfcAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,17 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
             Get the account that these fragments will use
          */
         account = mockBankServer.getLoggedInUser().getAccount().get(accountIndex);
+
+        /* NFC */
+        //Check if NFC is available on device
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mNfcAdapter != null) {
+            //This will refer back to createNdefMessage for what it will send
+            mNfcAdapter.setNdefPushMessageCallback(this, this);
+
+            //This will be called if the message is sent successfully
+            mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
+        }
 
     }
 
@@ -139,10 +159,17 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     }
 
+    //This will be called when another NFC capable device is detected.
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+        byte[] payload = Integer.toString(accountIndex).getBytes(Charset.forName("UTF-8"));
+        NdefRecord record = NdefRecord.createMime("text/plain", payload);
+        return new NdefMessage(record);
+    }
 
+    // Called when NDef message was successful
+    @Override
+    public void onNdefPushComplete(NfcEvent event) {
 
-
-
-
-
+    }
 }

@@ -81,8 +81,11 @@ public class MainActivity extends AppCompatActivity
 
 
         //TODO Getting username and id, with this can get accounts info from server.
-        userID = getIntent().getStringArrayExtra("UsernameAdnId")[1];
-        username = getIntent().getStringArrayExtra("UsernameAdnId")[0];
+       // userID = getIntent().getStringArrayExtra("UsernameAdnId")[1];
+       // username = getIntent().getStringArrayExtra("UsernameAdnId")[0];
+
+        userID = "gggggg";
+        username = "gggggg";
 
         //Create User's and AccountDetails as dummy data
         JsonPersistency jsonp = new JsonPersistency();
