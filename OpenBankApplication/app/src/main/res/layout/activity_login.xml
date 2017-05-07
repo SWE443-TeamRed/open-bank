@@ -82,6 +82,7 @@
 
             <TextView
                 style="?android:textAppearanceSmall"
+                android:id="@+id/forgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password"
@@ -103,12 +104,11 @@
             <Button
                 android:id="@+id/register"
                 style="?android:textAppearanceSmall"
-                android:layout_width="170dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="#0b3c5d"
-                android:onClick="register"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
                 android:text="Register"

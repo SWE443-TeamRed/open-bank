@@ -66,6 +66,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     + " must implement OnTransferSelectedListener ");
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
