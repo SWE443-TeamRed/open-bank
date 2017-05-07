@@ -897,6 +897,7 @@ public class SparkServer implements SparkApplication{
             });
             //Send an email to the user if the user provided an email that
             //is registered with the system.
+            //Verified that /sendEmail works - Daniel
             path("/sendEmail", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
@@ -936,6 +937,7 @@ public class SparkServer implements SparkApplication{
             });
 
             //To verify that the code received is the one created by the bank system.
+            //Verified that /verifyCode works - Daniel
             path("/verifyCode", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();

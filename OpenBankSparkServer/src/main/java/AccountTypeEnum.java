@@ -30,9 +30,9 @@ public enum AccountTypeEnum
 
    
    //==========================================================================
-   public String toString(  )
-   {
-      return this.toString();
-   }
+//   public String toString(  )
+//   {
+//      return null;
+//   }
 
 }

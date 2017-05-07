@@ -30,10 +30,10 @@ public enum TransactionTypeEnum
 
    
    //==========================================================================
-   public String toString(  )
-   {
-      return this.toString();
-   }
+//   public String toString(  )
+//   {
+//      return null;
+//   }
 
    
    //==========================================================================

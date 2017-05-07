@@ -622,7 +622,7 @@ import java.util.UUID;
       UserSet custUserSet = this.getCustomerUser();
       for (User custUsr : custUserSet) {
          if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
-            //custUsr.setLoggedIn(true);
+            custUsr.setLoggedIn(true);
             return custUsr.getUserID();
          }
       }
@@ -630,7 +630,7 @@ import java.util.UUID;
       UserSet admnUserSet = this.getAdminUsers();
       for (User admUsr : admnUserSet) {
          if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
-            //admUsr.setLoggedIn(true);
+            admUsr.setLoggedIn(true);
             return admUsr.getUserID();
          }
       }
@@ -765,6 +765,7 @@ import java.util.UUID;
       //set user attributes
       User usr = new User();
       usr.setUserID(valID);
+      usr.setName(name);
       usr.setUsername(username);
       usr.setPassword(password);
       usr.setPhone(phoneNumber);
@@ -814,6 +815,7 @@ import java.util.UUID;
       Account accnt = new Account()
               .withAccountnum(valID)
               .withOwner(usr)
+              .withBalance(initialBalance)
               .withType(accountType)
               .withIsClosed(false);
               /*=================================================

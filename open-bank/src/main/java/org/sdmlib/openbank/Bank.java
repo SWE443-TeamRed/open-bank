@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.openbank;
 
 import de.uniks.networkparser.EntityUtil;
@@ -54,59 +54,63 @@ import java.util.UUID;
  *
  *  @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
-   public  class Bank implements SendableEntity
+   /*
+ *
+ *  @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+ */
+public  class Bank implements SendableEntity
 {
 
-   
+
    //==========================================================================
-   
+
    protected PropertyChangeSupport listeners = null;
-   
+
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
       if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
+         listeners.firePropertyChange(propertyName, oldValue, newValue);
+         return true;
+      }
+      return false;
    }
-   
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener)
    {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(listener);
-   	return true;
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(listener);
+      return true;
    }
-   
+
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners = new PropertyChangeSupport(this);
-   	}
-   	listeners.addPropertyChangeListener(propertyName, listener);
-   	return true;
+      if (listeners == null) {
+         listeners = new PropertyChangeSupport(this);
+      }
+      listeners.addPropertyChangeListener(propertyName, listener);
+      return true;
    }
-   
+
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
-   		listeners.removePropertyChangeListener(listener);
-   	}
-   	listeners.removePropertyChangeListener(listener);
-   	return true;
+      if (listeners == null) {
+         listeners.removePropertyChangeListener(listener);
+      }
+      listeners.removePropertyChangeListener(listener);
+      return true;
    }
 
    public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
-   	if (listeners != null) {
-   		listeners.removePropertyChangeListener(propertyName, listener);
-   	}
-   	return true;
+      if (listeners != null) {
+         listeners.removePropertyChangeListener(propertyName, listener);
+      }
+      return true;
    }
 
-   
+
    //==========================================================================
-   
-   
+
+
    public void removeYou()
    {
       withoutCustomerUser(this.getCustomerUser().toArray(new User[this.getCustomerUser().size()]));
@@ -118,75 +122,75 @@ import java.util.UUID;
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_FEE = "fee";
-   
+
    private double fee;
 
    public double getFee()
    {
       return this.fee;
    }
-   
+
    public void setFee(double value)
    {
       if (this.fee != value) {
-      
+
          double oldValue = this.fee;
          this.fee = value;
          this.firePropertyChange(PROPERTY_FEE, oldValue, value);
       }
    }
-   
+
    public Bank withFee(double value)
    {
       setFee(value);
       return this;
-   } 
+   }
 
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
-      
+
       result.append(" ").append(this.getFee());
       result.append(" ").append(this.getBankName());
       return result.substring(1);
    }
 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_BANKNAME = "bankName";
-   
+
    private String bankName;
 
    public String getBankName()
    {
       return this.bankName;
    }
-   
+
    public void setBankName(String value)
    {
       if ( ! EntityUtil.stringEquals(this.bankName, value)) {
-      
+
          String oldValue = this.bankName;
          this.bankName = value;
          this.firePropertyChange(PROPERTY_BANKNAME, oldValue, value);
       }
    }
-   
+
    public Bank withBankName(String value)
    {
       setBankName(value);
       return this;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -194,18 +198,18 @@ import java.util.UUID;
     *              bank                   customerUser
     * </pre>
     */
-   
+
    public static final String PROPERTY_CUSTOMERUSER = "customerUser";
 
    private UserSet customerUser = null;
-   
+
    public UserSet getCustomerUser()
    {
       if (this.customerUser == null)
       {
          return UserSet.EMPTY_SET;
       }
-   
+
       return this.customerUser;
    }
 
@@ -222,7 +226,7 @@ import java.util.UUID;
             {
                this.customerUser = new UserSet();
             }
-            
+
             boolean changed = this.customerUser.add (item);
 
             if (changed)
@@ -233,7 +237,7 @@ import java.util.UUID;
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutCustomerUser(User... value)
    {
@@ -256,9 +260,9 @@ import java.util.UUID;
       User value = new User();
       withCustomerUser(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       one
@@ -266,7 +270,7 @@ import java.util.UUID;
     *              bank                   transaction
     * </pre>
     */
-   
+
    public static final String PROPERTY_TRANSACTION = "transaction";
 
    private Transaction transaction = null;
@@ -279,28 +283,28 @@ import java.util.UUID;
    public boolean setTransaction(Transaction value)
    {
       boolean changed = false;
-      
+
       if (this.transaction != value)
       {
          Transaction oldValue = this.transaction;
-         
+
          if (this.transaction != null)
          {
             this.transaction = null;
             oldValue.setBank(null);
          }
-         
+
          this.transaction = value;
-         
+
          if (value != null)
          {
             value.withBank(this);
          }
-         
+
          firePropertyChange(PROPERTY_TRANSACTION, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -308,16 +312,16 @@ import java.util.UUID;
    {
       setTransaction(value);
       return this;
-   } 
+   }
 
    public Transaction createTransaction()
    {
       Transaction value = new Transaction();
       withTransaction(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -325,18 +329,18 @@ import java.util.UUID;
     *              bank                   customerAccounts
     * </pre>
     */
-   
+
    public static final String PROPERTY_CUSTOMERACCOUNTS = "customerAccounts";
 
    private AccountSet customerAccounts = null;
-   
+
    public AccountSet getCustomerAccounts()
    {
       if (this.customerAccounts == null)
       {
          return AccountSet.EMPTY_SET;
       }
-   
+
       return this.customerAccounts;
    }
 
@@ -353,7 +357,7 @@ import java.util.UUID;
             {
                this.customerAccounts = new AccountSet();
             }
-            
+
             boolean changed = this.customerAccounts.add (item);
 
             if (changed)
@@ -364,7 +368,7 @@ import java.util.UUID;
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutCustomerAccounts(Account... value)
    {
@@ -387,21 +391,21 @@ import java.util.UUID;
       Account value = new Account();
       withCustomerAccounts(value);
       return value;
-   } 
+   }
 
-   
+
    //==========================================================================
    public boolean validateLogin( int accountID, String username, String password ) {
-       if (username == null || password == null || accountID < 0)
-           throw new IllegalArgumentException("Invalid parameter(s)");
-       Account pulledAccount = this.findAccountByID(accountID);
-       User pulledUser = this.findUserByID(username);
-       if (pulledAccount != null && pulledUser != null){
-           if (pulledUser.getPassword().equals(password)){
-               return true;
-           }
-       }
-       return false;
+      if (username == null || password == null || accountID < 0)
+         throw new IllegalArgumentException("Invalid parameter(s)");
+      Account pulledAccount = this.findAccountByID(accountID);
+      User pulledUser = this.findUserByID(username);
+      if (pulledAccount != null && pulledUser != null){
+         if (pulledUser.getPassword().equals(password)){
+            return true;
+         }
+      }
+      return false;
    }
    //==========================================================================
    public Account findAccountByID( int accountID )
@@ -431,51 +435,51 @@ import java.util.UUID;
 
    //==========================================================================
    public User findUserByID(String userID) {
-       UserSet pulledUsers = this.getCustomerUser();
-       for (User i : pulledUsers) {
-           if (i.getUserID() != null && i.getUserID().equals(userID)) {
-               return i;
-           }
-       }
+      UserSet pulledUsers = this.getCustomerUser();
+      for (User i : pulledUsers) {
+         if (i.getUserID() != null && i.getUserID().equals(userID)) {
+            return i;
+         }
+      }
       pulledUsers = this.getAdminUsers();
       for (User i : pulledUsers) {
          if (i.getUserID() != null && i.getUserID().equals(userID)) {
             return i;
          }
       }
-       return null;
+      return null;
    }
 
-   
+
    //==========================================================================
    public boolean confirmTransaction(int toAcctID, int fromAcctID, BigInteger dollarValue, BigInteger decimalValue )
    {
-       Account toAcct = findAccountByID(toAcctID);
-       Account fromAcct = findAccountByID((fromAcctID));
-       if(toAcct == null){
-           return false;
-       }
-       if(fromAcct == null){
-           return false;
-       }
+      Account toAcct = findAccountByID(toAcctID);
+      Account fromAcct = findAccountByID((fromAcctID));
+      if(toAcct == null){
+         return false;
+      }
+      if(fromAcct == null){
+         return false;
+      }
 
-       //if(fromAcct.getBalance() < dollarValue.add(decimalValue) ){
-       int res = fromAcct.getBalance().compareTo(dollarValue.add(decimalValue));
+      //if(fromAcct.getBalance() < dollarValue.add(decimalValue) ){
+      int res = fromAcct.getBalance().compareTo(dollarValue.add(decimalValue));
 
-       if(res==-1){
-           return false;
-       }
-       Transaction transferTransation = new Transaction().withBank(this)
-               .withAmount(dollarValue.add(decimalValue))
-               .withToAccount(toAcct)
-               .withFromAccount(fromAcct)
-               .withCreationdate(new Date())
-               .withTransType(TransactionTypeEnum.TRANSFER);
-       this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
-       return true;
+      if(res==-1){
+         return false;
+      }
+      Transaction transferTransation = new Transaction().withBank(this)
+              .withAmount(dollarValue.add(decimalValue))
+              .withToAccount(toAcct)
+              .withFromAccount(fromAcct)
+              .withCreationdate(new Date())
+              .withTransType(TransactionTypeEnum.TRANSFER);
+      this.withTransaction(transferTransation); //one to one relation, so should update to the most current transaction
+      return true;
    }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -483,18 +487,18 @@ import java.util.UUID;
     *              bank                   adminUsers
     * </pre>
     */
-   
+
    public static final String PROPERTY_ADMINUSERS = "adminUsers";
 
    private UserSet adminUsers = null;
-   
+
    public UserSet getAdminUsers()
    {
       if (this.adminUsers == null)
       {
          return UserSet.EMPTY_SET;
       }
-   
+
       return this.adminUsers;
    }
 
@@ -511,7 +515,7 @@ import java.util.UUID;
             {
                this.adminUsers = new UserSet();
             }
-            
+
             boolean changed = this.adminUsers.add (item);
 
             if (changed)
@@ -522,7 +526,7 @@ import java.util.UUID;
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutAdminUsers(User... value)
    {
@@ -545,9 +549,9 @@ import java.util.UUID;
       User value = new User();
       withAdminUsers(value);
       return value;
-   } 
+   }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -555,18 +559,18 @@ import java.util.UUID;
     *              bank                   adminAccounts
     * </pre>
     */
-   
+
    public static final String PROPERTY_ADMINACCOUNTS = "adminAccounts";
 
    private AccountSet adminAccounts = null;
-   
+
    public AccountSet getAdminAccounts()
    {
       if (this.adminAccounts == null)
       {
          return AccountSet.EMPTY_SET;
       }
-   
+
       return this.adminAccounts;
    }
 
@@ -583,7 +587,7 @@ import java.util.UUID;
             {
                this.adminAccounts = new AccountSet();
             }
-            
+
             boolean changed = this.adminAccounts.add (item);
 
             if (changed)
@@ -594,7 +598,7 @@ import java.util.UUID;
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutAdminAccounts(Account... value)
    {
@@ -627,7 +631,7 @@ import java.util.UUID;
       UserSet custUserSet = this.getCustomerUser();
       for (User custUsr : custUserSet) {
          if (custUsr.getUsername() != null && custUsr.getUsername().equals(username) && custUsr.getPassword().equals(password)) {
-            //custUsr.setLoggedIn(true);
+            custUsr.setLoggedIn(true);
             return custUsr.getUserID();
          }
       }
@@ -635,7 +639,7 @@ import java.util.UUID;
       UserSet admnUserSet = this.getAdminUsers();
       for (User admUsr : admnUserSet) {
          if (admUsr.getName() != null && admUsr.getName().equals(username) && admUsr.getPassword().equals(password)) {
-            //admUsr.setLoggedIn(true);
+            admUsr.setLoggedIn(true);
             return admUsr.getUserID();
          }
       }
@@ -718,7 +722,7 @@ import java.util.UUID;
          return "UserID " + userID  + " is not valid.";
       }
 
-       switch (fieldName.toUpperCase()) {
+      switch (fieldName.toUpperCase()) {
          case "NAME":
             usr.withName(fieldValue);
             break;
@@ -770,6 +774,7 @@ import java.util.UUID;
       //set user attributes
       User usr = new User();
       usr.setUserID(valID);
+      usr.setName(name);
       usr.setUsername(username);
       usr.setPassword(password);
       usr.setPhone(phoneNumber);
@@ -819,6 +824,7 @@ import java.util.UUID;
       Account accnt = new Account()
               .withAccountnum(valID)
               .withOwner(usr)
+              .withBalance(initialBalance)
               .withType(accountType)
               .withIsClosed(false);
               /*=================================================
@@ -845,7 +851,7 @@ import java.util.UUID;
       return Math.abs(1000000000 + r.nextInt(2000000000));
    }
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -853,18 +859,18 @@ import java.util.UUID;
     *              bank                   feeValue
     * </pre>
     */
-   
+
    public static final String PROPERTY_FEEVALUE = "feeValue";
 
    private FeeValueSet feeValue = null;
-   
+
    public FeeValueSet getFeeValue()
    {
       if (this.feeValue == null)
       {
          return FeeValueSet.EMPTY_SET;
       }
-   
+
       return this.feeValue;
    }
 
@@ -897,7 +903,7 @@ import java.util.UUID;
          }
       }
       return this;
-   } 
+   }
 
    public Bank withoutFeeValue(FeeValue... value)
    {
@@ -1240,7 +1246,7 @@ import java.util.UUID;
       return false;
    }
 
-   
+
    //==========================================================================
 
    public static final String PROPERTY_PASSWORDCODE = "passwordCode";
