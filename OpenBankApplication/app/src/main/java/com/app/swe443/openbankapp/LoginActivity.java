@@ -102,11 +102,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //Click on sign in.
         Button mUsernameSignInButton = (Button) findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        //Click on register in.
+        Button registerButton = (Button) findViewById(R.id.register);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
+
+        //Click on forgot password.
+        TextView forgetPass = (TextView) findViewById(R.id.forgotPass);
+        forgetPass.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassword();
             }
         });
 
@@ -115,10 +133,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     //Register information.
-    public void register(View v){//Click on the register button
+    private void register(){//Click on the register button
         fm = getSupportFragmentManager();
         transaction = fm.beginTransaction();
         transaction.add(R.id.drawer_layout, new SignUpFrag1(), "SignUpFrag1");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    //Change to forgot password interface.
+    private void forgotPassword(){
+        fm = getSupportFragmentManager();
+        transaction = fm.beginTransaction();
+        transaction.add(R.id.drawer_layout, new ChangePasswordFrag(), "ChangePasswordFrag");
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -162,7 +188,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             params.put("username", username);
             params.put("password", password);
             loginPostRequest(URL,params);
-
         }
     }
 
@@ -254,7 +279,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    //This makes the post request to verufy username & password and login.
+    //This makes the post request to verify username & password and login.
     StringRequest stringRequest;
     RequestQueue requestQueue;
     String auth;
