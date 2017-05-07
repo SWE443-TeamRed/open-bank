@@ -34,8 +34,6 @@ import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
@@ -835,29 +833,28 @@ import java.util.Set;
          withFeeValue(value);
          return value;
       }
-
-      //==========================================================================
-      public boolean disableUser(String userID, StringBuilder msg) {
+      public boolean disableUser( String userID, StringBuilder msg )
+      {
          UserSet usSet = new UserSet()
                  .with(getAdminUsers())
                  .with(getCustomerUser());
          usSet = usSet.filterUserID(userID);
-         if (usSet.size() == 0) {
+         if(usSet.size() == 0){
             msg.append("Unsuccessful. User does not exist");
             return false;
          }
-         if (usSet.size() > 1) {
-            throw new IllegalArgumentException("Multiple Users have the userID " + userID);
+         if(usSet.size() > 1){
+            throw new IllegalArgumentException("Multiple Users have the userID "+userID);
          }
          User us = usSet.get(0);
          us.setUsername(null);
          us.setPassword(null);
          AccountSet accSet = us.getAccount();
 
-         for (int x = 0; x < accSet.size(); x++) {
+         for(int x = 0; x < accSet.size(); x++){
             boolean b = true;
-            b = closeAccount(accSet.get(x).getAccountnum(), msg);
-            if (b == false) {
+            b = closeAccount(accSet.get(x).getAccountnum(),msg);
+            if(b == false){
                msg.append("Unsuccessful.");
                return false;
             }
@@ -1095,7 +1092,7 @@ import java.util.Set;
          msg.append("Successful.");
       }
 
-      private String getSecureID(String secretWord, byte[] salt) {
+      public String getSecureID(String secretWord, byte[] salt) {
          String generatedWord = null;
          int i = 0;
          try {
@@ -1114,13 +1111,9 @@ import java.util.Set;
          return generatedWord;
       }
 
-      private byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException {
-         SecureRandom sRandom = SecureRandom.getInstance("SHA1PRNG", "SUN");
-         byte[] salt = new byte[32];
-         sRandom.nextBytes(salt);
-         return salt;
-      }
-   
+   //==========================================================================
+
+
    
    //==========================================================================
    public String getSecureID( String secretWord, byte salt )

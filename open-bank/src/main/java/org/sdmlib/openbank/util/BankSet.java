@@ -33,10 +33,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.util.TransactionSet;
-import org.sdmlib.openbank.util.FeeValueSet;
-import org.sdmlib.openbank.util.AccountSet;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -945,7 +941,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
-   public StringList getSecureID(String secretWord, byte salt)
+   public StringList getSecureID(String secretWord, byte[] salt)
    {
       
       StringList result = new StringList();
@@ -960,16 +956,24 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
-   public NumberList getSalt()
+  
+   
+   //==========================================================================
+   
+   public StringList getSecureID(String secretWord, byte salt)
    {
       
-      NumberList result = new NumberList();
+      StringList result = new StringList();
       
       for (Bank obj : this)
       {
-         result.add( obj.getSalt() );
+         result.add( obj.getSecureID(secretWord, salt) );
       }
       return result;
    }
+
+   
+   //==========================================================================
+
 
 }

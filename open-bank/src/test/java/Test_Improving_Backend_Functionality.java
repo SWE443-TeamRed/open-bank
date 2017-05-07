@@ -4,11 +4,12 @@ import org.junit.Test;
 import org.sdmlib.openbank.*;
 import org.sdmlib.openbank.util.AccountSet;
 import org.sdmlib.openbank.util.TransactionSet;
-import org.sdmlib.openbank.util.UserSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -374,17 +375,33 @@ public class Test_Improving_Backend_Functionality {
 
     //Unsuccessful login due to incorrect username and password
     @Test
-    public void testLogin4(){
+    public void testLogin4()  {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
                 .withPassword("BillyB$b1")
                 .withEmail("steverog@live.com")
-                .withPhone("7031234567");
+                .withPhone("7031234567")
+                .withSessionId();
         bob.login("bobby", "BillyB$b");
         assertFalse(bob.isLoggedIn());
     }
 
+    /*@Test
+    public void testSeessionID3()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby17", "BillyB$b1");
+        bob.logout();
+        //System.out.println("Here");
+        //System.out.println(bob.getSessionId());
+        assertFalse(bob.logout());
+    }*/
     //Null username
     @Test (expected = IllegalArgumentException.class)
     public void testLogin5(){
@@ -393,7 +410,9 @@ public class Test_Improving_Backend_Functionality {
                 .withUserID("bobby17")
                 .withPassword("BillyB$b1")
                 .withEmail("steverog@live.com")
-                .withPhone("7031234567");
+                .withPhone("7031234567")
+                .withSessionId();
+        System.out.println("sessionId: " + bob.getSessionId());
         bob.login(null, "BillyB$b1");
     }
 
@@ -419,6 +438,34 @@ public class Test_Improving_Backend_Functionality {
                 .withEmail("steverog@live.com")
                 .withPhone("7031234567");
         bob.login(null, null);
+    }
+    @Test
+    public void testSeessionID1()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby", "BillyB$b");
+        System.out.println(bob.getSessionId());
+        assertFalse(bob.getSessionId() != null);
+    }
+
+
+    @Test
+    public void testSeessionID2()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby17", "BillyB$b1");
+        System.out.println(bob.getSessionId());
+        assertFalse(bob.getSessionId() == null);
     }
 /*
     //Successful logout

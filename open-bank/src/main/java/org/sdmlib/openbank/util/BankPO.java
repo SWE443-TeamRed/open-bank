@@ -8,7 +8,6 @@ import org.sdmlib.openbank.*;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
-import org.sdmlib.openbank.Bank;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -554,6 +553,22 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
+   public String getSecureID(String secretWord, byte[] salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+
+
+   
+   //==========================================================================
+   
    public String getSecureID(String secretWord, byte salt)
    {
       if (this.getPattern().getHasMatch())
@@ -566,13 +581,5 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
-   public byte getSalt()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Bank) getCurrentMatch()).getSalt();
-      }
-      return null;
-   }
 
 }

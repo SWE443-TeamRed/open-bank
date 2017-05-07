@@ -176,7 +176,7 @@ public class Model {
         bank.withMethod("getSecureID", DataType.STRING,
                 new Parameter(DataType.STRING).with ("secretWord"),
                 new Parameter(DataType.BYTE).with("salt"));
-        bank.withMethod("getSalt", DataType.BYTE);
+
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

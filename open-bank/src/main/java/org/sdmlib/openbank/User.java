@@ -28,9 +28,10 @@ import org.sdmlib.openbank.util.AccountSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-import org.sdmlib.openbank.Bank;
-import org.sdmlib.openbank.Account;
-   /**
+import java.security.SecureRandom;
+import java.util.Random;
+
+/**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
@@ -76,7 +77,7 @@ import org.sdmlib.openbank.Account;
                return true;
            } else {
                if (getUserID().equals(userId))
-                   System.out.println("Username is incorrect");
+                   System.out.println("Password is incorrect");
                if (getPassword().equals(password))
                    System.out.println("Username is incorrect");
                return false;
@@ -162,6 +163,42 @@ import org.sdmlib.openbank.Account;
            return this;
        }
 
+       public static final String PROPERTY_SESSIONID = "sessionId";
+
+       private String sessionid;
+
+       public void setSessionId()  {
+           byte[] salt;
+           if(this.isLoggedIn())
+           {
+               StringBuilder value = new StringBuilder();
+               String usrID = this.getUserID() ;
+               value.append(usrID);
+               String time = Long.toString(System.currentTimeMillis());
+               value.append(time);
+               final Random sr = new SecureRandom();
+               salt = new byte[32];
+               sr.nextBytes(salt);
+               System.out.println(value.toString());
+               System.out.println(salt.toString());
+               String oldValue = this.sessionid;
+               Bank bank=new Bank();
+               this.sessionid = bank.getSecureID(value.toString(), salt);
+
+               this.firePropertyChange(PROPERTY_SESSIONID, oldValue, sessionid);
+           }
+       }
+
+       public User withSessionId()
+       {
+           this.setSessionId();
+           return this;
+       }
+
+       public String getSessionId()
+       {
+           return (this.sessionid);
+       }
 
        @Override
        public String toString() {
@@ -176,8 +213,6 @@ import org.sdmlib.openbank.Account;
            result.append(" ").append(this.getUsername());
            return result.substring(1);
        }
-
-
 
 
        //==========================================================================
@@ -359,6 +394,7 @@ import org.sdmlib.openbank.Account;
 
                boolean oldValue = this.LoggedIn;
                this.LoggedIn = value;
+               setSessionId();
                this.firePropertyChange(PROPERTY_LOGGEDIN, oldValue, value);
            }
        }
@@ -400,11 +436,14 @@ import org.sdmlib.openbank.Account;
    //==========================================================================
    public boolean logout(  )
    {
+
        Account usersAccount = this.getAccount().get(0);
        JsonPersistency writeToJson = new JsonPersistency();
        writeToJson.toJson(usersAccount);
-      this.LoggedIn = false;
-      return true;
+       this.LoggedIn = false;
+       //this.sessionid=null;
+       //this.getSessionId();
+       return true;
    }
 
    public Account createAccount()
