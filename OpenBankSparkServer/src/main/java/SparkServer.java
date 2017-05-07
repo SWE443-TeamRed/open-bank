@@ -27,7 +27,7 @@ import java.util.logging.SimpleFormatter;
 
 import static spark.Spark.*;
 
-public class SparkServer implements SparkApplication{
+public class SparkServer implements SparkApplication {
     private static final Logger logger = Logger.getLogger(SparkServer.class.getName());
     static PrintClass print = new PrintClass();
 
@@ -35,10 +35,11 @@ public class SparkServer implements SparkApplication{
     static Bank bank;
     static FileHandler fh;
 
-    private class SMTPAuth extends Authenticator
-    {
-        public PasswordAuthentication authenticateSender()
-        {
+    //Change to true when using authentication
+    boolean authentication = false;
+
+    private class SMTPAuth extends Authenticator {
+        public PasswordAuthentication authenticateSender() {
             return new PasswordAuthentication("username@gmail.com", "password");
         }
     }
@@ -62,6 +63,52 @@ public class SparkServer implements SparkApplication{
                     + "\n\tcontentType: " + q.contentType()
                     + "\n\theaders: " + q.headers().toString()
                     + "\n\tquery params: " + q.queryParams().toString());
+
+            if (authentication) {
+                if (!q.pathInfo().equals("/api/v1/user")
+                        && !q.pathInfo().equals("/api/v1/login")
+                        && !q.pathInfo().equals("/admin/api/v1/login")
+                        && !q.pathInfo().equals("/admin/login")) {
+
+                    String base64Credentials = null;
+                    String credentials = null;
+
+                    if (q.headers().contains("Authorization")) {
+
+                        base64Credentials = q.headers("Authorization").toString().substring("Basic".length()).trim();
+                        credentials = new String(Base64.getDecoder().decode(base64Credentials),
+                                Charset.forName("UTF-8"));
+                        final String[] values = credentials.split(":", 2);
+
+                        String authId = values[0];
+                        String authSessionID = values[1];
+
+                        logger.info("authId: " + authId + "\nauthSessionID: " + authSessionID);
+
+                        if (authId != null && authSessionID != null) {
+                            if (bank.findUserByID(authId) != null) {
+                                if (bank.findUserByID(authId).getSessionId().equals(authSessionID)) {
+                                    //Do nothing
+                                    logger.info("Authorized Access");
+
+                                } else {
+                                    logger.info("Unauthorized Access");
+                                    halt(401, "Unauthorized Access");
+                                }
+                            } else {
+                                logger.info("Unauthorized Access");
+                                halt(401, "Unauthorized Access");
+                            }
+                        } else {
+                            logger.info("Unauthorized Access");
+                            halt(401, "Unauthorized Access");
+                        }
+                    } else {
+                        logger.info("Unauthorized Access");
+                        halt(401, "Unauthorized Access");
+                    }
+                }
+            }
         });
 
         get("/", (Request request, Response response) -> {
@@ -128,14 +175,14 @@ public class SparkServer implements SparkApplication{
                     post("", (Request request, Response response) -> {
                         JSONObject responseJSON = new JSONObject();
 
-                        if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+                        if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
 
                             String username = request.queryParams("username");
                             String password = request.queryParams("password");
 
                             String id = bank.Login(username, password);
 
-                            if(id != null) {
+                            if (id != null) {
                                 if (bank.findUserByID(id).isLoggedIn()) {
                                     responseJSON.put("authentication", true);
                                     responseJSON.put("userID", id);
@@ -155,7 +202,7 @@ public class SparkServer implements SparkApplication{
 
                         } else {
                             responseJSON.put("authentication", false);
-                            responseJSON.put("reason","missing required parameters in body");
+                            responseJSON.put("reason", "missing required parameters in body");
                             return responseJSON;
 
                         }
@@ -165,14 +212,14 @@ public class SparkServer implements SparkApplication{
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+                    if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
 
                         String username = request.queryParams("username");
                         String password = request.queryParams("password");
 
                         String id = bank.Login(username, password);
 
-                        if(id != null) {
+                        if (id != null) {
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
@@ -193,7 +240,7 @@ public class SparkServer implements SparkApplication{
 
                     } else {
                         responseJSON.put("authentication", false);
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                         return responseJSON;
 
                     }
@@ -220,14 +267,14 @@ public class SparkServer implements SparkApplication{
                     post("", (Request request, Response response) -> {
                         JSONObject responseJSON = new JSONObject();
 
-                        if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+                        if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
 
                             String username = request.queryParams("username");
                             String password = request.queryParams("password");
 
                             String id = bank.Login(username, password);
 
-                            if(id != null) {
+                            if (id != null) {
                                 if (bank.findUserByID(id).isLoggedIn()) {
                                     responseJSON.put("authentication", true);
                                     responseJSON.put("userID", id);
@@ -243,7 +290,7 @@ public class SparkServer implements SparkApplication{
 
                         } else {
                             responseJSON.put("authentication", false);
-                            responseJSON.put("reason","missing required parameters in body");
+                            responseJSON.put("reason", "missing required parameters in body");
                         }
                         return responseJSON;
                     });
@@ -260,7 +307,7 @@ public class SparkServer implements SparkApplication{
                         boolean isAdmin = false;
                         String email = "";
 
-                        if(request.queryParams().contains("name")
+                        if (request.queryParams().contains("name")
                                 && request.queryParams().contains("username")
                                 && request.queryParams().contains("password")
                                 && request.queryParams().contains("phoneNumber")
@@ -279,21 +326,20 @@ public class SparkServer implements SparkApplication{
                                 logger.info("Message: " + msg.toString());
                                 logger.info("userId: " + userId.toString());
 
-                                if(bank.findUserByID(userId) != null) {
+                                if (bank.findUserByID(userId) != null) {
                                     responseJSON.put("request", "successful");
                                     responseJSON.put("userID", bank.findUserByID(userId));
-                                }
-                                else {
+                                } else {
                                     responseJSON.put("request", "failed");
-                                    responseJSON.put("reason","bank failed to create user");
+                                    responseJSON.put("reason", "bank failed to create user");
                                 }
-                            }catch (Exception e) {
+                            } catch (Exception e) {
                                 responseJSON.put("request", "failed");
-                                responseJSON.put("reason","username already exists");
+                                responseJSON.put("reason", "username already exists");
                             }
-                        }else {
-                            responseJSON.put("request","failed");
-                            responseJSON.put("reason","missing required parameters in body");
+                        } else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "missing required parameters in body");
                         }
                         return responseJSON;
                     });
@@ -346,15 +392,13 @@ public class SparkServer implements SparkApplication{
                     });
 
 
-
-
                     path("/transactions", () -> {
                         get("", (Request request, Response response) -> {
                             JSONArray responseJSON = new JSONArray();
                             JSONObject placeHolder = new JSONObject();
 
                             placeHolder.put("request", "failed");
-                            placeHolder.put("reason","bank failed to create user");
+                            placeHolder.put("reason", "bank failed to create user");
 
                             responseJSON.add(placeHolder);
 
@@ -391,7 +435,7 @@ public class SparkServer implements SparkApplication{
 
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("id")) {
+                    if (request.queryParams().contains("id")) {
                         String id = request.queryParams("id");
 
                         responseJSON.put("isUserLoggedIn", bank.findUserByID(id).isLoggedIn());
@@ -403,14 +447,14 @@ public class SparkServer implements SparkApplication{
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("username") && request.queryParams().contains("password")) {
+                    if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
 
                         String username = request.queryParams("username");
                         String password = request.queryParams("password");
 
                         String id = bank.Login(username, password);
 
-                        if(id != null) {
+                        if (id != null) {
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
@@ -427,7 +471,7 @@ public class SparkServer implements SparkApplication{
 
                     } else {
                         responseJSON.put("authentication", false);
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -437,20 +481,19 @@ public class SparkServer implements SparkApplication{
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("id")) {
+                    if (request.queryParams().contains("id")) {
                         String id = request.queryParams("id");
 
                         if (id != null) {
-                            if(bank.findUserByID(id) != null) {
+                            if (bank.findUserByID(id) != null) {
                                 if (bank.findUserByID(id).logout()) {
                                     responseJSON.put("request", "successful");
                                     responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
-                                }
-                                else {
+                                } else {
                                     responseJSON.put("request", "failed");
                                     responseJSON.put("reason", "failed to logout the user");
                                 }
-                            }else {
+                            } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason", "user could not be found");
                             }
@@ -458,9 +501,9 @@ public class SparkServer implements SparkApplication{
                             responseJSON.put("request", "failed");
                             responseJSON.put("reason", "null user id");
                         }
-                    }else {
+                    } else {
                         responseJSON.put("authentication", false);
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
 
                     return responseJSON;
@@ -488,7 +531,7 @@ public class SparkServer implements SparkApplication{
                     String phoneNumber = "";
                     String email = "";
 
-                    if(request.queryParams().contains("name")
+                    if (request.queryParams().contains("name")
                             && request.queryParams().contains("username")
                             && request.queryParams().contains("password")
                             && request.queryParams().contains("phoneNumber")
@@ -505,21 +548,20 @@ public class SparkServer implements SparkApplication{
                             logger.info("Message: " + msg.toString());
                             logger.info("userId: " + userId.toString());
 
-                            if(bank.findUserByID(userId) != null) {
+                            if (bank.findUserByID(userId) != null) {
                                 responseJSON.put("request", "successful");
                                 responseJSON.put("userID", userId.toString());
-                            }
-                            else {
+                            } else {
                                 responseJSON.put("request", "failed");
-                                responseJSON.put("reason","bank failed to create user");
+                                responseJSON.put("reason", "bank failed to create user");
                             }
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason","username already exists");
+                            responseJSON.put("reason", "username already exists");
                         }
-                    }else {
-                        responseJSON.put("request","failed");
-                        responseJSON.put("reason","missing required parameters in body");
+                    } else {
+                        responseJSON.put("request", "failed");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -536,12 +578,12 @@ public class SparkServer implements SparkApplication{
                         String phoneNumber = "";
                         String email = "";
 
-                        if(request.queryParams().contains("id")) {
+                        if (request.queryParams().contains("id")) {
 
                             id = request.queryParams("id");
                             User user = bank.findUserByID(id);
 
-                            if(user != null) {
+                            if (user != null) {
 
                                 if (request.queryParams().contains("name")) {
                                     name = request.queryParams("name");
@@ -571,11 +613,11 @@ public class SparkServer implements SparkApplication{
 
                                 responseJSON.put("request", "success");
 
-                            }else {
+                            } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason", "user could not be found");
                             }
-                        }else {
+                        } else {
                             responseJSON.put("request", "failed");
                             responseJSON.put("reason", "missing required parameters in body (id)");
                         }
@@ -591,16 +633,17 @@ public class SparkServer implements SparkApplication{
                     JSONArray jsonArray = new JSONArray();
                     JSONObject accountJson = new JSONObject();
 
+
                     if (request.queryParams().contains("id")) {
 
                         String id = request.queryParams("id");
 
-                        if(request.queryParams().contains("accountID")) {
+                        if (request.queryParams().contains("accountID")) {
                             int accountID = Integer.parseInt(request.queryParams("accountID"));
 
                             User user = bank.findUserByID(id);
 
-                            if(user != null) {
+                            if (user != null) {
                                 Account account = bank.findAccountByID(accountID);
 
                                 if (account != null) {
@@ -614,19 +657,19 @@ public class SparkServer implements SparkApplication{
                                     accountJson.put("reason", "bank failed to locate account");
                                     jsonArray.add(accountJson);
                                 }
-                            }else {
+                            } else {
                                 accountJson.put("request", "failed");
                                 accountJson.put("reason", "user with id " + id + " does not exist");
                                 jsonArray.add(accountJson);
                             }
-                        }else {
+                        } else {
                             User user = bank.findUserByID(id);
 
-                            if(user != null) {
+                            if (user != null) {
                                 AccountSet accounts = user.getAccount();
 
                                 if (accounts != null) {
-                                    if(accounts.size() > 0) {
+                                    if (accounts.size() > 0) {
                                         accountJson.put("request", "successful");
                                         jsonArray.add(accountJson);
                                         JSONArray tempJsonArray = new JSONArray();
@@ -644,7 +687,7 @@ public class SparkServer implements SparkApplication{
                                             }
                                         }
                                         jsonArray.add(tempJsonArray);
-                                    }else {
+                                    } else {
                                         accountJson.put("request", "failed");
                                         accountJson.put("reason", "user does not have any accounts");
                                         jsonArray.add(accountJson);
@@ -654,29 +697,23 @@ public class SparkServer implements SparkApplication{
                                     accountJson.put("reason", "user account set is null");
                                     jsonArray.add(accountJson);
                                 }
-                            }else {
+                            } else {
                                 accountJson.put("request", "failed");
                                 accountJson.put("reason", "user with id " + id + " does not exist");
                                 jsonArray.add(accountJson);
                             }
                         }
-                    }else {
+                    } else {
                         accountJson.put("request", "failed");
-                        accountJson.put("reason","missing required parameters in body");
+                        accountJson.put("reason", "missing required parameters in body");
                         jsonArray.add(accountJson);
                     }
+
                     return jsonArray;
                 });
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    String base64Credentials = request.headers("Authorization").toString().substring("Basic".length()).trim();
-                    String credentials = new String(Base64.getDecoder().decode(base64Credentials),
-                            Charset.forName("UTF-8"));
-                    final String[] values = credentials.split(":",2);
-
-                    logger.info("username: " + values[0]);
-                    logger.info("sessionID: " + values[1]);
 
                     if (request.queryParams().contains("id")
                             && request.queryParams().contains("accountType")
@@ -685,12 +722,10 @@ public class SparkServer implements SparkApplication{
                         String id = request.queryParams("id");
                         String accountType = request.queryParams("accountType");
                         String initialBalance = request.queryParams("initialBalance");
-//                        double convertedInitialBalance = Double.parseDouble(initialBalance);
-//                        BigInteger bigInteger = new BigDecimal(convertedInitialBalance).toBigInteger();
 
                         AccountTypeEnum accountTypeEnum = AccountTypeEnum.valueOf(accountType);
 
-                        if(bank.findUserByID(id) != null) {
+                        if (bank.findUserByID(id) != null) {
                             //TODO add accountType and have the method return the accountID
                             StringBuilder msg = new StringBuilder();
                             String accountID = bank.createAccount(id, false, new BigInteger(initialBalance), accountTypeEnum, msg);
@@ -703,15 +738,15 @@ public class SparkServer implements SparkApplication{
                                 responseJSON.put("accountNum", accountID.toString());
                             } else {
                                 responseJSON.put("request", "failed");
-                                responseJSON.put("reason","bank failed to create account");
+                                responseJSON.put("reason", "bank failed to create account");
                             }
-                        }else {
+                        } else {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason","bank id was null");
+                            responseJSON.put("reason", "bank id was null");
                         }
-                    }else {
+                    } else {
                         responseJSON.put("request", "failed");
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -723,22 +758,19 @@ public class SparkServer implements SparkApplication{
                     TransactionSet allTransactions = new TransactionSet();
                     JSONObject responseJSON = new JSONObject();
 
-                    if(request.queryParams().contains("accountID"))
-                    {
+                    if (request.queryParams().contains("accountID")) {
                         accountId = Integer.parseInt(request.queryParams("accountID"));
                         Account account = bank.findAccountByID(accountId);
 
-                       for( int i=0; i< allTransactions.size(); i++)
-                        {
+                        for (int i = 0; i < allTransactions.size(); i++) {
                             responseJSON.put("Amount", allTransactions.get(i).getAmount());
-                            responseJSON.put("Note",allTransactions.get(i).getNote());
+                            responseJSON.put("Note", allTransactions.get(i).getNote());
                         }
                         responseJSON.put("request", "success");
                         //responseJSON.put("transactions", account.to);
                         responseJSON.put("transactions", bank.getTransaction());
 
-                    } else
-                    {
+                    } else {
                         responseJSON.put("request", "failed");
                     }
                     return responseJSON;
@@ -751,8 +783,7 @@ public class SparkServer implements SparkApplication{
                     int fromAccountId = 0;
                     int toAccountId = 0;
                     String transferType = "";
-                    if(request.queryParams().contains("transferType"))
-                    {
+                    if (request.queryParams().contains("transferType")) {
                         transferType = request.queryParams("transferType");
                         if (transferType.equals("TRANSFER")) {
                             if (request.queryParams().contains("amount")
@@ -772,7 +803,7 @@ public class SparkServer implements SparkApplication{
 
                                     BigInteger bigInteger = new BigInteger(amount);
 
-                                    if (accountFrom.getBalance().compareTo(bigInteger) == 1){
+                                    if (accountFrom.getBalance().compareTo(bigInteger) == 1) {
 
 
                                         Transaction transaction = bank.createTransaction();
@@ -784,78 +815,67 @@ public class SparkServer implements SparkApplication{
                                                 .withTime(new Date())
                                                 .withNote(accountFrom.getOwner().getName() + " has transfer money to " + accountTo.getOwner().getName());
 
-                                        if(accountFrom.transferToAccount(bigInteger, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName()))
-                                        {
-                                           // accountFrom.getToTransaction().add(transaction);
+                                        if (accountFrom.transferToAccount(bigInteger, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName())) {
+                                            // accountFrom.getToTransaction().add(transaction);
                                             responseJSON.put("request", "success");
                                             responseJSON.put("note", transaction.getNote());
                                             responseJSON.put("balance", (accountFrom.getBalance()));
                                             responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
                                             responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
 
-                                        }else {
+                                        } else {
                                             responseJSON.put("request", "failed");
                                             responseJSON.put("reason", "user may not be logged in");
                                         }
-                                    }
-                                    else{
+                                    } else {
                                         responseJSON.put("request", "failed");
                                         responseJSON.put("reason", "you do not have enough funds to transfer");
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     responseJSON.put("request", "failed");
                                     responseJSON.put("reason", "requested account does not exist");
                                 }
 
                             }
-                        }
-                        else if (transferType.equals("DEPOSIT")) {
-                                int toAccount;
-                                if (request.queryParams().contains("amount") && request.queryParams().contains("toAccount")) {
+                        } else if (transferType.equals("DEPOSIT")) {
+                            int toAccount;
+                            if (request.queryParams().contains("amount") && request.queryParams().contains("toAccount")) {
 
-                                    amount = request.queryParams("amount");
-                                    toAccount = Integer.parseInt(request.queryParams("toAccount"));
-
-                                    Account depositToAccount = bank.findAccountByID(toAccount);
-                                    BigInteger bigInteger = new BigInteger(amount);
-
-                                    if (depositToAccount != null) {
-                                        depositToAccount.deposit(bigInteger);
-                                        responseJSON.put("request", "success");
-                                        responseJSON.put("balance", (depositToAccount.getBalance()));
-                                    } else {
-                                        responseJSON.put("request", "fail");
-                                        responseJSON.put("reason", "requested account does not exist");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                responseJSON.put("request", "failed");
-                                responseJSON.put("reason","missing required parameters in body");
-                            }
-                        }
-                        else if (transferType.equals("WITHDRAW")){
-                            int fromAccount;
-                            if (request.queryParams().contains("amount") && request.queryParams().contains("fromAccountId"))
-                            {
                                 amount = request.queryParams("amount");
-                                fromAccount = Integer.parseInt(request.queryParams("fromAccountId"));
-                                Account withdrawFromAccount  = bank.findAccountByID(fromAccount);
+                                toAccount = Integer.parseInt(request.queryParams("toAccount"));
 
+                                Account depositToAccount = bank.findAccountByID(toAccount);
                                 BigInteger bigInteger = new BigInteger(amount);
-                                if (withdrawFromAccount.getBalance().compareTo(bigInteger) == 1) {
-                                    withdrawFromAccount.withdraw(new BigInteger(amount));
+
+                                if (depositToAccount != null) {
+                                    depositToAccount.deposit(bigInteger);
                                     responseJSON.put("request", "success");
-                                    responseJSON.put("balance", (withdrawFromAccount.getBalance()));
-                                }
-                                else
-                                {
+                                    responseJSON.put("balance", (depositToAccount.getBalance()));
+                                } else {
                                     responseJSON.put("request", "fail");
-                                    responseJSON.put("reason", "you do not have enough funds to ");
+                                    responseJSON.put("reason", "requested account does not exist");
                                 }
+                            }
+                        } else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "missing required parameters in body");
+                        }
+                    } else if (transferType.equals("WITHDRAW")) {
+                        int fromAccount;
+                        if (request.queryParams().contains("amount") && request.queryParams().contains("fromAccountId")) {
+                            amount = request.queryParams("amount");
+                            fromAccount = Integer.parseInt(request.queryParams("fromAccountId"));
+                            Account withdrawFromAccount = bank.findAccountByID(fromAccount);
+
+                            BigInteger bigInteger = new BigInteger(amount);
+                            if (withdrawFromAccount.getBalance().compareTo(bigInteger) == 1) {
+                                withdrawFromAccount.withdraw(new BigInteger(amount));
+                                responseJSON.put("request", "success");
+                                responseJSON.put("balance", (withdrawFromAccount.getBalance()));
+                            } else {
+                                responseJSON.put("request", "fail");
+                                responseJSON.put("reason", "you do not have enough funds to ");
+                            }
                               /*  withdrawFromAccount.withdraw(new BigInteger(amount));
                                 responseJSON.put("request", "success");
                                 responseJSON.put("balance", (withdrawFromAccount.getBalance()));
@@ -870,26 +890,24 @@ public class SparkServer implements SparkApplication{
                                     responseJSON.put("reason", "requested account does not exist");
                                 }
 */
-                            }
-                            else
-                            {
-                                responseJSON.put("request", "failed");
-                                responseJSON.put("reason","missing required parameters in body");
-                            }
+                        } else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "missing required parameters in body");
                         }
+                    }
                     return responseJSON;
                 });
             });
             path("/passwordReset", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
-                    if(request.queryParams().contains("newPassword")
+                    if (request.queryParams().contains("newPassword")
                             && request.queryParams().contains("id")) {
 
                         String newPassword = request.queryParams("newPassword");
                         String id = request.queryParams("id");
 
-                        if(bank.findUserByID(id) != null) {
+                        if (bank.findUserByID(id) != null) {
 
                             bank.findUserByID(id).withPassword(newPassword);
 
@@ -899,13 +917,13 @@ public class SparkServer implements SparkApplication{
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason", "password not successfully changed");
                             }
-                        }else {
+                        } else {
                             responseJSON.put("request", "failed");
                             responseJSON.put("reason", "user could not be found");
                         }
-                    }else {
+                    } else {
                         responseJSON.put("request", "failed");
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -916,13 +934,13 @@ public class SparkServer implements SparkApplication{
             path("/sendEmail", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
-                    Set <User> users;
-                    if(request.queryParams().contains("email")) {
+                    Set<User> users;
+                    if (request.queryParams().contains("email")) {
                         String email = request.queryParams("email");
                         boolean foundEmail = false;
                         users = bank.getCustomerUser();
 
-                        for(Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
+                        for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
                             User userItem = iterator.next();
                             if (userItem.getEmail().equals(email)) {
                                 foundEmail = true;
@@ -931,7 +949,7 @@ public class SparkServer implements SparkApplication{
                                 String subject = "OPEN BANK Password reset code";
                                 String body = "Password Reset Code \n\n Hello, \n\n We received a request to change "
                                         + "your Open Bank password. You can change your password by using "
-                                        + "the following code "+ code + ". "
+                                        + "the following code " + code + ". "
                                         + "Please, copy and paste the code to the provided area to continue the "
                                         + "process. If you did not made this request, let us know by "
                                         + "replying to this email \n\n Thank You! \n\n -Open Bank";
@@ -939,11 +957,12 @@ public class SparkServer implements SparkApplication{
                                 responseJSON.put("request", "successful");
                                 break;
                             }
-                        }if(!foundEmail) {
+                        }
+                        if (!foundEmail) {
                             responseJSON.put("request", "failed");
                             responseJSON.put("reason", "email not registered to a user");
                         }
-                    }else {
+                    } else {
                         responseJSON.put("request", "failed");
                         responseJSON.put("reason", "missing required parameters in body");
                     }
@@ -956,16 +975,16 @@ public class SparkServer implements SparkApplication{
             path("/verifyCode", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
-                    Set <User> users;
-                    if(request.queryParams().contains("code")){
+                    Set<User> users;
+                    if (request.queryParams().contains("code")) {
                         String code = request.queryParams("code");
-                        if(bank.confirmCode(code))
+                        if (bank.confirmCode(code))
                             responseJSON.put("request", "successful");
                         else {
                             responseJSON.put("request", "failed");
                             responseJSON.put("reason", "code does not match");
                         }
-                    }else {
+                    } else {
                         responseJSON.put("request", "failed");
                         responseJSON.put("reason", "missing required parameters in body");
                     }
@@ -977,7 +996,7 @@ public class SparkServer implements SparkApplication{
             path("/changePassword", () -> {
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
-                    if(request.queryParams().contains("username")
+                    if (request.queryParams().contains("username")
                             && request.queryParams().contains("password")) {
 
                         String newPassword = request.queryParams("password");
@@ -985,7 +1004,7 @@ public class SparkServer implements SparkApplication{
                         boolean foundUsername = false;
                         Set<User> users = bank.getCustomerUser();
 
-                        for(Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
+                        for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
                             User userItem = iterator.next();
                             if (userItem.getUsername().equals(username)) {
                                 foundUsername = true;
@@ -993,14 +1012,13 @@ public class SparkServer implements SparkApplication{
                                 responseJSON.put("request", "successful");
                             }
                         }
-                        if(!foundUsername) {
+                        if (!foundUsername) {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason","wrong username");
+                            responseJSON.put("reason", "wrong username");
                         }
-                    }
-                    else {
+                    } else {
                         responseJSON.put("request", "failed");
-                        responseJSON.put("reason","missing required parameters in body");
+                        responseJSON.put("reason", "missing required parameters in body");
                     }
                     return responseJSON;
                 });
@@ -1009,8 +1027,7 @@ public class SparkServer implements SparkApplication{
     }
 
     private static void createAdminAccount() {
-        if(bank.getAdminAccounts().size() < 1)
-        {
+        if (bank.getAdminAccounts().size() < 1) {
             logger.info("Creating initial Admin account");
             Account adminAccount = bank.createAdminAccounts();
             adminAccount.setIsConnected(true);
@@ -1032,7 +1049,7 @@ public class SparkServer implements SparkApplication{
             } else {
                 logger.info("Loaded bank: " + bank.getBankName());
             }
-        }catch(Exception ex) {
+        } catch (Exception ex) {
             logger.info("Bank json failed to load." + "\n\tReason: " + ex.toString());
             bank = new Bank().withBankName("OpenBank");
             logger.info("Creating new Bank: " + bank.getBankName());
@@ -1047,7 +1064,9 @@ public class SparkServer implements SparkApplication{
             logger.addHandler(fh);
 
             logger.info("*************************************New Session Started*************************************");
-        } catch (IOException ioe) {};
+        } catch (IOException ioe) {
+        }
+        ;
     }
 
     private static void apiLogClose() {
@@ -1055,7 +1074,8 @@ public class SparkServer implements SparkApplication{
     }
 
     static class ShutdownThread extends Thread {
-        ShutdownThread() {}
+        ShutdownThread() {
+        }
 
         public void run() {
             logger.info("*************************************Shutting Down Session*************************************");
@@ -1075,8 +1095,8 @@ public class SparkServer implements SparkApplication{
         BufferedReader reader = new BufferedReader(
                 new FileReader(filePath));
         char[] buf = new char[1024];
-        int numRead=0;
-        while((numRead=reader.read(buf)) != -1){
+        int numRead = 0;
+        while ((numRead = reader.read(buf)) != -1) {
             String readData = String.valueOf(buf, 0, numRead);
             fileData.append(readData);
         }
