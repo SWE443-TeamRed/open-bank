@@ -678,7 +678,6 @@ public  class Bank implements SendableEntity {
 
    }
 
-
    public String createUser(String username, String password, String name, String phoneNumber, String email, boolean isAdmin, StringBuilder msg) {
       // get the next userID, check to make sure it is not used
       boolean loop = true;
@@ -901,4 +900,5 @@ public  class Bank implements SendableEntity {
    public TransactionSet getTransactions(String accountNumber, BigInteger amount, Date date) {
       return null;
    }
+
 }
