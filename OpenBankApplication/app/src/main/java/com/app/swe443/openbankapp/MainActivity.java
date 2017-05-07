@@ -103,14 +103,13 @@ public class MainActivity extends AppCompatActivity
     private void addDrawerItems() {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        String[] navMenuTitles = {"Home", "Contacts", "Update My Information", "Open Account", "Logout" };
+        String[] navMenuTitles = {"Home", "Update My Information", "Open Account", "Logout" };
 
         // adding nav drawer items to array
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3].toString()));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4].toString()));
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -178,7 +177,6 @@ public class MainActivity extends AppCompatActivity
 
         open_account_fragment = new OpenAccountFrag();
 
-
         //Initiate homepage Fragment when app opens
         transaction = fm.beginTransaction();
         transaction.replace(R.id.contentFragment, home_fragment);//, "Home_FRAGMENT");
@@ -186,6 +184,7 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
 
     }
+
 
     /*
         An account was clicked in the homepage, change the screen to display account specific tabs
