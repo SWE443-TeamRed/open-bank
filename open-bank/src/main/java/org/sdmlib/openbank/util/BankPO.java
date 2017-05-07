@@ -471,13 +471,21 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
-   public java.math.BigInteger withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
-   {
-      if (this.getPattern().getHasMatch())
-      {
+   public java.math.BigInteger withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
          return ((Bank) getCurrentMatch()).withDrawFunds(accountNum, amount, msg);
       }
       return null;
+   }
+
+   //==========================================================================
+   
+   public void generateCode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).generateCode();
+      }
    }
 
    
@@ -546,9 +554,7 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
    }
 
-   
-   //==========================================================================
-   
+
 
    
    //==========================================================================
@@ -569,17 +575,70 @@ public class BankPO extends PatternObject<BankPO, Bank>
    
    //==========================================================================
    
-   public String getSecureID(String secretWord, byte salt)
+   /*public String getSecureID(String secretWord, byte salt)
    {
       if (this.getPattern().getHasMatch())
       {
          return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
       }
       return null;
-   }
+   }*/
 
    
    //==========================================================================
    
+
+
+   public boolean confirmCode(String code)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).confirmCode(code);
+      }
+      return false;
+   }
+
+   public BankPO createPasswordCodeCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createPasswordCodeCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createPasswordCodeAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
 
 }

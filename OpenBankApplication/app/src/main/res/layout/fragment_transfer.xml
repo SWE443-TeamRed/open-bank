@@ -2,12 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kimberly_93pc.openbanktemplate.TransferFrag">
+    tools:context="com.app.swe443.openbankapp.TransferFrag">
 
     <RelativeLayout
         android:id="@+id/content"
         android:layout_below="@id/toolbar"
-
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,7 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#0b3c5d"
+                android:id="@+id/toAnotherUserButton"
                 android:text="Start Transfer"
+                android:textAllCaps="false"
                 android:layout_marginTop="17dp"
                 android:layout_below="@+id/texttransfer1"
                 android:layout_alignParentRight="true"
@@ -61,10 +62,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/toMyAccountButton"
                 android:layout_below="@id/texttransfer2"
                 android:layout_marginTop="20dp"
                 android:background="#0b3c5d"
                 android:text="Start Transfer"
+                android:textAllCaps="false"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
@@ -86,4 +89,281 @@
         android:layout_marginTop="22dp"
         android:layout_alignRight="@+id/content"
         android:layout_alignEnd="@+id/content" />
+
+    <LinearLayout
+        android:id="@+id/transferToUserFormLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        android:layout_below="@+id/transfer_txt"
+        android:layout_toEndOf="@+id/transfer_txt"
+        android:layout_toRightOf="@+id/transfer_txt"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_txt"
+            android:layout_toEndOf="@+id/transfer_txt"
+            android:layout_toRightOf="@+id/transfer_txt"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="187dp"
+                android:layout_height="351dp"
+                android:orientation="vertical"
+                android:layout_gravity="left">
+
+                <TextView
+                    android:id="@+id/accountnumToTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Transfer to Account #"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/accountnumToConfirmTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Confirm Account #"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/amountTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Amount"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inputLayout"
+                android:layout_width="197dp"
+                android:layout_height="400dp"
+                android:layout_gravity="right"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/accountnumToInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="0.04"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/accountnumToConfirmInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/amountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/buttonlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_txt"
+            android:layout_marginTop="65dp"
+            android:layout_toEndOf="@+id/transfer_txt"
+            android:layout_toRightOf="@+id/transfer_txt"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+
+            <Button
+                android:id="@+id/cancelTransfer"
+                android:layout_width="193dp"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmTransfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text="Transfer" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/transferToAccountFormLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        android:layout_below="@+id/transfer_txt"
+        android:layout_toEndOf="@+id/transfer_txt"
+        android:layout_toRightOf="@+id/transfer_txt"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_txt"
+            android:layout_toEndOf="@+id/transfer_txt"
+            android:layout_toRightOf="@+id/transfer_txt"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:id="@+id/titleToAccountLayout"
+                android:layout_width="187dp"
+                android:layout_height="351dp"
+                android:orientation="vertical"
+                android:layout_gravity="left">
+
+                <TextView
+                    android:id="@+id/accountnumToAccountTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Transfer to Account #"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/accountnumToAccountConfirmTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Confirm Account #"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/amountToAccountTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="72dp"
+                    android:gravity="center_horizontal"
+                    android:text="Amount"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inputToAccountLayout"
+                android:layout_width="197dp"
+                android:layout_height="400dp"
+                android:layout_gravity="right"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/accountnumToAccountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.22"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/accountnumToAccountConfirmInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.18"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/amountToAccountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.18"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/buttonToAccountlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/transfer_txt"
+            android:layout_marginTop="65dp"
+            android:layout_toEndOf="@+id/transfer_txt"
+            android:layout_toRightOf="@+id/transfer_txt"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+
+            <Button
+                android:id="@+id/cancelTransferToAccount"
+                android:layout_width="193dp"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmTransferToAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text="Transfer" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
 </RelativeLayout>

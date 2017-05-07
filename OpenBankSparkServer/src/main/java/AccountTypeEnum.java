@@ -23,12 +23,9 @@ public enum AccountTypeEnum
 {
 		SAVINGS,
 		CHECKING;
-
-   
    //==========================================================================
-   AccountTypeEnum(  )
+     AccountTypeEnum(  )
    {
-
    }
 
    
@@ -37,4 +34,5 @@ public enum AccountTypeEnum
 //   {
 //      return null;
 //   }
+
 }

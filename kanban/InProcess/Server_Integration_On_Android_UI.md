@@ -29,3 +29,24 @@ Assigned persons (currently working on task):
 
 Log entries (who worked when and how long on this):
 
+  - Kimberly  04/24/17  2hr
+    Wroked on combinig register pages and converting
+    them into fragments.
+  - Kimberly  04/29/17  2hr
+    Wroked on combinig register pages and converting
+    them into fragments.
+  - Kimberly   04/30/17 3hr
+    Wroked on combinig register pages and converting
+    them into fragments. Started working on server
+    integraton with register pages.
+  - Kimberly   04/1/17 4hr
+    Worked on server integraton with register pages.
+  - Kimberly   04/2/17 2hr
+    Worked on server integraton with register pages, 
+    started working on server integration with login.
+  - Kimberly   04/3/17 2hr
+    Finished server onitegration with login.
+
+
+
+
