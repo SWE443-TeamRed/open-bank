@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/accountnameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:gravity="left|center_vertical"
+            android:text="Checking Account"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/balanceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:gravity="right|center_vertical"
+            android:text="creation"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="169dp"
+        android:layout_weight="3.00"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="189dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/ownertitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Holder"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/accountnumtitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Account ID"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/typetitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Account Type"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/creationtitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Opened on"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="189dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ownerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="creation"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/accountnumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="holder"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/typeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="accountnum"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/creationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="type text"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/depositWithdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="2.50"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/deposit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAllCaps="false"
+            android:background="#0b3c5d"
+            android:text="Deposit"
+
+            />
+
+        <Button
+            android:id="@+id/withdraw"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:background="#0b3c5d"
+            android:text="Withdraw"
+
+            />
+
+        <TextView
+            android:id="@+id/depositamounttitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How much do you want to deposit?"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:visibility="gone"
+            />
+
+        <EditText
+            android:id="@+id/depositamountText"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="numberDecimal"
+            android:visibility="gone"
+            />
+        <LinearLayout
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/depositButtons"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/canceldeposit"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmdeposit"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#0b3c5d"
+                android:text="Confirm" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/withdrawamounttitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How much do you want to withdraw?"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/withdrawamountText"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="numberDecimal"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="450dp"
+            android:id="@+id/withdrawButtons"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelwithdraw"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="#0b3c5d"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/confirmwithdraw"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#0b3c5d"
+                android:text="Confirm" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -69,7 +69,8 @@ public class Model {
 
         Clazz bank = model.createClazz("Bank")
                 .withAttribute("fee", DataType.DOUBLE)
-                .withAttribute("bankName", DataType.STRING);
+                .withAttribute("bankName", DataType.STRING)
+                .withAttribute("passwordCode", DataType.STRING);
 
         /////////////////////////////////////////Methods//////////////////////////////////////////////////////////////////////
         enumeration.withMethod("toString", DataType.STRING);
@@ -173,7 +174,12 @@ public class Model {
                 new Parameter(transTypeEnum).with("type"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"),
-                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"),
+                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
+                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+        // Reset password Code
+        bank.withMethod("generateCode", DataType.STRING);
+        bank.withMethod("confirmCode", DataType.BOOLEAN, new Parameter(DataType.STRING).with("code"));
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

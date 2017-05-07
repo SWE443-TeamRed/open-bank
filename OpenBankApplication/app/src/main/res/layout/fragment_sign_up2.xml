@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin = "25dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.app.swe443.openbankapp.SignUpFrag2">
+
+    <FrameLayout
+        android:id="@+id/contentFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+        <TextView
+            android:layout_margin="20dp"
+            android:id="@+id/sign_up_txt"
+            android:text="Sign up 2 of 4"
+            android:layout_width="253dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            />
+                <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/sign_up_txt">
+                    <AutoCompleteTextView
+                        android:id="@+id/first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="First Name"
+                        android:inputType="textPersonName"
+                        android:layout_below="@+id/sign_up_txt"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="25dp"
+                        android:imeOptions="actionNext"
+                        android:layout_above="@+id/last_name"
+                        android:nextFocusDown="@id/last_name"
+                        android:lines="1"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/first_name">
+                    <AutoCompleteTextView
+                        android:id="@+id/last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName"
+                        android:layout_below="@+id/first_name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="25dp"
+                        android:imeOptions="actionNext"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/last_name">
+                    <AutoCompleteTextView
+                        android:id="@+id/phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:layout_below="@+id/last_name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="25dp"
+                        android:imeOptions="actionDone"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            <RelativeLayout
+            android:id="@+id/content_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="#0b3c5d"
+                android:text="Back"
+                android:id="@+id/back_button2_4"
+                android:layout_alignTop="@+id/continue_button2_4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="#0b3c5d"
+                android:text="Continue"
+                android:id="@+id/continue_button2_4"
+                android:layout_marginTop="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

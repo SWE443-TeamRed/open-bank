@@ -23,18 +23,16 @@ public enum AccountTypeEnum
 {
 		SAVINGS,
 		CHECKING;
-
-   
    //==========================================================================
-   AccountTypeEnum(  )
+     AccountTypeEnum(  )
    {
-
    }
 
    
    //==========================================================================
-//   public String toString(  )
-//   {
-//      return null;
-//   }
+   public String toString(  )
+   {
+      return this.toString();
+   }
+
 }

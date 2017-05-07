@@ -92,12 +92,14 @@
          "id":"Bank",
          "attributes":[
             "fee : double",
-            "bankName : String"
+            "bankName : String",
+            "passwordCode : String"
          ],
          "methods":[
             "validateLogin(int accountID, String username, String password) boolean",
             "findAccountByID(int accountID) org.sdmlib.openbank.Account",
             "findUserByID(String userID) org.sdmlib.openbank.User",
+<<<<<<< HEAD
             "confirmTransaction(int toAcctID, int fromAcctID, java.math.BigInteger dollarValue, java.math.BigInteger decimalValue) boolean",
             "disableUser(String userID, java.lang.StringBuilder msg) boolean",
             "closeAccount(int accountNumber, java.lang.StringBuilder msg) boolean",
@@ -108,6 +110,11 @@
             "getNextID() int",
             "getTransactions(int accountNumber, java.math.BigInteger amount, java.util.Date date) java.util.Set",
             "recordTransaction(int sender, int receiver, org.sdmlib.openbank.TransactionTypeEnum type, java.math.BigInteger amount, String note, java.lang.StringBuilder msg)"
+=======
+            "confirmTransaction(int toAcctID, int fromAcctID, java.lang.Integer dollarValue, java.lang.Integer decimalValue) boolean",
+            "generateCode() String",
+            "confirmCode(String code) boolean"
+>>>>>>> ChangePassword
          ]
       }
    ],

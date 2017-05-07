@@ -39,11 +39,20 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 //import java.time.LocalDate;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+/**
+ =======
+ import java.util.UUID;
+ import org.sdmlib.openbank.User;
+ import org.sdmlib.openbank.Transaction;
+ import org.sdmlib.openbank.FeeValue;
+ import org.sdmlib.openbank.Account;
+
+ /*
+ *
+ *  @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
    public  class Bank implements SendableEntity
 {
@@ -912,6 +921,7 @@ import java.util.Set;
       withFeeValue(value);
       return value;
    }
+
    //==========================================================================
    public boolean disableUser( String userID, StringBuilder msg )
    {
@@ -1213,5 +1223,28 @@ import java.util.Set;
       sRandom.nextBytes(salt);
       return salt;
    }
+
+   //==========================================================================
+   public String generateCode(  )
+   {
+      passwordCode = UUID.randomUUID().toString();
+      passwordCode = passwordCode.substring(0, 8);
+      return passwordCode;
+   }
+
+
+   //==========================================================================
+   public boolean confirmCode( String code )
+   {
+      if(passwordCode.equals(code))return true;
+      return false;
+   }
+
+   
+   //==========================================================================
+
+   public static final String PROPERTY_PASSWORDCODE = "passwordCode";
+
+   private String passwordCode;
 
 }

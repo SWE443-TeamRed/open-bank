@@ -8,6 +8,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:id="@+id/mainView"
         android:layout_height="match_parent"
         tools:context="com.app.swe443.openbankapp.MainActivity">
 
@@ -15,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:background="@color/colorSecondaryDarlk"
+            android:background="@color/colorSecondaryDark"
             android:minHeight="?attr/actionBarSize"
             style="@style/Theme.AppCompat.NoActionBar" />
 
@@ -35,10 +36,20 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:headerDividersEnabled="true"
-        android:background="@color/colorSecondaryDarlk"
+        android:background="@color/colorSecondaryDark"
         android:dividerHeight="1dp"
         android:divider="#ffffff"
-        android:cacheColorHint="#00000000"
-        android:scrollingCache="false"/>
+        android:cacheColorHint="@color/colorAccent"
+        android:scrollingCache="false"
+        android:listSelector="@color/colorAccent"
+        />
+
+
+
+
+
 
 </android.support.v4.widget.DrawerLayout>
+
+
+
