@@ -21,15 +21,13 @@
    
 package org.sdmlib.openbank;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 import org.sdmlib.openbank.util.AccountSet;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.Bank;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.File;
    /**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -191,24 +189,9 @@ import org.sdmlib.openbank.Bank;
        }
 
        public void setUserID(String value) {
-           //if (!EntityUtil.stringEquals(this.UserID, value)) {
-           /*
-               if(this.getBank().getCustomerUser().filterUserID(value).size() == 0 &&
-                       this.getBank().getAdminUsers().filterUserID(value).size() == 0) {
-                   String oldValue = this.UserID;
+                    String oldValue = this.UserID;
                    this.UserID = value;
                    this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-               }
-               else {
-               */
-                //   throw new IllegalArgumentException("User ID " + value + " has already been used");
-
-                   value = String.valueOf(this.getBank().getNextID());
-                   String oldValue = this.UserID;
-                   this.UserID = value;
-                   this.firePropertyChange(PROPERTY_USERID, oldValue, value);
-               //}
-           //}
        }
 
        public User withUserID(String value) {

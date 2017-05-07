@@ -28,6 +28,7 @@ import com.app.swe443.openbankapp.Support.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ import static android.content.ContentValues.TAG;
 public class OpenFirstAccountFrag extends Fragment implements View.OnClickListener {
     boolean savings = false;
     boolean checking = false;
-    double initialBalance;
+    BigInteger initialBalance;
     String REGISTER_URL;
     Map<String, String> params;
 
@@ -145,7 +146,42 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                 }
                 else {
                     //First set info before calling OpenAccountPostRequest to make post request.
-                    initialBalance = Double.parseDouble(balance.getText().toString());
+                    //Initial account balance must be BigInteger
+                    String userbalanceInput = balance.getText().toString();
+                    Toast.makeText(getContext(),userbalanceInput,Toast.LENGTH_LONG).show();
+                    System.out.println("USER INPUT WAS "+userbalanceInput);
+                    String[] binput = {" "," "};
+                    //Balance contains cents
+                    if(userbalanceInput.contains(".")) {
+                        binput = userbalanceInput.split("\\.");
+                        System.out.println("SIZE IS "+binput.length);
+                        //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+                        //Format decimal values
+                        if(binput[1].length()==1)
+                            binput[1] = binput[1]+"0";
+                        else if(binput[1].length()==0)
+                            binput[1] = "00";
+                        else{
+                            StringBuilder s = new StringBuilder();
+                            s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                            binput[1] = s.toString();
+                        }
+                    }
+                    //Balance is a whole number
+                    else {
+                        binput[0] = userbalanceInput;
+                        binput[0] = binput[0].replaceAll("[$,.]", "");
+                        binput[1] = "00";
+                    }
+                    StringBuilder finalinputbalance = new StringBuilder();
+                    finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+                    initialBalance = new BigInteger(finalinputbalance.toString());
+                    System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
+
+
+
+
+
 
                     String username = values.get(0);
                     String password = values.get(1);
@@ -155,26 +191,26 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
                     //To create the user.
                     REGISTER_URL = "http://54.87.197.206:8080/SparkServer/api/v1/user";
-                    user = new User()
-                            .withName(name)
-                            .withPassword(password)
-                            .withPhone(phone)
-                            .withEmail(email)
-                            .withIsAdmin(false)
-                            .withUsername(username);
-
-                    account = new Account()
-                            .withType(type)
-                            .withBalance(initialBalance)
-                            .withOwner(user)
-                            .withCreationdate(new Date());
+//                    user = new User()
+//                            .withName(name)
+//                            .withPassword(password)
+//                            .withPhone(phone)
+//                            .withEmail(email)
+//                            .withIsAdmin(false)
+//                            .withUsername(username);
+//
+//                    account = new Account()
+//                            .withType(type)
+//                            .withBalance(initialBalance)
+//                            .withOwner(user)
+//                            .withCreationdate(new Date());
                     params = new HashMap<String, String>();
-                    params.put("username", user.getUsername());
-                    params.put("password", user.getPassword());
-                    params.put("name", user.getName());
-                    params.put("phoneNumber", user.getPhone());
+                    params.put("username", username);
+                    params.put("password", password);
+                    params.put("name", name);
+                    params.put("phoneNumber", phone);
                     params.put("isAdmin", "false");
-                    params.put("email", user.getEmail());
+                    params.put("email", email);
 
                     openAccountPostRequest(false, REGISTER_URL, getActivity(), params);
                     // TODO: 5/1/17 Erase latter
@@ -243,9 +279,9 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
         params.put("id", response);
         //TODO Erase latter, for testing.
-//        System.out.println(response + " "+account.getType().toString() + " "+  account.getBalance());
-        params.put("accountType", account.getType().toString());
-        params.put("initialBalance", account.getBalance() + "");
+        System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
+        params.put("accountType", type.toString());
+        params.put("initialBalance", initialBalance.toString() + "");
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
     }

@@ -284,12 +284,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     RequestQueue requestQueue;
     String auth;
     public void loginPostRequest(String REGISTER_URL, Map<String, String> params){
+        System.out.println("SNEDING REQUEST WITH PARAMS "+params.get("username"));
         stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         //TODO Erase latter, for testing.
-                        // System.out.println("Success********"+response +"********");
+                         System.out.println("Success********"+response +"********");
                         Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
                         try {
                             JSONObject obj = new JSONObject(response);
