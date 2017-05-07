@@ -45,7 +45,8 @@ public class Model {
                 .withAttribute("email", DataType.STRING)
                 .withAttribute("LoggedIn", DataType.BOOLEAN)
                 .withAttribute("phone", DataType.STRING) // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
-                .withAttribute("username", DataType.STRING); // FA 4-12-2017 new
+                .withAttribute("username", DataType.STRING) // FA 4-12-2017 new
+                .withAttribute("sessionID", DataType.STRING);//Savi 5-7-2017 new
 
         Clazz transaction = model.createClazz("Transaction")
                 .withAttribute("amount", DataType.create(BigInteger.class)) // type changed from double to Biginteger
