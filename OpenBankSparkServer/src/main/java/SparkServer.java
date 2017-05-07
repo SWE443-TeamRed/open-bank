@@ -15,7 +15,6 @@ import javax.mail.PasswordAuthentication;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Iterator;
@@ -670,15 +669,15 @@ public class SparkServer implements SparkApplication{
                         String id = request.queryParams("id");
                         String accountType = request.queryParams("accountType");
                         String initialBalance = request.queryParams("initialBalance");
-                        double convertedInitialBalance = Double.parseDouble(initialBalance);
-                        BigInteger bigInteger = new BigDecimal(convertedInitialBalance).toBigInteger();
+//                        double convertedInitialBalance = Double.parseDouble(initialBalance);
+//                        BigInteger bigInteger = new BigDecimal(convertedInitialBalance).toBigInteger();
 
                         AccountTypeEnum accountTypeEnum = AccountTypeEnum.valueOf(accountType);
 
                         if(bank.findUserByID(id) != null) {
                             //TODO add accountType and have the method return the accountID
                             StringBuilder msg = new StringBuilder();
-                            String accountID = bank.createAccount(id, false, new BigInteger(bigInteger.toString()), accountTypeEnum, msg);
+                            String accountID = bank.createAccount(id, false, new BigInteger(initialBalance), accountTypeEnum, msg);
 
                             logger.info("Message: " + msg.toString());
                             logger.info("userId: " + accountID.toString());
