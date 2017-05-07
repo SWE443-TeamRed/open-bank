@@ -147,8 +147,41 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                 else {
                     //First set info before calling OpenAccountPostRequest to make post request.
                     //Initial account balance must be BigInteger
-                    String cleanedBalanceValue = balance.getText().toString().replaceAll("[$,.]", "");
-                    initialBalance = BigInteger.valueOf(Integer.parseInt(balance.getText().toString()));
+                    String userbalanceInput = balance.getText().toString();
+                    Toast.makeText(getContext(),userbalanceInput,Toast.LENGTH_LONG).show();
+                    System.out.println("USER INPUT WAS "+userbalanceInput);
+                    String[] binput = {" "," "};
+                    //Balance contains cents
+                    if(userbalanceInput.contains(".")) {
+                        binput = userbalanceInput.split("\\.");
+                        System.out.println("SIZE IS "+binput.length);
+                        //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+                        //Format decimal values
+                        if(binput[1].length()==1)
+                            binput[1] = binput[1]+"0";
+                        else if(binput[1].length()==0)
+                            binput[1] = "00";
+                        else{
+                            StringBuilder s = new StringBuilder();
+                            s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                            binput[1] = s.toString();
+                        }
+                    }
+                    //Balance is a whole number
+                    else {
+                        binput[0] = userbalanceInput;
+                        binput[0] = binput[0].replaceAll("[$,.]", "");
+                        binput[1] = "00";
+                    }
+                    StringBuilder finalinputbalance = new StringBuilder();
+                    finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+                    initialBalance = new BigInteger(finalinputbalance.toString());
+                    System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
+
+
+
+
+
 
                     String username = values.get(0);
                     String password = values.get(1);
@@ -246,8 +279,8 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
         params.put("id", response);
         //TODO Erase latter, for testing.
-        System.out.println(response + " "+account.getType().toString() + " "+  account.getBalance());
-        params.put("accountType", account.getType().toString());
+        System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
+        params.put("accountType", type.toString());
         params.put("initialBalance", initialBalance.toString() + "");
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
