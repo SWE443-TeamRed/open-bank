@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void register(){//Click on the register button
         fm = getSupportFragmentManager();
         transaction = fm.beginTransaction();
-        transaction.add(R.id.drawer_layout, new TransferFrag(), "SignUpFrag1");
+        transaction.add(R.id.drawer_layout, new SignUpFrag1(), "SignUpFrag1");
         transaction.addToBackStack(null);
         transaction.commit();
     }
