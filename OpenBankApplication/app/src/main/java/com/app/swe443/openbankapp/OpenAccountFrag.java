@@ -66,7 +66,7 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
         View v= inflater.inflate(R.layout.fragment_open_account, container, false);
 
 
-        activity = (LoginActivity) getActivity();
+        //activity = (LoginActivity) getActivity();
         //Initialize bank instance
         mockserver = MockServerSingleton.getInstance();
 

@@ -10,16 +10,32 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnAccountSelectedListener{
+        implements HomeFrag.OnHomeFragMethodSelectedListener{
 
 
 
@@ -49,6 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     String userID;
     String username;
+    private JSONArray userAccounts;
 
 
 
@@ -73,27 +90,24 @@ public class MainActivity extends AppCompatActivity
         drawerToggle.syncState();
 
         fm = getSupportFragmentManager();
-        //Initlaize all necessary fragments for MainActivity
-        initFragments();
-        //Draw the actionbar
-        addDrawerItems();
+
 
 
 
         //TODO Getting username and id, with this can get accounts info from server.
-       // userID = getIntent().getStringArrayExtra("UsernameAdnId")[1];
-       // username = getIntent().getStringArrayExtra("UsernameAdnId")[0];
+       userID = getIntent().getStringArrayExtra("UsernameAndID")[1];
+       username = getIntent().getStringArrayExtra("UsernameAndID")[0];
 
-        userID = "gggggg";
-        username = "gggggg";
+        System.out.println("Got username and id from loginactivity "+ userID+ "  "+username);
 
-        //Create User's and AccountDetails as dummy data
-        JsonPersistency jsonp = new JsonPersistency();
 
         mockBankServer = MockServerSingleton.getInstance();
 
-
-
+        //Initlaize all necessary fragments for MainActivity
+        initFragments();
+        //Draw the actionbar
+        addDrawerItems();
+        getUserAccounts();
         /*
             Add Tina's account set to MainActivity AccountDetails data structure
             ArrayList<Account> needed for account list in homepage
@@ -103,14 +117,13 @@ public class MainActivity extends AppCompatActivity
     private void addDrawerItems() {
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        String[] navMenuTitles = {"Home", "Contacts", "Update My Information", "Open Account", "Logout" };
+        String[] navMenuTitles = {"Home", "Update My Information", "Open Account", "Logout" };
 
         // adding nav drawer items to array
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2].toString()));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3].toString()));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4].toString()));
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
@@ -123,6 +136,7 @@ public class MainActivity extends AppCompatActivity
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                System.out.println("CLICKED ON "+position);
 
                 switch (position) {
                     case 1:
@@ -179,13 +193,9 @@ public class MainActivity extends AppCompatActivity
         open_account_fragment = new OpenAccountFrag();
 
 
-        //Initiate homepage Fragment when app opens
-        transaction = fm.beginTransaction();
-        transaction.replace(R.id.contentFragment, home_fragment);//, "Home_FRAGMENT");
-        transaction.addToBackStack(null);
-        transaction.commit();
 
     }
+
 
     /*
         An account was clicked in the homepage, change the screen to display account specific tabs
@@ -203,6 +213,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public JSONArray getAccounts(){
+        return userAccounts;
+    }
+    public String getUsername(){
+        return username;
+    }
 
 
     public boolean onOptionsItemSelected(MenuItem item){
@@ -220,4 +236,44 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void getUserAccounts(){
+        StringRequest stringRequest;
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/account?id="+userID;
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("OBTAINED USER ACCOUNTS");
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+
+                try {
+                    JSONArray obj = new JSONArray(response);
+                    userAccounts = obj;
+                    goToHomepage();
+
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response);
+                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        System.out.println("REQUESTING USER ACCOUNTS");
+        queue.add(stringRequest);
+    }
+
+    public void goToHomepage(){
+        //Initiate homepage Fragment when app opens
+        transaction = fm.beginTransaction();
+        transaction.replace(R.id.contentFragment, home_fragment);//, "Home_FRAGMENT");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

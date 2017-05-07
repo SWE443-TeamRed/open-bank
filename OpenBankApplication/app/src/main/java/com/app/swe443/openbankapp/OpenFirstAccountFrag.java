@@ -259,7 +259,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             //TODO Erase latter, for testing.
-//                            System.out.println("Error********"+error +"********");
+                            System.out.println("Error********"+error +"********");
                             Toast.makeText(activity,error.toString(),Toast.LENGTH_LONG).show();
                         }
                     }){
@@ -281,7 +281,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
         //TODO Erase latter, for testing.
         System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
         params.put("accountType", type.toString());
-        params.put("initialBalance", initialBalance.toString() + "");
+        params.put("initialBalance", "150");
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
     }

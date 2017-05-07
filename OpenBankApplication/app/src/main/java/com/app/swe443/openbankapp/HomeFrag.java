@@ -9,19 +9,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.swe443.openbankapp.Support.Account;
 import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.content.ContentValues.TAG;
 
 
 public class HomeFrag extends Fragment {
@@ -30,28 +44,18 @@ public class HomeFrag extends Fragment {
     private TextView homepageHeaderName;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Account> mDataset;
-    private OnAccountSelectedListener  mCallback;
-    private MockServerSingleton mockserver;
+    private ArrayList<AccountDisplay> mDataset;
+    private OnHomeFragMethodSelectedListener  mCallback;
+    private JSONArray userAccounts;
 
     // Main Activity must implement this interface in order to communicate with HomeFrag
-    public interface OnAccountSelectedListener {
+    public interface OnHomeFragMethodSelectedListener {
         public void onAccountSelected(int accountID);
+        public JSONArray getAccounts();
+        public String getUsername();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnAccountSelectedListener ) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnAccountSelectedListener ");
-        }
-    }
 
 
     @Override
@@ -68,18 +72,18 @@ public class HomeFrag extends Fragment {
         /*
             TODO ESTABLISH CONTACT WITHT EH SERVER
          */
-        mockserver = MockServerSingleton.getInstance();
+
+        //Initialize callback to communicate with parent activity
+        mCallback = (OnHomeFragMethodSelectedListener) getActivity();
+        //Grab the user's accounts obtained in the parent activity
+        userAccounts = mCallback.getAccounts();
 
         //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
 
-        User bob = new User().withName("bob").withPassword("gggggg").withUsername("gggggg");
-        Account check = new Account().withAccountnum(555555).withOwner(bob).withCreationdate(new Date()).withType(AccountTypeEnum.CHECKING);
-        check.withOwner(bob).withBalance(500);
-        bob.withAccount(check);
-        mockserver.setLoggedInUser(bob);
-        homepageHeaderName.setText("Welcome " + mockserver.getLoggedInUser().getName());
+        //Display the username that has logged in
+        homepageHeaderName.setText("Welcome " + mCallback.getUsername());
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -89,38 +93,52 @@ public class HomeFrag extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-        //jsonp.toJson(tinac);
-        //Account tinaa = jsonp.fromJson(tina.getUserID());
-
-        //Set data and send it to the Adapter
-        /*
-           TODO NEED ARRAYLIST OF THE USER'S ACCOUNT (SERVER?)
-         */
-        rViewAdapter = new MyAdapter(mockserver.getAccounts(), getContext());
+        //Set data and send it to the UserAccountsAdapter
+        rViewAdapter = new UserAccountsAdapter(getAccountsDisplays(userAccounts), getContext());
         mRecyclerView.setAdapter(rViewAdapter);
 
         return v;
     }
 
+    //User clicks on an account in the view
     public void goToAccount(int id) {
         mCallback.onAccountSelected(id);
+    }
 
+    //Read user's accounts from the server responce array
+    public ArrayList<AccountDisplay> getAccountsDisplays(JSONArray response){
+        ArrayList<AccountDisplay> myDataset = new ArrayList<AccountDisplay>();
+        try {
+            JSONArray accounts = (JSONArray) response.get(1);
+            for(int i=0; i<accounts.length();i++){
+                try {
+                    JSONObject rec = accounts.getJSONObject(i);
+                    System.out.println("Got an account "+rec.toString());
+                    int balance = rec.getInt("balance");
+                    String type = rec.getString("accountType");
+                    int accountnum = rec.getInt("accountNumber");
+                    myDataset.add(new AccountDisplay(type,accountnum,balance));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response.toString());
+                }
 
-
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+            Log.d(TAG,response.toString());
+        }
+        return myDataset;
     }
 
 
-//The adapter provides access to the items in your data set, creates views for items, and replaces the content of some of the views with new data items when the original item is no longer visible. The following code example shows a simple implementation for a data set that consists of an array of strings displayed using TextView widgets:
+    //The adapter provides access to the items in your data set,
+    // creates views for items,
+    // and replaces the content of some of the views with new data
+    // items when the original item is no longer visible.
+    class UserAccountsAdapter extends RecyclerView.Adapter<UserAccountsAdapter.ViewHolder> {
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-
-        private AdapterView.OnItemClickListener mItemClickListener;
         private Context mContext;
-        private FragmentManager fm;
-        private FragmentTransaction transaction;
-        private Fragment home_fragment;
-
-
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -142,13 +160,10 @@ public class HomeFrag extends Fragment {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(ArrayList<Account> myDataset, Context context) {
-
+        public UserAccountsAdapter(ArrayList<AccountDisplay> myDataset, Context context) {
             mDataset = myDataset;
             this.mContext = context;
-
         }
-
 
         // Create new views (invoked by the layout manager)
         @Override
@@ -165,12 +180,7 @@ public class HomeFrag extends Fragment {
                 public void onClick(View v) {
                     System.out.println("CLICKED ON ITEM " + vh.getAdapterPosition());
                     goToAccount(vh.getAdapterPosition());
-
-
-
                 }
-
-
             });
             return vh;
         }
@@ -180,27 +190,57 @@ public class HomeFrag extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.accountnameText.setText(String.valueOf(String.valueOf(mDataset.get(position).getType())));
-            holder.accountnumText.setText("Account: "+  String.valueOf(mDataset.get(position).getAccountnum()));
+            holder.accountnameText.setText(mDataset.get(position).getdType());
+            holder.accountnumText.setText("Account: "+  mDataset.get(position).getdAccountnum());
             DecimalFormat precision = new DecimalFormat("0.00");
-            holder.balanceText.setText("$ " +String.valueOf(precision.format(mDataset.get(position).getBalance())));
+            holder.balanceText.setText("$ " +String.valueOf(precision.format(Integer.valueOf(mDataset.get(position).getdBalance()))));
         }
-
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
             return mDataset.size();
         }
+    }
 
-//        public void initFragments() {
-//
-//            /********Home Fragment********/
-//            home_fragment = new HomeFrag();
-//            transaction = fm.beginTransaction();
-//            transaction.replace(R.id.contentFragment, home_fragment, "Home_FRAGMENT");
-//            transaction.commit();
-//        }
+
+    /*
+        Helper class to organize attributes that will be dispalyed
+     */
+    private class AccountDisplay {
+        private String dType;
+        private String dAccountnum;
+        private String dBalance;
+
+        public AccountDisplay(String type, int num, int balance){
+            this.dType = type;
+            this.dAccountnum = Integer.toString(num);
+            this.dBalance = Integer.toString(balance);
+        }
+
+        public String getdType() {
+            return dType;
+        }
+
+        public void setdType(String dType) {
+            this.dType = dType;
+        }
+
+        public String getdAccountnum() {
+            return dAccountnum;
+        }
+
+        public void setdAccountnum(String dAccountnum) {
+            this.dAccountnum = dAccountnum;
+        }
+
+        public String getdBalance() {
+            return dBalance;
+        }
+
+        public void setdBalance(String dBalance) {
+            this.dBalance = dBalance;
+        }
     }
 
 }

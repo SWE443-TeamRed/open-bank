@@ -344,11 +344,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             } else {
                 // Show a progress spinner, and kick off a background task.
-                String[] UsernameAdnId = {mUsernameView.getText().toString(),
+                String[] usernameAndID = {mUsernameView.getText().toString(),
                         obj.get("userID").toString()};
                 showProgress(true);
                 Intent main = new Intent(LoginActivity.this, MainActivity.class);
-                main.putExtra("UsernameAdnId", UsernameAdnId);
+                main.putExtra("UsernameAndID", usernameAndID);
                 startActivity(main);
             }
         }catch(JSONException e){
