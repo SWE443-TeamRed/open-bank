@@ -670,13 +670,13 @@ public class SparkServer implements SparkApplication{
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
 
-                    String base64Credentials = request.headers("Authorization").toString().substring("Basic".length()).trim();
-                    String credentials = new String(Base64.getDecoder().decode(base64Credentials),
-                            Charset.forName("UTF-8"));
-                    final String[] values = credentials.split(":",2);
+//                    String base64Credentials = request.headers("Authorization").toString().substring("Basic".length()).trim();
+//                    String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+//                            Charset.forName("UTF-8"));
+//                    final String[] values = credentials.split(":",2);
 
-                    logger.info("username: " + values[0]);
-                    logger.info("sessionID: " + values[1]);
+//                    logger.info("username: " + values[0]);
+//                    logger.info("sessionID: " + values[1]);
 
                     if (request.queryParams().contains("id")
                             && request.queryParams().contains("accountType")
@@ -927,6 +927,7 @@ public class SparkServer implements SparkApplication{
                             if (userItem.getEmail().equals(email)) {
                                 foundEmail = true;
                                 String code = bank.generateCode();
+                                String userID = userItem.getUserID();
                                 EmailHandler handler = new EmailHandler();
                                 String subject = "OPEN BANK Password reset code";
                                 String body = "Password Reset Code \n\n Hello, \n\n We received a request to change "
@@ -937,6 +938,7 @@ public class SparkServer implements SparkApplication{
                                         + "replying to this email \n\n Thank You! \n\n -Open Bank";
                                 handler.createEmail(body, subject, "openbankservice@gmail.com", email);
                                 responseJSON.put("request", "successful");
+                                responseJSON.put("id", userID);
                                 break;
                             }
                         }if(!foundEmail) {
@@ -973,38 +975,40 @@ public class SparkServer implements SparkApplication{
                     return responseJSON;
                 });
             });
+            //Todo
             //Change the password with provided username.
-            path("/changePassword", () -> {
-                post("", (Request request, Response response) -> {
-                    JSONObject responseJSON = new JSONObject();
-                    if(request.queryParams().contains("username")
-                            && request.queryParams().contains("password")) {
-
-                        String newPassword = request.queryParams("password");
-                        String username = request.queryParams("username");
-                        boolean foundUsername = false;
-                        Set<User> users = bank.getCustomerUser();
-
-                        for(Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
-                            User userItem = iterator.next();
-                            if (userItem.getUsername().equals(username)) {
-                                foundUsername = true;
-                                userItem.withPassword(newPassword);
-                                responseJSON.put("request", "successful");
-                            }
-                        }
-                        if(!foundUsername) {
-                            responseJSON.put("request", "failed");
-                            responseJSON.put("reason","wrong username");
-                        }
-                    }
-                    else {
-                        responseJSON.put("request", "failed");
-                        responseJSON.put("reason","missing required parameters in body");
-                    }
-                    return responseJSON;
-                });
-            });
+            //Can get rid of this latter.
+//            path("/changePassword", () -> {
+//                post("", (Request request, Response response) -> {
+//                    JSONObject responseJSON = new JSONObject();
+//                    if(request.queryParams().contains("username")
+//                            && request.queryParams().contains("password")) {
+//
+//                        String newPassword = request.queryParams("password");
+//                        String username = request.queryParams("username");
+//                        boolean foundUsername = false;
+//                        Set<User> users = bank.getCustomerUser();
+//
+//                        for(Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
+//                            User userItem = iterator.next();
+//                            if (userItem.getUsername().equals(username)) {
+//                                foundUsername = true;
+//                                userItem.withPassword(newPassword);
+//                                responseJSON.put("request", "successful");
+//                            }
+//                        }
+//                        if(!foundUsername) {
+//                            responseJSON.put("request", "failed");
+//                            responseJSON.put("reason","wrong username");
+//                        }
+//                    }
+//                    else {
+//                        responseJSON.put("request", "failed");
+//                        responseJSON.put("reason","missing required parameters in body");
+//                    }
+//                    return responseJSON;
+//                });
+//            });
         });
     }
 
