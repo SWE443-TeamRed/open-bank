@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -174,6 +176,7 @@ public class SparkServer implements SparkApplication{
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
+                                responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
                                 return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
                             } else {
                                 responseJSON.put("authentication", false);
@@ -228,6 +231,7 @@ public class SparkServer implements SparkApplication{
                                 if (bank.findUserByID(id).isLoggedIn()) {
                                     responseJSON.put("authentication", true);
                                     responseJSON.put("userID", id);
+                                    responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
                                 } else {
                                     responseJSON.put("authentication", false);
                                     responseJSON.put("reason", "failed to login the user");
@@ -410,6 +414,8 @@ public class SparkServer implements SparkApplication{
                             if (bank.findUserByID(id).isLoggedIn()) {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
+                                responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+
                             } else {
                                 responseJSON.put("authentication", false);
                                 responseJSON.put("reason", "failed to login the user");
@@ -436,8 +442,10 @@ public class SparkServer implements SparkApplication{
 
                         if (id != null) {
                             if(bank.findUserByID(id) != null) {
-                                if (bank.findUserByID(id).logout())
+                                if (bank.findUserByID(id).logout()) {
                                     responseJSON.put("request", "successful");
+                                    responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+                                }
                                 else {
                                     responseJSON.put("request", "failed");
                                     responseJSON.put("reason", "failed to logout the user");
@@ -661,6 +669,14 @@ public class SparkServer implements SparkApplication{
                 });
                 post("", (Request request, Response response) -> {
                     JSONObject responseJSON = new JSONObject();
+
+                    String base64Credentials = request.headers("Authorization").toString().substring("Basic".length()).trim();
+                    String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+                            Charset.forName("UTF-8"));
+                    final String[] values = credentials.split(":",2);
+
+                    logger.info("username: " + values[0]);
+                    logger.info("sessionID: " + values[1]);
 
                     if (request.queryParams().contains("id")
                             && request.queryParams().contains("accountType")

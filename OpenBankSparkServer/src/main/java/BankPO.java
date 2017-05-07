@@ -551,6 +551,41 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
    }
 
+
+
+   
+   //==========================================================================
+   
+   public String getSecureID(String secretWord, byte[] salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+
+
+   
+   //==========================================================================
+   
+   /*public String getSecureID(String secretWord, byte salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }*/
+
+   
+   //==========================================================================
+   
+
+
    public boolean confirmCode(String code)
    {
       if (this.getPattern().getHasMatch())
@@ -602,4 +637,5 @@ public class BankPO extends PatternObject<BankPO, Bank>
       
       return this;
    }
+
 }

@@ -944,4 +944,47 @@ public class BankSet extends SimpleSet<Bank>
       return BankSet.EMPTY_SET;
    }
 
+   
+   //==========================================================================
+   
+  
+
+   
+   //==========================================================================
+   
+   public StringList getSecureID(String secretWord, byte[] salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+  
+   
+   //==========================================================================
+   
+   /*public StringList getSecureID(String secretWord, byte salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }*/
+
+   
+   //==========================================================================
+
+
 }
