@@ -15,15 +15,16 @@
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">ng-login</a>
+				<a class="navbar-brand" href="#">Open Bank Admin Console</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li ng-class="getClass('state1')"><a ui-sref="state1">state1</a></li>
-					<li ng-class="getClass('state2')"><a ui-sref="state2">state2</a></li>
-					<li ng-class="getClass('adminState')"><a ui-sref="adminState">Admin Area</a></li>
+					<li ng-class="getClass('state1')"><a ui-sref="state1">Accounts</a></li>
+					<li ng-class="getClass('state2')"><a ui-sref="state2">Users</a></li>
+					<li ng-class="getClass('state3')"><a ui-sref="state3">Bank Transactions</a></li>
+					<li ng-class="getClass('adminState')"><a ui-sref="adminState">Admin Tools(Placeholder)</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#" ng-click="logout()">Log Out</a></li>

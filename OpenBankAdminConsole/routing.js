@@ -24,7 +24,14 @@ function($stateProvider, $urlRouterProvider, USER_ROLES) {
       url: "/state2",
       templateUrl: "state2.html",
 	  data: {
-          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+          authorizedRoles: [USER_ROLES.admin]
+      }
+    })
+    .state('state3', {
+      url: "/state3",
+      templateUrl: "state3.html",
+    data: {
+          authorizedRoles: [USER_ROLES.admin]
       }
     })
     .state('adminState', {
