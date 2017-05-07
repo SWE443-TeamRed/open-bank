@@ -1,6 +1,6 @@
 package com.app.swe443.openbankapp;
 
-import android.app.Activity;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.view.View.GONE;
@@ -27,20 +26,16 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private Button transferBetweenMyAccountsButton;
     private Button cancelTransfer;
     private Button confirmTransfer;
-    private RelativeLayout betweenUserButtonLayout;
-    private RelativeLayout betweenAccountButtonLayout;
+    private Button cancelTransfertoAccount;
+    private Button confirmTransferAccount;
+
+    private LinearLayout betweenAccountButtonLayout;
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
 
     private MockServerSingleton mockserver;
 
     private TransferFrag.OnTransferCallbackListener mCallback;
-
-
-
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,27 +47,26 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         public void onTransferSelected();
 
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (TransferFrag.OnTransferCallbackListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnTransferSelectedListener ");
-        }
-    }
+//
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//
+//        // This makes sure that the container activity has implemented
+//        // the callback interface. If not, it throws an exception
+//        try {
+//            mCallback = (TransferFrag.OnTransferCallbackListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement OnTransferSelectedListener ");
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
-
 
         mockserver = MockServerSingleton.getInstance();
 
@@ -85,13 +79,17 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         transferBetweenMyAccountsButton.setOnClickListener(this);
         transferToUserButton.setOnClickListener(this);
 
-        betweenAccountButtonLayout = (RelativeLayout) v.findViewById(R.id.betweenAccount);
-        betweenUserButtonLayout = (RelativeLayout) v.findViewById(R.id.betweenUser);
+        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transfer_content);
         betweenUserForm = (LinearLayout) v.findViewById(R.id.transferToUserFormLayout);
         betweenAccountForm = (LinearLayout) v.findViewById(R.id.transferToAccountFormLayout);
 
         cancelTransfer = (Button) v.findViewById(R.id.cancelTransfer);
+        cancelTransfertoAccount = (Button) v.findViewById(R.id.cancelTransferToAccount);
         confirmTransfer = (Button) v.findViewById(R.id.confirmTransfer);
+        confirmTransferAccount = (Button) v.findViewById(R.id.confirmTransferToAccount);
+
+        cancelTransfertoAccount.setOnClickListener(this);
+        confirmTransferAccount.setOnClickListener(this);
         cancelTransfer.setOnClickListener(this);
         confirmTransfer.setOnClickListener(this);
 
@@ -102,25 +100,22 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toAnotherUserButton:
-                System.out.println("Transfer between two users requested");
-
-                    setOptionsVisibility(0);
-                    betweenAccountForm.setVisibility(GONE);
-                    betweenUserForm.setVisibility(View.VISIBLE);
-
+                setOptionsVisibility(0);
+                betweenAccountForm.setVisibility(GONE);
+                betweenUserForm.setVisibility(View.VISIBLE);
                 break;
             case R.id.toMyAccountButton:
-                System.out.println("Transfer between a user's accounts requested");
                 setOptionsVisibility(0);
                 betweenAccountForm.setVisibility(View.VISIBLE);
                 betweenUserForm.setVisibility(GONE);
                 break;
             case R.id.cancelTransfer:
-                System.out.println("Cancel Transfer Requested");
+                setOptionsVisibility(1);
+                break;
+            case R.id.cancelTransferToAccount:
                 setOptionsVisibility(1);
                 break;
             case R.id.confirmTransfer:
-                System.out.println("Confirmation of Transfer requested");
                 /*
                     TODO CHECK IF TOACCOUNT EXISTS, NEED TO GET ALL ACCOUNTS IN SERVER
                  */
@@ -197,12 +192,10 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public void setOptionsVisibility(int value){
         switch(value){
             case 0:
-                betweenUserButtonLayout.setVisibility(GONE);
                 betweenAccountButtonLayout.setVisibility(GONE);
                 break;
             case 1:
                 betweenAccountButtonLayout.setVisibility(View.VISIBLE);
-                betweenUserButtonLayout.setVisibility(View.VISIBLE);
                 betweenUserForm.setVisibility(GONE);
                 betweenAccountForm.setVisibility(GONE);
         }

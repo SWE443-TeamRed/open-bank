@@ -46,6 +46,16 @@ Log entries (who worked when and how long on this):
     started working on server integration with login.
   - Kimberly   04/3/17 2hr
     Finished server onitegration with login.
+  - Kimberly   04/5/17 8hr
+    Setting up the graddle in my end.
+    Changed bank class to have generateCode() and 
+    confirmcode()
+    Change SparkServer.jave to handle post request
+    for /sendEmail, /verifyCode  and /changePassword
+  - Kimberly   04/6/17 4hr
+    Making and integrading the change password
+    UI with the server.
+
 
 
 
