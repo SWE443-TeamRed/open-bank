@@ -16,10 +16,12 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.app.swe443.openbankapp.Support.Account;
+import com.app.swe443.openbankapp.Support.AccountTypeEnum;
+import com.app.swe443.openbankapp.Support.User;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 
 public class HomeFrag extends Fragment {
@@ -71,6 +73,12 @@ public class HomeFrag extends Fragment {
         //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
+
+        User bob = new User().withName("bob").withPassword("gggggg").withUsername("gggggg");
+        Account check = new Account().withAccountnum(555555).withOwner(bob).withCreationdate(new Date()).withType(AccountTypeEnum.CHECKING);
+        check.withOwner(bob).withBalance(500);
+        bob.withAccount(check);
+        mockserver.setLoggedInUser(bob);
         homepageHeaderName.setText("Welcome " + mockserver.getLoggedInUser().getName());
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

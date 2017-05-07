@@ -52,6 +52,10 @@ public class MockServerSingleton {
         loggedInUser = mainBank.getCustomerUser().filterEmail(email).get(0);
 
     }
+    public void setLoggedInUser(User user){
+        mainBank.withCustomerUser(user);
+        loggedInUser = user;
+    }
 
     //Does the account with the specified account number exists? If so, return the user's name and account type
     /*
