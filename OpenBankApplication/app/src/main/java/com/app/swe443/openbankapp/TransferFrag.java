@@ -1,7 +1,6 @@
 package com.app.swe443.openbankapp;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import org.json.JSONArray;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,8 +41,6 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private LinearLayout betweenAccountButtonLayout;
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
-    private String [] updatedBalance;
-
 
     private HashMap<String,String> params;
     private TransferFrag.OnTransferFragCallbackListener mCallback;

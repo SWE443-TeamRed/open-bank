@@ -172,9 +172,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     public void onNdefPushComplete(NfcEvent event) {
 
     }
-
     public void updateBalance(String balance){
-        this.balance = Integer.parseInt(balance);
+        this.balance = balance;
     }
 
 
