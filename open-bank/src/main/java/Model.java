@@ -173,9 +173,8 @@ public class Model {
                 new Parameter(transTypeEnum).with("type"),
                 new Parameter(DataType.create(BigInteger.class)).with("amount"),
                 new Parameter(DataType.STRING).with("note"),
-                new Parameter(DataType.create(StringBuilder.class)).with("msg"),
-                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
-                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+                new Parameter(DataType.BOOLEAN).with("isAdmin"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
         // Reset password Code
         bank.withMethod("generateCode", DataType.STRING);
         bank.withMethod("confirmCode", DataType.BOOLEAN, new Parameter(DataType.STRING).with("code"));

@@ -8,6 +8,9 @@ import org.sdmlib.openbank.*;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
+import org.sdmlib.openbank.TransactionTypeEnum;
+import java.lang.StringBuilder;
+import org.sdmlib.openbank.Bank;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -543,18 +546,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
-   
-   //==========================================================================
-   
-   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-          ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, msg);
-      }
-   }
-
-
 
    
    //==========================================================================
@@ -641,4 +632,35 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, isAdmin, msg);
+      }
+   }
+
+   
+
+   public String getPasswordCode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getPasswordCode();
+      }
+      return null;
+   }
+   
+   public BankPO withPasswordCode(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Bank) getCurrentMatch()).setPasswordCode(value);
+      }
+      return this;
+   }
+   
 }

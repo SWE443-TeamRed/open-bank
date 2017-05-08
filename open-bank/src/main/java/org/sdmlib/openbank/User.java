@@ -30,6 +30,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.Random;
+import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.Account;
 
 /**
     * 
@@ -211,7 +213,8 @@ import java.util.Random;
            result.append(" ").append(this.getEmail());
            result.append(" ").append(this.getPhone());
            result.append(" ").append(this.getUsername());
-           return result.substring(1);
+           result.append(" ").append(this.getSessionID());
+      return result.substring(1);
        }
 
 
@@ -630,5 +633,31 @@ import java.util.Random;
       Bank value = new Bank();
       withEmployingBank(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   private String sessionID;
+
+   public String getSessionID()
+   {
+      return this.sessionID;
+   }
+   
+   public void setSessionID(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.sessionID, value)) {
+      
+         String oldValue = this.sessionID;
+         this.sessionID = value;
+         this.firePropertyChange(PROPERTY_SESSIONID, oldValue, value);
+      }
+   }
+   
+   public User withSessionID(String value)
+   {
+      setSessionID(value);
+      return this;
    } 
 }
