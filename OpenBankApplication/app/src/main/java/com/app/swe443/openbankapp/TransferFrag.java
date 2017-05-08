@@ -1,6 +1,6 @@
 package com.app.swe443.openbankapp;
 
-import android.app.Activity;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -43,14 +42,18 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private Button transferBetweenMyAccountsButton;
     private Button cancelTransfer;
     private Button confirmTransfer;
-    private RelativeLayout betweenUserButtonLayout;
-    private RelativeLayout betweenAccountButtonLayout;
+    private Button cancelTransfertoAccount;
+    private Button confirmTransferAccount;
+
+    private LinearLayout betweenAccountButtonLayout;
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
+
 
     private HashMap<String,String> params;
 
     private TransferFrag.OnTransferFragCallbackListener mCallback;
+
 
 
 
@@ -66,26 +69,13 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (TransferFrag.OnTransferFragCallbackListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnTransferSelectedListener ");
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
-
 
 
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
@@ -97,13 +87,17 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         transferBetweenMyAccountsButton.setOnClickListener(this);
         transferToUserButton.setOnClickListener(this);
 
-        betweenAccountButtonLayout = (RelativeLayout) v.findViewById(R.id.betweenAccount);
-        betweenUserButtonLayout = (RelativeLayout) v.findViewById(R.id.betweenUser);
+        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transferContent);
         betweenUserForm = (LinearLayout) v.findViewById(R.id.transferToUserFormLayout);
         betweenAccountForm = (LinearLayout) v.findViewById(R.id.transferToAccountFormLayout);
 
         cancelTransfer = (Button) v.findViewById(R.id.cancelTransfer);
+        cancelTransfertoAccount = (Button) v.findViewById(R.id.cancelTransferToAccount);
         confirmTransfer = (Button) v.findViewById(R.id.confirmTransfer);
+        confirmTransferAccount = (Button) v.findViewById(R.id.confirmTransferToAccount);
+
+        cancelTransfertoAccount.setOnClickListener(this);
+        confirmTransferAccount.setOnClickListener(this);
         cancelTransfer.setOnClickListener(this);
         confirmTransfer.setOnClickListener(this);
 
@@ -114,25 +108,22 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toAnotherUserButton:
-                System.out.println("Transfer between two users requested");
-
-                    setOptionsVisibility(0);
-                    betweenAccountForm.setVisibility(GONE);
-                    betweenUserForm.setVisibility(View.VISIBLE);
-
+                setOptionsVisibility(0);
+                betweenAccountForm.setVisibility(GONE);
+                betweenUserForm.setVisibility(View.VISIBLE);
                 break;
             case R.id.toMyAccountButton:
-                System.out.println("Transfer between a user's accounts requested");
                 setOptionsVisibility(0);
                 betweenAccountForm.setVisibility(View.VISIBLE);
                 betweenUserForm.setVisibility(GONE);
                 break;
             case R.id.cancelTransfer:
-                System.out.println("Cancel Transfer Requested");
+                setOptionsVisibility(1);
+                break;
+            case R.id.cancelTransferToAccount:
                 setOptionsVisibility(1);
                 break;
             case R.id.confirmTransfer:
-                System.out.println("Confirmation of Transfer requested");
                 /*
                     Input:  transferType : [transferType]
                             toAccountId : [accountNum]
@@ -185,45 +176,43 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
 
     public void confirmTransfer(){
 
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case DialogInterface.BUTTON_POSITIVE:
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
                             /*
                                 Make call to server for a transfer request
                              */
-                           postTransferToServer();
-                            Toast.makeText(getContext(), "SENDING TRANSFER REQUEST",
-                                    Toast.LENGTH_SHORT).show();
-                            //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
-                            mCallback.onTransferSelected();
-                            //Display the TransferToUser/TransferBetweenUsers Options menu
-                            setOptionsVisibility(1);
-                            break;
+                        postTransferToServer();
+                        Toast.makeText(getContext(), "SENDING TRANSFER REQUEST",
+                                Toast.LENGTH_SHORT).show();
+                        //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
+                        mCallback.onTransferSelected();
+                        //Display the TransferToUser/TransferBetweenUsers Options menu
+                        setOptionsVisibility(1);
+                        break;
 
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            //No button clicked
-                            break;
-                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
                 }
-            };
+            }
+        };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "+
-                    accountTo.getText().toString()+ "?").setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "+
+                accountTo.getText().toString()+ "?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
 
     public void setOptionsVisibility(int value){
         switch(value){
             case 0:
-                betweenUserButtonLayout.setVisibility(GONE);
                 betweenAccountButtonLayout.setVisibility(GONE);
                 break;
             case 1:
                 betweenAccountButtonLayout.setVisibility(View.VISIBLE);
-                betweenUserButtonLayout.setVisibility(View.VISIBLE);
                 betweenUserForm.setVisibility(GONE);
                 betweenAccountForm.setVisibility(GONE);
         }
