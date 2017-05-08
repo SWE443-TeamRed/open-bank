@@ -1087,27 +1087,29 @@ public class SparkServer implements SparkApplication {
 
         if (bank.getCustomerUser().size() == 0) {
             logger.info("Creating initial User Accounts account");
-            StringBuilder msg = new StringBuilder();
-            bank.createUser("AntEater", "AntsAreTasty",
+            StringBuilder msg1 = new StringBuilder();
+            String id1 = bank.createUser("AntEater", "AntsAreTasty",
                     "Tom Eater", "5712342393", "antEatingAntEater1@gmail.com",
-                    false, msg);
-            String id = bank.createUser("soyAdmin", "sauceAdmin",
+                    false, msg1);
+            StringBuilder msg2 = new StringBuilder();
+            String id2 = bank.createUser("soyAdmin", "sauceAdmin",
                     "Soy Sauce", "7777777777", "soySauceStaple@gmail.com",
-                    true, msg);
-            Account antEaterAccount = bank.createAdminAccounts();
-            antEaterAccount.setIsConnected(true);
-            antEaterAccount.setType(AccountTypeEnum.CHECKING);
-            antEaterAccount.setAccountnum(bank.getNextID());
-            antEaterAccount.setBalance(new BigInteger("499750000"));
+                    true, msg2);
 
-            bank.findUserByID(id).withAccount(antEaterAccount);
+            StringBuilder msg3 = new StringBuilder();
+            String accountID = bank.createAccount(id1, false, new BigInteger("499750000"), AccountTypeEnum.CHECKING, msg3);
+
+            logger.info("1: " + msg1);
+            logger.info("2: " + msg2);
+            logger.info("3: " + msg3);
+
 
             Transaction transaction1 = bank.createTransaction();
             transaction1.withAmount(new BigInteger("5000000"))
                     .withDate(new Date())
                     .withCreationdate(new Date())
                     .withFromAccount(admin)
-                    .withToAccount(antEaterAccount)
+                    .withToAccount(bank.findAccountByID(Integer.parseInt(accountID)))
                     .withTransType(TransactionTypeEnum.SEED)
                     .withTime(new Date())
                     .withNote("Seeding account");
@@ -1116,14 +1118,11 @@ public class SparkServer implements SparkApplication {
             transaction2.withAmount(new BigInteger("2500"))
                     .withDate(new Date())
                     .withCreationdate(new Date())
-                    .withFromAccount(antEaterAccount)
+                    .withFromAccount(bank.findAccountByID(Integer.parseInt(accountID)))
                     .withToAccount(admin)
                     .withTransType(TransactionTypeEnum.FEE)
                     .withTime(new Date())
                     .withNote("Fee");
-
-            bank.withTransaction(transaction1);
-            bank.withTransaction(transaction2);
         }
     }
 
