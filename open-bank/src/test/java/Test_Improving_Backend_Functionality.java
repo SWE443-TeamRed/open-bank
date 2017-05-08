@@ -1336,10 +1336,10 @@ public class Test_Improving_Backend_Functionality {
         bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg);
+        int acctNum = Integer.parseInt(bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")),
+                false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg));
 
-        int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
-
+       // int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
         BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(20),msg);
 
         System.out.println("Transaction:" + bnk.getTransaction());

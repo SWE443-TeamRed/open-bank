@@ -959,19 +959,6 @@ public class BankSet extends SimpleSet<Bank>
   
 
    
-   //==========================================================================
-   
-   public StringList getSecureID(String secretWord, byte[] salt)
-   {
-      
-      StringList result = new StringList();
-      
-      for (Bank obj : this)
-      {
-         result.add( obj.getSecureID(secretWord, salt) );
-      }
-      return result;
-   }
 
    
    //==========================================================================
@@ -1007,7 +994,7 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
    
-   public StringList getSecureID(String secretWord, byte salt)
+   public StringList getSecureID(String secretWord, byte []salt)
    {
       
       StringList result = new StringList();
