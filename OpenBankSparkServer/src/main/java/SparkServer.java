@@ -792,9 +792,9 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first());
                                         transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first());
-//                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
-//                                        transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType());
-//                                        transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance());
+                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().getOwner().getName());
+                                        transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().getType());
+                                        transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().getBalance());
                                         transactionItem.put("note", tran.getNextTransitive().getNote().first());
                                         tempJsonArray.add(transactionItem);
                                     }
@@ -1102,7 +1102,6 @@ public class SparkServer implements SparkApplication {
             logger.info("1: " + msg1);
             logger.info("2: " + msg2);
             logger.info("3: " + msg3);
-
 
             Transaction transaction1 = bank.createTransaction();
             transaction1.withAmount(new BigInteger("5000000"))
