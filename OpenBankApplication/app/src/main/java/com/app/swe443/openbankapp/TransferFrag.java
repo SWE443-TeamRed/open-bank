@@ -1,22 +1,30 @@
 package com.app.swe443.openbankapp;
 
-
-import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import org.json.JSONArray;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
+import static android.content.ContentValues.TAG;
 import static android.view.View.GONE;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
@@ -35,17 +43,11 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private LinearLayout betweenAccountButtonLayout;
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
+    private String [] updatedBalance;
 
-    private MockServerSingleton mockserver;
 
-    private TransferFrag.OnTransferCallbackListener mCallback;
-
-    // Main Activity must implement this interface in order to communicate with HomeFrag
-    public interface OnHomeFragMethodSelectedListener {
-        public void onAccountSelected(int accountID);
-        public JSONArray getAccounts();
-        public String getUsername();
-    }
+    private HashMap<String,String> params;
+    private TransferFrag.OnTransferFragCallbackListener mCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,24 +55,11 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     }
 
     // Container Activity must implement this interface
-    public interface OnTransferCallbackListener {
+    public interface OnTransferFragCallbackListener {
         public void onTransferSelected();
-
+        public String[] getAccountInfo();
+        public void updateBalance(String accountInfo);
     }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//
-//        // This makes sure that the container activity has implemented
-//        // the callback interface. If not, it throws an exception
-//        try {
-//            mCallback = (TransferFrag.OnTransferCallbackListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnTransferSelectedListener ");
-//        }
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +67,6 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
 
-        mockserver = MockServerSingleton.getInstance();
 
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
@@ -89,7 +77,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         transferBetweenMyAccountsButton.setOnClickListener(this);
         transferToUserButton.setOnClickListener(this);
 
-        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transfer_content);
+        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transferContent);
         betweenUserForm = (LinearLayout) v.findViewById(R.id.transferToUserFormLayout);
         betweenAccountForm = (LinearLayout) v.findViewById(R.id.transferToAccountFormLayout);
 
@@ -127,13 +115,13 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 break;
             case R.id.confirmTransfer:
                 /*
-                    TODO CHECK IF TOACCOUNT EXISTS, NEED TO GET ALL ACCOUNTS IN SERVER
+                    Input:  transferType : [transferType]
+                            toAccountId : [accountNum]
+                            amount : [Double amount]
+                            fromAccountId : [accountNum]
+
                  */
                 boolean incomplete = false;
-                if(mockserver.doesAccountExists(Integer.valueOf(accountTo.getText().toString()))) {
-                    accountTo.setError("Account does not exist");
-                    incomplete = true;
-                }
                 if(accountTo.getText().toString().equals("") ) {
                     accountTo.setError("Required field is missing");
                     incomplete = true;
@@ -150,54 +138,55 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     amount.setError("Required field is missing");
                     incomplete = true;
                 }
-                else if(Double.valueOf(amount.getText().toString()) <= 0){
+                if(Double.valueOf(amount.getText().toString()) <= 0){
                     amount.setError("Can't transfer a negative amount");
                     incomplete = true;
-                }
-                else if(Double.valueOf(amount.getText().toString()) >
-                        mockserver.getLoggedInUser().getAccount().get(mockserver.getAccountIndex()).getBalance()){
-                    amount.setError("Can't transfer more than account balance");
-                    incomplete = true;
+                }else {
+                    params = new HashMap<String, String>();
+                    params.put("transferType", "TRANSFER");
+                    params.put("toAccountId", accountTo.getText().toString());
+                    params.put("amount", amount.getText().toString());
+                    //Sender's accountnum is stored in the AccountDetails activity (parent activity)
+                    params.put("fromAccountId",  mCallback.getAccountInfo()[0]);
                 }
                 if(incomplete)
                     break;
-                checkIfInputsAreFilled();
+                else{
+                    confirmTransfer();
+                    break;
+                }
+
         }
     }
 
+    public void confirmTransfer(){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        postTransferToServer();
+                        Toast.makeText(getContext(), "SENDING TRANSFER REQUEST",
+                                Toast.LENGTH_SHORT).show();
+                        //Contact AccountDetails activity that it needs to refresh the tabs with new transfer info
+                        mCallback.onTransferSelected();
 
-    public void checkIfInputsAreFilled(){
+                        //Display the TransferToUser/TransferBetweenUsers Options menu
+                        setOptionsVisibility(1);
+                        break;
 
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            /*
-                                TODO SERVER HANDLES TRASNFER OCCURING
-                             */
-                            mockserver.transfer(Integer.valueOf(accountTo.getText().toString())
-                                    ,Double.valueOf(amount.getText().toString()));
-                            Toast.makeText(getContext(), "Sending....COMPLETE!",
-                                    Toast.LENGTH_SHORT).show();
-                            //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
-                            mCallback.onTransferSelected();
-
-                            setOptionsVisibility(1);
-                            break;
-
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            //No button clicked
-                            break;
-                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
                 }
-            };
+            }
+        };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "
-                    + mockserver.getRecieverInfo(Integer.valueOf(accountTo.getText().toString()))+ "?").setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "+
+                accountTo.getText().toString()+ "?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
 
     public void setOptionsVisibility(int value){
         switch(value){
@@ -210,6 +199,77 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 betweenAccountForm.setVisibility(GONE);
         }
     }
+    //Post request to make transfer.
+    public void postTransferToServer(){
+        StringRequest stringRequest;
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/transaction";
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    responseHandler(obj);
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        System.out.println("REQUESTING TRANSFER TRANSACTION");
+        queue.add(stringRequest);
+    }
 
-
+     String answer;
+    //Deals with the response received by the post request.
+    private void responseHandler(JSONObject obj) {
+        try {
+            answer = obj.get("request").toString();
+                if(answer.equals("failed")){
+                    if(obj.get("reason").toString().equals("reason”:”you do not have enough funds to transfer"))
+                    {//case not enough funds.
+                        new AlertDialog.Builder(this.getContext())
+                                .setTitle("Not Enough Fund")
+                                .setMessage("Please, make sure you have enough funds to transfer.")
+                                .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                    else {//Case of any other errors from server.
+                        new AlertDialog.Builder(this.getContext())
+                                .setTitle("Error")
+                                .setMessage("Unfortunately, we have have ran in to an error.")
+                                .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                        startActivity(getParentFragment().getActivity().getIntent());
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
+                else{
+                   String balance = obj.get("balance").toString();
+                    mCallback.updateBalance(balance);
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Problem with response");
+        }
+    }
 }

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.app.swe443.openbankapp.TransferFrag">
         <LinearLayout
-            android:id="@+id/transfer_content"
+            android:id="@+id/transferContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"

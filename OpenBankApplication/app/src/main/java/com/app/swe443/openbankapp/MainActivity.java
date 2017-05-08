@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     String userID;
     String username;
-    private JSONArray userAccounts;
+    private ArrayList<AccountDisplay> userAccounts;
 
 
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         initFragments();
         //Draw the actionbar
         addDrawerItems();
-        getUserAccounts();
+        getUserAccountsFromServer();
         /*
             Add Tina's account set to MainActivity AccountDetails data structure
             ArrayList<Account> needed for account list in homepage
@@ -205,15 +205,18 @@ public class MainActivity extends AppCompatActivity
         // Do something here to display that article
         getFragmentManager().popBackStack();
         /*
-            TODO TRACK WHICH ACCOUNT THE USER HAS SELECTED TO VIEW AND WORK WITH (SERVER SIDE?)
+            Send the selected account information to the AccountFrag to display the accounts details
          */
-        mockBankServer.setAccountIndex(id);
         Intent intent = new Intent(this, AccountDetails.class);
+        intent.putExtra("type", userAccounts.get(id).getdType());
+        intent.putExtra("accountnum", userAccounts.get(id).getdAccountnum());
+        intent.putExtra("balance", userAccounts.get(id).getdBalance());
+
         startActivity(intent);
     }
 
 
-    public JSONArray getAccounts(){
+    public ArrayList<AccountDisplay> getAccounts(){
         return userAccounts;
     }
     public String getUsername(){
@@ -236,7 +239,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void getUserAccounts(){
+    public void getUserAccountsFromServer(){
         StringRequest stringRequest;
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "http://54.87.197.206:8080/SparkServer/api/v1/account?id="+userID;
@@ -249,7 +252,7 @@ public class MainActivity extends AppCompatActivity
 
                 try {
                     JSONArray obj = new JSONArray(response);
-                    userAccounts = obj;
+                    userAccounts = getAccountsDisplays(obj);
                     goToHomepage();
 
                 }catch(JSONException e){
@@ -276,4 +279,72 @@ public class MainActivity extends AppCompatActivity
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+    //Read user's accounts from the server responce array
+    public ArrayList<AccountDisplay> getAccountsDisplays(JSONArray response){
+        ArrayList<AccountDisplay> myDataset = new ArrayList<AccountDisplay>();
+        try {
+            JSONArray accounts = (JSONArray) response.get(1);
+            for(int i=0; i<accounts.length();i++){
+                try {
+                    JSONObject rec = accounts.getJSONObject(i);
+                    System.out.println("Got an account "+rec.toString());
+                    int balance = rec.getInt("balance");
+                    String type = rec.getString("accountType");
+                    int accountnum = rec.getInt("accountNumber");
+                    myDataset.add(new AccountDisplay(type,accountnum,balance));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response.toString());
+                }
+
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+            Log.d(TAG,response.toString());
+        }
+        return myDataset;
+    }
 }
+
+
+/*
+  Helper class to organize attributes that will be dispalyed
+*/
+class AccountDisplay {
+    private String dType;
+    private String dAccountnum;
+    private String dBalance;
+
+    public AccountDisplay(String type, int num, int balance){
+        this.dType = type;
+        this.dAccountnum = Integer.toString(num);
+        this.dBalance = Integer.toString(balance);
+    }
+
+    public String getdType() {
+        return dType;
+    }
+
+    public void setdType(String dType) {
+        this.dType = dType;
+    }
+
+    public String getdAccountnum() {
+        return dAccountnum;
+    }
+
+    public void setdAccountnum(String dAccountnum) {
+        this.dAccountnum = dAccountnum;
+    }
+
+    public String getdBalance() {
+        return dBalance;
+    }
+
+    public void setdBalance(String dBalance) {
+        this.dBalance = dBalance;
+    }
+}
+
