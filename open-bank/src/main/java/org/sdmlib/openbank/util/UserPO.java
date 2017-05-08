@@ -702,4 +702,65 @@ public class UserPO extends PatternObject<UserPO, User>
       return null;
    }
 
+   public UserPO createSessionIDCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_SESSIONID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createSessionIDCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_SESSIONID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public UserPO createSessionIDAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(User.PROPERTY_SESSIONID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getSessionID()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) getCurrentMatch()).getSessionID();
+      }
+      return null;
+   }
+   
+   public UserPO withSessionID(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((User) getCurrentMatch()).setSessionID(value);
+      }
+      return this;
+   }
+   
 }

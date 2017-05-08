@@ -38,6 +38,11 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.lang.StringBuilder;
+import org.sdmlib.openbank.User;
+import org.sdmlib.openbank.Transaction;
+import org.sdmlib.openbank.FeeValue;
+import org.sdmlib.openbank.Account;
 
 //import java.time.LocalDate;
 /**
@@ -54,6 +59,7 @@ import java.util.UUID;
    /*
  *
  *  @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+ * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
 public  class Bank implements SendableEntity
 {
@@ -155,6 +161,7 @@ public  class Bank implements SendableEntity
 
       result.append(" ").append(this.getFee());
       result.append(" ").append(this.getBankName());
+      result.append(" ").append(this.getPasswordCode());
       return result.substring(1);
    }
 
@@ -823,13 +830,12 @@ public  class Bank implements SendableEntity
               .withOwner(usr)
               .withBalance(initialBalance)
               .withType(accountType)
+              .withCreationdate(new Date())
               .withIsClosed(false);
-              /*=================================================
-              TODO Create an initial transaction to seed balance
-              =================================================== */
+
       recordTransaction(this.getAdminAccounts().first().getAccountnum(),
               accnt.getAccountnum(),TransactionTypeEnum.SEED,initialBalance,
-              "Seeding transaction",msg);
+              "Seeding transaction",false,msg);
       // check which user will be created
       if(isAdminAccount){
          this.withAdminAccounts(accnt);
@@ -973,7 +979,7 @@ public  class Bank implements SendableEntity
       if(acc.isIsClosed() != true) {
          acc.setIsClosed(true);
          recordTransaction(acc.getAccountnum(), this.getAdminAccounts().first().getAccountnum(),
-                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account", msg);
+                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account",true, msg);
       }
       msg.append("Successful");
       return true;
@@ -1070,7 +1076,7 @@ public  class Bank implements SendableEntity
 
       return st;
    }
-   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg) {
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg) {
       if(type == null){
          msg.append("Unsuccessful. Transaction type is null");
          return;
@@ -1082,7 +1088,7 @@ public  class Bank implements SendableEntity
       FeeValueSet pulledFeeValues = this.getFeeValue();
       FeeValue fee = null;
       for (FeeValue i : pulledFeeValues) {
-         if (i != null && i.getTransType().equals(type)) {
+         if (i != null && i.getTransType().equals(type) && isAdmin == false) {
             fee = i;
          }
       }
@@ -1106,8 +1112,16 @@ public  class Bank implements SendableEntity
                        .withToAccount(receiverAccount);
                senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
                receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
-               if(fee != null)
-                  newTransaction.setFee(senderAccount.recordFee(fee,amount));
+               if(fee != null) {
+                  BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
+                  calculatedFee = calculatedFee.add(amount);
+                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                     newTransaction.setFee(senderAccount.recordFee(fee, amount));
+                  else{
+                     msg.append("Unsuccessful. Amount exceeds sender's balance");
+                     return;
+                  }
+               }
             }
             else{
                msg.append("Unsuccessful. Amount exceeds sender's balance");
@@ -1135,7 +1149,16 @@ public  class Bank implements SendableEntity
             if(senderAccount.getBalance().compareTo(amount) == 1) {
                newTransaction.withFromAccount(senderAccount);
                receiverAccount.setBalance(receiverAccount.getBalance().subtract(amount));
-               if(fee != null) newTransaction.setFee(senderAccount.recordFee(fee,amount));
+               if(fee != null){
+                  BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
+                  calculatedFee = calculatedFee.add(amount);
+                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                     newTransaction.setFee(senderAccount.recordFee(fee, amount));
+                  else{
+                     msg.append("Unsuccessful. Amount exceeds sender's balance");
+                     return;
+                  }
+               }
             }
             else{
                msg.append("Unsuccessful. Amount exceeds sender's balance");
@@ -1243,4 +1266,26 @@ public  class Bank implements SendableEntity
 
    private String passwordCode;
 
+   //==========================================================================
+   
+   public String getPasswordCode()
+   {
+      return this.passwordCode;
+   }
+   
+   public void setPasswordCode(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.passwordCode, value)) {
+      
+         String oldValue = this.passwordCode;
+         this.passwordCode = value;
+         this.firePropertyChange(PROPERTY_PASSWORDCODE, oldValue, value);
+      }
+   }
+   
+   public Bank withPasswordCode(String value)
+   {
+      setPasswordCode(value);
+      return this;
+   } 
 }
