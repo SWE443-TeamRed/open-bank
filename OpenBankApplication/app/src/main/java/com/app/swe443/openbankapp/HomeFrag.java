@@ -44,18 +44,18 @@ public class HomeFrag extends Fragment {
     private TextView homepageHeaderName;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private OnHomeFragMethodSelectedListener mCallback;
+    private ArrayList<AccountDisplay> userAccounts;
     private ArrayList<AccountDisplay> mDataset;
-    private OnHomeFragMethodSelectedListener  mCallback;
-    private JSONArray userAccounts;
 
     // Main Activity must implement this interface in order to communicate with HomeFrag
     public interface OnHomeFragMethodSelectedListener {
         public void onAccountSelected(int accountID);
-        public JSONArray getAccounts();
+
+        public ArrayList<AccountDisplay> getAccounts();
+
         public String getUsername();
     }
-
-
 
 
     @Override
@@ -94,7 +94,7 @@ public class HomeFrag extends Fragment {
 
 
         //Set data and send it to the UserAccountsAdapter
-        rViewAdapter = new UserAccountsAdapter(getAccountsDisplays(userAccounts), getContext());
+        rViewAdapter = new UserAccountsAdapter(userAccounts, getContext());
         mRecyclerView.setAdapter(rViewAdapter);
 
         return v;
@@ -103,32 +103,6 @@ public class HomeFrag extends Fragment {
     //User clicks on an account in the view
     public void goToAccount(int id) {
         mCallback.onAccountSelected(id);
-    }
-
-    //Read user's accounts from the server responce array
-    public ArrayList<AccountDisplay> getAccountsDisplays(JSONArray response){
-        ArrayList<AccountDisplay> myDataset = new ArrayList<AccountDisplay>();
-        try {
-            JSONArray accounts = (JSONArray) response.get(1);
-            for(int i=0; i<accounts.length();i++){
-                try {
-                    JSONObject rec = accounts.getJSONObject(i);
-                    System.out.println("Got an account "+rec.toString());
-                    int balance = rec.getInt("balance");
-                    String type = rec.getString("accountType");
-                    int accountnum = rec.getInt("accountNumber");
-                    myDataset.add(new AccountDisplay(type,accountnum,balance));
-                }catch(JSONException e){
-                    e.printStackTrace();
-                    Log.d(TAG,response.toString());
-                }
-
-            }
-        }catch(JSONException e){
-            e.printStackTrace();
-            Log.d(TAG,response.toString());
-        }
-        return myDataset;
     }
 
 
@@ -191,9 +165,9 @@ public class HomeFrag extends Fragment {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
             holder.accountnameText.setText(mDataset.get(position).getdType());
-            holder.accountnumText.setText("Account: "+  mDataset.get(position).getdAccountnum());
+            holder.accountnumText.setText("Account: " + mDataset.get(position).getdAccountnum());
             DecimalFormat precision = new DecimalFormat("0.00");
-            holder.balanceText.setText("$ " +String.valueOf(precision.format(Integer.valueOf(mDataset.get(position).getdBalance()))));
+            holder.balanceText.setText("$ " + String.valueOf(precision.format(Integer.valueOf(mDataset.get(position).getdBalance()))));
         }
 
         // Return the size of your dataset (invoked by the layout manager)
@@ -202,45 +176,6 @@ public class HomeFrag extends Fragment {
             return mDataset.size();
         }
     }
-
-
-    /*
-        Helper class to organize attributes that will be dispalyed
-     */
-    private class AccountDisplay {
-        private String dType;
-        private String dAccountnum;
-        private String dBalance;
-
-        public AccountDisplay(String type, int num, int balance){
-            this.dType = type;
-            this.dAccountnum = Integer.toString(num);
-            this.dBalance = Integer.toString(balance);
-        }
-
-        public String getdType() {
-            return dType;
-        }
-
-        public void setdType(String dType) {
-            this.dType = dType;
-        }
-
-        public String getdAccountnum() {
-            return dAccountnum;
-        }
-
-        public void setdAccountnum(String dAccountnum) {
-            this.dAccountnum = dAccountnum;
-        }
-
-        public String getdBalance() {
-            return dBalance;
-        }
-
-        public void setdBalance(String dBalance) {
-            this.dBalance = dBalance;
-        }
-    }
-
 }
+
+

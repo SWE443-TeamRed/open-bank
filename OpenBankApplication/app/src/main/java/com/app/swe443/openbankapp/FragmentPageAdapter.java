@@ -12,10 +12,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
 
-    private int accountIndex;
-    public FragmentPageAdapter(FragmentManager fm, int accountIndex) {
+    private int accountnum;
+    public FragmentPageAdapter(FragmentManager fm, int accountnum) {
         super(fm);
-        this.accountIndex = accountIndex;
+        this.accountnum = accountnum;
     }
 
     @Override

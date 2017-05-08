@@ -13,10 +13,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.swe443.openbankapp.Support.Account;
 
 
@@ -24,12 +32,20 @@ import com.app.swe443.openbankapp.Support.AccountTypeEnum;
 import com.app.swe443.openbankapp.Support.Transaction;
 import com.app.swe443.openbankapp.Support.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.nio.charset.Charset;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 
-public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountsCallbackListener ,TransferFrag.OnTransferCallbackListener, NfcAdapter.OnNdefPushCompleteCallback,
+public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountFragCallbackListener ,TransferFrag.OnTransferFragCallbackListener, NfcAdapter.OnNdefPushCompleteCallback,
         NfcAdapter.CreateNdefMessageCallback{
 
 
@@ -40,25 +56,24 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     public ActionBar actionBar;
 
     //Fields of the account selected
-    private int accountIndex;
-    private Account account;
-    private MockServerSingleton mockBankServer;
 
     private NfcAdapter mNfcAdapter;
+    private int accountnum;
+    private int balance;
+    private String type;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accounts);
 
-        mockBankServer = MockServerSingleton.getInstance();
-
         //Get accountIndex from MainActivity
-        accountIndex = mockBankServer.getAccountIndex();
-        System.out.println("Obtained Account Index "+accountIndex);
+        System.out.println("Viewing account fragment for account: "+accountnum);
 
         //Set of the Pager fragments
-        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountIndex);
+        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountnum);
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
 
@@ -72,13 +87,16 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         actionBar.setHomeButtonEnabled(true);
 
 
-        //Create User's and AccountDetails as dummy data
-        JsonPersistency jsonp = new JsonPersistency();
 
         /*
             Get the account that these fragments will use
          */
-        account = mockBankServer.getLoggedInUser().getAccount().get(accountIndex);
+        Bundle extras = getIntent().getExtras();
+
+        type = extras.getString("type");
+        balance = extras.getInt("balance");
+        accountnum =  extras.getInt("accountnum");
+
 
         /* NFC */
         //Check if NFC is available on device
@@ -111,49 +129,28 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     //Return the account associated to these fragments.
     //Accessed by AccountFrag
-    public Account getAccount(){
-        return account;
+    public String[] getAccountInfo(){
+        String[] accountInfo = new String[3];
+        accountInfo[0] = String.valueOf(accountnum);
+        accountInfo[1] = String.valueOf(balance);
+        accountInfo[2]= type;
+        return accountInfo;
     }
 
     //Return the transactions associated to this account
     //Used by TransactionFrag
+    /*
+        TODO IMPLMENT TRANSACTIONS SERVER CALL
+     */
     public LinkedList<Transaction> getTransactions(){
-        return account.getAccountTransactions();
+        return null;
     }
 
 
-    //Callback when the user deposits an amount on in AccountFrag
-    public void onDepositSelected(int amount) {
-        System.out.println("onDepositSelected mathod initiated, initial balance of account is "+ account.getBalance());
 
-        //Fufill deposit on this account
-        account.deposit(amount);
-
-        System.out.println("Balance after deposit "+account.getBalance());
-
-        fragmentPagerAdapter.notifyDataSetChanged();
-        viewerPager.invalidate();
-
-    }
-
-    public void onWithdrawSelected(int amount) {
-        System.out.println("onWithdrawSelected mathod initiated, initial balance of account is "+ account.getBalance());
-        //Fufill withdraw
-        /*
-                TODO WITHDRAW SHOULD NOT OCCUR HERE
-         */
-        account.withdraw(amount);
-        System.out.println("Balance after withdraw "+account.getBalance());
-
-        //Notify Pager adapter to update info in transaction and account fragments
-        fragmentPagerAdapter.notifyDataSetChanged();
-        viewerPager.invalidate();
-
-    }
 
     public void onTransferSelected() {
-        System.out.println("onTransferSelected method initiated, balance of account is "+ account.getBalance());
-        //Notify Pager adapter to update info in transaction and account fragments
+        System.out.println("onTransferSelected method initiated");
         fragmentPagerAdapter.notifyDataSetChanged();
         viewerPager.invalidate();
 
@@ -162,7 +159,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //This will be called when another NFC capable device is detected.
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        byte[] payload = Integer.toString(accountIndex).getBytes(Charset.forName("UTF-8"));
+        byte[] payload = Integer.toString(accountnum).getBytes(Charset.forName("UTF-8"));
         NdefRecord record = NdefRecord.createMime("text/plain", payload);
         return new NdefMessage(record);
     }
@@ -172,4 +169,9 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     public void onNdefPushComplete(NfcEvent event) {
 
     }
+
+
+
+
+
 }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.swe443.openbankapp.Support.Account;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by kimberly_93pc on 4/9/17.
  */
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
-    private Account account;
-    private int accountIndex;
     private TextView accountnameText;
     private TextView accountnumText;
     private TextView balanceText;
@@ -33,7 +45,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private TextView typeText;
     private TextView creationText;
     private AccountDetails activity;
-    private OnAccountsCallbackListener mCallback;
+    private OnAccountFragCallbackListener mCallback;
 
 
     private Button depositButton;
@@ -52,16 +64,15 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     private Button confirmWithdraw;
     private Button cancelWithdraw;
     private LinearLayout withdrawButtons;
-    private MockServerSingleton mockserver;
+    private String[] accountInfo;
 
-    public AccountFrag(){
+    private RequestQueue queue;
+    private HashMap<String, String> params;
 
-    }
 
     // Container Activity must implement this interface
-    public interface OnAccountsCallbackListener {
-        public void onWithdrawSelected(int amount);
-        public void onDepositSelected(int ammount);
+    public interface OnAccountFragCallbackListener {
+        public String[] getAccountInfo();
 
     }
 
@@ -73,7 +84,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnAccountsCallbackListener) activity;
+            mCallback = (OnAccountFragCallbackListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnAccountsCallbackListener ");
@@ -85,12 +96,18 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         final View v =  inflater.inflate(R.layout.fragment_account,container,false);
 
-        mockserver = MockServerSingleton.getInstance();
-        activity = (AccountDetails) getActivity();
 
-        accountIndex = mockserver.getAccountIndex();
-        account = mockserver.getAccount();
-        System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ account.getAccountnum() + " AT INDEX "+accountIndex);
+        //Server request queue
+        queue = Volley.newRequestQueue(getContext());
+        //Server request params storage
+        params = new HashMap<String, String>();
+
+        //Get the selected account info
+        // [0]= accountnum
+        // [1] = balance
+        // [2] = type
+        accountInfo = mCallback.getAccountInfo();
+        System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ accountInfo[0]);
 
 
 
@@ -127,15 +144,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         typeText = (TextView) v.findViewById(R.id.typeText);
         creationText = (TextView) v.findViewById(R.id.creationText);
 
-        accountnameText.setText(String.valueOf(account.getType()));
-        accountnumText.setText(String.valueOf(account.getAccountnum()));
+        accountnameText.setText(accountInfo[0]);
+        accountnumText.setText(accountInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
-        balanceText.setText("$ " +precision.format(account.getBalance()));
-        ownerText.setText(String.valueOf(account.getOwner().getUsername()));
-        typeText.setText(String.valueOf(account.getType()));
-        String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
-        creationText.setText(newDateFormat);
-        //System.out.println("OBTAINED INT VALUE OF SELECTED ACCOUNT "+ accountID);
+        balanceText.setText("$ " +precision.format(Integer.valueOf(accountInfo[1])));
+        ownerText.setText(accountInfo[0]);
+        typeText.setText(accountInfo[0]);
+        //String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
+        creationText.setText(accountInfo[0]);
 
         return v;
     }
@@ -168,8 +184,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 System.out.println("Confirmation for Deposit Requested");
                 if (depositamountText.getText().toString().equals("")) {
                     //Alert User that he must have an amount
-                    Toast.makeText(getContext(), "Please enter a value",
-                            Toast.LENGTH_SHORT).show();
+                    depositamountText.setError("Please enter a value");
+
                 } else {
                     int amount = Integer.valueOf(depositamountText.getText().toString());
 
@@ -178,12 +194,12 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    mCallback.onDepositSelected(Integer.valueOf(depositamountText.getText().toString()));
+                                    onDepositSelected(amount);
                                     setDepositFieldsVisability(0);
                                     depositButton.setVisibility(View.VISIBLE);
                                     withdrawButton.setVisibility(View.VISIBLE);
                                     DecimalFormat precision = new DecimalFormat("0.00");
-                                    balanceText.setText(String.valueOf(precision.format(account.getBalance())));
+                                    balanceText.setText(String.valueOf(precision.format(mCallback)));
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -194,7 +210,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage("Are you sure you want to deposit " + amount + " into your " + account.getType().toString() + " account?").setPositiveButton("Yes", dialogClickListener)
+                    builder.setMessage("Are you sure you want to deposit " + amount + " into your " + accountInfo[2] + " account?").setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
                 }
 
@@ -215,13 +231,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    mCallback.onWithdrawSelected(Integer.valueOf(withdrawamountText.getText().toString()));
+                                    onWithdrawSelected(Integer.valueOf(withdrawamountText.getText().toString()));
                                     setWithdrawFieldsVisability(0);
                                     depositButton.setVisibility(View.VISIBLE);
                                     withdrawButton.setVisibility(View.VISIBLE);
-                                    balanceText.setText(String.valueOf(account.getBalance()));
-
-
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -231,7 +244,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         }
                     };
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage("Are you sure you want to withdraw " + amount + " from your " + account.getType().toString() + " account?")
+                    builder.setMessage("Are you sure you want to withdraw " + amount + " from your " + accountInfo[2] + " account?")
                             .setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
 
@@ -289,5 +302,143 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
 
+    //Callback when the user deposits an amount on in AccountFrag
+    public void onDepositSelected(int amount) {
+        System.out.println("onDepositSelected mathod initiated");
+
+        /*
+            Make deposit transfer request to server
+            Required:
+                toAccountId:[Account user wants to deposit to]
+                amount:[Amount to deposit]
+                transferType : Deposit
+         */
+        if(!params.isEmpty())
+            params.clear();
+        params.put("toAccountId",accountInfo[0]);
+        params.put("amount",Integer.toString(amount));
+        params.put("transferType","Deposit");
+        postDepositToServer();
+
+
+    }
+
+    public void postDepositToServer(){
+        StringRequest stringRequest;
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/transaction";
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("OBTAINED DEPOSITE RESPONSE");
+                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(obj.getJSONObject("request").equals("success"))
+                        /*
+                            Update the user's new balance in the AccountDetails main activity (fragments will need to retireve new val)
+                         */
+                        balanceText.setText(obj.getJSONObject("newBalance").toString());
+
+                    else
+                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
+
+
+
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response);
+                }
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        System.out.println("REQUESTING DEPOSIT TRANSACTION");
+        queue.add(stringRequest);
+    }
+
+
+
+
+
+    public void onWithdrawSelected(int amount) {
+        System.out.println("onWithdrawSelected mathod initiated");
+        //Fufill withdraw
+        /*
+               Post withdraw request to server
+               Required:
+                toAccountId:[Account user wants to deposit to]
+                amount:[Amount to deposit]
+                transferType : Withdraw
+
+
+         */
+        if(!params.isEmpty())
+            params.clear();
+        params.put("toAccountId",accountInfo[0]);
+        params.put("amount",Integer.toString(amount));
+        params.put("transferType","Withdraw");
+
+        postWithdrawToServer();
+
+
+    }
+
+    public void postWithdrawToServer(){
+        StringRequest stringRequest;
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/transaction";
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("RECIEVED WITHDRAW RESPONSE FROM SERVER");
+                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(obj.getJSONObject("request").equals("success"))
+                          /*
+                            Update the user's new balance in the AccountDetails main activity (fragments will need to retireve new val)
+                         */
+                        balanceText.setText(obj.getJSONObject("newBalance").toString());
+                    else
+                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
+
+
+
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response);
+                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        System.out.println("REQUESTING WITHDRAW TRANSACTION");
+        queue.add(stringRequest);
+    }
 
 }

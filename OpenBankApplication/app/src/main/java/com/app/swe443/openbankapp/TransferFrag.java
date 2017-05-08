@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.HttpAuthHandler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,6 +17,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 import static android.view.View.GONE;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
@@ -32,13 +48,9 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private LinearLayout betweenAccountForm;
     private LinearLayout betweenUserForm;
 
-    private MockServerSingleton mockserver;
+    private HashMap<String,String> params;
 
-    private TransferFrag.OnTransferCallbackListener mCallback;
-
-
-
-
+    private TransferFrag.OnTransferFragCallbackListener mCallback;
 
 
 
@@ -48,8 +60,9 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     }
 
     // Container Activity must implement this interface
-    public interface OnTransferCallbackListener {
+    public interface OnTransferFragCallbackListener {
         public void onTransferSelected();
+        public String[] getAccountInfo();
 
     }
 
@@ -60,7 +73,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (TransferFrag.OnTransferCallbackListener) activity;
+            mCallback = (TransferFrag.OnTransferFragCallbackListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnTransferSelectedListener ");
@@ -74,7 +87,6 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
 
 
-        mockserver = MockServerSingleton.getInstance();
 
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
@@ -122,13 +134,13 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             case R.id.confirmTransfer:
                 System.out.println("Confirmation of Transfer requested");
                 /*
-                    TODO CHECK IF TOACCOUNT EXISTS, NEED TO GET ALL ACCOUNTS IN SERVER
+                    Input:  transferType : [transferType]
+                            toAccountId : [accountNum]
+                            amount : [Double amount]
+                            fromAccountId : [accountNum]
+
                  */
                 boolean incomplete = false;
-                if(mockserver.doesAccountExists(Integer.valueOf(accountTo.getText().toString()))) {
-                    accountTo.setError("Account does not exist");
-                    incomplete = true;
-                }
                 if(accountTo.getText().toString().equals("") ) {
                     accountTo.setError("Required field is missing");
                     incomplete = true;
@@ -145,23 +157,33 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     amount.setError("Required field is missing");
                     incomplete = true;
                 }
-                else if(Double.valueOf(amount.getText().toString()) <= 0){
+                if(Double.valueOf(amount.getText().toString()) <= 0){
                     amount.setError("Can't transfer a negative amount");
                     incomplete = true;
+                }else {
+                    if (!params.isEmpty())
+                        params.clear();
+                    params = new HashMap<String, String>();
+                    params.put("transferType", "Transfer");
+                    params.put("toAccountId", accountTo.getText().toString());
+                    params.put("amount", amount.getText().toString());
+                    //Sender's accountnum is stored in the AccountDetails activity (parent activity)
+                    params.put("fromAccountId", mCallback.getAccountInfo()[0]);
                 }
-                else if(Double.valueOf(amount.getText().toString()) >
-                        mockserver.getLoggedInUser().getAccount().get(mockserver.getAccountIndex()).getBalance()){
-                    amount.setError("Can't transfer more than account balance");
-                    incomplete = true;
-                }
+
+
                 if(incomplete)
                     break;
-                checkIfInputsAreFilled();
+                else{
+                    confirmTransfer();
+                    break;
+                }
+
         }
     }
 
 
-    public void checkIfInputsAreFilled(){
+    public void confirmTransfer(){
 
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                 @Override
@@ -169,15 +191,14 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
                             /*
-                                TODO SERVER HANDLES TRASNFER OCCURING
+                                Make call to server for a transfer request
                              */
-                            mockserver.transfer(Integer.valueOf(accountTo.getText().toString())
-                                    ,Double.valueOf(amount.getText().toString()));
-                            Toast.makeText(getContext(), "Sending....COMPLETE!",
+                           postTransferToServer();
+                            Toast.makeText(getContext(), "SENDING TRANSFER REQUEST",
                                     Toast.LENGTH_SHORT).show();
                             //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
                             mCallback.onTransferSelected();
-
+                            //Display the TransferToUser/TransferBetweenUsers Options menu
                             setOptionsVisibility(1);
                             break;
 
@@ -189,8 +210,8 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "
-                    + mockserver.getRecieverInfo(Integer.valueOf(accountTo.getText().toString()))+ "?").setPositiveButton("Yes", dialogClickListener)
+            builder.setMessage("Are you sure you want to transfer " + amount.getText().toString() + " to  "+
+                    accountTo.getText().toString()+ "?").setPositiveButton("Yes", dialogClickListener)
                     .setNegativeButton("No", dialogClickListener).show();
         }
 
@@ -208,5 +229,47 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    public void postTransferToServer(){
+        StringRequest stringRequest;
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/transaction";
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("OBTAINED TRANSFER RESPONSE");
+                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(obj.getJSONObject("request").equals("success"))
+                        Toast.makeText(getContext(),obj.getJSONObject("note").toString(),Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
+
+
+
+                }catch(JSONException e){
+                    e.printStackTrace();
+                    Log.d(TAG,response);
+                }
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        System.out.println("REQUESTING TRANSFER TRANSACTION");
+        queue.add(stringRequest);
+    }
 
 }
