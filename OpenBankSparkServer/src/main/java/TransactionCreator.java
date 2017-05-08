@@ -171,7 +171,9 @@ public class TransactionCreator implements SendableEntityCreator
 
       if (Transaction.PROPERTY_AMOUNT.equalsIgnoreCase(attrName))
       {
-         ((Transaction) target).setAmount(((BigDecimal) value).toBigInteger());
+//         ((Transaction) target).setAmount(((BigDecimal) value).toBigInteger());
+         ((Transaction) target).setAmount(new BigDecimal(Double.parseDouble(value.toString())).toBigInteger());
+
          return true;
       }
 

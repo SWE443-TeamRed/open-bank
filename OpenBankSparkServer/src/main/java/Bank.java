@@ -975,7 +975,7 @@ public  class Bank implements SendableEntity
    }
 
    //==========================================================================
-   public Set getTransactions(int accountNumber, BigInteger amount, Date date )
+   public Set<TransactionSet> getTransactions(int accountNumber, BigInteger amount, Date date )
    {
       Set<TransactionSet> st = new SimpleSet<TransactionSet>();
       //TransactionSet st = new TransactionSet>();
