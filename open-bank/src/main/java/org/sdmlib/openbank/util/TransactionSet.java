@@ -252,9 +252,11 @@ public class TransactionSet extends SimpleSet<Transaction>
 
       for (Transaction obj : this)
       {
-         if ((value.getMonth() == obj.getDate().getMonth()) &&
-                 (value.getDay() == obj.getDate().getDay()) &&
-                 (value.getYear() == obj.getDate().getYear()))
+         if(obj.getCreationdate()==null) continue;
+
+         if ((value.getMonth() == obj.getCreationdate().getMonth()) &&
+                 (value.getDay() == obj.getCreationdate().getDay()) &&
+                 (value.getYear() == obj.getCreationdate().getYear()))
          {
             result.add(obj);
          }

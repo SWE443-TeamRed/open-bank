@@ -1947,7 +1947,7 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
-        Date date = new Date("05/05/2017");
+        Date date = new Date("05/08/2017");
         Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(0),date);
 
         for (Set s : tranlst) {
