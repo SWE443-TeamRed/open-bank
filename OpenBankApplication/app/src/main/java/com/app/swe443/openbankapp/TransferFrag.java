@@ -1,6 +1,7 @@
 package com.app.swe443.openbankapp;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import org.json.JSONArray;
 
 import static android.view.View.GONE;
 
@@ -37,6 +40,13 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
 
     private TransferFrag.OnTransferCallbackListener mCallback;
 
+    // Main Activity must implement this interface in order to communicate with HomeFrag
+    public interface OnHomeFragMethodSelectedListener {
+        public void onAccountSelected(int accountID);
+        public JSONArray getAccounts();
+        public String getUsername();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +57,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         public void onTransferSelected();
 
     }
-//
+
 //    @Override
 //    public void onAttach(Activity activity) {
 //        super.onAttach(activity);
