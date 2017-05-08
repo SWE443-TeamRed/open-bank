@@ -190,7 +190,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
                     NfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
             if (receivedArray != null) {
-                mNfcAccount = "";
+                this.updateNFCAccount("");
                 NdefMessage receivedMessage = (NdefMessage) receivedArray[0];
                 NdefRecord[] attachedRecords = receivedMessage.getRecords();
 
@@ -200,7 +200,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
                     if (string.equals(getPackageName())) {
                         continue;
                     }
-                    mNfcAccount += new String(record.getPayload());
+                    this.updateNFCAccount(new String(record.getPayload()));
                 }
             } else {
                 Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
@@ -211,6 +211,15 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     public void updateBalance(String balance){
         this.balance = balance;
     }
+
+    //Updates NFCAccount (WIP)
+    public void updateNFCAccount(String account) {
+        if (balance != null){
+            this.mNfcAccount = account;
+        }
+    }
+
+    public String pullNFCAccount(){return this.mNfcAccount;}
 
 
 }
