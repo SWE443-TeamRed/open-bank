@@ -290,9 +290,9 @@ public class MainActivity extends AppCompatActivity
                 try {
                     JSONObject rec = accounts.getJSONObject(i);
                     System.out.println("Got an account "+rec.toString());
-                    int balance = rec.getInt("balance");
+                    String balance = rec.getString("balance");
                     String type = rec.getString("accountType");
-                    int accountnum = rec.getInt("accountNumber");
+                    String accountnum = rec.getString("accountNumber");
                     myDataset.add(new AccountDisplay(type,accountnum,balance));
                 }catch(JSONException e){
                     e.printStackTrace();
@@ -321,6 +321,12 @@ class AccountDisplay {
         this.dType = type;
         this.dAccountnum = Integer.toString(num);
         this.dBalance = Integer.toString(balance);
+    }
+
+    public AccountDisplay(String type, String num, String balance){
+        this.dType = type;
+        this.dAccountnum = num;
+        this.dBalance = balance;
     }
 
     public String getdType() {

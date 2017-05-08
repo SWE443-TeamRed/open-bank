@@ -416,16 +416,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         balanceText.setText(obj.getJSONObject("newBalance").toString());
                     else
                         Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
-
-
-
                 }catch(JSONException e){
                     e.printStackTrace();
                     Log.d(TAG,response);
                 }
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
