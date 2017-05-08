@@ -68,7 +68,8 @@ public class SparkServer implements SparkApplication {
                 if (!q.pathInfo().equals("/api/v1/user")
                         && !q.pathInfo().equals("/api/v1/login")
                         && !q.pathInfo().equals("/admin/api/v1/login")
-                        && !q.pathInfo().equals("/admin/login")) {
+                        && !q.pathInfo().equals("/admin/login")
+                        && !q.pathInfo().equals("/api/v1/account")) {
 
                     String base64Credentials = null;
                     String credentials = null;
