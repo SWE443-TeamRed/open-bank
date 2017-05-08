@@ -46,7 +46,7 @@ import static android.content.ContentValues.TAG;
 
 
 public class AccountDetails extends AppCompatActivity implements AccountFrag.OnAccountFragCallbackListener ,TransferFrag.OnTransferFragCallbackListener, NfcAdapter.OnNdefPushCompleteCallback,
-        NfcAdapter.CreateNdefMessageCallback{
+        NfcAdapter.CreateNdefMessageCallback, TransactionFrag.OnTransactionFragCallbackListener{
 
 
     //Variables to initalize tabs menu
@@ -58,8 +58,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //Fields of the account selected
 
     private NfcAdapter mNfcAdapter;
-    private int accountnum;
-    private int balance;
+    private String accountnum;
+    private String balance;
     private String type;
 
 
@@ -72,8 +72,18 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         //Get accountIndex from MainActivity
         System.out.println("Viewing account fragment for account: "+accountnum);
 
+         /*
+            Get the account that these fragments will use
+         */
+        Bundle extras = getIntent().getExtras();
+
+        type = extras.getString("type");
+        balance = extras.getString("balance");
+        accountnum =  extras.getString("accountnum");
+
+
         //Set of the Pager fragments
-        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), accountnum);
+        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), Integer.valueOf(accountnum));
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
 
@@ -88,14 +98,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
 
 
-        /*
-            Get the account that these fragments will use
-         */
-        Bundle extras = getIntent().getExtras();
 
-        type = extras.getString("type");
-        balance = extras.getInt("balance");
-        accountnum =  extras.getInt("accountnum");
 
 
         /* NFC */
@@ -159,7 +162,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //This will be called when another NFC capable device is detected.
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        byte[] payload = Integer.toString(accountnum).getBytes(Charset.forName("UTF-8"));
+        byte[] payload = Integer.toString(Integer.valueOf(accountnum)).getBytes(Charset.forName("UTF-8"));
         NdefRecord record = NdefRecord.createMime("text/plain", payload);
         return new NdefMessage(record);
     }
