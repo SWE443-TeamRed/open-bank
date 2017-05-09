@@ -34,7 +34,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
 
     String URL;
     Button back1;
-//    Button cont1;
     Button back2;
     Button cont2;
     Button back3;
@@ -42,7 +41,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
     Button sendCode;
     EditText email;
     EditText code;
-    EditText username;
     EditText newPass;
     EditText confirmPass;
     LinearLayout layout1;
@@ -66,12 +64,10 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
 
         email = (EditText) view.findViewById(R.id.username_newpass);
         code = (EditText) view.findViewById(R.id.code_input);
-        username = (EditText) view.findViewById(R.id.changePass_user_name);
         newPass = (EditText) view.findViewById(R.id.newPassword);
         confirmPass = (EditText) view.findViewById(R.id.confirm_NewPassword);
 
         back1 = (Button) view.findViewById(R.id.back_button1);
-//        cont1 = (Button) view.findViewById(R.id.continue_button1);
         back2 = (Button) view.findViewById(R.id.back_button2);
         cont2 = (Button) view.findViewById(R.id.continue_button2);
         back3 = (Button) view.findViewById(R.id.back_button3);
@@ -80,7 +76,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
 
         sendCode.setOnClickListener(this);
         back1.setOnClickListener(this);
-//        cont1.setOnClickListener(this);
         back2.setOnClickListener(this);
         cont2.setOnClickListener(this);
         back3.setOnClickListener(this);
@@ -88,7 +83,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
 
         return view;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -115,8 +109,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                     String emailString = email.getText().toString().trim();
                     params.put("email", emailString);
                     changeCodeRequest(URL, params);
-                    layout1.setVisibility(View.GONE);
-                    layout2.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.continue_button2:
@@ -135,16 +127,11 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                 break;
             case R.id.continue_button3:
                 String newPassString = newPass.getText().toString().trim();
-                String usernameString = username.getText().toString().trim();
-
-                if(TextUtils.isEmpty(username.getText())){
-                    username.setError("Need username.");
-                    username.requestFocus();
-                } else if(TextUtils.isEmpty(newPass.getText())){
+                 if(TextUtils.isEmpty(newPass.getText())){
                     newPass.setError("Need the new password.");
                     newPass.requestFocus();
                 } else if(TextUtils.isEmpty(confirmPass.getText())){
-                    confirmPass.setError("Need to confirm password.");
+                    confirmPass.setError("Need to confirm the password.");
                     confirmPass.requestFocus();
                 } else if (!confirmPass.getText().toString().equals(newPass.getText().toString())){
                     confirmPass.setError("Passwords do not match.");
@@ -153,10 +140,10 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                     codeSent = false;
                     newPassSent = true;
                     //TODO change this when server is updated
-                    URL = "http://54.87.197.206:8080/SparkServer/api/v1/changePassword";
+                    URL = "http://54.87.197.206:8080/SparkServer/api/v1/passwordReset";
                     params.clear();
-                    params.put("username", usernameString);
-                    params.put("password", newPassString);
+                    params.put("id", userID);
+                    params.put("newPassword", newPassString);
                     changeCodeRequest(URL,params);
                 }
         }
@@ -202,6 +189,7 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
     }
 
     String answer;
+    String userID;
     //Deals with the response received by the post request.
     private void responseHandler(JSONObject obj) {
         try {
@@ -236,9 +224,11 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                    }
 
                 }
-                else{
+                else{//Success
                     showContinue = true;
-//                    cont1.setTextColor(getResources().getColor(R.color.white));
+                    layout1.setVisibility(View.GONE);
+                    layout2.setVisibility(View.VISIBLE);
+                    userID = obj.get("id").toString();
                 }
             }else if(codeSent){
                 if(answer.equals("failed")) {
@@ -271,7 +261,6 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                     layout2.setVisibility(View.GONE);
                     layout3.setVisibility(View.VISIBLE);
                 }
-
 
             }else if(newPassSent){
                 if(answer.equals("failed")) {
