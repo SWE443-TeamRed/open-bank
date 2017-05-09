@@ -1,7 +1,9 @@
 package com.app.swe443.openbankapp;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -23,24 +25,31 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import static android.content.ContentValues.TAG;
-import static android.view.View.GONE;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
 
     private EditText accountTo;
     private EditText accountToConfirm;
     private EditText amount;
+    private EditText amountNFC;
+    private EditText amountQR;
 
-    private Button transferToUserButton;
-    private Button transferBetweenMyAccountsButton;
-    private Button cancelTransfer;
-    private Button confirmTransfer;
-    private Button cancelTransfertoAccount;
-    private Button confirmTransferAccount;
+    private Button transferManuallyButton;
+    private Button transferNFCButton;
+    private Button transferQRButton;
+    private Button cancelManualTransfer;
+    private Button confirmManualTransfer;
+    private Button cancelNFCTransfer;
+    private Button confirmNFCTransfer;
+    private Button cancelQRTransfer;
+    private Button confirmQRTransfer;
 
-    private LinearLayout betweenAccountButtonLayout;
-    private LinearLayout betweenAccountForm;
-    private LinearLayout betweenUserForm;
+
+    private LinearLayout transferNFCLayout;
+    private LinearLayout transferManuallyLayout;
+    private LinearLayout transferQRLayout;
+    private LinearLayout transferLayout;
+
 
     private HashMap<String,String> params;
     private TransferFrag.OnTransferFragCallbackListener mCallback;
@@ -63,53 +72,110 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
 
-
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
         amount = (EditText) v.findViewById(R.id.amountInput);
+        amountNFC = (EditText) v.findViewById(R.id.amount_NFC);
+        amountQR = (EditText) v.findViewById(R.id.QR_amount);
 
-        transferToUserButton = (Button) v.findViewById(R.id.toAnotherUserButton);
-        transferBetweenMyAccountsButton = (Button) v.findViewById(R.id.toMyAccountButton);
-        transferBetweenMyAccountsButton.setOnClickListener(this);
-        transferToUserButton.setOnClickListener(this);
+        transferManuallyButton = (Button) v.findViewById(R.id.transferManuallyButton);
+        transferNFCButton = (Button) v.findViewById(R.id.NFCTransferButton);
+        transferQRButton = (Button) v.findViewById(R.id.QRTransferButton);
+        transferNFCButton.setOnClickListener(this);
+        transferQRButton.setOnClickListener(this);
+        transferManuallyButton.setOnClickListener(this);
 
-        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transferContent);
-        betweenUserForm = (LinearLayout) v.findViewById(R.id.transferToUserFormLayout);
-        betweenAccountForm = (LinearLayout) v.findViewById(R.id.transferToAccountFormLayout);
+        transferNFCLayout = (LinearLayout) v.findViewById(R.id.transferUsingNFC);
+        transferQRLayout = (LinearLayout) v.findViewById(R.id.transferUsingQR);
+        transferManuallyLayout = (LinearLayout) v.findViewById(R.id.transferManually);
+        transferLayout = (LinearLayout) v.findViewById(R.id.transfer);
 
-        cancelTransfer = (Button) v.findViewById(R.id.cancelTransfer);
-        cancelTransfertoAccount = (Button) v.findViewById(R.id.cancelTransferToAccount);
-        confirmTransfer = (Button) v.findViewById(R.id.confirmTransfer);
-        confirmTransferAccount = (Button) v.findViewById(R.id.confirmTransferToAccount);
+        cancelManualTransfer = (Button) v.findViewById(R.id.cancelTransfer);
+        cancelNFCTransfer = (Button) v.findViewById(R.id.cancelNFC);
+        cancelQRTransfer = (Button) v.findViewById(R.id.cancelQR);
+        confirmManualTransfer = (Button) v.findViewById(R.id.confirmTransfer);
+        confirmNFCTransfer = (Button) v.findViewById(R.id.confirmNFC);
+        confirmQRTransfer = (Button) v.findViewById(R.id.cancelQR);
 
-        cancelTransfertoAccount.setOnClickListener(this);
-        confirmTransferAccount.setOnClickListener(this);
-        cancelTransfer.setOnClickListener(this);
-        confirmTransfer.setOnClickListener(this);
+        cancelManualTransfer.setOnClickListener(this);
+        cancelNFCTransfer.setOnClickListener(this);
+        cancelQRTransfer.setOnClickListener(this);
+        confirmManualTransfer.setOnClickListener(this);
+        confirmNFCTransfer.setOnClickListener(this);
+        confirmQRTransfer.setOnClickListener(this);
 
         return v;
     }
 
     @Override
     public void onClick(View v) {
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        Handler handler;
         switch (v.getId()) {
-            case R.id.toAnotherUserButton:
+            case R.id.transferManuallyButton:
                 setOptionsVisibility(0);
-                betweenAccountForm.setVisibility(GONE);
-                betweenUserForm.setVisibility(View.VISIBLE);
                 break;
-            case R.id.toMyAccountButton:
-                setOptionsVisibility(0);
-                betweenAccountForm.setVisibility(View.VISIBLE);
-                betweenUserForm.setVisibility(GONE);
+            case R.id.NFCTransferButton:
+                progress.setTitle("Loading");
+                progress.setMessage("Waiting For NFC Connection ...");
+                progress.setCancelable(true);
+                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                    progress.create();
+                }
+                progress.show();
+
+                /*Todo NFC transfer*/
+
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progress.dismiss();
+                    }
+                }, 3000); // 3000 milliseconds delay
+
+                setOptionsVisibility(1);
+                break;
+            case R.id.QRTransferButton:
+                progress.setTitle("Loading");
+                progress.setMessage("Waiting For QR ...");
+                progress.setCancelable(true);
+                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                    progress.create();
+                }
+                progress.show();
+
+                /*Todo QR transfer*/
+
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progress.dismiss();
+                    }
+                }, 3000); // 3000 milliseconds delay
+
+                setOptionsVisibility(2);
                 break;
             case R.id.cancelTransfer:
-                setOptionsVisibility(1);
+                transferManuallyLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
                 break;
-            case R.id.cancelTransferToAccount:
-                setOptionsVisibility(1);
+            case R.id.cancelNFC:
+                transferNFCLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
                 break;
-            case R.id.confirmTransfer:
+            case R.id.cancelQR:
+                transferQRLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmNFC:
+                transferNFCLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmQR:
+                transferQRLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmTransfer://For manual transfer.
                 /*
                     Input:  transferType : [transferType]
                             toAccountId : [accountNum]
@@ -151,10 +217,8 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     confirmTransfer();
                     break;
                 }
-
         }
     }
-
     public void confirmTransfer(){
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -187,12 +251,20 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public void setOptionsVisibility(int value){
         switch(value){
             case 0:
-                betweenAccountButtonLayout.setVisibility(GONE);
+                transferLayout.setVisibility(View.GONE);
+                transferManuallyLayout.setVisibility(View.VISIBLE);
                 break;
             case 1:
-                betweenAccountButtonLayout.setVisibility(View.VISIBLE);
-                betweenUserForm.setVisibility(GONE);
-                betweenAccountForm.setVisibility(GONE);
+                transferLayout.setVisibility(View.GONE);
+                transferNFCLayout.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                transferLayout.setVisibility(View.GONE);
+                transferQRLayout.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                transferLayout.setVisibility(View.VISIBLE);
+                break;
         }
     }
     //Post request to make transfer.
@@ -268,4 +340,6 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             Log.d(TAG, "Problem with response");
         }
     }
+
+
 }
