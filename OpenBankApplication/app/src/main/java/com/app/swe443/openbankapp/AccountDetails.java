@@ -8,6 +8,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -58,6 +59,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //Fields of the account selected
 
     private NfcAdapter mNfcAdapter;
+    private String mNfcAccount;
     private String accountnum;
     private String balance;
     private String type;
@@ -104,12 +106,15 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         /* NFC */
         //Check if NFC is available on device
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (mNfcAdapter != null) {
+        if (mNfcAdapter != null && mNfcAdapter.isEnabled()) {
             //This will refer back to createNdefMessage for what it will send
             mNfcAdapter.setNdefPushMessageCallback(this, this);
 
             //This will be called if the message is sent successfully
             mNfcAdapter.setOnNdefPushCompleteCallback(this, this);
+        }
+        else {
+            Toast.makeText(this, "NFC is unavailable", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -162,6 +167,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //This will be called when another NFC capable device is detected.
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
+        //Places the accountnum into the record
         byte[] payload = Integer.toString(Integer.valueOf(accountnum)).getBytes(Charset.forName("UTF-8"));
         NdefRecord record = NdefRecord.createMime("text/plain", payload);
         return new NdefMessage(record);
@@ -170,11 +176,50 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     // Called when NDef message was successful
     @Override
     public void onNdefPushComplete(NfcEvent event) {
-
+        Toast.makeText(this, "Account info received", Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        handleNfcIntent(intent);
+    }
+
+    private void handleNfcIntent(Intent NfcIntent) {
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(NfcIntent.getAction())) {
+            Parcelable[] receivedArray =
+                    NfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            if (receivedArray != null) {
+                this.updateNFCAccount("");
+                NdefMessage receivedMessage = (NdefMessage) receivedArray[0];
+                NdefRecord[] attachedRecords = receivedMessage.getRecords();
+
+                for (NdefRecord record : attachedRecords) {
+                    String string = new String(record.getPayload());
+                    //Make sure we don't pass along our AAR (Android Application Record)
+                    if (string.equals(getPackageName())) {
+                        continue;
+                    }
+                    this.updateNFCAccount(new String(record.getPayload()));
+                }
+            } else {
+                Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     public void updateBalance(String balance){
         this.balance = balance;
     }
+
+    //Updates NFCAccount (WIP)
+    public void updateNFCAccount(String account) {
+        if (balance != null){
+            this.mNfcAccount = account;
+        }
+    }
+
+    public String pullNFCAccount(){return this.mNfcAccount;}
 
 
 }

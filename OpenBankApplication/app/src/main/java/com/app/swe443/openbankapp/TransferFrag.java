@@ -64,6 +64,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         public void onTransferSelected();
         public String[] getAccountInfo();
         public void updateBalance(String accountInfo);
+        public String pullNFCAccount();
     }
 
     @Override
