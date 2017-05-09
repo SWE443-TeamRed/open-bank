@@ -1,61 +1,58 @@
 package com.app.swe443.openbankapp;
 
-
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.HttpAuthHandler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import static android.content.ContentValues.TAG;
-import static android.view.View.GONE;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
 
     private EditText accountTo;
     private EditText accountToConfirm;
     private EditText amount;
+    private EditText amountNFC;
+    private EditText amountQR;
 
-    private Button transferToUserButton;
-    private Button transferBetweenMyAccountsButton;
-    private Button cancelTransfer;
-    private Button confirmTransfer;
-    private Button cancelTransfertoAccount;
-    private Button confirmTransferAccount;
+    private Button transferManuallyButton;
+    private Button transferNFCButton;
+    private Button transferQRButton;
+    private Button cancelManualTransfer;
+    private Button confirmManualTransfer;
+    private Button cancelNFCTransfer;
+    private Button confirmNFCTransfer;
+    private Button cancelQRTransfer;
+    private Button confirmQRTransfer;
 
-    private LinearLayout betweenAccountButtonLayout;
-    private LinearLayout betweenAccountForm;
-    private LinearLayout betweenUserForm;
+
+    private LinearLayout transferNFCLayout;
+    private LinearLayout transferManuallyLayout;
+    private LinearLayout transferQRLayout;
+    private LinearLayout transferLayout;
 
 
     private HashMap<String,String> params;
-
     private TransferFrag.OnTransferFragCallbackListener mCallback;
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +63,9 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public interface OnTransferFragCallbackListener {
         public void onTransferSelected();
         public String[] getAccountInfo();
-
+        public void updateBalance(String accountInfo);
+        public String pullNFCAccount();
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,53 +73,110 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_transfer, container, false);
 
-
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
         amount = (EditText) v.findViewById(R.id.amountInput);
+        amountNFC = (EditText) v.findViewById(R.id.amount_NFC);
+        amountQR = (EditText) v.findViewById(R.id.QR_amount);
 
-        transferToUserButton = (Button) v.findViewById(R.id.toAnotherUserButton);
-        transferBetweenMyAccountsButton = (Button) v.findViewById(R.id.toMyAccountButton);
-        transferBetweenMyAccountsButton.setOnClickListener(this);
-        transferToUserButton.setOnClickListener(this);
+        transferManuallyButton = (Button) v.findViewById(R.id.transferManuallyButton);
+        transferNFCButton = (Button) v.findViewById(R.id.NFCTransferButton);
+        transferQRButton = (Button) v.findViewById(R.id.QRTransferButton);
+        transferNFCButton.setOnClickListener(this);
+        transferQRButton.setOnClickListener(this);
+        transferManuallyButton.setOnClickListener(this);
 
-        betweenAccountButtonLayout = (LinearLayout) v.findViewById(R.id.transferContent);
-        betweenUserForm = (LinearLayout) v.findViewById(R.id.transferToUserFormLayout);
-        betweenAccountForm = (LinearLayout) v.findViewById(R.id.transferToAccountFormLayout);
+        transferNFCLayout = (LinearLayout) v.findViewById(R.id.transferUsingNFC);
+        transferQRLayout = (LinearLayout) v.findViewById(R.id.transferUsingQR);
+        transferManuallyLayout = (LinearLayout) v.findViewById(R.id.transferManually);
+        transferLayout = (LinearLayout) v.findViewById(R.id.transfer);
 
-        cancelTransfer = (Button) v.findViewById(R.id.cancelTransfer);
-        cancelTransfertoAccount = (Button) v.findViewById(R.id.cancelTransferToAccount);
-        confirmTransfer = (Button) v.findViewById(R.id.confirmTransfer);
-        confirmTransferAccount = (Button) v.findViewById(R.id.confirmTransferToAccount);
+        cancelManualTransfer = (Button) v.findViewById(R.id.cancelTransfer);
+        cancelNFCTransfer = (Button) v.findViewById(R.id.cancelNFC);
+        cancelQRTransfer = (Button) v.findViewById(R.id.cancelQR);
+        confirmManualTransfer = (Button) v.findViewById(R.id.confirmTransfer);
+        confirmNFCTransfer = (Button) v.findViewById(R.id.confirmNFC);
+        confirmQRTransfer = (Button) v.findViewById(R.id.cancelQR);
 
-        cancelTransfertoAccount.setOnClickListener(this);
-        confirmTransferAccount.setOnClickListener(this);
-        cancelTransfer.setOnClickListener(this);
-        confirmTransfer.setOnClickListener(this);
+        cancelManualTransfer.setOnClickListener(this);
+        cancelNFCTransfer.setOnClickListener(this);
+        cancelQRTransfer.setOnClickListener(this);
+        confirmManualTransfer.setOnClickListener(this);
+        confirmNFCTransfer.setOnClickListener(this);
+        confirmQRTransfer.setOnClickListener(this);
 
         return v;
     }
 
     @Override
     public void onClick(View v) {
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        Handler handler;
         switch (v.getId()) {
-            case R.id.toAnotherUserButton:
+            case R.id.transferManuallyButton:
                 setOptionsVisibility(0);
-                betweenAccountForm.setVisibility(GONE);
-                betweenUserForm.setVisibility(View.VISIBLE);
                 break;
-            case R.id.toMyAccountButton:
-                setOptionsVisibility(0);
-                betweenAccountForm.setVisibility(View.VISIBLE);
-                betweenUserForm.setVisibility(GONE);
+            case R.id.NFCTransferButton:
+                progress.setTitle("Loading");
+                progress.setMessage("Waiting For NFC Connection ...");
+                progress.setCancelable(true);
+                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                    progress.create();
+                }
+                progress.show();
+
+                /*Todo NFC transfer*/
+
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progress.dismiss();
+                    }
+                }, 3000); // 3000 milliseconds delay
+
+                setOptionsVisibility(1);
+                break;
+            case R.id.QRTransferButton:
+                progress.setTitle("Loading");
+                progress.setMessage("Waiting For QR ...");
+                progress.setCancelable(true);
+                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                    progress.create();
+                }
+                progress.show();
+
+                /*Todo QR transfer*/
+
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progress.dismiss();
+                    }
+                }, 3000); // 3000 milliseconds delay
+
+                setOptionsVisibility(2);
                 break;
             case R.id.cancelTransfer:
-                setOptionsVisibility(1);
+                transferManuallyLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
                 break;
-            case R.id.cancelTransferToAccount:
-                setOptionsVisibility(1);
+            case R.id.cancelNFC:
+                transferNFCLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
                 break;
-            case R.id.confirmTransfer:
+            case R.id.cancelQR:
+                transferQRLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmNFC:
+                transferNFCLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmQR:
+                transferQRLayout.setVisibility(View.GONE);
+                setOptionsVisibility(3);
+                break;
+            case R.id.confirmTransfer://For manual transfer.
                 /*
                     Input:  transferType : [transferType]
                             toAccountId : [accountNum]
@@ -152,43 +205,33 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     amount.setError("Can't transfer a negative amount");
                     incomplete = true;
                 }else {
-                    if (!params.isEmpty())
-                        params.clear();
                     params = new HashMap<String, String>();
-                    params.put("transferType", "Transfer");
+                    params.put("transferType", "TRANSFER");
                     params.put("toAccountId", accountTo.getText().toString());
                     params.put("amount", amount.getText().toString());
                     //Sender's accountnum is stored in the AccountDetails activity (parent activity)
-                    params.put("fromAccountId", mCallback.getAccountInfo()[0]);
+                    params.put("fromAccountId",  mCallback.getAccountInfo()[0]);
                 }
-
-
                 if(incomplete)
                     break;
                 else{
                     confirmTransfer();
                     break;
                 }
-
         }
     }
-
-
     public void confirmTransfer(){
-
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                            /*
-                                Make call to server for a transfer request
-                             */
                         postTransferToServer();
                         Toast.makeText(getContext(), "SENDING TRANSFER REQUEST",
                                 Toast.LENGTH_SHORT).show();
-                        //Contact AccountDetails activity that it needs to refresh the tabs with new trasnfer info
+                        //Contact AccountDetails activity that it needs to refresh the tabs with new transfer info
                         mCallback.onTransferSelected();
+
                         //Display the TransferToUser/TransferBetweenUsers Options menu
                         setOptionsVisibility(1);
                         break;
@@ -209,16 +252,23 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public void setOptionsVisibility(int value){
         switch(value){
             case 0:
-                betweenAccountButtonLayout.setVisibility(GONE);
+                transferLayout.setVisibility(View.GONE);
+                transferManuallyLayout.setVisibility(View.VISIBLE);
                 break;
             case 1:
-                betweenAccountButtonLayout.setVisibility(View.VISIBLE);
-                betweenUserForm.setVisibility(GONE);
-                betweenAccountForm.setVisibility(GONE);
+                transferLayout.setVisibility(View.GONE);
+                transferNFCLayout.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                transferLayout.setVisibility(View.GONE);
+                transferQRLayout.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                transferLayout.setVisibility(View.VISIBLE);
+                break;
         }
     }
-
-
+    //Post request to make transfer.
     public void postTransferToServer(){
         StringRequest stringRequest;
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -226,26 +276,14 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("OBTAINED TRANSFER RESPONSE");
                 Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
-
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getJSONObject("request").equals("success"))
-                        Toast.makeText(getContext(),obj.getJSONObject("note").toString(),Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
-
-
-
+                    responseHandler(obj);
                 }catch(JSONException e){
                     e.printStackTrace();
                     Log.d(TAG,response);
                 }
-
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -260,5 +298,49 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         System.out.println("REQUESTING TRANSFER TRANSACTION");
         queue.add(stringRequest);
     }
+
+     String answer;
+    //Deals with the response received by the post request.
+    private void responseHandler(JSONObject obj) {
+        try {
+            answer = obj.get("request").toString();
+                if(answer.equals("failed")){
+                    if(obj.get("reason").toString().equals("reason”:”you do not have enough funds to transfer"))
+                    {//case not enough funds.
+                        new AlertDialog.Builder(this.getContext())
+                                .setTitle("Not Enough Fund")
+                                .setMessage("Please, make sure you have enough funds to transfer.")
+                                .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                    else {//Case of any other errors from server.
+                        new AlertDialog.Builder(this.getContext())
+                                .setTitle("Error")
+                                .setMessage("Unfortunately, we have have ran in to an error.")
+                                .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                        startActivity(getParentFragment().getActivity().getIntent());
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
+                else{
+                   String balance = obj.get("balance").toString();
+                    mCallback.updateBalance(balance);
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Problem with response");
+        }
+    }
+
 
 }

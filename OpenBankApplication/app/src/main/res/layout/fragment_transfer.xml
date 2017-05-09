@@ -4,15 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.app.swe443.openbankapp.TransferFrag">
         <LinearLayout
-            android:id="@+id/transferContent"
+            android:id="@+id/transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/transfer_text"
                 android:layout_width="match_parent"
@@ -21,52 +20,55 @@
                 android:text="Transfer "
                 android:textColor="@color/colorAccent"
                 android:textSize="35sp" />
-
             <TextView
                 android:id="@+id/texttransfer1"
                 android:textSize="18sp"
                 android:layout_marginTop="45dp"
                 android:gravity="center_horizontal"
-                android:text="Between Another User Account"
+                android:text="Manual Transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0b3c5d"
-                android:id="@+id/toAnotherUserButton"
+                android:id="@+id/transferManuallyButton"
                 android:text="Start Transfer"
-                android:textAllCaps="false"
-                android:layout_marginTop="17dp"/>
-
+                android:textAllCaps="false"/>
             <TextView
                 android:id="@+id/texttransfer2"
                 android:textSize="18sp"
                 android:layout_marginTop="45dp"
                 android:gravity="center_horizontal"
-                android:text="Betweet Your Open Bank Account"
+                android:text="Transfer Using NFC"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
+                android:layout_height="wrap_content" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/toMyAccountButton"
-                android:layout_below="@id/texttransfer2"
-                android:layout_marginTop="20dp"
+                android:id="@+id/NFCTransferButton"
                 android:background="#0b3c5d"
                 android:text="Start Transfer"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textAllCaps="false" />
+            <TextView
+                android:id="@+id/texttransfer3"
+                android:textSize="18sp"
+                android:layout_marginTop="45dp"
+                android:gravity="center_horizontal"
+                android:text="Transfer Using QR Code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/QRTransferButton"
+                android:background="#0b3c5d"
+                android:text="Start Transfer"
+                android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/transferToUserFormLayout"
+        android:id="@+id/transferManually"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Transfer Between Users"
+            android:text="Transfer Manually"
             android:textColor="@color/colorAccent"
             android:textSize="35sp" />
             <TextView
@@ -158,9 +160,8 @@
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/transferToAccountFormLayout"
+        android:id="@+id/transferUsingNFC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -170,23 +171,20 @@
         android:weightSum="10"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
         <TextView
-            android:id="@+id/transfer_account_text"
+            android:id="@+id/transfer_nfc_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Transfer Between Accounts"
+            android:text="Transfer Using NFC"
             android:textColor="@color/colorAccent"
             android:textSize="35sp" />
-
         <TextView
             android:id="@+id/accountnumToAccountTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:gravity="left"
             android:text="Transfer to Account Number:"
             android:textSize="18sp" />
         <EditText
@@ -195,28 +193,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.22"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
         <TextView
-            android:id="@+id/accountnumToAccountConfirmTitle"
+            android:id="@+id/amountNFC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:gravity="left"
-            android:text="Confirm Account Number:"
-            android:textSize="18sp" />
-        <EditText
-            android:id="@+id/accountnumToAccountConfirmInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.18"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-        <TextView
-            android:id="@+id/amountToAccountTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="left"
             android:text="Amount:"
             android:textSize="18sp" />
         <EditText
@@ -230,17 +216,17 @@
             android:id="@+id/buttonToAccountlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="70dp"
             android:orientation="horizontal"
             android:weightSum="10">
         <Button
-            android:id="@+id/cancelTransferToAccount"
+            android:id="@+id/cancelNFC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#0b3c5d"
             android:text=" Cancel " />
         <Button
-            android:id="@+id/confirmTransferToAccount"
+            android:id="@+id/confirmNFC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#0b3c5d"
@@ -248,6 +234,83 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/transferUsingQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/transfer_QR_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Transfer Using QR"
+            android:textColor="@color/colorAccent"
+            android:textSize="35sp" />
+        <TextView
+            android:id="@+id/QRAccountTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:text="Transfer to Account Number:"
+            android:textSize="18sp" />
+        <EditText
+            android:id="@+id/amount_NFC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <TextView
+            android:id="@+id/QR_amount_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Amount:"
+            android:textSize="18sp" />
+        <EditText
+            android:id="@+id/QR_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+        <RelativeLayout
+            android:id="@+id/buttonQR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+            <Button
+                android:id="@+id/cancelQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text=" Cancel " />
+            <Button
+                android:id="@+id/confirmQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0b3c5d"
+                android:text=" Transfer "
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
