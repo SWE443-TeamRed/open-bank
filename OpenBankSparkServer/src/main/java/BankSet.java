@@ -950,19 +950,6 @@ public class BankSet extends SimpleSet<Bank>
   
 
    
-   //==========================================================================
-   
-   public StringList getSecureID(String secretWord, byte[] salt)
-   {
-      
-      StringList result = new StringList();
-      
-      for (Bank obj : this)
-      {
-         result.add( obj.getSecureID(secretWord, salt) );
-      }
-      return result;
-   }
 
    
    //==========================================================================
@@ -986,5 +973,111 @@ public class BankSet extends SimpleSet<Bank>
    
    //==========================================================================
 
+
+   
+   //==========================================================================
+   
+   public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg)
+   {
+      return BankSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList getSecureID(String secretWord, byte []salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect a list of the passwordCode attribute values. 
+    * 
+    * @return List of String objects reachable via passwordCode attribute
+    */
+   public ObjectSet getPasswordCode()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Bank obj : this)
+      {
+         result.add(obj.getPasswordCode());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the passwordCode attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet filterPasswordCode(String value)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (value.equals(obj.getPasswordCode()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the passwordCode attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet filterPasswordCode(String lower, String upper)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (lower.compareTo(obj.getPasswordCode()) <= 0 && obj.getPasswordCode().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and assign value to the passwordCode attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Bank objects now with new attribute values.
+    */
+   public BankSet withPasswordCode(String value)
+   {
+      for (Bank obj : this)
+      {
+         obj.setPasswordCode(value);
+      }
+      
+      return this;
+   }
 
 }

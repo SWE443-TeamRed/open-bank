@@ -49,6 +49,7 @@ import java.util.UUID;
    /*
  *
  *  @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
+ * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
 public  class Bank implements SendableEntity
 {
@@ -150,6 +151,7 @@ public  class Bank implements SendableEntity
 
       result.append(" ").append(this.getFee());
       result.append(" ").append(this.getBankName());
+      result.append(" ").append(this.getPasswordCode());
       return result.substring(1);
    }
 
@@ -656,10 +658,13 @@ public  class Bank implements SendableEntity
          return withDrawAccnt.getBalance();
       }
 
-      withDrawAccnt.withdraw(amount);
+      this.recordTransaction(withDrawAccnt.getAccountnum(), -1, TransactionTypeEnum.WITHDRAW, amount, "Withdraw. Amount" + amount, false, msg);
+      balance = withDrawAccnt.getBalance();
+      /* withDrawAccnt.withdraw(amount);
       balance=  withDrawAccnt.getBalance();
 
       //create a transaction
+      this.recordTransaction();
       Transaction trans = new Transaction();
       Date dt = new Date(System.currentTimeMillis());
 
@@ -667,7 +672,7 @@ public  class Bank implements SendableEntity
       trans.setCreationdate(dt);
       trans.setNote("Withdraw. Amount " + amount);
       trans.setTransType(TransactionTypeEnum.WITHDRAW);
-      this.withTransaction(trans);
+      this.withTransaction(trans);*/
 
       // set the message
       msg.append("successful");
@@ -816,21 +821,42 @@ public  class Bank implements SendableEntity
       Account accnt = new Account()
               .withAccountnum(valID)
               .withOwner(usr)
-              .withBalance(initialBalance)
+              .withBalance(new BigInteger("0"))
               .withType(accountType)
+              .withCreationdate(new Date())
               .withIsClosed(false);
-              /*=================================================
-              TODO Create an initial transaction to seed balance
-              =================================================== */
-      recordTransaction(this.getAdminAccounts().first().getAccountnum(),
-              accnt.getAccountnum(),TransactionTypeEnum.SEED,initialBalance,
-              "Seeding transaction",msg);
+      if(this.getAdminAccounts().size() == 0){
+         boolean lop=true;
+         int vaID=0;
+         while(lop) {
+            vaID=this.getNextID();
+
+            if(this.getCustomerAccounts().filterAccountnum(vaID).size() == 0 &&
+                    this.getAdminAccounts().filterAccountnum(vaID).size() == 0 && valID != vaID) {
+               lop=false;
+            }
+         }
+         if(vaID==0) {
+            msg.append("failure. Account Number is null.");
+            return "-1";
+         }
+         Account acc = new Account()
+                 .withAccountnum(vaID)
+                 .withBalance(new BigInteger("1000000000000000"))
+                 .withType(AccountTypeEnum.CHECKING)
+                 .withCreationdate(new Date())
+                 .withIsClosed(false);
+         this.withAdminAccounts(acc);
+      }
       // check which user will be created
       if(isAdminAccount){
          this.withAdminAccounts(accnt);
       }else{
          this.withCustomerAccounts(accnt);
       }
+      recordTransaction(this.getAdminAccounts().first().getAccountnum(),
+              accnt.getAccountnum(),TransactionTypeEnum.SEED,initialBalance,
+              "Seeding transaction",false,msg);
 
       msg.append("successful");
 
@@ -968,14 +994,14 @@ public  class Bank implements SendableEntity
       if(acc.isIsClosed() != true) {
          acc.setIsClosed(true);
          recordTransaction(acc.getAccountnum(), this.getAdminAccounts().first().getAccountnum(),
-                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account", msg);
+                 TransactionTypeEnum.CLOSE, acc.getBalance(), "Closing account",true, msg);
       }
       msg.append("Successful");
       return true;
    }
 
    //==========================================================================
-   public Set<TransactionSet> getTransactions(int accountNumber, BigInteger amount, Date date )
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date )
    {
       Set<TransactionSet> st = new SimpleSet<TransactionSet>();
       //TransactionSet st = new TransactionSet>();
@@ -1065,7 +1091,7 @@ public  class Bank implements SendableEntity
 
       return st;
    }
-   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg) {
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg) {
       if(type == null){
          msg.append("Unsuccessful. Transaction type is null");
          return;
@@ -1077,7 +1103,7 @@ public  class Bank implements SendableEntity
       FeeValueSet pulledFeeValues = this.getFeeValue();
       FeeValue fee = null;
       for (FeeValue i : pulledFeeValues) {
-         if (i != null && i.getTransType().equals(type)) {
+         if (i != null && i.getTransType().equals(type) && isAdmin == false) {
             fee = i;
          }
       }
@@ -1089,9 +1115,9 @@ public  class Bank implements SendableEntity
 
       Account senderAccount = null;
       Account receiverAccount = null;
-      if(sender == -1)
+      if(sender != -1)
          senderAccount = findAccountByID(sender);
-      if(receiver == -1)
+      if(receiver != -1)
          receiverAccount = findAccountByID(receiver);
 
       if (type.equals(TransactionTypeEnum.TRANSFER)) {
@@ -1101,8 +1127,16 @@ public  class Bank implements SendableEntity
                        .withToAccount(receiverAccount);
                senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
                receiverAccount.setBalance(receiverAccount.getBalance().add(amount));
-               if(fee != null)
-                  newTransaction.setFee(senderAccount.recordFee(fee,amount));
+               if(fee != null) {
+                  BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
+                  calculatedFee = calculatedFee.add(amount);
+                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                     newTransaction.setFee(senderAccount.recordFee(fee, amount));
+                  else{
+                     msg.append("Unsuccessful. Amount exceeds sender's balance");
+                     return;
+                  }
+               }
             }
             else{
                msg.append("Unsuccessful. Amount exceeds sender's balance");
@@ -1110,7 +1144,7 @@ public  class Bank implements SendableEntity
             }
          }
          else{
-            msg.append("Unsuccessful. Sender or receiver does not exist");
+            msg.append("Unsuccessful. Transfer Sender or receiver does not exist" + amount);
             return;
          }
       }
@@ -1129,8 +1163,17 @@ public  class Bank implements SendableEntity
          if (senderAccount != null) {
             if(senderAccount.getBalance().compareTo(amount) == 1) {
                newTransaction.withFromAccount(senderAccount);
-               receiverAccount.setBalance(receiverAccount.getBalance().subtract(amount));
-               if(fee != null) newTransaction.setFee(senderAccount.recordFee(fee,amount));
+               senderAccount.setBalance(senderAccount.getBalance().subtract(amount));
+               if(fee != null){
+                  BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
+                  calculatedFee = calculatedFee.add(amount);
+                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                     newTransaction.setFee(senderAccount.recordFee(fee, amount));
+                  else{
+                     msg.append("Unsuccessful. Amount exceeds sender's balance");
+                     return;
+                  }
+               }
             }
             else{
                msg.append("Unsuccessful. Amount exceeds sender's balance");
@@ -1162,7 +1205,7 @@ public  class Bank implements SendableEntity
             }
          }
          else{
-            msg.append("Unsuccessful. Sender or receiver does not exist");
+            msg.append("Unsuccessful. Seed Sender or receiver does not exist");
             return;
          }
       }
@@ -1185,7 +1228,7 @@ public  class Bank implements SendableEntity
             }
          }
          else{
-            msg.append("Unsuccessful. Sender or receiver does not exist");
+            msg.append("Unsuccessful. Close Sender or receiver does not exist");
             return;
          }
       }
@@ -1238,4 +1281,26 @@ public  class Bank implements SendableEntity
 
    private String passwordCode;
 
+   //==========================================================================
+   
+   public String getPasswordCode()
+   {
+      return this.passwordCode;
+   }
+   
+   public void setPasswordCode(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.passwordCode, value)) {
+      
+         String oldValue = this.passwordCode;
+         this.passwordCode = value;
+         this.firePropertyChange(PROPERTY_PASSWORDCODE, oldValue, value);
+      }
+   }
+   
+   public Bank withPasswordCode(String value)
+   {
+      setPasswordCode(value);
+      return this;
+   } 
 }

@@ -1855,8 +1855,8 @@ public class Test_Improving_Backend_Functionality {
 
             if(tranlst.size()==1){
                 Transaction tran = (Transaction) itr.next();
-                System.out.println("Date:" + tran.getNextTransitive().first());
-                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Info:" + tran.getNextTransitive().first());
+                System.out.println("CreationDate:" + tran.getNextTransitive().getDate().first());
                 System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
                 System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
@@ -1865,8 +1865,8 @@ public class Test_Improving_Backend_Functionality {
             }else if(tranlst.size()>1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
-                    System.out.println("Date:" + tran.getNextTransitive().first());
-                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Info:" + tran.getNextTransitive().first());
+                    System.out.println("CreationDate:" + tran.getNextTransitive().getDate().first());
                     System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
                     System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
                     System.out.println("Note:" + tran.getNextTransitive().getNote().first());

@@ -208,7 +208,8 @@ import java.util.Random;
            result.append(" ").append(this.getEmail());
            result.append(" ").append(this.getPhone());
            result.append(" ").append(this.getUsername());
-           return result.substring(1);
+           result.append(" ").append(this.getSessionID());
+      return result.substring(1);
        }
 
 
@@ -436,9 +437,9 @@ import java.util.Random;
 
        Account usersAccount = this.getAccount().get(0);
        JsonPersistency writeToJson = new JsonPersistency();
-//       writeToJson.toJson(usersAccount);
+       writeToJson.toJson(usersAccount);
        this.LoggedIn = false;
-       this.sessionid=null;
+       //this.sessionid=null;
        //this.getSessionId();
        return true;
    }
@@ -627,5 +628,31 @@ import java.util.Random;
       Bank value = new Bank();
       withEmployingBank(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   private String sessionID;
+
+   public String getSessionID()
+   {
+      return this.sessionID;
+   }
+   
+   public void setSessionID(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.sessionID, value)) {
+      
+         String oldValue = this.sessionID;
+         this.sessionID = value;
+         this.firePropertyChange(PROPERTY_SESSIONID, oldValue, value);
+      }
+   }
+   
+   public User withSessionID(String value)
+   {
+      setSessionID(value);
+      return this;
    } 
 }

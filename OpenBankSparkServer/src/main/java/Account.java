@@ -111,7 +111,7 @@ public  class Account implements SendableEntity
 
    public void setBalance(BigInteger value)
    {
-      if (value.compareTo(BigInteger.ONE) > 0) {
+      if (value.compareTo(BigInteger.ZERO) >= 0) {
 
          BigInteger oldValue = this.balance;
          this.balance = value;

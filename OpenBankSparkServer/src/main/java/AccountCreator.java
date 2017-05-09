@@ -90,8 +90,6 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getOwner();
       }
 
-
-
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getType();
