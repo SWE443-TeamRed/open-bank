@@ -28,8 +28,8 @@ import static android.content.ContentValues.TAG;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
 
-    private EditText accountTo;
-    private EditText accountToConfirm;
+    static public EditText accountTo;
+    static public EditText accountToConfirm;
     private EditText amount;
     private EditText amountNFC;
     private EditText amountQR;

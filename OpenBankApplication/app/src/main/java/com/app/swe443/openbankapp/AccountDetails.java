@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -66,8 +67,29 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     private String username;
     private String userID;
 
+    private ArrayList<String> messagesReceivedArray = new ArrayList<>();
+    private ArrayList<String> messagesToSendArray = new ArrayList<>();
+
+    public void addMessage(View view) {
+        Toast.makeText(this, "Added Message", Toast.LENGTH_LONG).show();
+    }
 
 
+    private void updateTextViews() {
+
+        if(TransferFrag.accountTo != null && TransferFrag.accountToConfirm != null) {
+            TransferFrag.accountTo.setText("");
+            TransferFrag.accountToConfirm.setText("");
+        }
+
+        //Populate our list of messages we have received
+        if (messagesReceivedArray.size() > 0) {
+            for (int i = 0; i < messagesReceivedArray.size(); i++) {
+                TransferFrag.accountTo.append(messagesReceivedArray.get(i));
+                TransferFrag.accountToConfirm.append(messagesReceivedArray.get(i));
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +114,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
 
         //Set of the Pager fragments
-        fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), Integer.valueOf(accountnum));
+        if(fragmentPagerAdapter == null)
+            fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), Integer.valueOf(accountnum));
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
 
@@ -104,11 +127,6 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
-
-
-
-
 
         /* NFC */
         //Check if NFC is available on device
@@ -124,6 +142,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
             Toast.makeText(this, "NFC is unavailable", Toast.LENGTH_LONG).show();
         }
 
+        updateTextViews();
     }
 
     //On back press by the user, go back to the MainActivity and display HomeFrag
@@ -212,7 +231,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
                     NfcIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
             if (receivedArray != null) {
-                this.updateNFCAccount("");
+//                this.updateNFCAccount("");
                 NdefMessage receivedMessage = (NdefMessage) receivedArray[0];
                 NdefRecord[] attachedRecords = receivedMessage.getRecords();
 
@@ -222,8 +241,13 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
                     if (string.equals(getPackageName())) {
                         continue;
                     }
-                    this.updateNFCAccount(new String(record.getPayload()));
+//                    this.updateNFCAccount(new String(record.getPayload()));
+                    messagesReceivedArray.add(string);
                 }
+                Toast.makeText(this, "Received " + messagesReceivedArray.size() +
+                        " Messages", Toast.LENGTH_LONG).show();
+                updateTextViews();
+
             } else {
                 Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
             }
@@ -233,6 +257,45 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     public void updateBalance(String balance){
         this.balance = balance;
     }
+
+    public NdefRecord[] createRecords() {
+        NdefRecord[] records = new NdefRecord[messagesToSendArray.size() + 1];
+        //To Create Messages Manually if API is less than
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            for (int i = 0; i < messagesToSendArray.size(); i++) {
+                byte[] payload = messagesToSendArray.get(i).
+                        getBytes(Charset.forName("UTF-8"));
+                NdefRecord record = new NdefRecord(
+                        NdefRecord.TNF_WELL_KNOWN,      //Our 3-bit Type name format
+                        NdefRecord.RTD_TEXT,            //Description of our payload
+                        new byte[0],                    //The optional id for our Record
+                        payload);                       //Our payload for the Record
+
+                records[i] = record;
+            }
+        }
+        //Api is high enough that we can use createMime, which is preferred.
+        else {
+            for (int i = 0; i < messagesToSendArray.size(); i++) {
+                byte[] payload = messagesToSendArray.get(i).
+                        getBytes(Charset.forName("UTF-8"));
+
+                NdefRecord record = NdefRecord.createMime("text/plain", payload);
+                records[i] = record;
+            }
+        }
+        records[messagesToSendArray.size()] =
+                NdefRecord.createApplicationRecord(getPackageName());
+        return records;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateTextViews();
+        handleNfcIntent(getIntent());
+    }
+
 
     //Updates NFCAccount (WIP)
     public void updateNFCAccount(String account) {
