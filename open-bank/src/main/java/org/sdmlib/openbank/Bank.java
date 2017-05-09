@@ -1140,7 +1140,7 @@ public  class Bank implements SendableEntity
                if(fee != null) {
                   BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
                   calculatedFee = calculatedFee.add(amount);
-                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                  if(senderAccount.getBalance().compareTo(calculatedFee) == 1)
                      newTransaction.setFee(senderAccount.recordFee(fee, amount));
                   else{
                      msg.append("Unsuccessful. Amount exceeds sender's balance");
@@ -1177,7 +1177,7 @@ public  class Bank implements SendableEntity
                if(fee != null){
                   BigInteger calculatedFee = (amount.multiply(fee.getPercent())).divide(new BigInteger("1000000000"));
                   calculatedFee = calculatedFee.add(amount);
-                  if(senderAccount.getBalance().compareTo(calculatedFee) != 1)
+                  if(senderAccount.getBalance().compareTo(calculatedFee) == 1)
                      newTransaction.setFee(senderAccount.recordFee(fee, amount));
                   else{
                      msg.append("Unsuccessful. Amount exceeds sender's balance");
