@@ -1101,7 +1101,8 @@ public class SparkServer implements SparkApplication {
             adminAccount.setIsConnected(true);
             adminAccount.setType(AccountTypeEnum.CHECKING);
             adminAccount.setAccountnum(bank.getNextID());
-            adminAccount.setBalance(new BigInteger("10000000000000"));
+            adminAccount.setBalance(new BigInteger("1000000000000000000"));
+            adminAccount.setCreationdate(new Date());
             admin = adminAccount;
         }
 
@@ -1117,7 +1118,7 @@ public class SparkServer implements SparkApplication {
                     true, msg2);
 
             StringBuilder msg3 = new StringBuilder();
-            String accountID = bank.createAccount(id1, false, new BigInteger("0"), AccountTypeEnum.CHECKING, msg3);
+            String accountID = bank.createAccount(id1, false, new BigInteger("500000000000"), AccountTypeEnum.CHECKING, msg3);
 
             logger.info("1: " + msg1);
             logger.info("2: " + msg2);
@@ -1143,7 +1144,7 @@ public class SparkServer implements SparkApplication {
 //                    .withTime(new Date())
 //                    .withNote("Fee");
 
-            bank.recordTransaction(admin.getAccountnum(), Integer.parseInt(accountID), TransactionTypeEnum.SEED, new BigInteger("50000000"), "Seeding Account", false, msg2);
+            //bank.recordTransaction(admin.getAccountnum(), Integer.parseInt(accountID), TransactionTypeEnum.SEED, new BigInteger("50000000"), "Seeding Account", false, msg2);
 
         }
     }
