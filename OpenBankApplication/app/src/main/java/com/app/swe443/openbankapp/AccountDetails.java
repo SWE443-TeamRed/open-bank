@@ -63,6 +63,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     private String accountnum;
     private String balance;
     private String type;
+    private String owner;
 
 
 
@@ -82,6 +83,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         type = extras.getString("type");
         balance = extras.getString("balance");
         accountnum =  extras.getString("accountnum");
+        owner = extras.getString("owner");
+
 
 
         //Set of the Pager fragments
@@ -138,10 +141,11 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     //Return the account associated to these fragments.
     //Accessed by AccountFrag
     public String[] getAccountInfo(){
-        String[] accountInfo = new String[3];
+        String[] accountInfo = new String[4];
         accountInfo[0] = String.valueOf(accountnum);
         accountInfo[1] = String.valueOf(balance);
         accountInfo[2]= type;
+        accountInfo[3] = owner;
         return accountInfo;
     }
 

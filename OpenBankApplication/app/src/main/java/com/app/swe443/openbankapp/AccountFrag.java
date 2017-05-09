@@ -148,8 +148,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         accountnumText.setText(accountInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
         balanceText.setText("$ " +precision.format(Integer.valueOf(accountInfo[1])));
-        ownerText.setText(accountInfo[0]);
-        typeText.setText(accountInfo[0]);
+        ownerText.setText(accountInfo[3]);
+        typeText.setText(accountInfo[2]);
         //String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
         creationText.setText(accountInfo[0]);
 
