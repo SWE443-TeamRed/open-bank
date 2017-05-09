@@ -1,7 +1,11 @@
 package com.app.swe443.openbankapp;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,7 @@ import com.app.swe443.openbankapp.Support.Account;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -50,6 +56,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     private Button depositButton;
     private Button withdrawButton;
+    private LinearLayout depositWithdrawLayout;
+    private ProgressBar mProgressView;
     //Deposit UI fields
     private TextView depositamounttitleText;
     private EditText depositamountText;
@@ -73,6 +81,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     // Container Activity must implement this interface
     public interface OnAccountFragCallbackListener {
         public String[] getAccountInfo();
+        public void updateAccountInfo(String[] accountInfo);
+
 
     }
 
@@ -110,6 +120,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         System.out.println("DISPLAYING ACCOUNT WITH NUMBER "+ accountInfo[0]);
 
 
+        depositWithdrawLayout = (LinearLayout) v.findViewById(R.id.depositWithdraw);
+        mProgressView = (ProgressBar) v.findViewById(R.id.depositwithdraw_progress);
 
         depositButton = (Button) v.findViewById(R.id.deposit);
         depositamounttitleText = (TextView) v.findViewById(R.id.depositamounttitleText);
@@ -147,7 +159,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         accountnameText.setText(accountInfo[0]);
         accountnumText.setText(accountInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
-        balanceText.setText("$ " +precision.format(Integer.valueOf(accountInfo[1])));
+        balanceText.setText("$ " +precision.format(Double.valueOf(accountInfo[1])));
         ownerText.setText(accountInfo[0]);
         typeText.setText(accountInfo[0]);
         //String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
@@ -187,7 +199,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     depositamountText.setError("Please enter a value");
 
                 } else {
-                    int amount = Integer.valueOf(depositamountText.getText().toString());
+                    String amount = Double.valueOf(depositamountText.getText().toString()).toString();
 
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -195,11 +207,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
                                     onDepositSelected(amount);
-                                    setDepositFieldsVisability(0);
-                                    depositButton.setVisibility(View.VISIBLE);
-                                    withdrawButton.setVisibility(View.VISIBLE);
-                                    DecimalFormat precision = new DecimalFormat("0.00");
-                                    balanceText.setText(String.valueOf(precision.format(mCallback)));
+                                    showProgress(true);
+
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -225,13 +234,13 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     Toast.makeText(getContext(), "Please enter a value",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    int amount = Integer.valueOf(withdrawamountText.getText().toString());
+                    String amount = Double.valueOf(withdrawamountText.getText().toString()).toString();
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    onWithdrawSelected(Integer.valueOf(withdrawamountText.getText().toString()));
+                                    onWithdrawSelected(amount);
                                     setWithdrawFieldsVisability(0);
                                     depositButton.setVisibility(View.VISIBLE);
                                     withdrawButton.setVisibility(View.VISIBLE);
@@ -270,6 +279,41 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            depositWithdrawLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+            depositWithdrawLayout.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    depositWithdrawLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            depositWithdrawLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
 
     public void setDepositFieldsVisability(int value){
         if(value==0) {
@@ -303,21 +347,21 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
 
     //Callback when the user deposits an amount on in AccountFrag
-    public void onDepositSelected(int amount) {
+    public void onDepositSelected(String amount) {
         System.out.println("onDepositSelected mathod initiated");
 
         /*
             Make deposit transfer request to server
             Required:
-                toAccountId:[Account user wants to deposit to]
+                toAccount:[Account user wants to deposit to]
                 amount:[Amount to deposit]
-                transferType : Deposit
+                transferType : DEPOSIT
          */
         if(!params.isEmpty())
             params.clear();
-        params.put("toAccountId",accountInfo[0]);
-        params.put("amount",Integer.toString(amount));
-        params.put("transferType","Deposit");
+        params.put("toAccount",accountInfo[0]);
+        params.put("amount",formatUserAmountInput(amount));
+        params.put("transferType","DEPOSIT");
         postDepositToServer();
 
 
@@ -333,17 +377,32 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 System.out.println("OBTAINED DEPOSITE RESPONSE");
                 Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
 
-
+                System.out.println("DEPOSIT REQUEST RESPONSE "+ response);
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getJSONObject("request").equals("success"))
+                    String request = obj.get("request").toString();
+                    if(request.equals("success")) {
                         /*
                             Update the user's new balance in the AccountDetails main activity (fragments will need to retireve new val)
                          */
-                        balanceText.setText(obj.getJSONObject("newBalance").toString());
+                        showProgress(false);
+                        setDepositFieldsVisability(0);
+                        depositButton.setVisibility(View.VISIBLE);
+                        withdrawButton.setVisibility(View.VISIBLE);
+                       // DecimalFormat precision = new DecimalFormat("0.00");
+                        String newBalance = formatServerBalance(obj.get("balance").toString());
+                        balanceText.setText("$ "+ newBalance);
+                        accountInfo[1] = newBalance;
+                        //Update balance in the parent acitivty so it displays on other views
+                        mCallback.updateAccountInfo(accountInfo);
 
-                    else
-                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
+                        showProgress(false);
+                        setDepositFieldsVisability(0);
+                        depositButton.setVisibility(View.VISIBLE);
+                        withdrawButton.setVisibility(View.VISIBLE);
+                    }
 
 
 
@@ -371,26 +430,60 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
 
+    public String formatServerBalance(String amount){
+        String temp2 = amount.substring(0,amount.length()-7);
+        String decimal = temp2.substring(temp2.length()-2,temp2.length());
+        String whole = temp2.substring(0,temp2.length()-2);
+        return whole+"."+decimal;
+    }
 
+    public String formatUserAmountInput(String amount){
+        String[] binput = {" "," "};
+        //Balance contains cents
+        if(amount.contains(".")) {
+            binput = amount.split("\\.");
+            System.out.println("SIZE IS "+binput.length);
+            //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+            //Format decimal values
+            if(binput[1].length()==1)
+                binput[1] = binput[1]+"0";
+            else if(binput[1].length()==0)
+                binput[1] = "00";
+            else{
+                StringBuilder s = new StringBuilder();
+                s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                binput[1] = s.toString();
+            }
+        }
+        //Balance is a whole number
+        else {
+            binput[0] = amount;
+            binput[0] = binput[0].replaceAll("[$,.]", "");
+            binput[1] = "00";
+        }
+        StringBuilder finalinputbalance = new StringBuilder();
+        finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+        BigInteger initialBalance = new BigInteger(finalinputbalance.toString());
+        System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
+        return initialBalance.toString();
+    }
 
-
-    public void onWithdrawSelected(int amount) {
+    public void onWithdrawSelected(String amount) {
         System.out.println("onWithdrawSelected mathod initiated");
         //Fufill withdraw
         /*
                Post withdraw request to server
                Required:
-                toAccountId:[Account user wants to deposit to]
+                toAccount:[Account user wants to deposit to]
                 amount:[Amount to deposit]
-                transferType : Withdraw
-
+                transferType : WITHDRAW
 
          */
         if(!params.isEmpty())
             params.clear();
-        params.put("toAccountId",accountInfo[0]);
-        params.put("amount",Integer.toString(amount));
-        params.put("transferType","Withdraw");
+        params.put("fromAccount",accountInfo[0]);
+        params.put("amount",formatUserAmountInput(amount));
+        params.put("transferType","WITHDRAW");
 
         postWithdrawToServer();
 
@@ -403,19 +496,36 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("RECIEVED WITHDRAW RESPONSE FROM SERVER");
+                System.out.println("RECIEVED WITHDRAW RESPONSE FROM SERVER "+ response);
                 Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
 
 
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getJSONObject("request").equals("success"))
+                    if (obj.get("request").equals("success")){
                           /*
                             Update the user's new balance in the AccountDetails main activity (fragments will need to retireve new val)
                          */
-                        balanceText.setText(obj.getJSONObject("newBalance").toString());
-                    else
-                        Toast.makeText(getContext(),obj.getJSONObject("reason").toString(),Toast.LENGTH_LONG).show();
+                        showProgress(false);
+                        setDepositFieldsVisability(0);
+                        depositButton.setVisibility(View.VISIBLE);
+                        withdrawButton.setVisibility(View.VISIBLE);
+                        // DecimalFormat precision = new DecimalFormat("0.00");
+                        String newBalance = formatServerBalance(obj.get("balance").toString());
+                        balanceText.setText("$ " +newBalance);
+                        accountInfo[1] = newBalance;
+                        //Update account info in parent activity
+                        mCallback.updateAccountInfo(accountInfo);
+
+
+
+                    }else {
+                        Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
+                        showProgress(false);
+                        setDepositFieldsVisability(0);
+                        depositButton.setVisibility(View.VISIBLE);
+                        withdrawButton.setVisibility(View.VISIBLE);
+                }
                 }catch(JSONException e){
                     e.printStackTrace();
                     Log.d(TAG,response);

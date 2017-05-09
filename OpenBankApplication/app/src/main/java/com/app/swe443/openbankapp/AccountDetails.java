@@ -61,6 +61,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     private String accountnum;
     private String balance;
     private String type;
+    private String username;
+    private String userID;
 
 
 
@@ -80,6 +82,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         type = extras.getString("type");
         balance = extras.getString("balance");
         accountnum =  extras.getString("accountnum");
+        username = extras.getString("username");
+        userID = extras.getString("userID");
 
 
         //Set of the Pager fragments
@@ -116,15 +120,23 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     //On back press by the user, go back to the MainActivity and display HomeFrag
     public void backNavigation(View view){
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        startActivity(intent);
+        String[] usernameAndID = {username,
+                userID};
+        Intent main = new Intent(getBaseContext(), MainActivity.class);
+        main.putExtra("userID", userID);
+        main.putExtra("username", username);
+        main.putExtra("balance", balance);
+        startActivity(main);
         finish();
     }
 
     //When user selects to go back from the top left arrow option on the header, go to Mainactivity
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
+        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+        main.putExtra("userID", userID);
+        main.putExtra("username", username);
+        main.putExtra("balance", balance);
+        startActivity(main);
         return true;
 
     }
@@ -138,6 +150,13 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         accountInfo[1] = String.valueOf(balance);
         accountInfo[2]= type;
         return accountInfo;
+    }
+
+    //Update balance that is changed in AccountFrag, TransactionFrag, TransferFrag
+    public void updateAccountInfo(String[] accountInfo){
+        accountnum = accountInfo[0];
+        balance = accountInfo[1];
+        type = accountInfo[2];
     }
 
     //Return the transactions associated to this account

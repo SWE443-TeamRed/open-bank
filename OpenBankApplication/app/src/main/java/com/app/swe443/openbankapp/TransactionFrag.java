@@ -45,7 +45,7 @@ public class TransactionFrag extends Fragment {
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private HashMap<String,String> params;
-    private int currentbalance;
+    private double currentbalance;
     private String type;
     private int accountnum;
 
@@ -80,7 +80,7 @@ public class TransactionFrag extends Fragment {
          mCallback = (TransactionFrag.OnTransactionFragCallbackListener) getActivity();
          String[] accountinfo = mCallback.getAccountInfo();
 
-        currentbalance = Integer.valueOf(accountinfo[1]);
+        currentbalance = Double.valueOf(accountinfo[1]);
         type = accountinfo[2];
         accountnum = Integer.valueOf(accountinfo[0]);
     //(String type, String amount, String creationDate, String note, String toUsername, String toAccountType

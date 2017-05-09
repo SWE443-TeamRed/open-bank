@@ -191,19 +191,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
                     //To create the user.
                     REGISTER_URL = "http://54.87.197.206:8080/SparkServer/api/v1/user";
-//                    user = new User()
-//                            .withName(name)
-//                            .withPassword(password)
-//                            .withPhone(phone)
-//                            .withEmail(email)
-//                            .withIsAdmin(false)
-//                            .withUsername(username);
-//
-//                    account = new Account()
-//                            .withType(type)
-//                            .withBalance(initialBalance)
-//                            .withOwner(user)
-//                            .withCreationdate(new Date());
+
                     params = new HashMap<String, String>();
                     params.put("username", username);
                     params.put("password", password);
@@ -281,7 +269,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
         //TODO Erase latter, for testing.
         System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
         params.put("accountType", type.toString());
-        params.put("initialBalance", "150");
+        params.put("initialBalance", initialBalance.toString());
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
     }

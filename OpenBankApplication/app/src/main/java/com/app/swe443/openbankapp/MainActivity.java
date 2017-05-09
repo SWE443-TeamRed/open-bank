@@ -93,15 +93,26 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        //Information to get when coming from login menu
+       userID = getIntent().getStringExtra("userID");
+       username = getIntent().getStringExtra("username");
 
-        //TODO Getting username and id, with this can get accounts info from server.
-       userID = getIntent().getStringArrayExtra("UsernameAndID")[1];
-       username = getIntent().getStringArrayExtra("UsernameAndID")[0];
+//        //Information to obtain when coming from a previous view (AccountDetails)
+//        /*
+//            Get the account that these fragments will use
+//         */
+//        Bundle extras = getIntent().getExtras();
+//        if(extras != null && extras.getString("balance") != null) {
+//            type = extras.getString("type");
+//            balance = extras.getString("balance");
+//            accountnum = extras.getString("accountnum");
+//            username = extras.getString("username");
+//            userID = extras.getString("userID");
+//            System.out.println("Got username and id from loginactivity " + userID + "  " + username);
+//        }
 
-        System.out.println("Got username and id from loginactivity "+ userID+ "  "+username);
 
 
-        mockBankServer = MockServerSingleton.getInstance();
 
         //Initlaize all necessary fragments for MainActivity
         initFragments();
@@ -211,6 +222,9 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("type", userAccounts.get(id).getdType());
         intent.putExtra("accountnum", userAccounts.get(id).getdAccountnum());
         intent.putExtra("balance", userAccounts.get(id).getdBalance());
+        intent.putExtra("username", username);
+        intent.putExtra("userID", userID);
+
 
         startActivity(intent);
     }
@@ -285,15 +299,19 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<AccountDisplay> getAccountsDisplays(JSONArray response){
         ArrayList<AccountDisplay> myDataset = new ArrayList<AccountDisplay>();
         try {
+            System.out.println("USER ACCOUNTS REPSONSE IS "+response);
             JSONArray accounts = (JSONArray) response.get(1);
             for(int i=0; i<accounts.length();i++){
                 try {
                     JSONObject rec = accounts.getJSONObject(i);
                     System.out.println("Got an account "+rec.toString());
-                    String balance = rec.getString("balance");
+                    String tempbalance = rec.getString("balance");
+                    String temp2 = tempbalance.substring(0,tempbalance.length()-7);
+                    String decimal = temp2.substring(temp2.length()-2,temp2.length());
+                    String whole = temp2.substring(0,temp2.length()-2);
                     String type = rec.getString("accountType");
                     String accountnum = rec.getString("accountNumber");
-                    myDataset.add(new AccountDisplay(type,accountnum,balance));
+                    myDataset.add(new AccountDisplay(type,accountnum,whole+"."+decimal));
                 }catch(JSONException e){
                     e.printStackTrace();
                     Log.d(TAG,response.toString());
@@ -327,6 +345,7 @@ class AccountDisplay {
         this.dType = type;
         this.dAccountnum = num;
         this.dBalance = balance;
+        //String decimal = balance.substring(0,balance.length()-3)
     }
 
     public String getdType() {

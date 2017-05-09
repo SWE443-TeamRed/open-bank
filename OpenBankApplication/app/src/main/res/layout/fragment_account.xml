@@ -126,6 +126,16 @@
     </LinearLayout>
 
 
+    <ProgressBar
+        android:id="@+id/depositwithdraw_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="2.50"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/depositWithdraw"
         android:layout_width="match_parent"
@@ -134,6 +144,8 @@
         android:layout_weight="2.50"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
+
 
         <Button
             android:id="@+id/deposit"
