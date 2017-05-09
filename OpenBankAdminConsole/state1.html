@@ -5,7 +5,7 @@
 <script>
 
 $(function () {
-  $.getJSON('accounts.json',function (response) {
+  $.getJSON('http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/accounts',function (response) {
     $.each(response, function (i, item) {
         $('<tr>').append(
         $('<td>').text(item.owner),
@@ -28,7 +28,7 @@ $(function () {
 
 <div>
  
-      <h3>List of Users</h3>
+      <h3>Bank Account Information</h3>
       <table id="records_table" border = "2">
         <thead>
           <tr>

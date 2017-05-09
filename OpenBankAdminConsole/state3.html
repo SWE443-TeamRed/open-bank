@@ -1,57 +1,55 @@
-<!doctype html>
-<html ng-app="app15" ng-cloak>
-  <head>
-    <title>AngularJS Tutorial 15</title>
-    <style>
-    [ng\:cloak], [ng-cloak], .ng-cloak {
-      display: none;
-    }
-    .thick {
-      font-weight: bold;
-    }
-    </style>
-  </head>
-  <body>
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+
+$(function () {
+  $.getJSON('http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/transactions',function (response) {
+    $.each(response, function (i, item) {
+        $('<tr>').append(
+        $('<td>').text(item.date),
+        $('<td>').text(item.transAmount),
+        $('<td>').text(item.note),
+        $('<td>').text(item.toAccountType),
+        $('<td>').text(item.transType),
+        $('<td>').text(item.toUserName),
+        $('<td>').text(item.balanceAfter),
+        $('<td>').text(item.creationDate)).appendTo('#records_table');
+        // $('#records_table').append($tr);
+    });
+  });
+});
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<div>
  
-    <div ng-controller="mainCtrl">
- 
-      <button ng-click="getData()">Get List of Users</button>
-      <br><br>
-       <table border="2">
-      <tr>
-         <td>ID</td>
-         <td>Name</td>
-         <td>Email</td>
-         <td>Username</td>
-         <td>Password</td>
-         <td>Phone Number</td>
-      </tr>
-      <tr ng-repeat="users in users">
-       <td >{{users.id}}</td>
-       <td >{{users.name}}</td>
-       <td >{{users.email}}</td>
-       <td >{{users.username}}</td>
-       <td >{{users.password}}</td>
-       <td >{{users.phoneNumber}}</td>
-      </tr>
+      <h3>Bank Transaction Information</h3>
+      <table id="records_table" border = "2">
+        <thead>
+          <tr>
+          <th>Date</th>
+          <th>Transaction Amount</th>
+          <th>Note</th>
+          <th>To Account Type</th>
+          <th>Transaction Type</th>
+          <th>To Username</th>
+          <th>Balance After</th>
+          <th>Creation Date</th>
+          </tr>
+        </thead>
+        <tbody id="tablebody"></tbody>
       </table>
-      <!-- Display raw JSON -->
-      <!--{{players}}-->
-
-
- 
-      <!-- Put JSON in a list -->
-      <!--
-      <ul>
-        <li ng-repeat="player in players">
-          {{ player.name + " hit " + player.hr +
-          " Home Runs"}}
-        </li>
-      </ul>-->
+      
       
     </div>
- 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <script src="exam15.js"></script>
-  </body>
+
+</body>
 </html>
