@@ -305,6 +305,38 @@ public class SparkServer implements SparkApplication {
                     });
                 });
 
+                path("/createTransaction", () -> {
+                    post("", (Request request, Response response) -> {
+                        JSONObject responseJSON = new JSONObject();
+
+                        String name = "";
+                        String username = "";
+                        String password = "";
+                        String phoneNumber = "";
+                        boolean isAdmin = false;
+                        String email = "";
+
+                        if (request.queryParams().contains("toAccount")
+                                && request.queryParams().contains("fromAccount")
+                                && request.queryParams().contains("amount")
+                                && request.queryParams().contains("note")) {
+
+                            int toAccount = Integer.parseInt(request.queryParams("toAccount"));
+                            int fromAccount = Integer.parseInt(request.queryParams("fromAccount"));
+                            String amount = request.queryParams("amount");
+                            String note = request.queryParams("note");
+
+                            StringBuilder msg2 = new StringBuilder();
+                            bank.recordTransaction(fromAccount, toAccount, TransactionTypeEnum.TRANSFER, new BigInteger(amount), note, true, msg2);
+
+                        } else {
+                            responseJSON.put("request", "failed");
+                            responseJSON.put("reason", "missing required parameters in body");
+                        }
+                        return responseJSON;
+                    });
+                });
+
                 path("/listOf", () -> {
                     path("/users", () -> {
                         get("", (Request request, Response response) -> {
@@ -380,7 +412,7 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("date", tran.getNextTransitive().getDate().first().toString());
                                     else
                                         transactionItem.put("date", "");
-                                    transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first());
+                                    transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
                                     transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
                                     if(tran.getNextTransitive().getCreationdate().first() != null)
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
@@ -401,7 +433,7 @@ public class SparkServer implements SparkApplication {
                                             transactionItem.put("date", tran.getNextTransitive().getDate().first().toString());
                                         else
                                             transactionItem.put("date", "");
-                                        transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first());
+                                        transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
                                         transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
                                         if(tran.getNextTransitive().getCreationdate().first() != null)
                                             transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
