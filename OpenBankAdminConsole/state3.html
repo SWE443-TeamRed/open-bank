@@ -1,55 +1,87 @@
 <html>
 <head>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <style>
 
-<script>
+    </style>
+    <script>
 
-$(function () {
-  $.getJSON('http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/transactions',function (response) {
-    $.each(response, function (i, item) {
-        $('<tr>').append(
-        $('<td>').text(item.date),
-        $('<td>').text(item.transAmount),
-        $('<td>').text(item.note),
-        $('<td>').text(item.toAccountType),
-        $('<td>').text(item.transType),
-        $('<td>').text(item.toUserName),
-        $('<td>').text(item.balanceAfter),
-        $('<td>').text(item.creationDate)).appendTo('#records_table');
-        // $('#records_table').append($tr);
-    });
-  });
-});
+        $(function () {
+            $.getJSON('http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/transactions',function (response) {
+                $.each(response, function (i, item) {
+                    $('<tr>').append(
+                        $('<td>').text(item.date),
+                        $('<td>').text(item.transAmount),
+                        $('<td>').text(item.note),
+                        $('<td>').text(item.toAccountType),
+                        $('<td>').text(item.transType),
+                        $('<td>').text(item.toUserName),
+                        $('<td>').text(item.balanceAfter),
+                        $('<td>').text(item.creationDate)).appendTo('#records_table');
+                    // $('#records_table').append($tr);
+                });
+            });
+        });
 
+        function unhideDiv()
+        {
+            document.getElementById('divid').style = "display: block;";
+        }
 
-
-
-</script>
+    </script>
 </head>
 
 <body>
-
+<div style='display: none;' id='divid'>
+    <form name='myForm'>
+        To Account:
+        <input type="text" name="toAccount">
+        From Account
+        <input type="text" name="fromAcount">
+        Amount:
+        <input type="text" name="amount">
+        Note:
+        <input type="text" name="note">
+        <input type="submit" onclick='loadDoc()' value="Submit">
+    </form></div>
+<input type='button' onClick='unhideDiv()' value='Fix Transaction Error'>
 <div>
- 
-      <h3>Bank Transaction Information</h3>
-      <table id="records_table" border = "2">
+
+
+
+
+    <h3>Bank Transaction Information</h3>
+    <table id="records_table" border = "2">
         <thead>
-          <tr>
-          <th>Date</th>
-          <th>Transaction Amount</th>
-          <th>Note</th>
-          <th>To Account Type</th>
-          <th>Transaction Type</th>
-          <th>To Username</th>
-          <th>Balance After</th>
-          <th>Creation Date</th>
-          </tr>
+        <tr>
+            <th>Date</th>
+            <th>Transaction Amount</th>
+            <th>Note</th>
+            <th>To Account Type</th>
+            <th>Transaction Type</th>
+            <th>To Username</th>
+            <th>Balance After</th>
+            <th>Creation Date</th>
+        </tr>
         </thead>
         <tbody id="tablebody"></tbody>
-      </table>
-      
-      
-    </div>
+    </table>
+
+
+</div>
 
 </body>
+<script>
+    var formData = JSON.stringify($("#myForm").serializeArray());
+    function loadDoc() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.87.197.206:8080/SparkServer/admin/api/v1/createTransaction',
+            data: formData,//JSON.stringify ({toAccount: 'jonas',fromAccount: 'tom',amount:'50',note:'tester note'}),
+            success: function(data) { alert('data: ' + data); },
+            contentType: "application/json",
+            dataType: 'json'
+        });
+    }
+</script>
 </html>
