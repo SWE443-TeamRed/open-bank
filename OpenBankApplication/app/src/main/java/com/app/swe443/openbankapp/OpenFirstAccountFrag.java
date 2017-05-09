@@ -281,7 +281,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
         //TODO Erase latter, for testing.
         System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
         params.put("accountType", type.toString());
-        params.put("initialBalance", "150");
+        params.put("initialBalance", initialBalance.toString());
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
     }

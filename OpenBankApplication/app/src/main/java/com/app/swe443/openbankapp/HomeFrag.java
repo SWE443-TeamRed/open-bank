@@ -167,7 +167,16 @@ public class HomeFrag extends Fragment {
             holder.accountnameText.setText(mDataset.get(position).getdType());
             holder.accountnumText.setText("Account: " + mDataset.get(position).getdAccountnum());
             DecimalFormat precision = new DecimalFormat("0.00");
-            holder.balanceText.setText("$ " + String.valueOf(precision.format(Integer.valueOf(mDataset.get(position).getdBalance()))));
+            String balanceString = mDataset.get(position).getdBalance();
+            if(balanceString.length() <= 7)
+                balanceString = "0.00";
+            else if(balanceString.length() > 10)
+                balanceString = balanceString.substring(0,balanceString.length()-9)+"."+balanceString.substring(balanceString.length()-9,balanceString.length()-7);
+            else if(balanceString.length() == 9)
+                balanceString = "0." + balanceString.substring(0,balanceString.length()-7);
+            else if(balanceString.length() == 8)
+                balanceString = "0.0" + balanceString.substring(0,balanceString.length()-7);
+            holder.balanceText.setText("$ " +balanceString);//+ String.valueOf(precision.format(Integer.valueOf(mDataset.get(position).getdBalance()))));
         }
 
         // Return the size of your dataset (invoked by the layout manager)
