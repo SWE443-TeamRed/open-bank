@@ -386,14 +386,12 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                     else
                                         transactionItem.put("creationDate", "");
-                                    transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString()
-                                            .substring(1,tran.getNextTransitive().getToAccount().first().getOwner().getName().toString().length()-1));
+                                    transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString());
                                     if(tran.getNextTransitive().getToAccount().first().getType() != null)
                                         transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                     else
                                         transactionItem.put("toAccountType", "");
-                                    transactionItem.put("balanceAfter", (tran.getNextTransitive().getToAccount().first().getBalance().toString()
-                                            .substring(1, tran.getNextTransitive().getToAccount().first().getBalance().toString().length()-1)));
+                                    transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
                                     responseJSON.add(transactionItem);
 
                                 } else if (tranlst.size() > 1) {
@@ -409,14 +407,13 @@ public class SparkServer implements SparkApplication {
                                             transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                         else
                                             transactionItem.put("creationDate", "");
-                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString()
-                                                .substring(1,tran.getNextTransitive().getToAccount().first().getOwner().getName().toString().length()-1));
+                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString());
                                         if(tran.getNextTransitive().getToAccount().first().getType() != null)
                                             transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                         else
                                             transactionItem.put("toAccountType", "");
-                                        transactionItem.put("balanceAfter", (tran.getNextTransitive().getToAccount().first().getBalance().toString()
-                                                .substring(1, tran.getNextTransitive().getToAccount().first().getBalance().toString().length()-1)));                                        transactionItem.put("note", tran.getNextTransitive().getNote().first());
+                                        transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
+                                        transactionItem.put("note", tran.getNextTransitive().getNote().first());
                                         responseJSON.add(transactionItem);
                                     }
                                 }
