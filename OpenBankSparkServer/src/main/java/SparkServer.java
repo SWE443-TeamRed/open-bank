@@ -409,7 +409,7 @@ public class SparkServer implements SparkApplication {
                                 if (tranlst.size() == 1) {
                                     Transaction tran = (Transaction) itr.next();
                                     if(tran.getNextTransitive().getDate().first() != null)
-                                        transactionItem.put("date", tran.getNextTransitive().getDate().first().toString());
+                                        transactionItem.put("date", tran.getNextTransitive().getDate().first());
                                     else
                                         transactionItem.put("date", "");
                                     transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
@@ -418,7 +418,7 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                     else
                                         transactionItem.put("creationDate", "");
-                                    transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString());
+                                    transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
                                     if(tran.getNextTransitive().getToAccount().first().getType() != null)
                                         transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                     else
@@ -430,7 +430,7 @@ public class SparkServer implements SparkApplication {
                                     while (itr.hasNext()) {
                                         Transaction tran = (Transaction) itr.next();
                                         if(tran.getNextTransitive().getDate().first() != null)
-                                            transactionItem.put("date", tran.getNextTransitive().getDate().first().toString());
+                                            transactionItem.put("date", tran.getNextTransitive().getDate().first());
                                         else
                                             transactionItem.put("date", "");
                                         transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
@@ -439,13 +439,12 @@ public class SparkServer implements SparkApplication {
                                             transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                         else
                                             transactionItem.put("creationDate", "");
-                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName().toString());
+                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
                                         if(tran.getNextTransitive().getToAccount().first().getType() != null)
                                             transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                         else
                                             transactionItem.put("toAccountType", "");
                                         transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
-                                        transactionItem.put("note", tran.getNextTransitive().getNote().first());
                                         responseJSON.add(transactionItem);
                                     }
                                 }
@@ -786,14 +785,25 @@ public class SparkServer implements SparkApplication {
             path("/transaction", () -> {
                 get("", (Request request, Response response) -> {
                     int accountId = 0;
+                    String id = "";
+
                     JSONObject responseJSON = new JSONObject();
 
                     if (request.queryParams().contains("accountID")) {
+
+                        //TODO this should be added in the future
+//                        &&request.queryParams().contains("id")) {
                         logger.info("Test: " + request.queryParams("accountID"));
+
+                        //TODO this should be added in the future
+//                        id = request.queryParams("id");
+
                         accountId = Integer.parseInt(request.queryParams("accountID"));
 
-                        if (bank.findAccountByID(accountId) != null) {
+                        //TODO this should be added in the future
+                        //if (bank.findUserByID(id).getAccount().filterAccountnum(accountId) != null) {
 
+                        if (bank.findAccountByID(accountId) != null) {
                             Set<TransactionSet> tranlst = bank.getTransactions(accountId, new BigInteger("0"), null);
                             JSONArray tempJsonArray = new JSONArray();
 
@@ -802,40 +812,46 @@ public class SparkServer implements SparkApplication {
                                 JSONObject transactionItem = new JSONObject();
 
                                 if (tranlst.size() == 1) {
+                                    logger.info("Single Transaction");
                                     Transaction tran = (Transaction) itr.next();
-                                    transactionItem.put("creationDate", tran.getDate());
-                                    transactionItem.put("transAmount", tran.getAmount().toString());
-                                    transactionItem.put("transType", tran.getTransType().toString());
-                                    if(tran.getToAccount() != null) {
-                                        transactionItem.put("toUserName", tran.getToAccount().getOwner().getName());
-                                        transactionItem.put("toAccountType", tran.getToAccount().getType().toString());
-                                        transactionItem.put("balanceAfter", tran.getToAccount().getBalance().toString());
-                                    }
-                                    else {
-                                        transactionItem.put("toUserName", "");
+                                    if(tran.getNextTransitive().getDate().first() != null)
+                                        transactionItem.put("date", tran.getNextTransitive().getDate().first());
+                                    else
+                                        transactionItem.put("date", "");
+                                    transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
+                                    transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
+                                    if(tran.getNextTransitive().getCreationdate().first() != null)
+                                        transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
+                                    else
+                                        transactionItem.put("creationDate", "");
+                                    transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
+                                    if(tran.getNextTransitive().getToAccount().first().getType() != null)
+                                        transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
+                                    else
                                         transactionItem.put("toAccountType", "");
-                                        transactionItem.put("balanceAfter", tran.getFromAccount().getBalance().toString());
-                                    }
-                                    transactionItem.put("note", tran.getNote());
+                                    transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
                                     tempJsonArray.add(transactionItem);
 
                                 } else if (tranlst.size() > 1) {
+                                    logger.info("Multiple Transactions");
                                     while (itr.hasNext()) {
                                         Transaction tran = (Transaction) itr.next();
-                                        transactionItem.put("creationDate", tran.getDate());
-                                        transactionItem.put("transAmount", tran.getAmount().toString());
-                                        transactionItem.put("transType", tran.getTransType().toString());
-                                        if(tran.getToAccount() != null) {
-                                            transactionItem.put("toUserName", tran.getToAccount().getOwner().getName());
-                                            transactionItem.put("toAccountType", tran.getToAccount().getType().toString());
-                                            transactionItem.put("balanceAfter", tran.getToAccount().getBalance().toString());
-                                        }
-                                        else {
-                                            transactionItem.put("toUserName", "");
+                                        if(tran.getNextTransitive().getDate().first() != null)
+                                            transactionItem.put("date", tran.getNextTransitive().getDate().first());
+                                        else
+                                            transactionItem.put("date", "");
+                                        transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
+                                        transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
+                                        if(tran.getNextTransitive().getCreationdate().first() != null)
+                                            transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
+                                        else
+                                            transactionItem.put("creationDate", "");
+                                        transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
+                                        if(tran.getNextTransitive().getToAccount().first().getType() != null)
+                                            transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
+                                        else
                                             transactionItem.put("toAccountType", "");
-                                            transactionItem.put("balanceAfter", tran.getFromAccount().getBalance().toString());
-                                        }
-                                        transactionItem.put("note", tran.getNote());
+                                        transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
                                         tempJsonArray.add(transactionItem);
                                     }
                                 }
@@ -882,27 +898,28 @@ public class SparkServer implements SparkApplication {
                                     if (accountFrom.getBalance().compareTo(bigInteger) == 1) {
 
 
-                                        Transaction transaction = bank.createTransaction();
-                                        transaction.withAmount(bigInteger)
-                                                .withDate(new Date())
-                                                .withCreationdate(new Date())
-                                                .withFromAccount(accountFrom)
-                                                .withToAccount(accountTo)
-                                                .withTransType(transactionTypeEnum)
-                                                .withTime(new Date())
-                                                .withNote(accountFrom.getOwner().getName() + " has transfer money to " + accountTo.getOwner().getName());
+//                                        Transaction transaction = bank.createTransaction();
+//                                        transaction.withAmount(bigInteger)
+//                                                .withDate(new Date())
+//                                                .withCreationdate(new Date())
+//                                                .withFromAccount(accountFrom)
+//                                                .withToAccount(accountTo)
+//                                                .withTransType(transactionTypeEnum)
+//                                                .withTime(new Date())
+//                                                .withNote(accountFrom.getOwner().getName() + " has transfer money to " + accountTo.getOwner().getName());
 
 //                                        StringBuilder msg = new StringBuilder();
 //                                        if (accountFrom.transferToAccount(bigInteger, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName())) {
 //                                            accountFrom.getToTransaction().add(transaction);
                                         StringBuilder msg2 = new StringBuilder();
-//                                            bank.recordTransaction(accountFrom.getAccountnum(), accountTo.getAccountnum(), TransactionTypeEnum.TRANSFER, bigInteger, accountFrom.getOwner() + " is transfers to " + accountTo.getOwner(), false, msg2);
+                                        bank.recordTransaction(accountFrom.getAccountnum(), accountTo.getAccountnum(), TransactionTypeEnum.TRANSFER, bigInteger, accountFrom.getOwner() + " is transfers to " + accountTo.getOwner(), false, msg2);
+                                        logger.info("Transaction Result: " + msg2);
 
                                         responseJSON.put("request", "success");
-                                        responseJSON.put("note", transaction.getNote());
-                                        responseJSON.put("balance", (accountFrom.getBalance()));
-                                        responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
-                                        responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+//                                        responseJSON.put("note", transaction.getNote());
+//                                        responseJSON.put("balance", (accountFrom.getBalance()));
+//                                        responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
+//                                        responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
 
 //                                        } else {
 //                                            responseJSON.put("request", "failed");
@@ -931,10 +948,11 @@ public class SparkServer implements SparkApplication {
                                 BigInteger bigInteger = new BigInteger(amount);
 
                                 if (depositToAccount != null) {
-                                    StringBuilder msg = new StringBuilder();
-                                    bank.depositFunds(toAccount, bigInteger, msg);
+//                                    StringBuilder msg = new StringBuilder();
+//                                    bank.depositFunds(toAccount, bigInteger, msg);
                                     StringBuilder msg2 = new StringBuilder();
-//                                    bank.recordTransaction(-1, toAccount, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(toAccount).getOwner() + " Deposits", false, msg2);
+                                    bank.recordTransaction(-1, toAccount, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(toAccount).getOwner() + " Deposits", false, msg2);
+                                    logger.info("Transaction Result: " + msg2);
 
                                     responseJSON.put("request", "success");
                                     responseJSON.put("balance", (depositToAccount.getBalance()));
@@ -956,10 +974,11 @@ public class SparkServer implements SparkApplication {
                                 if(withdrawFromAccount!= null) {
 
                                     try {
-                                        StringBuilder msg = new StringBuilder();
-                                        bank.withDrawFunds(fromAccount, bigInteger, msg);
-//                                        StringBuilder msg2 = new StringBuilder();
-//                                        bank.recordTransaction(fromAccount, -1, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(fromAccount).getOwner() + " Withdraws", false, msg2);
+//                                        StringBuilder msg = new StringBuilder();
+//                                        bank.withDrawFunds(fromAccount, bigInteger, msg);
+                                        StringBuilder msg2 = new StringBuilder();
+                                        bank.recordTransaction(fromAccount, -1, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(fromAccount).getOwner() + " Withdraws", false, msg2);
+                                        logger.info("Transaction Result: " + msg2);
 
                                         responseJSON.put("request", "success");
                                         responseJSON.put("balance", (withdrawFromAccount.getBalance()));
