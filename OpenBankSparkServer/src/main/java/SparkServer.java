@@ -475,6 +475,9 @@ public class SparkServer implements SparkApplication {
                                 responseJSON.put("authentication", true);
                                 responseJSON.put("userID", id);
                                 responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+                                responseJSON.put("name", bank.findUserByID(id).getName());
+                                responseJSON.put("email", bank.findUserByID(id).getEmail());
+                                responseJSON.put("phone", bank.findUserByID(id).getPhone());
 
                             } else {
                                 responseJSON.put("authentication", false);
@@ -820,7 +823,7 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("toUserName", "");
 
                                     if(tran.getNextTransitive().getToAccount().first().getType() != null)
-                                        transactiognItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
+                                        transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                     else
                                         transactionItem.put("toAccountType", "");
                                     transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
