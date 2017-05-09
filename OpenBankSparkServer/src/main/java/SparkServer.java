@@ -68,7 +68,8 @@ public class SparkServer implements SparkApplication {
                 if (!q.pathInfo().equals("/api/v1/user")
                         && !q.pathInfo().equals("/api/v1/login")
                         && !q.pathInfo().equals("/admin/api/v1/login")
-                        && !q.pathInfo().equals("/admin/login")
+                        && !q.pathInfo().equals("/admin/index.html")
+                        && !q.pathInfo().equals("/admin/login.html")
                         && !q.pathInfo().equals("/api/v1/account")) {
 
                     String base64Credentials = null;
@@ -160,6 +161,33 @@ public class SparkServer implements SparkApplication {
                 });
             });
 
+            path("/state1", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/state1.html"));
+                    });
+                });
+            });
+
+            path("/state2", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/state2.html"));
+                    });
+                });
+            });
+
+            path("/state3", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/state3.html"));
+                    });
+                });
+            });
+
             path("/home", () -> {
 
                 path(".html", () -> {
@@ -175,79 +203,6 @@ public class SparkServer implements SparkApplication {
                     get("", (Request request, Response response) -> {
                         return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/login.html"));
                     });
-
-                    post("", (Request request, Response response) -> {
-                        JSONObject responseJSON = new JSONObject();
-
-                        if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
-
-                            String username = request.queryParams("username");
-                            String password = request.queryParams("password");
-
-                            String id = bank.Login(username, password);
-
-                            if (id != null) {
-                                if (bank.findUserByID(id).isLoggedIn()) {
-                                    responseJSON.put("authentication", true);
-                                    responseJSON.put("userID", id);
-                                    return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
-                                } else {
-                                    responseJSON.put("authentication", false);
-                                    responseJSON.put("reason", "failed to login the user");
-                                    response.status(401);
-                                    return responseJSON;
-                                }
-                            } else {
-                                responseJSON.put("authentication", false);
-                                responseJSON.put("reason", "user could not be found");
-                                response.status(401);
-                                return responseJSON;
-                            }
-
-                        } else {
-                            responseJSON.put("authentication", false);
-                            responseJSON.put("reason", "missing required parameters in body");
-                            return responseJSON;
-
-                        }
-                    });
-                });
-
-                post("", (Request request, Response response) -> {
-                    JSONObject responseJSON = new JSONObject();
-
-                    if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
-
-                        String username = request.queryParams("username");
-                        String password = request.queryParams("password");
-
-                        String id = bank.Login(username, password);
-
-                        if (id != null) {
-                            if (bank.findUserByID(id).isLoggedIn()) {
-                                responseJSON.put("authentication", true);
-                                responseJSON.put("userID", id);
-                                responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
-                                return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
-                            } else {
-                                responseJSON.put("authentication", false);
-                                responseJSON.put("reason", "failed to login the user");
-                                response.status(401);
-                                return responseJSON;
-                            }
-                        } else {
-                            responseJSON.put("authentication", false);
-                            responseJSON.put("reason", "user could not be found");
-                            response.status(401);
-                            return responseJSON;
-                        }
-
-                    } else {
-                        responseJSON.put("authentication", false);
-                        responseJSON.put("reason", "missing required parameters in body");
-                        return responseJSON;
-
-                    }
                 });
             });
 
@@ -283,6 +238,7 @@ public class SparkServer implements SparkApplication {
                                     responseJSON.put("authentication", true);
                                     responseJSON.put("userID", id);
                                     responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+                                    response.status(100);
                                 } else {
                                     responseJSON.put("authentication", false);
                                     responseJSON.put("reason", "failed to login the user");
@@ -878,14 +834,14 @@ public class SparkServer implements SparkApplication {
 //                                        StringBuilder msg = new StringBuilder();
 //                                        if (accountFrom.transferToAccount(bigInteger, accountTo, accountFrom.getOwner().getName() + "has transfer money to" + accountTo.getOwner().getName())) {
 //                                            accountFrom.getToTransaction().add(transaction);
-                                            StringBuilder msg2 = new StringBuilder();
+                                        StringBuilder msg2 = new StringBuilder();
 //                                            bank.recordTransaction(accountFrom.getAccountnum(), accountTo.getAccountnum(), TransactionTypeEnum.TRANSFER, bigInteger, accountFrom.getOwner() + " is transfers to " + accountTo.getOwner(), false, msg2);
 
-                                            responseJSON.put("request", "success");
-                                            responseJSON.put("note", transaction.getNote());
-                                            responseJSON.put("balance", (accountFrom.getBalance()));
-                                            responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
-                                            responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
+                                        responseJSON.put("request", "success");
+                                        responseJSON.put("note", transaction.getNote());
+                                        responseJSON.put("balance", (accountFrom.getBalance()));
+                                        responseJSON.put("transactionFrom", transaction.getFromAccount().getAccountnum());
+                                        responseJSON.put("transactionTo", transaction.getToAccount().getAccountnum());
 
 //                                        } else {
 //                                            responseJSON.put("request", "failed");
