@@ -1,0 +1,81 @@
+[
+	{
+	 "owner":null,
+	 "accountNum":1172162121,
+	 "balance":10000000000000,
+	 "creationDate":null,
+	 "type":CHECKING
+	},
+	 
+	{
+		"owner":Name: Tom Eater userID: 1172354496 Password: AntsAreTasty Admin: false antEatingAntEater1@gmail.com 5712342393 AntEater,
+		"accountNum":1171392624,
+		"balance":499750000,
+		"creationDate":null,
+		"type":CHECKING
+	},
+	{
+		"owner":Name: andy roid userID: 1716768276 Password: studio Admin: false android@gmail.com 455148 android,
+		"accountNum":1689835853,
+		"balance":150,
+		"creationDate":null,
+		"type":SAVINGS
+	},
+
+	{
+		"owner":Name: henry lopez userID: 1615704459 Password: henrylopez Admin: false h@x.com 6895 henrylopez,
+		"accountNum":1360787709,
+		"balance":150,
+		"creationDate":null,
+		"type":SAVINGS
+	},
+
+
+	{
+		"owner":Name: water water userID: 1357055152 Password: waterwater Admin: false g@x.com 6895 waterwater,
+		"accountNum":1388328287,
+		"balance":150,
+		"creationDate":null,
+		"type":CHECKING
+	},
+
+	{
+		"owner":Name: bob lopez userID: 1287793332 Password: boblopez Admin: false h@x.com 9865 boblopez,
+		"accountNum":1103883358,
+		"balance":1498000000000,
+		"creationDate":null,
+		"type":CHECKING
+	},
+
+	{
+		"owner":Name: Second Rate userID: 1575771782 Password: twice Admin: false numberTwo@secondrate.com 16834943534 second,
+		"accountNum":1745061298,
+		"balance":150,
+		"creationDate":null,
+		"type":SAVINGS
+	},
+
+	{
+		"owner":Name: third heard userID: 1743678273 Password: trice Admin: false we@d.com 4 third,
+		"accountNum":1759645352,
+		"balance":150,
+		"creationDate":null,
+		"type":SAVINGS
+	},
+
+	{
+		"owner":Name: fourth quad userID: 1368217803 Password: north Admin: false south@east.west 444444 fourth,
+		"accountNum":1535968324,
+		"balance":300000000000,
+		"creationDate":null,
+		"type":SAVINGS
+	},
+
+	{
+		"owner":Name: fife fife userID: 1415822540 Password: five5 Admin: false five@s.co 555 fifth,
+		"accountNum":1389082491,
+		"balance":100000000,
+		"creationDate":null,
+		"type":SAVINGS
+	}
+]

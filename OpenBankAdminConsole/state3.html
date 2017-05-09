@@ -1,26 +1,57 @@
+<!doctype html>
+<html ng-app="app15" ng-cloak>
+  <head>
+    <title>AngularJS Tutorial 15</title>
+    <style>
+    [ng\:cloak], [ng-cloak], .ng-cloak {
+      display: none;
+    }
+    .thick {
+      font-weight: bold;
+    }
+    </style>
+  </head>
+  <body>
+ 
+    <div ng-controller="mainCtrl">
+ 
+      <button ng-click="getData()">Get List of Users</button>
+      <br><br>
+       <table border="2">
+      <tr>
+         <td>ID</td>
+         <td>Name</td>
+         <td>Email</td>
+         <td>Username</td>
+         <td>Password</td>
+         <td>Phone Number</td>
+      </tr>
+      <tr ng-repeat="users in users">
+       <td >{{users.id}}</td>
+       <td >{{users.name}}</td>
+       <td >{{users.email}}</td>
+       <td >{{users.username}}</td>
+       <td >{{users.password}}</td>
+       <td >{{users.phoneNumber}}</td>
+      </tr>
+      </table>
+      <!-- Display raw JSON -->
+      <!--{{players}}-->
 
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<body>
 
-<div ng-app="myApp" ng-controller="customersCtrl">
-
-    <ul>
-        <li ng-repeat="x in myData">
-            {{ x.username + ', ' + x.password }}
+ 
+      <!-- Put JSON in a list -->
+      <!--
+      <ul>
+        <li ng-repeat="player in players">
+          {{ player.name + " hit " + player.hr +
+          " Home Runs"}}
         </li>
-    </ul>
-
-</div>
-
-<script>
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-        $http.get("http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/users").then(function (response) {
-            $scope.myData = response.data.username;
-        });
-    });
-</script>
-
-</body>
+      </ul>-->
+      
+    </div>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="exam15.js"></script>
+  </body>
 </html>

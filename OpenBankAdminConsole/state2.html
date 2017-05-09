@@ -4,42 +4,48 @@
 
 <script>
 
-    $(function() {
-
-
-   var people = [];
-
-   $.getJSON('people.json', function(data) {
-       $.each(data.person, function(i, f) {
-          var tblRow = "<tr>" + "<td>" + f.firstName + "</td>" +
-           "<td>" + f.lastName + "</td>" + "<td>" + f.job + "</td>" + "<td>" + f.roll + "</td>" + "</tr>"
-           $(tblRow).appendTo("#userdata tbody");
-     });
-
-   });
-
+$(function () {
+  $.getJSON('http://54.87.197.206:8080/SparkServer/admin/api/v1/listOf/users',function (response) {
+    $.each(response, function (i, item) {
+        $('<tr>').append(
+        $('<td>').text(item.id),
+        $('<td>').text(item.name),
+        $('<td>').text(item.email),
+        $('<td>').text(item.username),
+        $('<td>').text(item.password),
+        $('<td>').text(item.phoneNumber)).appendTo('#records_table');
+        // $('#records_table').append($tr);
+    });
+  });
 });
+
+
+
+
 </script>
 </head>
 
 <body>
 
-<div class="wrapper">
-<div class="profile">
-   <table id= "userdata" border="2">
-  <thead>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
-            <th>City</th>
+<div>
+ 
+      <h3>List of Users</h3>
+      <table id="records_table" border = "2">
+        <thead>
+          <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Phone Number</th>
+          </tr>
         </thead>
-      <tbody>
-
-       </tbody>
-   </table>
-
-</div>
-</div>
+        <tbody id="tablebody"></tbody>
+      </table>
+      
+      
+    </div>
 
 </body>
 </html>
