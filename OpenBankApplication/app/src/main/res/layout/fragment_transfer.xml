@@ -20,51 +20,59 @@
                 android:text="Transfer "
                 android:textColor="@color/colorAccent"
                 android:textSize="35sp" />
-            <TextView
-                android:id="@+id/texttransfer1"
-                android:textSize="18sp"
-                android:layout_marginTop="45dp"
-                android:gravity="center_horizontal"
-                android:text="Manual Transfer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:id="@+id/texttransfer1"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_marginTop="45dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Manual Transfer"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
             <Button
+                android:layout_marginTop="45dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#0b3c5d"
+                android:layout_height="70dp"
+                android:background="@color/colorSecondaryDark"
                 android:id="@+id/transferManuallyButton"
-                android:text="Start Transfer"
-                android:textAllCaps="false"/>
-            <TextView
-                android:id="@+id/texttransfer2"
-                android:textSize="18sp"
-                android:layout_marginTop="45dp"
-                android:gravity="center_horizontal"
-                android:text="Transfer Using NFC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:text="Start Manual Transfer"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+
+                />
+            <!--<TextView-->
+                <!--android:id="@+id/texttransfer2"-->
+                <!--android:textSize="18sp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Transfer Using NFC"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_height="70dp"
                 android:id="@+id/NFCTransferButton"
-                android:background="#0b3c5d"
-                android:text="Start Transfer"
-                android:textAllCaps="false" />
-            <TextView
-                android:id="@+id/texttransfer3"
-                android:textSize="18sp"
-                android:layout_marginTop="45dp"
-                android:gravity="center_horizontal"
-                android:text="Transfer Using QR Code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:background="@color/colorSecondaryDark"
+                android:text="Start NFC Transfer"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                />
+            <!--<TextView-->
+                <!--android:id="@+id/texttransfer3"-->
+                <!--android:textSize="18sp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Transfer Using QR Code"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/QRTransferButton"
-                android:background="#0b3c5d"
-                android:text="Start Transfer"
-                android:textAllCaps="false" />
+                android:background="@color/colorSecondaryDark"
+                android:text="Start QR Transfer"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                />
     </LinearLayout>
 
     <LinearLayout
