@@ -161,6 +161,15 @@ public class SparkServer implements SparkApplication {
                 });
             });
 
+            path("/adminState", () -> {
+
+                path(".html", () -> {
+                    get("", (Request request, Response response) -> {
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/adminState.html"));
+                    });
+                });
+            });
+
             path("/state1", () -> {
 
                 path(".html", () -> {
@@ -204,6 +213,50 @@ public class SparkServer implements SparkApplication {
                         return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/login.html"));
                     });
                 });
+
+                post("", (Request request, Response response) -> {
+                    JSONObject responseJSON = new JSONObject();
+
+                    if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
+
+                        String username = request.queryParams("username");
+                        String password = request.queryParams("password");
+
+                        String id = bank.Login(username, password);
+//                        logger.info("Boolean: " + bank.findUserByID(id).isIsAdmin());
+
+                        if (id != null) {
+                            if (bank.findUserByID(id).isIsAdmin()) {
+                                if (bank.findUserByID(id).isLoggedIn()) {
+                                    responseJSON.put("authentication", true);
+                                    responseJSON.put("userID", id);
+                                    responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+                                    responseJSON.put("userRole", "admin");
+                                    responseJSON.put("username", bank.findUserByID(id).getUsername());
+
+
+                                } else {
+                                    responseJSON.put("authentication", false);
+                                    responseJSON.put("reason", "failed to login the user");
+                                }
+                            } else {
+                                bank.findUserByID(id).logout();
+                                responseJSON.put("authentication", false);
+                                responseJSON.put("reason", "user is not an admin");
+                            }
+                        } else {
+                            responseJSON.put("authentication", false);
+                            responseJSON.put("reason", "user could not be found");
+                        }
+
+
+                    } else {
+                        responseJSON.put("authentication", false);
+                        responseJSON.put("reason", "missing required parameters in body");
+                    }
+
+                    return responseJSON;
+                });
             });
 
             path("/info", () -> {
@@ -221,48 +274,6 @@ public class SparkServer implements SparkApplication {
             });
 
             path("/api/v1", () -> {
-
-                path("/login", () -> {
-                    post("", (Request request, Response response) -> {
-                        JSONObject responseJSON = new JSONObject();
-
-                        if (request.queryParams().contains("username") && request.queryParams().contains("password")) {
-
-                            String username = request.queryParams("username");
-                            String password = request.queryParams("password");
-
-                            String id = bank.Login(username, password);
-                            logger.info("Boolean: " + bank.findUserByID(id).isIsAdmin());
-
-                            if (id != null) {
-                                if (bank.findUserByID(id).isIsAdmin()) {
-                                    if (bank.findUserByID(id).isLoggedIn()) {
-                                        responseJSON.put("authentication", true);
-                                        responseJSON.put("userID", id);
-                                        responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
-                                    } else {
-                                        responseJSON.put("authentication", false);
-                                        responseJSON.put("reason", "failed to login the user");
-                                    }
-                                } else {
-                                    bank.findUserByID(id).logout();
-                                    responseJSON.put("authentication", false);
-                                    responseJSON.put("reason", "user is not an admin");
-                                }
-                            } else {
-                                responseJSON.put("authentication", false);
-                                responseJSON.put("reason", "user could not be found");
-                            }
-
-
-                        } else {
-                            responseJSON.put("authentication", false);
-                            responseJSON.put("reason", "missing required parameters in body");
-                        }
-
-                        return responseJSON;
-                    });
-                });
 
                 path("/createUser", () -> {
                     post("", (Request request, Response response) -> {
