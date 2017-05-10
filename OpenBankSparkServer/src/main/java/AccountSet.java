@@ -1069,4 +1069,63 @@ public class AccountSet extends SimpleSet<Account>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of Account objects and collect a list of the isClosed attribute values. 
+    * 
+    * @return List of boolean objects reachable via isClosed attribute
+    */
+   public BooleanList getIsClosed()
+   {
+      BooleanList result = new BooleanList();
+      
+      for (Account obj : this)
+      {
+         result.add(obj.isIsClosed());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and collect those Account objects where the isClosed attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Account objects that match the parameter
+    */
+   public AccountSet filterIsClosed(boolean value)
+   {
+      AccountSet result = new AccountSet();
+      
+      for (Account obj : this)
+      {
+         if (value == obj.isIsClosed())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Account objects and assign value to the isClosed attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Account objects now with new attribute values.
+    */
+   public AccountSet withIsClosed(boolean value)
+   {
+      for (Account obj : this)
+      {
+         obj.setIsClosed(value);
+      }
+      
+      return this;
+   }
+
 }

@@ -2,12 +2,12 @@ import de.uniks.networkparser.graph.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.openbank.Account;
 import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.TransactionTypeEnum;
 import org.sdmlib.openbank.User;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by FA on 3/23/2017.
@@ -45,7 +45,8 @@ public class Model {
                 .withAttribute("email", DataType.STRING)
                 .withAttribute("LoggedIn", DataType.BOOLEAN)
                 .withAttribute("phone", DataType.STRING) // FA 4-12-2017 Changed to String from int, adjustments made to the user related classes
-                .withAttribute("username", DataType.STRING); // FA 4-12-2017 new field
+                .withAttribute("username", DataType.STRING) // FA 4-12-2017 new
+                .withAttribute("sessionID", DataType.STRING);//Savi 5-7-2017 new
 
         Clazz transaction = model.createClazz("Transaction")
                 .withAttribute("amount", DataType.create(BigInteger.class)) // type changed from double to Biginteger
@@ -62,11 +63,13 @@ public class Model {
                 .withAttribute("accountnum",DataType.INT)
                 .withAttribute("creationdate", DataType.create(Date.class))
                 .withAttribute("IsConnected", DataType.BOOLEAN)
+                .withAttribute("isClosed", DataType.BOOLEAN)
                 .withAttribute("type", DataType.create(enumeration));
 
         Clazz bank = model.createClazz("Bank")
                 .withAttribute("fee", DataType.DOUBLE)
-                .withAttribute("bankName", DataType.STRING);
+                .withAttribute("bankName", DataType.STRING)
+                .withAttribute("passwordCode", DataType.STRING);
 
         /////////////////////////////////////////Methods//////////////////////////////////////////////////////////////////////
         enumeration.withMethod("toString", DataType.STRING);
@@ -121,8 +124,65 @@ public class Model {
         bank.withMethod("confirmTransaction", DataType.BOOLEAN,
                 new Parameter(DataType.INT).with("toAcctID"),
                 new Parameter(DataType.INT).with("fromAcctID"),
-                new Parameter(DataType.create(Integer.class)).with("dollarValue"),
-                new Parameter(DataType.create(Integer.class)).with("decimalValue"));
+                new Parameter(DataType.create(BigInteger.class)).with("dollarValue"),
+                new Parameter(DataType.create(BigInteger.class)).with("decimalValue"));
+        //Disable User
+        bank.withMethod("disableUser", DataType.BOOLEAN,
+                new Parameter(DataType.STRING).with("userID"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+        //Close Account
+        bank.withMethod("closeAccount", DataType.BOOLEAN,
+                new Parameter(DataType.INT).with("accountNumber"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+        // Login method, return succesfull if username and password matches
+        bank.withMethod("Login", DataType.STRING,
+                new Parameter(DataType.STRING).with("username"),
+                new Parameter(DataType.STRING).with("password"));
+
+        // withDrawFunds method, withdraws money from given account
+        bank.withMethod("withDrawFunds", DataType.create(BigInteger.class),
+                new Parameter(DataType.INT).with("accountNum"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+
+        // depositFunds method, deposits money into given account
+        bank.withMethod("depositFunds", DataType.create(BigInteger.class),
+                new Parameter(DataType.INT).with("accountNum"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+
+
+        // updateUserInfo method, updates the given field with given value
+        bank.withMethod("updateUserInfo", DataType.STRING,
+                new Parameter(DataType.STRING).with("userID"),
+                new Parameter(DataType.STRING).with("fieldName"),
+                new Parameter(DataType.STRING).with("fieldValue"));
+
+        // get 10 digit random ID
+        bank.withMethod("getNextID", DataType.INT);
+
+        // getTransactions method, returns all the transactions for given account, date and amoount
+        bank.withMethod("getTransactions", DataType.create(Set.class),
+                new Parameter(DataType.INT).with("accountNumber"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.create(Date.class)).with("date"));
+
+        bank.withMethod("recordTransaction", DataType.VOID,
+                new Parameter(DataType.INT).with("sender"),
+                new Parameter(DataType.INT).with("receiver"),
+                new Parameter(transTypeEnum).with("type"),
+                new Parameter(DataType.create(BigInteger.class)).with("amount"),
+                new Parameter(DataType.STRING).with("note"),
+                new Parameter(DataType.BOOLEAN).with("isAdmin"),
+                new Parameter(DataType.create(StringBuilder.class)).with("msg"));
+        // Reset password Code
+        bank.withMethod("generateCode", DataType.STRING);
+        bank.withMethod("confirmCode", DataType.BOOLEAN, new Parameter(DataType.STRING).with("code"));
+
+        bank.withMethod("getSecureID", DataType.STRING,
+                new Parameter(DataType.STRING).with ("secretWord"),
+                new Parameter(DataType.BYTE).with("salt"));
+
 
         /////////////////////////////////////////Relations//////////////////////////////////////////////////////////////////////
         bank.withBidirectional(account, "customerAccounts", Cardinality.MANY, "bank", Cardinality.ONE);

@@ -23,10 +23,13 @@ import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Set;
 
 public class BankSet extends SimpleSet<Bank>
 {
@@ -716,21 +719,6 @@ public class BankSet extends SimpleSet<Bank>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public de.uniks.networkparser.list.BooleanList confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
-   {
-      
-      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
-      
-      for (Bank obj : this)
-      {
-         result.add( obj.confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue) );
-      }
-      return result;
-   }
-
    /**
     * Loop through the current set of Bank objects and collect a set of the FeeValue objects reached via feeValue. 
     * 
@@ -806,6 +794,287 @@ public class BankSet extends SimpleSet<Bank>
       for (Bank obj : this)
       {
          obj.withoutFeeValue(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+
+   public StringList Login(String username, String password)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.Login(username, password) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+
+   public BigIntegerSet withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.withDrawFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public BigIntegerSet depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      
+      BigIntegerSet result = new BigIntegerSet();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.depositFunds(accountNum, amount, msg) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.updateUserInfo(userID, fieldName, fieldValue) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public NumberList getNextID()
+   {
+      
+      NumberList result = new NumberList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getNextID() );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+
+   
+   //==========================================================================
+   
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date)
+   {
+      
+      Set<Set> result = new SimpleSet<>();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getTransactions(accountNumber, amount, date) );
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList disableUser(String userID, StringBuilder msg) {
+
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+
+      for (Bank obj : this) {
+         result.add(obj.disableUser(userID, msg));
+      }
+      return result;
+   }
+
+   public BankSet generateCode()
+   {
+      return BankSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+   public de.uniks.networkparser.list.BooleanList closeAccount(int accountNumber, StringBuilder msg)
+   {
+
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+
+      for (Bank obj : this)
+      {
+         result.add( obj.closeAccount(accountNumber, msg) );
+      }
+      return result;
+   }
+
+   public de.uniks.networkparser.list.BooleanList confirmCode(String code)
+   {
+      
+      de.uniks.networkparser.list.BooleanList result = new de.uniks.networkparser.list.BooleanList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.confirmCode(code) );
+      }
+      return result;
+   }
+
+   //==========================================================================
+   
+   public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, StringBuilder msg)
+   {
+      return BankSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+  
+
+   
+
+   
+   //==========================================================================
+   
+  
+   
+   //==========================================================================
+   
+   /*public StringList getSecureID(String secretWord, byte salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }*/
+
+   
+   //==========================================================================
+
+
+   
+   //==========================================================================
+   
+   public BankSet recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg)
+   {
+      return BankSet.EMPTY_SET;
+   }
+
+   
+   //==========================================================================
+   
+   public StringList getSecureID(String secretWord, byte []salt)
+   {
+      
+      StringList result = new StringList();
+      
+      for (Bank obj : this)
+      {
+         result.add( obj.getSecureID(secretWord, salt) );
+      }
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect a list of the passwordCode attribute values. 
+    * 
+    * @return List of String objects reachable via passwordCode attribute
+    */
+   public ObjectSet getPasswordCode()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (Bank obj : this)
+      {
+         result.add(obj.getPasswordCode());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the passwordCode attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet filterPasswordCode(String value)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (value.equals(obj.getPasswordCode()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and collect those Bank objects where the passwordCode attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Bank objects that match the parameter
+    */
+   public BankSet filterPasswordCode(String lower, String upper)
+   {
+      BankSet result = new BankSet();
+      
+      for (Bank obj : this)
+      {
+         if (lower.compareTo(obj.getPasswordCode()) <= 0 && obj.getPasswordCode().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Bank objects and assign value to the passwordCode attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Bank objects now with new attribute values.
+    */
+   public BankSet withPasswordCode(String value)
+   {
+      for (Bank obj : this)
+      {
+         obj.setPasswordCode(value);
       }
       
       return this;

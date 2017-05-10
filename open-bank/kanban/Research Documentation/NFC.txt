@@ -1,0 +1,30 @@
+Actions tags - actions that the Tag Dispatch System will attach to its intents are:
+ACTION_NDEF_DISCOVERED – Sent if the information found is formatted as NDEF.
+ACTION_TECH_DISCOVERED – Sent if the first fails, or if the data was formatted in an unfamiliar way
+ACTION_TAG_DISCOVERED – The last and most general. Remember, we want to capture the intent before this, as it’s likely we will have multiple activities that have specified something this general.
+
+
+Setup
+    AndroidManifest.xml
+        - Add the following intent filter to the activity that will be using NFC:
+            <intent-filter>
+                   <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                   <category android:name="android.intent.category.DEFAULT"/>
+                   <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        - Add Permissions
+            <uses-permission android:name="android.permission.NFC" />
+            <uses-feature android:name="android.hardware.nfc" android:required="true"/>
+
+    Process
+        Always check first if NFC is available on the device
+        Create/Send Message:
+            - Call setNdefPushMessage() in the NfcAdapter class. This will accept an NdefMessage sent when detecting another NFC capable device.
+            - To handle message sending we need to specify callbacks to respond to NFC events. Since we will be updating our data we want the message to be created only when it needs to be sent.
+        NDEF Record
+            - In NDEF there are four parts to a record:
+                A short that specifies the type name of our payload from a list of constants.
+                A variable length byte[] that gives more detail about our type.
+                A variable length byte[] used as a unique identifier. This is neither required or often used.
+                A variable length byte[] that is our actual payload

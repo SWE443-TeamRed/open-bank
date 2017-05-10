@@ -226,7 +226,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       
       for (Transaction obj : this)
       {
-         if (value == obj.getDate())
+         if (value== obj.getDate())
          {
             result.add(obj);
          }
@@ -236,6 +236,24 @@ public class TransactionSet extends SimpleSet<Transaction>
    }
 
 
+   public TransactionSet filterDatebyMonthDateYear(Date value)
+   {
+      TransactionSet result = new TransactionSet();
+
+      for (Transaction obj : this)
+      {
+         if(obj.getCreationdate()==null) continue;
+
+         if ((value.getMonth() == obj.getCreationdate().getMonth()) &&
+                 (value.getDay() == obj.getCreationdate().getDay()) &&
+                 (value.getYear() == obj.getCreationdate().getYear()))
+         {
+            result.add(obj);
+         }
+      }
+
+      return result;
+   }
    /**
     * Loop through the current set of Transaction objects and assign value to the date attribute of each of it. 
     * 
@@ -593,7 +611,7 @@ public class TransactionSet extends SimpleSet<Transaction>
       
       for (Transaction obj : this)
       {
-         if (value == obj.getAmount())
+         if (value.compareTo(obj.getAmount())==0)
          {
             result.add(obj);
          }
