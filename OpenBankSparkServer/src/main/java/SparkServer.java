@@ -232,26 +232,34 @@ public class SparkServer implements SparkApplication {
                             String password = request.queryParams("password");
 
                             String id = bank.Login(username, password);
+                            logger.info("Boolean: " + bank.findUserByID(id).isIsAdmin());
 
                             if (id != null) {
-                                if (bank.findUserByID(id).isLoggedIn()) {
-                                    responseJSON.put("authentication", true);
-                                    responseJSON.put("userID", id);
-                                    responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
-                                    response.status(100);
+                                if (bank.findUserByID(id).isIsAdmin()) {
+                                    if (bank.findUserByID(id).isLoggedIn()) {
+                                        responseJSON.put("authentication", true);
+                                        responseJSON.put("userID", id);
+                                        responseJSON.put("sessionID", bank.findUserByID(id).getSessionId());
+                                    } else {
+                                        responseJSON.put("authentication", false);
+                                        responseJSON.put("reason", "failed to login the user");
+                                    }
                                 } else {
+                                    bank.findUserByID(id).logout();
                                     responseJSON.put("authentication", false);
-                                    responseJSON.put("reason", "failed to login the user");
+                                    responseJSON.put("reason", "user is not an admin");
                                 }
                             } else {
                                 responseJSON.put("authentication", false);
                                 responseJSON.put("reason", "user could not be found");
                             }
 
+
                         } else {
                             responseJSON.put("authentication", false);
                             responseJSON.put("reason", "missing required parameters in body");
                         }
+
                         return responseJSON;
                     });
                 });
@@ -373,12 +381,12 @@ public class SparkServer implements SparkApplication {
                                     multAccountJson.put("accountNum", account.getAccountnum() + "");
                                     multAccountJson.put("balance", account.getBalance().toString());
 
-                                    if(account.getCreationdate() != null)
+                                    if (account.getCreationdate() != null)
                                         multAccountJson.put("creationDate", account.getCreationdate().toString());
                                     else
                                         multAccountJson.put("creationDate", "");
 
-                                    if(account.getOwner() != null)
+                                    if (account.getOwner() != null)
                                         multAccountJson.put("owner", account.getOwner().getName());
                                     else
                                         multAccountJson.put("owner", "");
@@ -397,7 +405,7 @@ public class SparkServer implements SparkApplication {
                             JSONArray responseJSON = new JSONArray();
 
                             int accountNum = 0;
-                            if(request.queryParams().contains("accountID"))
+                            if (request.queryParams().contains("accountID"))
                                 accountNum = Integer.parseInt(request.queryParams("accountID"));
 
                             Set<TransactionSet> tranlst = bank.getTransactions(accountNum, new BigInteger("0"), null);
@@ -411,22 +419,22 @@ public class SparkServer implements SparkApplication {
                                     transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
                                     transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
 
-                                    if(tran.getNextTransitive().getCreationdate().first() != null)
+                                    if (tran.getNextTransitive().getCreationdate().first() != null)
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                     else
                                         transactionItem.put("creationDate", "");
 
-                                    if(tran.getNextTransitive().getFromAccount().first().getOwner() != null)
+                                    if (tran.getNextTransitive().getFromAccount().first().getOwner() != null)
                                         transactionItem.put("fromUserName", tran.getNextTransitive().getFromAccount().first().getOwner().getName());
                                     else
                                         transactionItem.put("fromUserName", "");
 
-                                    if(tran.getNextTransitive().getToAccount().first().getOwner() != null)
+                                    if (tran.getNextTransitive().getToAccount().first().getOwner() != null)
                                         transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
                                     else
                                         transactionItem.put("toUserName", "");
 
-                                    if(tran.getNextTransitive().getToAccount().first().getType() != null)
+                                    if (tran.getNextTransitive().getToAccount().first().getType() != null)
                                         transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                     else
                                         transactionItem.put("toAccountType", "");
@@ -807,22 +815,22 @@ public class SparkServer implements SparkApplication {
                                     transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
                                     transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
 
-                                    if(tran.getNextTransitive().getCreationdate().first() != null)
+                                    if (tran.getNextTransitive().getCreationdate().first() != null)
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                     else
                                         transactionItem.put("creationDate", "");
 
-                                    if(tran.getNextTransitive().getFromAccount().first().getOwner() != null)
+                                    if (tran.getNextTransitive().getFromAccount().first().getOwner() != null)
                                         transactionItem.put("fromUserName", tran.getNextTransitive().getFromAccount().first().getOwner().getName());
                                     else
                                         transactionItem.put("fromUserName", "");
 
-                                    if(tran.getNextTransitive().getToAccount().first().getOwner() != null)
+                                    if (tran.getNextTransitive().getToAccount().first().getOwner() != null)
                                         transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
                                     else
                                         transactionItem.put("toUserName", "");
 
-                                    if(tran.getNextTransitive().getToAccount().first().getType() != null)
+                                    if (tran.getNextTransitive().getToAccount().first().getType() != null)
                                         transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
                                     else
                                         transactionItem.put("toAccountType", "");
@@ -945,7 +953,7 @@ public class SparkServer implements SparkApplication {
                                 BigInteger bigInteger = new BigInteger(amount);
                                 logger.info("bigInteger: " + bigInteger.toString());
 
-                                if(withdrawFromAccount!= null) {
+                                if (withdrawFromAccount != null) {
 
                                     try {
 //                                        StringBuilder msg = new StringBuilder();
@@ -961,11 +969,11 @@ public class SparkServer implements SparkApplication {
                                         responseJSON.put("request", "fail");
                                         responseJSON.put("reason", "you do not have enough funds to ");
                                     }
-                                }else {
+                                } else {
                                     responseJSON.put("request", "failed");
                                     responseJSON.put("reason", "account does not exist");
                                 }
-                            }else {
+                            } else {
                                 responseJSON.put("request", "failed");
                                 responseJSON.put("reason", "missing required parameters in body");
                             }
@@ -1188,7 +1196,7 @@ public class SparkServer implements SparkApplication {
             bank = new Bank().withBankName("OpenBank");
             logger.info("Creating new Bank: " + bank.getBankName());
 
-            FeeValue f1,f2,f3,f4;
+            FeeValue f1, f2, f3, f4;
 
             f1 = new FeeValue()
                     .withBank(bank)
