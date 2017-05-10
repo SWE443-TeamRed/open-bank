@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity
         userInfo[3] = phone;
         userInfo[4] = userID;
         return userInfo;
-
     }
 
     /*
@@ -218,25 +217,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initFragments() {
-
-
         /********Home Fragment********/
         home_fragment = new HomeFrag();
 
 
         /********Open Account Fragment********/
-        open_account_fragment = new CreateBankAccountFrag();
-
+        open_account_fragment = new OpenAccountFrag();
 
 
         /********Transaction Fragments********/
         users_fragment = new UsersFrag();
-
-
-        open_account_fragment = new OpenAccountFrag();
-
-
-
     }
 
 

@@ -50,11 +50,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
     Button create;
     Button back;
     Button complete;
-
-    AccountTypeEnum type;
-    User user;
-    Account account;
-
+    String type;
     LinearLayout createAccountSuccessLayout;
     LinearLayout createAccountLayout;
     TextView complettionMessage;
@@ -124,9 +120,9 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
             //If clicked on open account button.
             case R.id.create_account:
                 if (savings)
-                    type = AccountTypeEnum.SAVINGS;
+                    type = "SAVINGS";
                 else if (checking)
-                    type = AccountTypeEnum.CHECKING;
+                    type = "CHECKING";
 
                 else {//Alert for not checking the rad button.
                     new AlertDialog.Builder(this.getContext())
@@ -148,8 +144,8 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     //First set info before calling OpenAccountPostRequest to make post request.
                     //Initial account balance must be BigInteger
                     String userbalanceInput = balance.getText().toString();
-                    Toast.makeText(getContext(),userbalanceInput,Toast.LENGTH_LONG).show();
-                    System.out.println("USER INPUT WAS "+userbalanceInput);
+//                    Toast.makeText(getContext(),userbalanceInput,Toast.LENGTH_LONG).show();
+//                    System.out.println("USER INPUT WAS "+userbalanceInput);
                     String[] binput = {" "," "};
                     //Balance contains cents
                     if(userbalanceInput.contains(".")) {
@@ -178,11 +174,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     initialBalance = new BigInteger(finalinputbalance.toString());
                     System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
 
-
-
-
-
-
                     String username = values.get(0);
                     String password = values.get(1);
                     String email = values.get(2);
@@ -203,7 +194,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     openAccountPostRequest(false, REGISTER_URL, getActivity(), params);
                     // TODO: 5/1/17 Erase latter
 //                    createAccount("1136056093");//For testing
-
                 }
                 break;
         }
