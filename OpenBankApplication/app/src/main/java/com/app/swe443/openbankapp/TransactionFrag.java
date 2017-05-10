@@ -47,7 +47,7 @@ public class TransactionFrag extends Fragment {
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private HashMap<String,String> params;
-    private double currentbalance;
+    private BigInteger currentbalance;
     private String type;
     private int accountnum;
 
@@ -59,7 +59,7 @@ public class TransactionFrag extends Fragment {
     //Parent activity which stores data
     AccountDetails activity;
     //Total money changed due to all transactinos in the current accout. Used to calc dec or inc balance in transaction list
-    double transCost = 0;
+    BigInteger transCost = new BigInteger("0");
     //Calculate each change in balance as a result of each transaction. Display this with each transaction
     ArrayList<TransactionDisplay> transDataset;
 
@@ -72,8 +72,6 @@ public class TransactionFrag extends Fragment {
         public String[] getAccountInfo();
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +79,8 @@ public class TransactionFrag extends Fragment {
 
          mCallback = (TransactionFrag.OnTransactionFragCallbackListener) getActivity();
          String[] accountinfo = mCallback.getAccountInfo();
-        currentbalance = Double.valueOf(accountinfo[1]);
+        System.out.println("================================Balance = "+ accountinfo[1]);
+        currentbalance = new BigInteger(accountinfo[1]);
         type = accountinfo[2];
         accountnum = Integer.valueOf(accountinfo[0]);
 
@@ -200,16 +199,28 @@ public class TransactionFrag extends Fragment {
             holder.balanceText.setText("$ "+transDataset.get(position).getdBalance());
             if(transDataset.get(position).getdType().equals("DEPOSIT") ||
                     transDataset.get(position).getdType().equals("SEED")) {
-                 holder.amountText.setText("$ "+transDataset.get(position).getdAmount());
+                 holder.amountText.setText("$ "+this.convertBigInt(transDataset.get(position).getdAmount()));
 
             }else{
                 //amount is the amount of the transaction (-) displays if it is a withdraw
-                holder.amountText.setText(String.valueOf("- $" + transDataset.get(position).getdAmount()));
+                holder.amountText.setText(String.valueOf("- $" + this.convertBigInt(transDataset.get(position).getdAmount())));
                 //Balance at this transDataset state is stored in the transactionBalances array at index position (corresponds to transaction index)
                 holder.balanceText.setText("$ "+transDataset.get(position).getdBalance());
 
 
             }
+        }
+        public String convertBigInt(String b){
+            String s = "";
+            if(b.length() > 9)
+                s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+            else if(b.length() == 9)
+                s = "0."+b.substring(0,b.length()-7);
+            else if(b.length() == 8)
+                s= "0.0"+b.substring(0,b.length()-7);
+            else if(b.length() <= 7)
+                s= "0.00";
+            return s;
         }
 
         // Return the size of your dataset (invoked by the layout manager)
@@ -224,6 +235,18 @@ public class TransactionFrag extends Fragment {
         }
 
     }
+    public String convertBigInt(String b){
+        String s = "";
+        if(b.length() > 9)
+            s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+        else if(b.length() == 9)
+            s = "0."+b.substring(0,b.length()-7);
+        else if(b.length() == 8)
+            s= "0.0"+b.substring(0,b.length()-7);
+        else if(b.length() <= 7)
+            s= "0.00";
+        return s;
+    }
 
     public void calculateBalances(ArrayList<TransactionDisplay> transactions){
         /*
@@ -235,28 +258,28 @@ public class TransactionFrag extends Fragment {
         for(int i=0;i<transactions.size();i++){
             if(i==0) {
                 //Most recent transaction should be at the top of list, its balance is the current accounts balance
-                transactions.get(i).setdBalance(String.valueOf(transCost));
+                transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
             }
             else {
                 //Every transactions 'current balance' should be value before the previous transction took place
                 if (transactions.get(i-1).getdType().equals("DEPOSIT") ||
                         transactions.get(i-1).getdType().equals("SEED")) {
                     //i-1 = the transaction infront of i, subtracting when a deposit occurs shows balance before Deposit at i-1 took place
-                    transCost -= Double.valueOf(transactions.get(i-1).getdAmount());
-                    transactions.get(i).setdBalance(String.valueOf(transCost));
+                    transCost = transCost.subtract(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
                     System.out.println("Deposit  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
 
                 } else if (transactions.get(i-1).getdType().equals("WITHDRAW")) {
                     //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
-                    transCost += Double.valueOf(transactions.get(i-1).getdAmount());
-                    transactions.get(i).setdBalance(String.valueOf(transCost));
+                    transCost = transCost.add(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
                     System.out.println("Withdrew  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
 
 
                 }else if (transactions.get(i-1).getdType().equals("TRANSFER")) {
                     //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
-                    transCost += Double.valueOf(transactions.get(i-1).getdAmount());
-                    transactions.get(i).setdBalance(String.valueOf(transCost));
+                    transCost = transCost.add(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
                     System.out.println("Transfer  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
 
                 }
@@ -286,7 +309,7 @@ public class TransactionFrag extends Fragment {
                         System.out.println("Got an account " + rec.toString());
 
                         String type = rec.getString("transType");
-                        String amount = formatServerBalance(rec.getString("transAmount"));
+                        String amount = rec.getString("transAmount");//formatServerBalance(rec.getString("transAmount"));
                         Date newDateFormat = new Date();
                         try {
                             newDateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy").parse(rec.getString("creationDate"));
@@ -403,7 +426,7 @@ class TransactionDisplay implements Comparable {
     public TransactionDisplay(String type, String amount, String creationDate, String toUsername, String toAccountType, String numericDate){
         this.dType = type;
         DecimalFormat precision = new DecimalFormat("0.00");
-        this.dAmount = precision.format(Double.valueOf(amount));
+        this.dAmount = amount;//precision.format(Double.valueOf(amount));
         this.dCreationDate = creationDate;
         this.dToUserName = toUsername;
         this.dToAccountType = toAccountType;
@@ -483,4 +506,5 @@ class TransactionDisplay implements Comparable {
         else
             return 0;
     }
+
 }

@@ -335,8 +335,8 @@ public class MainActivity extends AppCompatActivity
                     //Track total balance amongst all accounts
                     double total = Double.valueOf(totalBalance);
                     double newvalue = Double.valueOf(whole+"."+decimal);
-                    totalBalance = String.valueOf(total+newvalue);
-                    myDataset.add(new AccountDisplay(type,accountnum,whole+"."+decimal));
+                    totalBalance = tempbalance;
+                    myDataset.add(new AccountDisplay(type,accountnum,tempbalance));
                 }catch(JSONException e){
                     e.printStackTrace();
                     Log.d(TAG,response.toString());
