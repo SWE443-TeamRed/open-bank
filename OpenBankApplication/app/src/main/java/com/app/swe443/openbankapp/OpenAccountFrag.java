@@ -15,11 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.Transaction;
-import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
 
 import java.util.Date;
 
@@ -51,7 +46,6 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
     private Button confirmCreateAccount;
 
     private Activity activity;
-    private MockServerSingleton mockserver;
 
 
     @Override
@@ -68,7 +62,6 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
 
         //activity = (LoginActivity) getActivity();
         //Initialize bank instance
-        mockserver = MockServerSingleton.getInstance();
 
         //Create form layouts
         createAccountFormLayout = (LinearLayout) v.findViewById(R.id.createAccountFormLayout);
@@ -168,58 +161,12 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
                 }
                 if(incomplete)
                     break;
-                /*
-
-                    TODO CONTACT SERVER AND REQUEST A NEW USER WITH ACCOUNT BE CREATED
-                 */
-                Boolean isAdmin = isAdminCheckBox.isChecked();
-                AccountTypeEnum type;
-                if(initalAccountType.getSelectedItem().toString().equals("Savings"))
-                    type = AccountTypeEnum.SAVINGS;
-                else
-                    type = AccountTypeEnum.CHECKING;
-
-                User user = new User()
-                        .withName(nameOfUserInput.getText().toString())
-                        .withPassword(passwordInput.getText().toString())
-                        .withPhone(phoneInput.getText().toString())
-                        .withEmail(emailInput.getText().toString())
-                        .withIsAdmin(isAdmin)
-                        .withBank(mockserver.getBank())
-                        .withUsername(usernameInput.getText().toString());
-                /*
-                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-                 */
-                int newAccountNum= mockserver.getUniqueAccountNum();
-                Account newAccount = new Account()
-                        .withAccountnum(newAccountNum)
-                        .withType(type)
-                        .withOwner(user)
-                        .withCreationdate(new Date())
-                        .withBalance(Double.valueOf("0.0"));
-                user.withAccount(newAccount);
-                Transaction t = new Transaction()
-                        .withAmount(Double.valueOf(initalBalanceInput.getText().toString()))
-                        .withBank(mockserver.getBank())
-                        .withCreationdate(new Date())
-                        .withToAccount(newAccount)
-                        .withNote("Initial Seeding")
-                        .withTransType(TransactionTypeEnum.Create);
-                newAccount.getAccountTransactions().addFirst(t);
-                newAccount.setBalance(Double.valueOf(initalBalanceInput.getText().toString()));
-                mockserver.getBank().withCustomerUser(user);
-               completeNewAccount(newAccountNum);
-                break;
-            case R.id.completeTransferButton:
-                //Go to login
-                getFragmentManager().popBackStack();
         }
     }
 
     public void completeNewAccount(int newAccountNum){
-        Toast.makeText(getContext(), "Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users",
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users",
+//                Toast.LENGTH_SHORT).show();
         createAccountFormLayout.setVisibility(View.GONE);
         formButtonLayout.setVisibility(View.GONE);
         createAccountSuccessLayout.setVisibility(View.VISIBLE);

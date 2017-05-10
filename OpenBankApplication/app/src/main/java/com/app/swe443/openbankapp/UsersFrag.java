@@ -26,9 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +43,6 @@ import static android.content.ContentValues.TAG;
 
 public class UsersFrag extends Fragment implements View.OnClickListener{
 
-    private User tina;
     private EditText name;
     private EditText email;
     private EditText phone;

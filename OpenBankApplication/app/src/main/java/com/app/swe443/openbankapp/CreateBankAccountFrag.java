@@ -15,12 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.Transaction;
-import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
-
 import java.util.Date;
 
 /**
@@ -51,8 +45,6 @@ public class CreateBankAccountFrag extends Fragment implements View.OnClickListe
     private Button confirmCreateAccount;
 
     private Activity activity;
-    private MockServerSingleton mockserver;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,8 +59,6 @@ public class CreateBankAccountFrag extends Fragment implements View.OnClickListe
 
 
         activity = (LoginActivity) getActivity();
-        //Initialize bank instance
-        mockserver = MockServerSingleton.getInstance();
 
         //Create form layouts
         createAccountFormLayout = (LinearLayout) v.findViewById(R.id.createAccountFormLayout);
@@ -155,19 +145,19 @@ public class CreateBankAccountFrag extends Fragment implements View.OnClickListe
                 if(incomplete)
                     break;
 
-                int newAccountNum = mockserver.createBankAccount(
-                        isAdminCheckBox.isChecked(),
-                        initalAccountType.getSelectedItem().toString(),
-                        nameOfUserInput.getText().toString(),
-                        passwordInput.getText().toString(),
-                        phoneInput.getText().toString(),
-                        emailInput.getText().toString(),
-                        usernameInput.getText().toString(),
-                        Double.valueOf(initalBalanceInput.getText().toString()));
+//                int newAccountNum = mockserver.createBankAccount(
+//                        isAdminCheckBox.isChecked(),
+//                        initalAccountType.getSelectedItem().toString(),
+//                        nameOfUserInput.getText().toString(),
+//                        passwordInput.getText().toString(),
+//                        phoneInput.getText().toString(),
+//                        emailInput.getText().toString(),
+//                        usernameInput.getText().toString(),
+//                        Double.valueOf(initalBalanceInput.getText().toString()));
 
 
 
-               completeNewAccount(newAccountNum);
+//               completeNewAccount(newAccountNum);
 
                 break;
             case R.id.completeTransferButton:
@@ -177,7 +167,7 @@ public class CreateBankAccountFrag extends Fragment implements View.OnClickListe
     }
 
     public void completeNewAccount(int newAccountNum){
-        System.out.println("Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users");
+//        System.out.println("Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users");
         createAccountFormLayout.setVisibility(View.GONE);
         formButtonLayout.setVisibility(View.GONE);
         createAccountSuccessLayout.setVisibility(View.VISIBLE);

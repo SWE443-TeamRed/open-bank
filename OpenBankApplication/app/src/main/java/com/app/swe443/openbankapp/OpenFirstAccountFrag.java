@@ -23,7 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,9 +50,9 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
     Button back;
     Button complete;
 
-    AccountTypeEnum type;
-    User user;
-    Account account;
+//    AccountTypeEnum type;
+//    User user;
+//    Account account;
 
     LinearLayout createAccountSuccessLayout;
     LinearLayout createAccountLayout;
@@ -123,10 +122,10 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
             //If clicked on open account button.
             case R.id.create_account:
-                if (savings)
-                    type = AccountTypeEnum.SAVINGS;
-                else if (checking)
-                    type = AccountTypeEnum.CHECKING;
+                if (savings) {}
+//                    type = AccountTypeEnum.SAVINGS;
+                else if (checking) {}
+//                    type = AccountTypeEnum.CHECKING;
 
                 else {//Alert for not checking the rad button.
                     new AlertDialog.Builder(this.getContext())
@@ -267,8 +266,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
 
         params.put("id", response);
         //TODO Erase latter, for testing.
-        System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
-        params.put("accountType", type.toString());
+//        params.put("accountType", type.toString());
         params.put("initialBalance", initialBalance.toString());
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);
