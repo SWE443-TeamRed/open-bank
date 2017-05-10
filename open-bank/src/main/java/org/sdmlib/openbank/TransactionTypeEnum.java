@@ -34,7 +34,8 @@ public enum TransactionTypeEnum
    //==========================================================================
    public String toString(  )
    {
-      return null;
+       return this.name();
+      //return null;
    }
 
    

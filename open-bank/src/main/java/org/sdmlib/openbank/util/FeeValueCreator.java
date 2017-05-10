@@ -83,7 +83,7 @@ public class FeeValueCreator implements SendableEntityCreator
    {
       if (FeeValue.PROPERTY_PERCENT.equalsIgnoreCase(attrName))
       {
-         ((FeeValue) target).setPercent((BigInteger) value);
+         ((FeeValue) target).setPercent(new BigInteger(value.toString()));
          return true;
       }
 
