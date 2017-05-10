@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:background="@color/colorSecondaryDarlk"
+    android:background="@color/colorSecondaryDark"
     android:orientation="horizontal">
 
     <ImageView
@@ -21,6 +21,8 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
-        android:text="Open Bank"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColorHighlight="@color/colorAccent"
+        android:textSelectHandle="@color/colorAccent"
+        />
 </LinearLayout>

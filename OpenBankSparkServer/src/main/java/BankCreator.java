@@ -34,6 +34,7 @@ public class BankCreator implements SendableEntityCreator
       Bank.PROPERTY_ADMINUSERS,
       Bank.PROPERTY_ADMINACCOUNTS,
       Bank.PROPERTY_FEEVALUE,
+      Bank.PROPERTY_PASSWORDCODE,
    };
    
    @Override
@@ -98,6 +99,11 @@ public class BankCreator implements SendableEntityCreator
       {
          return ((Bank) target).getFeeValue();
       }
+
+//      if (Bank.PROPERTY_PASSWORDCODE.equalsIgnoreCase(attribute))
+//      {
+//         return ((Bank) target).getPasswordCode();
+//      }
       
       return null;
    }
@@ -105,6 +111,12 @@ public class BankCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+//      if (Bank.PROPERTY_PASSWORDCODE.equalsIgnoreCase(attrName))
+//      {
+//         ((Bank) target).setPasswordCode((String) value);
+//         return true;
+//      }
+
       if (Bank.PROPERTY_BANKNAME.equalsIgnoreCase(attrName))
       {
          ((Bank) target).setBankName((String) value);

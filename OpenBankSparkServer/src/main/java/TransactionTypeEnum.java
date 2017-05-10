@@ -21,23 +21,24 @@
 
 public enum TransactionTypeEnum
 {
-		DEPOSIT,
-        WITHDRAW,
-        TRANSFER,
-        SEED,
-        CLOSE,
-		FEE;
+    DEPOSIT,
+    WITHDRAW,
+    TRANSFER,
+    SEED,
+    CLOSE,
+    FEE;
 
-   
-   //==========================================================================
-//   public String toString(  )
-//   {
-//      return null;
-//   }
 
-   
-   //==========================================================================
-     TransactionTypeEnum(  )
-   {
-   }
+    //==========================================================================
+    public String toString(  )
+    {
+        return this.name();
+        //return null;
+    }
+
+
+    //==========================================================================
+    TransactionTypeEnum(  )
+    {
+    }
 }

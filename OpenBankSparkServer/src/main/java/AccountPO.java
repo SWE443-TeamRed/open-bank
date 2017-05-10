@@ -723,4 +723,50 @@ public class AccountPO extends PatternObject<AccountPO, Account>
       return false;
    }
 
+   public AccountPO createIsClosedCondition(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCLOSED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public AccountPO createIsClosedAssignment(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Account.PROPERTY_ISCLOSED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public boolean getIsClosed()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Account) getCurrentMatch()).isIsClosed();
+      }
+      return false;
+   }
+   
+   public AccountPO withIsClosed(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Account) getCurrentMatch()).setIsClosed(value);
+      }
+      return this;
+   }
+   
 }
