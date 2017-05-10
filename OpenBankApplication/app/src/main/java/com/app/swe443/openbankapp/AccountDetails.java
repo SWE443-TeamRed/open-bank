@@ -78,12 +78,12 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
         if(fragmentPagerAdapter.account2_fragment != null) {
 
-            ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText("");
+            if((fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)) != null)
+                ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText("");
 
             if (messagesReceivedArray.size() > 0) {
-//                for (int i = 0; i < messagesReceivedArray.size(); i++) {
-                ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText(messagesReceivedArray.get(messagesReceivedArray.size()-1));
-//                }
+                if((fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)) != null)
+                    ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText(messagesReceivedArray.get(messagesReceivedArray.size()-1));
             }
         }else
             Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
