@@ -41,10 +41,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/noteText"
+                android:id="@+id/toUserText"
                 android:layout_width="259dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Transaction To: "
                 android:textSize="20sp" />
 
             <TextView

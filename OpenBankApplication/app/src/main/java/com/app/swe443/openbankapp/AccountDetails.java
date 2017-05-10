@@ -74,6 +74,9 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         Toast.makeText(this, "Added Message", Toast.LENGTH_LONG).show();
     }
 
+    private String name;
+    private String email;
+    private String phone;
 
     private void updateTextViews() {
 
@@ -109,7 +112,9 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         accountnum =  extras.getString("accountnum");
         username = extras.getString("username");
         userID = extras.getString("userID");
-//        owner = extras.getString("owner");
+        name = extras.getString("name");
+        email = extras.getString("email");
+        phone = extras.getString("phone");
 
 
 
@@ -147,12 +152,13 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     //On back press by the user, go back to the MainActivity and display HomeFrag
     public void backNavigation(View view){
-        String[] usernameAndID = {username,
-                userID};
         Intent main = new Intent(getBaseContext(), MainActivity.class);
         main.putExtra("userID", userID);
         main.putExtra("username", username);
         main.putExtra("balance", balance);
+        main.putExtra("name", name);
+        main.putExtra("email", email);
+        main.putExtra("phone", phone);
         startActivity(main);
         finish();
     }
@@ -163,6 +169,9 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         main.putExtra("userID", userID);
         main.putExtra("username", username);
         main.putExtra("balance", balance);
+        main.putExtra("name", name);
+        main.putExtra("email", email);
+        main.putExtra("phone", phone);
         startActivity(main);
         return true;
 
@@ -184,6 +193,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         accountnum = accountInfo[0];
         balance = accountInfo[1];
         type = accountInfo[2];
+        fragmentPagerAdapter.notifyDataSetChanged();
+
     }
 
     //Return the transactions associated to this account

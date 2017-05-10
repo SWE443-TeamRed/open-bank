@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import static android.content.ContentValues.TAG;
@@ -44,12 +45,10 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     private Button cancelQRTransfer;
     private Button confirmQRTransfer;
 
-
     private LinearLayout transferNFCLayout;
     private LinearLayout transferManuallyLayout;
     private LinearLayout transferQRLayout;
     private LinearLayout transferLayout;
-
 
     private HashMap<String,String> params;
     private TransferFrag.OnTransferFragCallbackListener mCallback;
@@ -57,6 +56,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCallback = (TransferFrag.OnTransferFragCallbackListener) getActivity();
     }
 
     // Container Activity must implement this interface
@@ -205,12 +205,14 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     amount.setError("Can't transfer a negative amount");
                     incomplete = true;
                 }else {
+                    String amountBig = formatUserAmountInput(amount.getText().toString());
+
                     params = new HashMap<String, String>();
                     params.put("transferType", "TRANSFER");
-                    params.put("toAccountId", accountTo.getText().toString());
-                    params.put("amount", amount.getText().toString());
+                    params.put("toAccount", accountTo.getText().toString());
+                    params.put("amount", amountBig);
                     //Sender's accountnum is stored in the AccountDetails activity (parent activity)
-                    params.put("fromAccountId",  mCallback.getAccountInfo()[0]);
+                    params.put("fromAccount",  mCallback.getAccountInfo()[0]);
                 }
                 if(incomplete)
                     break;
@@ -276,7 +278,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
                 try {
                     JSONObject obj = new JSONObject(response);
                     responseHandler(obj);
@@ -341,6 +343,41 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
             Log.d(TAG, "Problem with response");
         }
     }
+    public String formatServerBalance(String amount){
+        String temp2 = amount.substring(0,amount.length()-7);
+        String decimal = temp2.substring(temp2.length()-2,temp2.length());
+        String whole = temp2.substring(0,temp2.length()-2);
+        return whole+"."+decimal;
+    }
 
-
+    public String formatUserAmountInput(String amount){
+        String[] binput = {" "," "};
+        //Balance contains cents
+        if(amount.contains(".")) {
+            binput = amount.split("\\.");
+            System.out.println("SIZE IS "+binput.length);
+            //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+            //Format decimal values
+            if(binput[1].length()==1)
+                binput[1] = binput[1]+"0";
+            else if(binput[1].length()==0)
+                binput[1] = "00";
+            else{
+                StringBuilder s = new StringBuilder();
+                s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                binput[1] = s.toString();
+            }
+        }
+        //Balance is a whole number
+        else {
+            binput[0] = amount;
+            binput[0] = binput[0].replaceAll("[$,.]", "");
+            binput[1] = "00";
+        }
+        StringBuilder finalinputbalance = new StringBuilder();
+        finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+        BigInteger initialBalance = new BigInteger(finalinputbalance.toString());
+        System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
+        return initialBalance.toString();
+    }
 }
