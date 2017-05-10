@@ -63,6 +63,19 @@ public class HomeFrag extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public String convertBigInt(String b){
+        String s = "";
+        if(b.length() > 9)
+            s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+        else if(b.length() == 9)
+            s = "0."+b.substring(0,b.length()-7);
+        else if(b.length() == 8)
+            s= "0.0"+b.substring(0,b.length()-7);
+        else if(b.length() <= 7)
+            s= "0.00";
+        return s;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +108,7 @@ public class HomeFrag extends Fragment {
          */
         homepageHeaderName.setText("Welcome " + userInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
-        userTotalBalance.setText("$ " +String.valueOf(precision.format(Double.valueOf(userInfo[1]))));
+        userTotalBalance.setText("$ " +convertBigInt(userInfo[1]));//.valueOf(precision.format(Double.valueOf(userInfo[1]))));
         userEmail.setText("Email: "+ userInfo[2]);
         userPhone.setText("Phone: " +userInfo[3]);
         // use this setting to improve performance if you know that changes
@@ -181,8 +194,7 @@ public class HomeFrag extends Fragment {
             holder.accountnameText.setText(mDataset.get(position).getdType());
             holder.accountnumText.setText("Account: " + mDataset.get(position).getdAccountnum());
             DecimalFormat precision = new DecimalFormat("0.00");
-
-            holder.balanceText.setText("$ " + String.valueOf(precision.format(Double.valueOf(mDataset.get(position).getdBalance()))));
+            holder.balanceText.setText("$ " + convertBigInt(mDataset.get(position).getdBalance()));// String.valueOf(precision.format(Double.valueOf(mDataset.get(position).getdBalance()))));
         }
 
         // Return the size of your dataset (invoked by the layout manager)

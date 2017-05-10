@@ -159,7 +159,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         accountnumText.setText(accountInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
 
-        balanceText.setText("$ " +precision.format(Double.valueOf(accountInfo[1])));
+        balanceText.setText("$ " +convertBigInt(accountInfo[1]));
         //ownerText.setText(accountInfo[0]);
         typeText.setText(accountInfo[0]);
 
@@ -366,7 +366,18 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
 
     }
-
+    public String convertBigInt(String b){
+        String s = "";
+        if(b.length() > 9)
+            s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+        else if(b.length() == 9)
+            s = "0."+b.substring(0,b.length()-7);
+        else if(b.length() == 8)
+            s= "0.0"+b.substring(0,b.length()-7);
+        else if(b.length() <= 7)
+            s= "0.00";
+        return s;
+    }
     public void postDepositToServer(){
         StringRequest stringRequest;
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -390,8 +401,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         depositButton.setVisibility(View.VISIBLE);
                         withdrawButton.setVisibility(View.VISIBLE);
                        // DecimalFormat precision = new DecimalFormat("0.00");
-                        String newBalance = formatServerBalance(obj.get("balance").toString());
-                        balanceText.setText("$ "+ newBalance);
+                        String newBalance = (obj.get("balance").toString());
+                        balanceText.setText("$ "+ convertBigInt(newBalance));
                         accountInfo[1] = newBalance;
                         //Update balance in the parent acitivty so it displays on other views
                         mCallback.updateAccountInfo(accountInfo);
@@ -511,8 +522,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         depositButton.setVisibility(View.VISIBLE);
                         withdrawButton.setVisibility(View.VISIBLE);
                         // DecimalFormat precision = new DecimalFormat("0.00");
-                        String newBalance = formatServerBalance(obj.get("balance").toString());
-                        balanceText.setText("$ " +newBalance);
+                        String newBalance = (obj.get("balance").toString());
+                        balanceText.setText("$ "+ convertBigInt(newBalance));
                         accountInfo[1] = newBalance;
                         //Update account info in parent activity
                         mCallback.updateAccountInfo(accountInfo);
