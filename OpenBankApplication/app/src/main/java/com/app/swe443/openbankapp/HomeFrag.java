@@ -42,18 +42,21 @@ public class HomeFrag extends Fragment {
 
     private RecyclerView mRecyclerView;
     private TextView homepageHeaderName;
+    private TextView userEmail;
+    private TextView userPhone;
+    private TextView userTotalBalance;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private OnHomeFragMethodSelectedListener mCallback;
     private ArrayList<AccountDisplay> userAccounts;
     private ArrayList<AccountDisplay> mDataset;
+    private String[] userInfo;
 
     // Main Activity must implement this interface in order to communicate with HomeFrag
     public interface OnHomeFragMethodSelectedListener {
         public void onAccountSelected(int accountID);
-
         public ArrayList<AccountDisplay> getAccounts();
-
+        public String[] getUserInfo();
         public String getUsername();
     }
 
@@ -75,15 +78,29 @@ public class HomeFrag extends Fragment {
 
         //Initialize callback to communicate with parent activity
         mCallback = (OnHomeFragMethodSelectedListener) getActivity();
-        //Grab the user's accounts obtained in the parent activity
+        //Grab the user's accounts obtained in the parent activity, Also grab user info
         userAccounts = mCallback.getAccounts();
+        userInfo = mCallback.getUserInfo();
 
         //Get RecyclerView instance from the layout
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
         homepageHeaderName = (TextView) v.findViewById(R.id.welcomeText);
+        userEmail = (TextView) v.findViewById(R.id.userEmail);
+        userPhone = (TextView) v.findViewById(R.id.userPhone);
+        userTotalBalance = (TextView) v.findViewById(R.id.userTotalBalance);
 
         //Display the username that has logged in
-        homepageHeaderName.setText("Welcome " + mCallback.getUsername());
+        /*
+         userInfo[0] = name;
+        userInfo[1] = totalBalance;
+        userInfo[2] = email;
+        userInfo[3] = phone;
+         */
+        homepageHeaderName.setText("Welcome " + userInfo[0]);
+        DecimalFormat precision = new DecimalFormat("0.00");
+        userTotalBalance.setText("$ " +String.valueOf(precision.format(Double.valueOf(userInfo[1]))));
+        userEmail.setText("Email: "+ userInfo[2]);
+        userPhone.setText("Phone: " +userInfo[3]);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);

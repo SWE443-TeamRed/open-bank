@@ -74,7 +74,11 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
         createAccountFormLayout = (LinearLayout) v.findViewById(R.id.createAccountFormLayout);
         formButtonLayout = (LinearLayout) v.findViewById(R.id.buttonlayout);
         createAccountSuccessLayout = (LinearLayout) v.findViewById(R.id.createAccountSuccessLayout);
-        createAccountSuccessLayout.setVisibility(View.GONE);
+
+        if(createAccountSuccessLayout != null)
+            createAccountSuccessLayout.setVisibility(View.GONE);
+        else
+            System.out.println("createAccountSuccessLayout is null");
 
         //Form's fields
         nameOfUserInput = (EditText) v.findViewById(R.id.nameOfUserInput);
@@ -88,14 +92,24 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
         initalAccountType = (Spinner) v.findViewById(R.id.accounttypeSpinner);
 
         cancelCreateAccount = (Button) v.findViewById(R.id.cancelCreateAccount);
-        cancelCreateAccount.setOnClickListener(this);
+        if(cancelCreateAccount != null)
+            cancelCreateAccount.setOnClickListener(this);
+        else
+            System.out.println("cancelCreateAccount is null");
 
         confirmCreateAccount = (Button) v.findViewById(R.id.confirmCreateAccount);
-        confirmCreateAccount.setOnClickListener(this);
+        if(confirmCreateAccount != null)
+            confirmCreateAccount.setOnClickListener(this);
+        else
+            System.out.println("confirmCreateAccount is null");
 
         complettionMessage = (TextView) v.findViewById(R.id.transferCompleteMessage);
         completeCreateAccountButton = (Button) v.findViewById(R.id.completeTransferButton);
-        completeCreateAccountButton.setOnClickListener(this);
+
+        if(completeCreateAccountButton != null)
+            completeCreateAccountButton.setOnClickListener(this);
+        else
+            System.out.println("completeCreateAccountButton is null");
 
 
         return v;
