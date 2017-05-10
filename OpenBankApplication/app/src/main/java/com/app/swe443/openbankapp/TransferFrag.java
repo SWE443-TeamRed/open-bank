@@ -335,8 +335,9 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     }
                 }
                 else{
-                   String balance = obj.get("balance").toString();
-                    mCallback.updateBalance(balance);
+                    String balanceString = obj.get("balance").toString();
+                    balanceString = formatServerBalance(balanceString);
+                    mCallback.updateBalance(balanceString);
                 }
         } catch (JSONException e) {
             e.printStackTrace();
