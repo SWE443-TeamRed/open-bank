@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity
                         transaction.replace(R.id.contentFragment, home_fragment);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
+                        break;
                     case 2:
                         transaction = fm.beginTransaction();
                         transaction.replace(R.id.contentFragment, users_fragment);
