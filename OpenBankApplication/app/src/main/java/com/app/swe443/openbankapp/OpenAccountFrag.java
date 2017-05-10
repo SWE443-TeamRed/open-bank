@@ -1,27 +1,36 @@
 package com.app.swe443.openbankapp;
 
-import android.app.Activity;
+
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.Transaction;
-import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
-
-import java.util.Date;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by kimberly_93pc on 4/13/17.
@@ -29,30 +38,24 @@ import java.util.Date;
 
 public class OpenAccountFrag extends Fragment implements View.OnClickListener{
 
-    private EditText nameOfUserInput ;
-    private EditText phoneInput;
-    private EditText emailInput;
-    private EditText usernameInput;
-    private EditText confirmpasswordInput;
-    private EditText passwordInput;
-    private CheckBox isAdminCheckBox;
-    private EditText initalBalanceInput;
-    private Spinner initalAccountType;
-
     //Form layout to set blank for account completion message
-    private LinearLayout createAccountFormLayout;
-    private LinearLayout formButtonLayout;
     private LinearLayout createAccountSuccessLayout;
 
-    private TextView complettionMessage;
-    private Button completeCreateAccountButton;
+    private Button create;
+    private Button back;
+    private Button complete;
+    private EditText balance;
 
-    private Button cancelCreateAccount;
-    private Button confirmCreateAccount;
+    private boolean checking = false;
+    private boolean savings = false;
 
-    private Activity activity;
-    private MockServerSingleton mockserver;
-
+    private BigInteger initialBalance;
+    private String type;
+    private HashMap<String, String> params;
+    private String REGISTER_URL;
+    private FragmentTransaction transaction;
+    private FragmentManager fm;
+    private OnOpenAccountSelected mCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,168 +66,159 @@ public class OpenAccountFrag extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_open_account, container, false);
+        View view= inflater.inflate(R.layout.fragment_open_account, container, false);
+        createAccountSuccessLayout = (LinearLayout) view.findViewById(R.id.createAccountSuccessLayout);
+        createAccountSuccessLayout.setVisibility(View.GONE);
 
+        //Open account button
+        create = (Button) view.findViewById(R.id.create_account);
+        create.setOnClickListener(this);
+        back = (Button) view.findViewById(R.id.back_button5_5);
+        back.setOnClickListener(this);
+        complete = (Button) view.findViewById(R.id.completeTransferButton);
+        complete.setOnClickListener(this);
 
-//        //activity = (LoginActivity) getActivity();
-//        //Initialize bank instance
-//        mockserver = MockServerSingleton.getInstance();
-//
-//        //Create form layouts
-//        createAccountFormLayout = (LinearLayout) v.findViewById(R.id.createAccountFormLayout);
-//        createAccountSuccessLayout = (LinearLayout) v.findViewById(R.id.createAccountSuccessLayout);
-//
-//        if(createAccountSuccessLayout != null)
-//            createAccountSuccessLayout.setVisibility(View.GONE);
-//        else
-//            System.out.println("createAccountSuccessLayout is null");
+        //Text field for amount
+        balance =  (EditText) view.findViewById(R.id.initail_value);
 
-        //Form's fields
-//        nameOfUserInput = (EditText) v.findViewById(R.id.nameOfUserInput);
-//        phoneInput = (EditText) v.findViewById(R.id.phoneInput);
-//        emailInput = (EditText) v.findViewById(R.id.emailInput);
-//        usernameInput = (EditText) v.findViewById(R.id.usernameInput);
-//        confirmpasswordInput = (EditText) v.findViewById(R.id.confirmPasswordInput);
-//        passwordInput = (EditText) v.findViewById(R.id.passwordInput);
-//        isAdminCheckBox = (CheckBox) v.findViewById(R.id.adminCheckBox);
-//        initalBalanceInput = (EditText) v.findViewById(R.id.initialBalanceInput);
-//        initalAccountType = (Spinner) v.findViewById(R.id.accounttypeSpinner);
-//
-//        cancelCreateAccount = (Button) v.findViewById(R.id.cancelCreateAccount);
-//        if(cancelCreateAccount != null)
-//            cancelCreateAccount.setOnClickListener(this);
-//        else
-//            System.out.println("cancelCreateAccount is null");
-//
-////        confirmCreateAccount = (Button) v.findViewById(R.id.confirmCreateAccount);
-//        if(confirmCreateAccount != null)
-//            confirmCreateAccount.setOnClickListener(this);
-//        else
-//            System.out.println("confirmCreateAccount is null");
-//
-//        complettionMessage = (TextView) v.findViewById(R.id.transferCompleteMessage);
-//        completeCreateAccountButton = (Button) v.findViewById(R.id.completeTransferButton);
-//
-//        if(completeCreateAccountButton != null)
-//            completeCreateAccountButton.setOnClickListener(this);
-//        else
-//            System.out.println("completeCreateAccountButton is null");
-
-
-        return v;
+        //Radio buttons for account type
+        RadioGroup rad = (RadioGroup) view.findViewById(R.id.radio_group);
+        rad.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId) {
+                    case R.id.checking_rad:
+                        checking = true;
+                        break;
+                    case R.id.savings_rad:
+                        savings = true;
+                        break;
+                }
+            }
+        });
+        fm = getFragmentManager();
+        mCallback = (OnOpenAccountSelected)getActivity();
+        return view;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.cancelCreateAccount:
-//                System.out.println("Cancel Create Account Requested");
-//                getFragmentManager().popBackStack();
-//
-//                break;
-//            case R.id.confirmCreateAccount:
-//                boolean incomplete = false;
-//                System.out.println("Create Account Requested");
-//                if (nameOfUserInput.getText().toString().equals("")) {
-//                    nameOfUserInput.setError("Missing your name");
-//                    //Toast.makeText(getContext(), "Missing your name", Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (phoneInput.getText().toString().equals("")) {
-//                    phoneInput.setError("Missing phone number");
-//                    //Toast.makeText(getContext(), "Missing Phone", Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (emailInput.getText().toString().equals("")) {
-//                    emailInput.setError("Missing Email");
-//                    //Toast.makeText(getContext(), "Missing Email", Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (usernameInput.getText().toString().equals("")) {
-//                   usernameInput.setError("Missing Username");
-//                    //Toast.makeText(getContext(), "Missing Username",Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (passwordInput.getText().toString().equals("")){
-//                   passwordInput.setError("Missing Password");
-//                    // Toast.makeText(getContext(), "Missing Password",Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (confirmpasswordInput.getText().toString().equals("")) {
-//                   confirmpasswordInput.setError("Confirm your password");
-//                    // Toast.makeText(getContext(), "Confirm your passwrod",                            Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (initalBalanceInput.getText().toString().equals("")) {
-//                   initalBalanceInput.setError("Please enter an initial balance");
-//                    // Toast.makeText(getContext(), "Please enter an initial balance of your first account", Toast.LENGTH_SHORT).show();
-//                    incomplete = true;
-//                }
-//                if (!(passwordInput.getText().toString().equals(confirmpasswordInput.getText().toString()))) {
-//                    //Toast.makeText(getContext(), "Passwords dont match", Toast.LENGTH_SHORT).show();
-//                    confirmpasswordInput.setError("Passwords don't match");
-//                    incomplete = true;
-//                }
-//                if(incomplete)
-//                    break;
-//                /*
-//
-//                    TODO CONTACT SERVER AND REQUEST A NEW USER WITH ACCOUNT BE CREATED
-//                 */
-//                Boolean isAdmin = isAdminCheckBox.isChecked();
-//                AccountTypeEnum type;
-//                if(initalAccountType.getSelectedItem().toString().equals("Savings"))
-//                    type = AccountTypeEnum.SAVINGS;
-//                else
-//                    type = AccountTypeEnum.CHECKING;
-//
-//                User user = new User()
-//                        .withName(nameOfUserInput.getText().toString())
-//                        .withPassword(passwordInput.getText().toString())
-//                        .withPhone(phoneInput.getText().toString())
-//                        .withEmail(emailInput.getText().toString())
-//                        .withIsAdmin(isAdmin)
-//                        .withBank(mockserver.getBank())
-//                        .withUsername(usernameInput.getText().toString());
-//                /*
-//                    TODO WANT TO GET A UNIQUE ACCOUTNNUM TO CREATE AN ACCOUNT, TELL SERVER TO GIVE ACCOUNTNUM
-//                    TODO AS THE SIZE OF ALL THE ACCOUNTS+1
-//                 */
-//                int newAccountNum= mockserver.getUniqueAccountNum();
-//                Account newAccount = new Account()
-//                        .withAccountnum(newAccountNum)
-//                        .withType(type)
-//                        .withOwner(user)
-//                        .withCreationdate(new Date())
-//                        .withBalance(Double.valueOf("0.0"));
-//                user.withAccount(newAccount);
-//                Transaction t = new Transaction()
-//                        .withAmount(Double.valueOf(initalBalanceInput.getText().toString()))
-//                        .withBank(mockserver.getBank())
-//                        .withCreationdate(new Date())
-//                        .withToAccount(newAccount)
-//                        .withNote("Initial Seeding")
-//                        .withTransType(TransactionTypeEnum.Create);
-//                newAccount.getAccountTransactions().addFirst(t);
-//                newAccount.setBalance(Double.valueOf(initalBalanceInput.getText().toString()));
-//                mockserver.getBank().withCustomerUser(user);
-//               completeNewAccount(newAccountNum);
-//                break;
-//            case R.id.completeTransferButton:
-//                //Go to login
-//                getFragmentManager().popBackStack();
+            //Clicked on back button.
+            case R.id.back_button5_5:
+                transaction = fm.beginTransaction();
+                transaction.add(new HomeFrag(), "HomeFrag");
+                break;
+            case R.id.completeTransferButton:
+                transaction = fm.beginTransaction();
+                transaction.add(new HomeFrag(), "HomeFrag");
+                break;
+            //If clicked on open account button.
+            case R.id.create_account:
+                if (savings)
+                    type = "SAVINGS";
+                else if (checking)
+                    type = "CHECKING";
+                else {//Alert for not checking the rad button.
+                    new AlertDialog.Builder(this.getContext())
+                            .setTitle("Missing Field")
+                            .setMessage("Please select account type")
+                            .setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }//Initial balance must have a value.
+                if (balance.getText().toString().equals("")) {
+                    balance.setError("Initial Balance Required.");
+                    balance.requestFocus();
+                } else {
+                    //First set info before calling OpenAccountPostRequest to make post request.
+                    //Initial account balance must be BigInteger
+                    String userbalanceInput = balance.getText().toString();
+//                    Toast.makeText(getContext(),userbalanceInput,Toast.LENGTH_LONG).show();
+//                    System.out.println("USER INPUT WAS "+userbalanceInput);
+                    String[] binput = {" ", " "};
+                    //Balance contains cents
+                    if (userbalanceInput.contains(".")) {
+                        binput = userbalanceInput.split("\\.");
+                        System.out.println("SIZE IS " + binput.length);
+                        //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+                        //Format decimal values
+                        if (binput[1].length() == 1)
+                            binput[1] = binput[1] + "0";
+                        else if (binput[1].length() == 0)
+                            binput[1] = "00";
+                        else {
+                            StringBuilder s = new StringBuilder();
+                            s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                            binput[1] = s.toString();
+                        }
+                    }
+                    //Balance is a whole number
+                    else {
+                        binput[0] = userbalanceInput;
+                        binput[0] = binput[0].replaceAll("[$,.]", "");
+                        binput[1] = "00";
+                    }
+                    StringBuilder finalinputbalance = new StringBuilder();
+                    finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+                    initialBalance = new BigInteger(finalinputbalance.toString());
+                    System.out.println("USER INITIAL BALANCE IS " + initialBalance.toString());
+
+                    //To create the user.
+                    params = new HashMap<String, String>();
+                    REGISTER_URL = "http://54.87.197.206:8080/SparkServer/api/v1/account";
+                    String id = mCallback.getUsersInfo()[4];
+                    params.put("id", id);
+                    params.put("accountType", type);
+                    params.put("initialBalance", initialBalance.toString());
+                    openAccountPostRequest(false, REGISTER_URL, getActivity(), params);
+                }
+                break;
         }
     }
-
-    public void completeNewAccount(int newAccountNum){
-        Toast.makeText(getContext(), "Added User, bank now has "+mockserver.getBank().getCustomerUser().size()+" users",
-                Toast.LENGTH_SHORT).show();
-        createAccountFormLayout.setVisibility(View.GONE);
-        formButtonLayout.setVisibility(View.GONE);
-        createAccountSuccessLayout.setVisibility(View.VISIBLE);
-        complettionMessage.setText("Your account is created! Your account number is "+newAccountNum+". Save this for your records.");
-
-
-
+        //Function that makes the post request.
+        StringRequest stringRequest;
+        RequestQueue requestQueue;
+    public void openAccountPostRequest (boolean accountCreated, String REGISTER_URL, Context
+            activity, Map<String, String> params){
+        stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        Toast.makeText(activity,response,Toast.LENGTH_LONG).show();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            mCallback.updateUserAccounts();
+//                            Toast.makeText(activity,obj.get("accountNum").toString(),Toast.LENGTH_LONG).show();
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                            Log.d(TAG,response);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //TODO Erase latter, for testing.
+                        System.out.println("Error********"+error +"********");
+                        Toast.makeText(activity,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(activity);
+        requestQueue.add(stringRequest);
+    }
+    // Container Activity must implement this interface
+    public interface OnOpenAccountSelected {
+        public String[] getUsersInfo();
+        public void updateUserAccounts();
     }
 }

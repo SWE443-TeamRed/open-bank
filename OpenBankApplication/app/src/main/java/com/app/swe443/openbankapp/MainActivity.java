@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnHomeFragMethodSelectedListener, UsersFrag.OnUserFragMethodSelectedListener{
+        implements HomeFrag.OnHomeFragMethodSelectedListener, UsersFrag.OnUserFragMethodSelectedListener,  OpenAccountFrag.OnOpenAccountSelected{
 
 
 
@@ -220,10 +220,8 @@ public class MainActivity extends AppCompatActivity
         /********Home Fragment********/
         home_fragment = new HomeFrag();
 
-
         /********Open Account Fragment********/
         open_account_fragment = new OpenAccountFrag();
-
 
         /********Transaction Fragments********/
         users_fragment = new UsersFrag();
@@ -250,11 +248,8 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("phone", phone);
         intent.putExtra("email", email);
 
-
-
         startActivity(intent);
     }
-
 
     public ArrayList<AccountDisplay> getAccounts(){
         return userAccounts;
@@ -263,20 +258,15 @@ public class MainActivity extends AppCompatActivity
         return username;
     }
 
-
     public boolean onOptionsItemSelected(MenuItem item){
         System.out.println("ON OPTIONS SELECTED IN MAIN ACTIVITY ");
-
-
         return true;
-
     }
 
     @Override
     public void onBackPressed() {
         System.out.println("Logout by back press");
         finish();
-
     }
 
     public void getUserAccountsFromServer(){
@@ -287,9 +277,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(String response) {
                 System.out.println("OBTAINED USER ACCOUNTS");
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
-
-
+//                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                 try {
                     JSONArray obj = new JSONArray(response);
                     userAccounts = getAccountsDisplays(obj);
@@ -319,7 +307,6 @@ public class MainActivity extends AppCompatActivity
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     //Read user's accounts from the server responce array
     public ArrayList<AccountDisplay> getAccountsDisplays(JSONArray response){
@@ -354,7 +341,6 @@ public class MainActivity extends AppCompatActivity
                     e.printStackTrace();
                     Log.d(TAG,response.toString());
                 }
-
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -362,8 +348,16 @@ public class MainActivity extends AppCompatActivity
         }
         return myDataset;
     }
+//These are for OpenAccountFrag.
+    @Override
+    public String[] getUsersInfo() {
+        return getAllUserInfo();
+    }
+    @Override
+    public void updateUserAccounts() {
+       getUserAccountsFromServer();
+    }
 }
-
 
 /*
   Helper class to organize attributes that will be dispalyed
@@ -409,5 +403,6 @@ class AccountDisplay {
     public void setdBalance(String dBalance) {
         this.dBalance = dBalance;
     }
+
 }
 

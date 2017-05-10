@@ -26,12 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.Account;
-
-
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.Transaction;
-import com.app.swe443.openbankapp.Support.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -199,18 +193,6 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         fragmentPagerAdapter.notifyDataSetChanged();
 
     }
-
-    //Return the transactions associated to this account
-    //Used by TransactionFrag
-    /*
-        TODO IMPLMENT TRANSACTIONS SERVER CALL
-     */
-    public LinkedList<Transaction> getTransactions(){
-        return null;
-    }
-
-
-
 
     public void onTransferSelected() {
         System.out.println("onTransferSelected method initiated");

@@ -23,7 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +50,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
     Button back;
     Button complete;
     String type;
+
     LinearLayout createAccountSuccessLayout;
     LinearLayout createAccountLayout;
     TextView complettionMessage;
@@ -123,7 +123,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     type = "SAVINGS";
                 else if (checking)
                     type = "CHECKING";
-
                 else {//Alert for not checking the rad button.
                     new AlertDialog.Builder(this.getContext())
                             .setTitle("Missing Field")
@@ -192,8 +191,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     params.put("email", email);
 
                     openAccountPostRequest(false, REGISTER_URL, getActivity(), params);
-                    // TODO: 5/1/17 Erase latter
-//                    createAccount("1136056093");//For testing
                 }
                 break;
         }
@@ -202,7 +199,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
     public void completeNewAccount(int newAccountNum){
         createAccountLayout.setVisibility(View.GONE);
         createAccountSuccessLayout.setVisibility(View.VISIBLE);
-        complettionMessage.setText("Your account is created! Your account number is "+newAccountNum+". Save this for your records.");
+        complettionMessage.setText("Your account number is "+newAccountNum+". Save this for your records.");
     }
 
     //Function that makes the post request.
@@ -213,8 +210,6 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            //TODO Erase latter, for testing.
-//                            System.out.println("Success********"+response +"********");
                             Toast.makeText(activity,response,Toast.LENGTH_LONG).show();
                             try {
                                 JSONObject obj = new JSONObject(response);
@@ -238,7 +233,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                         public void onErrorResponse(VolleyError error) {
                             //TODO Erase latter, for testing.
                             System.out.println("Error********"+error +"********");
-                            Toast.makeText(activity,error.toString(),Toast.LENGTH_LONG).show();
+//                            Toast.makeText(activity,error.toString(),Toast.LENGTH_LONG).show();
                         }
                     }){
                 @Override
@@ -256,9 +251,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
         String REGISTER_URL2 = "http://54.87.197.206:8080/SparkServer/api/v1/account";
 
         params.put("id", response);
-        //TODO Erase latter, for testing.
-        System.out.println(response + " "+type.toString() + " "+  initialBalance.toString());
-        params.put("accountType", type.toString());
+        params.put("accountType", type);
         params.put("initialBalance", initialBalance.toString());
 
         openAccountPostRequest(true, REGISTER_URL2, getContext(), params);

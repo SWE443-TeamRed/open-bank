@@ -44,8 +44,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.User;
-import com.app.swe443.openbankapp.Support.UserSet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -289,9 +287,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO Erase latter, for testing.
-                         System.out.println("Success********"+response +"********");
-                        Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
                         try {
                             JSONObject obj = new JSONObject(response);
                             checkAuth(obj);
@@ -304,9 +300,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //TODO Erase latter, for testing.
-                        //System.out.println("Error********"+error +"********");
-                        Toast.makeText(getBaseContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getBaseContext(),error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override

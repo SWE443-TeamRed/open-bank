@@ -23,9 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.Account;
-import com.app.swe443.openbankapp.Support.AccountTypeEnum;
-import com.app.swe443.openbankapp.Support.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -186,8 +183,6 @@ public class HomeFrag extends Fragment {
             DecimalFormat precision = new DecimalFormat("0.00");
 
             holder.balanceText.setText("$ " + String.valueOf(precision.format(Double.valueOf(mDataset.get(position).getdBalance()))));
-
-
         }
 
         // Return the size of your dataset (invoked by the layout manager)
@@ -196,6 +191,7 @@ public class HomeFrag extends Fragment {
             return mDataset.size();
         }
     }
+
 }
 
 
