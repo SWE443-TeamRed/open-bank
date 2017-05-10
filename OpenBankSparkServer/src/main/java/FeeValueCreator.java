@@ -27,11 +27,11 @@ import java.math.BigInteger;
 public class FeeValueCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
-           {
-                   FeeValue.PROPERTY_TRANSTYPE,
-                   FeeValue.PROPERTY_PERCENT,
-                   FeeValue.PROPERTY_BANK,
-           };
+   {
+      FeeValue.PROPERTY_TRANSTYPE,
+      FeeValue.PROPERTY_PERCENT,
+      FeeValue.PROPERTY_BANK,
+   };
 
    @Override
    public String[] getProperties()
@@ -79,7 +79,7 @@ public class FeeValueCreator implements SendableEntityCreator
    {
       if (FeeValue.PROPERTY_PERCENT.equalsIgnoreCase(attrName))
       {
-         ((FeeValue) target).setPercent(new BigInteger(value.toString()));
+         ((FeeValue) target).setPercent((BigInteger) value);
          return true;
       }
 
@@ -108,7 +108,7 @@ public class FeeValueCreator implements SendableEntityCreator
    }
 
    //==========================================================================
-   public void removeObject(Object entity)
+      public void removeObject(Object entity)
    {
       ((FeeValue) entity).removeYou();
    }
