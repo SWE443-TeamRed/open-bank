@@ -349,7 +349,8 @@ public class TransactionFrag extends Fragment {
 //        String whole = temp2.substring(0,temp2.length()-2);
 //        return whole+"."+decimal;
         BigDecimal bigDecimal = new BigDecimal(amount);
-        return String.valueOf(bigDecimal.doubleValue());
+        DecimalFormat df2 = new DecimalFormat("###.##");
+        return String.valueOf(Double.valueOf(df2.format(bigDecimal.doubleValue())));
     }
 
     public String formatUserAmountInput(String amount){

@@ -22,7 +22,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import static android.content.ContentValues.TAG;
@@ -344,10 +347,13 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
         }
     }
     public String formatServerBalance(String amount){
-        String temp2 = amount.substring(0,amount.length()-7);
-        String decimal = temp2.substring(temp2.length()-2,temp2.length());
-        String whole = temp2.substring(0,temp2.length()-2);
-        return whole+"."+decimal;
+//        String temp2 = amount.substring(0,amount.length()-7);
+//        String decimal = temp2.substring(temp2.length()-2,temp2.length());
+//        String whole = temp2.substring(0,temp2.length()-2);
+//        return whole+"."+decimal;
+        BigDecimal bigDecimal = new BigDecimal(amount);
+        DecimalFormat df2 = new DecimalFormat("###.##");
+        return String.valueOf(Double.valueOf(df2.format(bigDecimal.doubleValue())));
     }
 
     public String formatUserAmountInput(String amount){
