@@ -365,7 +365,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                                 .show();
                     }
                     else {//Case of any other errors from server.
-                        new AlertDialog.Builder(this.getContext())
+                        new AlertDialog.Builder(getActivity())
                                 .setTitle("Error")
                                 .setMessage("Unfortunately, we have have ran in to an error.")
                                 .setNeutralButton("ok", new DialogInterface.OnClickListener() {
@@ -379,9 +379,15 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                     }
                 }
                 else{
-                    String balanceString = obj.get("balance").toString();
-                    balanceString = formatServerBalance(balanceString);
-                    mCallback.updateBalance(balanceString);
+                      String balanceString = mCallback.getAccountInfo()[1];
+                      balanceString = formatUserAmountInput(balanceString);
+                      String toRemoveString = formatUserAmountInput(amount.getText().toString());
+                      BigInteger bigBalance = new BigInteger(balanceString);
+                      BigInteger bigToRemove = new BigInteger(toRemoveString);
+                      bigBalance = bigBalance.subtract(bigToRemove);
+//                    String balanceString = obj.get("balance").toString();
+                      balanceString = formatServerBalance(bigBalance.toString());
+                      mCallback.updateBalance(balanceString);
                 }
         } catch (JSONException e) {
             e.printStackTrace();

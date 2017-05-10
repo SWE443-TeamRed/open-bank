@@ -78,7 +78,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
         if(fragmentPagerAdapter.account2_fragment != null) {
 
-            if((fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)) != null)
+            if(fragmentPagerAdapter.account2_fragment.getView()!=null && fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput) != null)
                 ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText("");
 
             if (messagesReceivedArray.size() > 0) {
