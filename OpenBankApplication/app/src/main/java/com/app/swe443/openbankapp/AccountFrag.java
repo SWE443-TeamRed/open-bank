@@ -152,22 +152,19 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         accountnumText = (TextView) v.findViewById(R.id.accountnumText);
         balanceText = (TextView) v.findViewById(R.id.balanceText);
 
-        ownerText = (TextView) v.findViewById(R.id.ownerText);
+       // ownerText = (TextView) v.findViewById(R.id.ownerText);
         typeText = (TextView) v.findViewById(R.id.typeText);
-        creationText = (TextView) v.findViewById(R.id.creationText);
+       // creationText = (TextView) v.findViewById(R.id.creationText);
 
-        accountnameText.setText(accountInfo[0]);
+        accountnameText.setText(accountInfo[2]);
         accountnumText.setText(accountInfo[0]);
         DecimalFormat precision = new DecimalFormat("0.00");
 
         balanceText.setText("$ " +precision.format(Double.valueOf(accountInfo[1])));
-        ownerText.setText(accountInfo[0]);
+        //ownerText.setText(accountInfo[0]);
         typeText.setText(accountInfo[0]);
-//        balanceText.setText("$ " +precision.format(Integer.valueOf(accountInfo[1])));
-//        ownerText.setText(accountInfo[3]);
-//        typeText.setText(accountInfo[2]);
-        //String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(account.getCreationdate());
-        creationText.setText(accountInfo[0]);
+
+       // creationText.setText(accountInfo[0]);
 
         return v;
     }
@@ -379,7 +376,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 System.out.println("OBTAINED DEPOSITE RESPONSE");
-                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
 
                 System.out.println("DEPOSIT REQUEST RESPONSE "+ response);
                 try {
@@ -401,7 +398,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                         mCallback.updateAccountInfo(accountInfo);
 
                     }else {
-                        Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
                         showProgress(false);
                         setDepositFieldsVisability(0);
                         depositButton.setVisibility(View.VISIBLE);
@@ -501,7 +498,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 System.out.println("RECIEVED WITHDRAW RESPONSE FROM SERVER "+ response);
-                Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
 
 
                 try {
@@ -524,7 +521,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
 
                     }else {
-                        Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getContext(), obj.get("reason").toString(), Toast.LENGTH_LONG).show();
                         showProgress(false);
                         setDepositFieldsVisability(0);
                         depositButton.setVisibility(View.VISIBLE);

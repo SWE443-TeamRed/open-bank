@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity
-        implements HomeFrag.OnHomeFragMethodSelectedListener{
+        implements HomeFrag.OnHomeFragMethodSelectedListener, UsersFrag.OnUserFragMethodSelectedListener{
 
 
 
@@ -61,10 +61,14 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    private MockServerSingleton mockBankServer;
 
-    String userID;
-    String username;
+    private String userID;
+    private String username;
+    private String name;
+    private String email;
+    private String phone;
+    private String totalBalance="0.0";
+
     private ArrayList<AccountDisplay> userAccounts;
 
 
@@ -96,20 +100,10 @@ public class MainActivity extends AppCompatActivity
         //Information to get when coming from login menu
        userID = getIntent().getStringExtra("userID");
        username = getIntent().getStringExtra("username");
+        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("email");
+        phone = getIntent().getStringExtra("phone");
 
-//        //Information to obtain when coming from a previous view (AccountDetails)
-//        /*
-//            Get the account that these fragments will use
-//         */
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null && extras.getString("balance") != null) {
-//            type = extras.getString("type");
-//            balance = extras.getString("balance");
-//            accountnum = extras.getString("accountnum");
-//            username = extras.getString("username");
-//            userID = extras.getString("userID");
-//            System.out.println("Got username and id from loginactivity " + userID + "  " + username);
-//        }
 
 
 
@@ -153,11 +147,14 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         transaction = fm.beginTransaction();
                         transaction.replace(R.id.contentFragment, home_fragment);
+                        transaction.addToBackStack(null);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
+                        break;
                     case 2:
                         transaction = fm.beginTransaction();
                         transaction.replace(R.id.contentFragment, users_fragment);
+                        transaction.addToBackStack(null);
                         transaction.commit();
                         Drawer.closeDrawer(Gravity.LEFT);
                         break;
@@ -183,6 +180,41 @@ public class MainActivity extends AppCompatActivity
     public void backNavigation(View view){
         System.out.println("BACKNAVIGATION FOR HEADER");
         Drawer.closeDrawer(Gravity.START);
+    }
+
+    public String[] getUserInfo(){
+        String[] userInfo = new String[4];
+        userInfo[0] = name;
+        userInfo[1] = totalBalance;
+        userInfo[2] = email;
+        userInfo[3] = phone;
+        return userInfo;
+
+    }
+
+    public String[] getAllUserInfo(){
+        String[] userInfo = new String[5];
+        userInfo[0] = name;
+        userInfo[1] = username;
+        userInfo[2] = email;
+        userInfo[3] = phone;
+        userInfo[4] = userID;
+        return userInfo;
+
+    }
+
+    /*
+        UserFrag changed data, update it here
+        userInfo[0] = name.getText().toString();
+        userInfo[2] =email.getText().toString();
+        userInfo[3] = phone.getText().toString();
+        userInfo[1] = username.getText().toString();
+     */
+    public void updateAllUserInfo(String[] info){
+        username = info[1];
+        name = info[0];
+        email = info[2];
+        phone = info[3];
     }
 
     public void initFragments() {
@@ -224,6 +256,10 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("balance", userAccounts.get(id).getdBalance());
         intent.putExtra("username", username);
         intent.putExtra("userID", userID);
+        intent.putExtra("name", name);
+        intent.putExtra("phone", phone);
+        intent.putExtra("email", email);
+
 
 
         startActivity(intent);
@@ -306,11 +342,16 @@ public class MainActivity extends AppCompatActivity
                     JSONObject rec = accounts.getJSONObject(i);
                     System.out.println("Got an account "+rec.toString());
                     String tempbalance = rec.getString("balance");
+
                     String temp2 = tempbalance.substring(0,tempbalance.length()-7);
                     String decimal = temp2.substring(temp2.length()-2,temp2.length());
                     String whole = temp2.substring(0,temp2.length()-2);
                     String type = rec.getString("accountType");
                     String accountnum = rec.getString("accountNumber");
+                    //Track total balance amongst all accounts
+                    double total = Double.valueOf(totalBalance);
+                    double newvalue = Double.valueOf(whole+"."+decimal);
+                    totalBalance = String.valueOf(total+newvalue);
                     myDataset.add(new AccountDisplay(type,accountnum,whole+"."+decimal));
                 }catch(JSONException e){
                     e.printStackTrace();
