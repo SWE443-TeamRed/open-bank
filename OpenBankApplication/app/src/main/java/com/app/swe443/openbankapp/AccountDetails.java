@@ -83,13 +83,16 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         if(TransferFrag.accountTo != null && TransferFrag.accountToConfirm != null) {
             TransferFrag.accountTo.setText("");
             TransferFrag.accountToConfirm.setText("");
+        }else {
+            Toast.makeText(this, "NULL TransferFrag EditText Views", Toast.LENGTH_LONG).show();
+
         }
 
         //Populate our list of messages we have received
         if (messagesReceivedArray.size() > 0) {
             for (int i = 0; i < messagesReceivedArray.size(); i++) {
-                TransferFrag.accountTo.append(messagesReceivedArray.get(i));
-                TransferFrag.accountToConfirm.append(messagesReceivedArray.get(i));
+                TransferFrag.accountTo.setText(messagesReceivedArray.get(i));
+                TransferFrag.accountToConfirm.setText(messagesReceivedArray.get(i));
             }
         }
     }
@@ -119,7 +122,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
 
         //Set of the Pager fragments
-        if(fragmentPagerAdapter == null)
+        if(accountnum != null)
             fragmentPagerAdapter = new FragmentPageAdapter(getSupportFragmentManager(), Integer.valueOf(accountnum));
         viewerPager = (ViewPager)findViewById(R.id.pager);
         viewerPager.setAdapter(fragmentPagerAdapter);
@@ -255,8 +258,9 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 //                    this.updateNFCAccount(new String(record.getPayload()));
                     messagesReceivedArray.add(string);
                 }
-                Toast.makeText(this, "Received " + messagesReceivedArray.size() +
-                        " Messages", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Received " + messagesReceivedArray.size() + " Messages", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Received Message" + messagesReceivedArray, Toast.LENGTH_SHORT).show();
+
                 updateTextViews();
 
             } else {
