@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -74,21 +76,17 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     private void updateTextViews() {
 
-        if(TransferFrag.accountTo != null && TransferFrag.accountToConfirm != null) {
-            TransferFrag.accountTo.setText("");
-            TransferFrag.accountToConfirm.setText("");
-        }else {
-            Toast.makeText(this, "NULL TransferFrag EditText Views", Toast.LENGTH_LONG).show();
+        if(fragmentPagerAdapter.account2_fragment != null) {
 
-        }
+            ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText("");
 
-        //Populate our list of messages we have received
-        if (messagesReceivedArray.size() > 0) {
-            for (int i = 0; i < messagesReceivedArray.size(); i++) {
-                TransferFrag.accountTo.setText(messagesReceivedArray.get(i));
-                TransferFrag.accountToConfirm.setText(messagesReceivedArray.get(i));
+            if (messagesReceivedArray.size() > 0) {
+//                for (int i = 0; i < messagesReceivedArray.size(); i++) {
+                ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText(messagesReceivedArray.get(messagesReceivedArray.size()-1));
+//                }
             }
-        }
+        }else
+            Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -98,6 +96,8 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
         //Get accountIndex from MainActivity
         System.out.println("Viewing account fragment for account: "+accountnum);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
          /*
             Get the account that these fragments will use
@@ -193,6 +193,10 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
         fragmentPagerAdapter.notifyDataSetChanged();
 
     }
+
+
+
+
 
     public void onTransferSelected() {
         System.out.println("onTransferSelected method initiated");

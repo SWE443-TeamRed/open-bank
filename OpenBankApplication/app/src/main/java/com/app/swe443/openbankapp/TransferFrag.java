@@ -32,11 +32,16 @@ import static android.content.ContentValues.TAG;
 
 public class TransferFrag extends Fragment implements View.OnClickListener {
 
-    static public EditText accountTo;
-    static public EditText accountToConfirm;
+    public EditText accountTo;
+    public EditText accountToConfirm;
+
+    public EditText accountnumToAccountInput;
+
     private EditText amount;
     private EditText amountNFC;
     private EditText amountQR;
+
+    private View v;
 
     private Button transferManuallyButton;
     private Button transferNFCButton;
@@ -74,12 +79,14 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =inflater.inflate(R.layout.fragment_transfer, container, false);
+        v =inflater.inflate(R.layout.fragment_transfer, container, false);
 
         accountTo = (EditText) v.findViewById(R.id.accountnumToInput);
         accountToConfirm = (EditText) v.findViewById(R.id.accountnumToConfirmInput);
+        accountnumToAccountInput = (EditText) v.findViewById(R.id.accountnumToAccountInput);
+
         amount = (EditText) v.findViewById(R.id.amountInput);
-        amountNFC = (EditText) v.findViewById(R.id.amount_NFC);
+        amountNFC = (EditText) v.findViewById(R.id.amountToAccountInput);
         amountQR = (EditText) v.findViewById(R.id.QR_amount);
 
         transferManuallyButton = (Button) v.findViewById(R.id.transferManuallyButton);
@@ -164,6 +171,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 setOptionsVisibility(3);
                 break;
             case R.id.cancelNFC:
+                accountnumToAccountInput.setText("");
                 transferNFCLayout.setVisibility(View.GONE);
                 setOptionsVisibility(3);
                 break;
@@ -172,9 +180,42 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 setOptionsVisibility(3);
                 break;
             case R.id.confirmNFC:
-                transferNFCLayout.setVisibility(View.GONE);
-                setOptionsVisibility(3);
-                break;
+                 /*
+                    Input:  transferType : [transferType]
+                            toAccountId : [accountNum]
+                            amount : [Double amount]
+                            fromAccountId : [accountNum]
+
+                 */
+                boolean incomplete2 = false;
+                if(accountnumToAccountInput.getText().toString().equals("") ) {
+                    accountnumToAccountInput.setError("Required field is missing");
+                    incomplete2 = true;
+                }
+                if(amountNFC.getText().toString().equals("")) {
+                    amountNFC.setError("Required field is missing");
+                    incomplete2 = true;
+                }
+                if(Double.valueOf(amountNFC.getText().toString()) <= 0){
+                    amountNFC.setError("Can't transfer a negative amount");
+                    incomplete2 = true;
+                }else {
+                    String amountBig = formatUserAmountInput(amountNFC.getText().toString());
+
+                    params = new HashMap<String, String>();
+                    params.put("transferType", "TRANSFER");
+                    params.put("toAccount", accountnumToAccountInput.getText().toString());
+                    params.put("amount", amountBig);
+                    //Sender's accountnum is stored in the AccountDetails activity (parent activity)
+                    params.put("fromAccount",  mCallback.getAccountInfo()[0]);
+                }
+                if(incomplete2)
+                    break;
+                else{
+                    confirmTransfer();
+                    accountnumToAccountInput.setText("");
+                    break;
+                }
             case R.id.confirmQR:
                 transferQRLayout.setVisibility(View.GONE);
                 setOptionsVisibility(3);
