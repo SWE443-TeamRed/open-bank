@@ -183,8 +183,6 @@ public class HomeFrag extends Fragment {
             DecimalFormat precision = new DecimalFormat("0.00");
 
             holder.balanceText.setText("$ " + String.valueOf(precision.format(Double.valueOf(mDataset.get(position).getdBalance()))));
-
-
         }
 
         // Return the size of your dataset (invoked by the layout manager)
@@ -193,6 +191,7 @@ public class HomeFrag extends Fragment {
             return mDataset.size();
         }
     }
+
 }
 
 
