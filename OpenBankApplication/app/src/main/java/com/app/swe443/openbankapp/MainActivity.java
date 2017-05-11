@@ -320,21 +320,9 @@ public class MainActivity extends AppCompatActivity
                     System.out.println("Got an account "+rec.toString());
                     String tempbalance = rec.getString("balance");
 
-                    String temp2 = tempbalance.substring(0,tempbalance.length()-7);
-                    String decimal = "";
 
-                    //TODO temporary fix. Look into resolving this issue further
-                    if(temp2.length() > 1)
-                        decimal = temp2.substring(temp2.length()-2,temp2.length());
-                    else if(temp2.length()==1)
-                        decimal = temp2.substring(temp2.length()-1,temp2.length());
-
-                    String whole = temp2.substring(0,temp2.length()-2);
                     String type = rec.getString("accountType");
                     String accountnum = rec.getString("accountNumber");
-                    //Track total balance amongst all accounts
-                    double total = Double.valueOf(totalBalance);
-                    double newvalue = Double.valueOf(whole+"."+decimal);
                     totalBalance = tempbalance;
                     myDataset.add(new AccountDisplay(type,accountnum,tempbalance));
                 }catch(JSONException e){
