@@ -335,22 +335,52 @@ public class SparkServer implements SparkApplication {
                         boolean isAdmin = false;
                         String email = "";
 
+                        logger.info(request.queryParams("toAccount"));
+                        logger.info(request.queryParams("fromAccount"));
+                        logger.info(request.queryParams("amount"));
+                        logger.info(request.queryParams("note"));
+
                         if (request.queryParams().contains("toAccount")
                                 && request.queryParams().contains("fromAccount")
                                 && request.queryParams().contains("amount")
                                 && request.queryParams().contains("note")) {
+                            if (!request.queryParams("toAccount").equals("")
+                                    && !request.queryParams("fromAccount").equals("")
+                                    && !request.queryParams("amount").equals("")
+                                    && !request.queryParams("note").equals("")) {
 
-                            int toAccount = Integer.parseInt(request.queryParams("toAccount"));
-                            int fromAccount = Integer.parseInt(request.queryParams("fromAccount"));
-                            String amount = request.queryParams("amount");
-                            String note = request.queryParams("note");
+                                int toAccount;
+                                int fromAccount;
+                                try{
+                                    toAccount = Integer.parseInt(request.queryParams("toAccount"));
+                                    fromAccount = Integer.parseInt(request.queryParams("fromAccount"));
+                                }catch(NumberFormatException nfe){
+                                    responseJSON.put("request", "failed");
+                                    responseJSON.put("reason", "Invalid account numbers");
+                                    return responseJSON;
+                                }
 
-                            StringBuilder msg2 = new StringBuilder();
-                            bank.recordTransaction(fromAccount, toAccount, TransactionTypeEnum.TRANSFER, new BigInteger(amount), note, true, msg2);
+                                String amount = request.queryParams("amount");
+                                String note = request.queryParams("note");
+
+                                StringBuilder msg2 = new StringBuilder();
+
+                                if (bank.findAccountByID(toAccount) != null && bank.findAccountByID(fromAccount) != null) {
+                                    bank.recordTransaction(fromAccount, toAccount, TransactionTypeEnum.TRANSFER, new BigInteger(amount), note, true, msg2);
+                                    responseJSON.put("request", "success");
+                                    responseJSON.put("reason", "Transaction successfully added");
+                                } else {
+                                    responseJSON.put("request", "failed");
+                                    responseJSON.put("reason", "Invalid account numbers");
+                                }
+                            } else {
+                                responseJSON.put("request", "failed");
+                                responseJSON.put("reason", "Please fill in all fields");
+                            }
 
                         } else {
                             responseJSON.put("request", "failed");
-                            responseJSON.put("reason", "missing required parameters in body");
+                            responseJSON.put("reason", "Missing required parameters");
                         }
                         return responseJSON;
                     });
@@ -454,6 +484,10 @@ public class SparkServer implements SparkApplication {
                                         transactionItem.put("fromAccount", Integer.toString(tran.getNextTransitive().getFromAccount().first().getAccountnum()));
                                     else
                                         transactionItem.put("fromAccount", "N/A");
+
+
+                                    logger.info(Integer.toString(tran.getNextTransitive().getFromAccount().first().getAccountnum()));
+
                                     responseJSON.add(transactionItem);
                                 }
                             }
