@@ -310,6 +310,7 @@ public class TransactionFrag extends Fragment {
 
                         String type = rec.getString("transType");
                         String amount = rec.getString("transAmount");//formatServerBalance(rec.getString("transAmount"));
+
                         Date newDateFormat = new Date();
                         try {
                             newDateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy").parse(rec.getString("creationDate"));
