@@ -29,10 +29,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigInteger;
 import java.util.Date;
-import org.sdmlib.openbank.AccountTypeEnum;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.Bank;
 /**
  *
  * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
@@ -738,6 +734,7 @@ public  class Account implements SendableEntity
          pulledAdminAccount = this.getBank().getAdminAccounts().first();
       }
       BigInteger calculatedFee = (amount.multiply(i.getPercent())).divide(new BigInteger("1000000000"));
+
       Transaction trans = new Transaction();
       trans.setDate(new Date());
       trans.setAmount(calculatedFee);

@@ -2130,6 +2130,42 @@ public class Test_Improving_Backend_Functionality {
         }
 
     }
+    @Test
+    public void testStoryForPresentation() {
 
+        Bank bank = new Bank().withBankName("OpenBank");
+
+        FeeValue f4;
+
+        f4 = new FeeValue()
+                .withBank(bank)
+                .withTransType(TransactionTypeEnum.SEED)
+                .withPercent(new BigInteger("50000000")); //.05
+
+        bank.withFeeValue(f4);
+
+        Account adminAccount = bank.createAdminAccounts();
+        adminAccount.setIsConnected(true);
+        adminAccount.setType(AccountTypeEnum.CHECKING);
+        adminAccount.setAccountnum(bank.getNextID());
+        adminAccount.setBalance(new BigInteger("1000000000000000000"));
+        adminAccount.setCreationdate(new Date());
+
+        StringBuilder msg1 = new StringBuilder();
+        String userID = bank.createUser("AntEater", "AntsAreTasty",
+                "Tom Eater", "5712342393", "antEatingAntEater1@gmail.com",
+                false, msg1);
+
+
+        StringBuilder msg2 = new StringBuilder();
+        String accountID = bank.createAccount(userID, false, new BigInteger("123450000000"), AccountTypeEnum.CHECKING, msg2);
+
+        System.out.println(bank.getTransactions(0, new BigInteger("0"), null));
+        System.out.println("Admin account balance: " + adminAccount.getBalance());
+        System.out.println("User account balance: " + bank.findAccountByID(Integer.parseInt(accountID)).getBalance());
+
+        assertEquals(new BigInteger("117277500000"),  bank.findAccountByID(Integer.parseInt(accountID)).getBalance());
+        assertEquals(new BigInteger("999999882722500000"), adminAccount.getBalance());
 
     }
+}
