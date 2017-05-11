@@ -161,7 +161,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
         balanceText.setText("$ " +convertBigInt(accountInfo[1]));
         //ownerText.setText(accountInfo[0]);
-        typeText.setText(accountInfo[0]);
+        typeText.setText(accountInfo[2]);
 
        // creationText.setText(accountInfo[0]);
 
