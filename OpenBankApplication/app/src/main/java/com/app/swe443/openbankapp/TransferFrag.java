@@ -386,8 +386,8 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                       BigInteger bigToRemove = new BigInteger(toRemoveString);
                       bigBalance = bigBalance.subtract(bigToRemove);
 //                    String balanceString = obj.get("balance").toString();
-                      balanceString = formatServerBalance(bigBalance.toString());
-                      mCallback.updateBalance(balanceString);
+//                      balanceString = formatServerBalance(bigBalance.toString());
+                      mCallback.updateBalance(bigBalance.toString());
                 }
         } catch (JSONException e) {
             e.printStackTrace();
