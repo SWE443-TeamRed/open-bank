@@ -44,8 +44,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.app.swe443.openbankapp.Support.User;
-import com.app.swe443.openbankapp.Support.UserSet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,11 +100,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //Click on sign in.
         Button mUsernameSignInButton = (Button) findViewById(R.id.username_sign_in_button);
         mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        //Click on register in.
+        Button registerButton = (Button) findViewById(R.id.register);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
+
+        //Click on forgot password.
+        TextView forgetPass = (TextView) findViewById(R.id.forgotPass);
+        forgetPass.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassword();
             }
         });
 
@@ -115,10 +131,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     //Register information.
-    public void register(View v){//Click on the register button
+    private void register(){//Click on the register button
         fm = getSupportFragmentManager();
         transaction = fm.beginTransaction();
         transaction.add(R.id.drawer_layout, new SignUpFrag1(), "SignUpFrag1");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    //Change to forgot password interface.
+    private void forgotPassword(){
+        fm = getSupportFragmentManager();
+        transaction = fm.beginTransaction();
+        transaction.add(R.id.drawer_layout, new ChangePasswordFrag(), "ChangePasswordFrag");
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -162,7 +186,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             params.put("username", username);
             params.put("password", password);
             loginPostRequest(URL,params);
-
         }
     }
 
@@ -254,7 +277,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    //This makes the post request to verufy username & password and login.
+    //This makes the post request to verify username & password and login.
     StringRequest stringRequest;
     RequestQueue requestQueue;
     String auth;
@@ -264,9 +287,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO Erase latter, for testing.
-                         System.out.println("Success********"+response +"********");
-                        Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getBaseContext(),response,Toast.LENGTH_LONG).show();
                         try {
                             JSONObject obj = new JSONObject(response);
                             checkAuth(obj);
@@ -279,9 +300,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //TODO Erase latter, for testing.
-                        //System.out.println("Error********"+error +"********");
-                        Toast.makeText(getBaseContext(),error.toString(),Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getBaseContext(),error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
@@ -319,12 +338,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             } else {
                 // Show a progress spinner, and kick off a background task.
-                String[] UsernameAdnId = {mUsernameView.getText().toString(),
-                        obj.get("userID").toString()};
+
                 showProgress(true);
-                Intent main = new Intent(LoginActivity.this, MainActivity.class);
-                main.putExtra("UsernameAdnId", UsernameAdnId);
+                Intent main = new Intent(getBaseContext(), MainActivity.class);
+                main.putExtra("userID", obj.get("userID").toString());
+                main.putExtra("username", mUsernameView.getText().toString());
+                main.putExtra("phone", obj.get("phone").toString());
+                main.putExtra("name", obj.get("name").toString());
+                main.putExtra("email", obj.get("email").toString());
                 startActivity(main);
+                finish();
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -332,6 +355,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 }
+
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
 
 }
 

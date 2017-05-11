@@ -1,21 +1,42 @@
 package com.app.swe443.openbankapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.app.swe443.openbankapp.Support.Transaction;
-import com.app.swe443.openbankapp.Support.TransactionTypeEnum;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by kimberly_93pc on 4/9/17.
@@ -25,84 +46,53 @@ public class TransactionFrag extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter rViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private HashMap<String,String> params;
+    private BigInteger currentbalance;
+    private String type;
+    private int accountnum;
+
 
     //UI fields
     private TextView transactionHeaderName;
 
+
     //Parent activity which stores data
     AccountDetails activity;
-    private MockServerSingleton mockBankServer;
-    private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-
-    //Calculate each change in balance as a result of each transaction. Display this with each transaction
-    private ArrayList<Double> transactionBalances = new ArrayList<Double>();
     //Total money changed due to all transactinos in the current accout. Used to calc dec or inc balance in transaction list
-    private  double transCost = 0;
+    BigInteger transCost = new BigInteger("0");
+    //Calculate each change in balance as a result of each transaction. Display this with each transaction
+    ArrayList<TransactionDisplay> transDataset;
+
+    private TransactionFrag.OnTransactionFragCallbackListener mCallback;
+
 
     // Container Activity must implement this interface
-    /*
-    TODO Handle callback if requirements need a transaction to be changed. Change it when it is clicked in list
-     */
-    //private TransactionFrag.OnTransactionSelectedListener mCallback;
-    public interface OnTransactionSelectedListener {
-        public void onTransactionSelected(int accountID);
+
+    public interface OnTransactionFragCallbackListener {
+        public String[] getAccountInfo();
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("Creating transaction fragment, there are "+transactions.size()+ " transactions");
+        System.out.println("Creating transaction fragment");
 
-        mockBankServer = MockServerSingleton.getInstance();
-
-        //Clear local transactions after every fragement load
-        if(transactions.size()!=0){
-            transactions.clear();
-        }
-        //AccountDetails Activity reference, used to get account and transaction data through Main's methods
-        activity = (AccountDetails) getActivity();
-        //Grab Account ID from the passed in argument
-
-            //Call to AccountDetails Activity to get transactions of specific account
-            transactions.addAll(mockBankServer.getTransactions());
-            System.out.println("Getting the user's transactions of size "+transactions.size());
-            /*
-                Calculate the updated balance after each transaction occurs
-             */
-            transCost = mockBankServer.getAccount().getBalance();
-            //For every transaction in the account, calculate the account balance as a result of the trasaction, store for display
-            for(int i=0;i<transactions.size();i++){
-                if(i==0)
-                    //Most recent transaction should be at the top of list, its balance is the current accounts balance
-                    transactionBalances.add(i,transCost);
-                else {
-                    //Every transactions 'current balance' should be value before the previous transction took place
-                    if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Deposit) ||
-                            transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Create)) {
-                        //i-1 = the transaction infront of i, subtracting when a deposit occurs shows balance before Deposit at i-1 took place
-                        transCost -= transactions.get(i-1).getAmount();
-                        transactionBalances.add(i, transCost);
-                        System.out.println("Deposit  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
-
-                    } else if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Withdraw)) {
-                        //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
-                        transCost += transactions.get(i-1).getAmount();
-                        transactionBalances.add(i, transCost);
-                        System.out.println("Withdrew  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
+         mCallback = (TransactionFrag.OnTransactionFragCallbackListener) getActivity();
+         String[] accountinfo = mCallback.getAccountInfo();
+        System.out.println("================================Balance = "+ accountinfo[1]);
+        currentbalance = new BigInteger(accountinfo[1]);
+        type = accountinfo[2];
+        accountnum = Integer.valueOf(accountinfo[0]);
 
 
-                    }else if (transactions.get(i-1).getTransType().equals(TransactionTypeEnum.Transfer)) {
-                        //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
-                        transCost += transactions.get(i-1).getAmount();
-                        transactionBalances.add(i, transCost);
-                        System.out.println("Transfer  " + transactions.get(i).getAmount() + "  transcost is now " + transCost);
+        transDataset = new ArrayList<TransactionDisplay>();
+        //Call to AccountDetails Activity to get transactions of specific account
+         System.out.println("Getting the user's transactions");
 
-                    }
-                }
-            }
-        }
+
+
+        getTransactionsFromServer();
+    }
 
 
 
@@ -125,10 +115,9 @@ public class TransactionFrag extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //jsonp.toJson(tinac);
-        //Account tinaa = jsonp.fromJson(tina.getUserID());
 
         //Set data and send it to the Adapter
-        rViewAdapter = new TransactionFrag.MyAdapter(transactions, getContext());
+        rViewAdapter = new TransactionFrag.MyAdapter(transDataset, getContext());
         mRecyclerView.setAdapter(rViewAdapter);
 
         return v;
@@ -145,7 +134,7 @@ public class TransactionFrag extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public TextView fromText;
-            public TextView noteText;
+            public TextView toUserText;
             public TextView balanceText;
             public TextView amountText;
             public TextView dateText;
@@ -154,8 +143,8 @@ public class TransactionFrag extends Fragment {
 
             public ViewHolder(View v) {
                 super(v);
-                fromText = (TextView) v.findViewById(R.id.balanceText);
-                noteText = (TextView) v.findViewById(R.id.noteText);
+               // fromText = (TextView) v.findViewById(R.id.balanceText);
+                toUserText = (TextView) v.findViewById(R.id.toUserText);
                 balanceText = (TextView) v.findViewById(R.id.balanceText);
                 amountText = (TextView) v.findViewById(R.id.amountText);
                 dateText = (TextView) v.findViewById(R.id.dateText);
@@ -165,9 +154,9 @@ public class TransactionFrag extends Fragment {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(ArrayList<Transaction> myDataset, Context context) {
+        public MyAdapter(ArrayList<TransactionDisplay> myDataset, Context context) {
 
-            transactions = myDataset;
+            transDataset = myDataset;
 
         }
 
@@ -197,36 +186,47 @@ public class TransactionFrag extends Fragment {
         public void onBindViewHolder(TransactionFrag.MyAdapter.ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Transfer))
-                holder.fromText.setText(String.valueOf(String.valueOf(transactions.get(position).getFromAccount().getOwner().getName())));
+            if(transDataset.get(position).getdType().equals("TRANSFER"))
+                holder.toUserText.setText("To: "+transDataset.get(position).getdToUserName());
             else
-                holder.fromText.setText(String.valueOf("Self"));
+                holder.toUserText.setText(String.valueOf("Self"));
 
-            holder.noteText.setText(String.valueOf(transactions.get(position).getNote()));
-            String newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' HH:mm").format(transactions.get(position).getCreationdate());
-            holder.dateText.setText(String.valueOf(newDateFormat));
-            holder.typeText.setText("Account Type: "+String.valueOf(transactions.get(position).getTransType()));
+            //holder.noteText.setText(String.valueOf(transDataset.get(position).getdNote()));
+            holder.dateText.setText(String.valueOf(transDataset.get(position).getdCreationDate()));
+            holder.typeText.setText("Type: "+String.valueOf(transDataset.get(position).getdType()));
 
-            DecimalFormat precision = new DecimalFormat("0.00");
-            String balance = precision.format(transactionBalances.get(position));
-            holder.balanceText.setText("$ "+balance);
-            if(transactions.get(position).getTransType().equals(TransactionTypeEnum.Deposit) ||
-                    transactions.get(position).getTransType().equals(TransactionTypeEnum.Create)) {
-                 holder.amountText.setText("$ "+precision.format(transactions.get(position).getAmount()));
+            //String balance = precision.format(transDataset.get(position).getdBalance());
+            holder.balanceText.setText("$ "+transDataset.get(position).getdBalance());
+            if(transDataset.get(position).getdType().equals("DEPOSIT") ||
+                    transDataset.get(position).getdType().equals("SEED")) {
+                 holder.amountText.setText("$ "+this.convertBigInt(transDataset.get(position).getdAmount()));
 
             }else{
                 //amount is the amount of the transaction (-) displays if it is a withdraw
-                holder.amountText.setText(String.valueOf("- $" + transactions.get(position).getAmount()));
-                //Balance at this transactions state is stored in the transactionBalances array at index position (corresponds to transaction index)
-                holder.balanceText.setText("$ "+precision.format(transactionBalances.get(position)));
+                holder.amountText.setText(String.valueOf("- $" + this.convertBigInt(transDataset.get(position).getdAmount())));
+                //Balance at this transDataset state is stored in the transactionBalances array at index position (corresponds to transaction index)
+                holder.balanceText.setText("$ "+transDataset.get(position).getdBalance());
+
 
             }
+        }
+        public String convertBigInt(String b){
+            String s = "";
+            if(b.length() > 9)
+                s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+            else if(b.length() == 9)
+                s = "0."+b.substring(0,b.length()-7);
+            else if(b.length() == 8)
+                s= "0.0"+b.substring(0,b.length()-7);
+            else if(b.length() <= 7)
+                s= "0.00";
+            return s;
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return transactions.size();
+            return transDataset.size();
         }
 
         @Override
@@ -235,4 +235,277 @@ public class TransactionFrag extends Fragment {
         }
 
     }
+    public String convertBigInt(String b){
+        String s = "";
+        if(b.length() > 9)
+            s = b.substring(0,b.length()-9)+"."+b.substring(b.length()-9,b.length()-7);
+        else if(b.length() == 9)
+            s = "0."+b.substring(0,b.length()-7);
+        else if(b.length() == 8)
+            s= "0.0"+b.substring(0,b.length()-7);
+        else if(b.length() <= 7)
+            s= "0.00";
+        return s;
+    }
+
+    public void calculateBalances(ArrayList<TransactionDisplay> transactions){
+        /*
+                Calculate the updated balance after each transaction occurs
+             */
+
+        transCost = currentbalance;
+        //For every transaction in the account, calculate the account balance as a result of the trasaction, store for display
+        for(int i=0;i<transactions.size();i++){
+            if(i==0) {
+                //Most recent transaction should be at the top of list, its balance is the current accounts balance
+                transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
+            }
+            else {
+                //Every transactions 'current balance' should be value before the previous transction took place
+                if (transactions.get(i-1).getdType().equals("DEPOSIT") ||
+                        transactions.get(i-1).getdType().equals("SEED")) {
+                    //i-1 = the transaction infront of i, subtracting when a deposit occurs shows balance before Deposit at i-1 took place
+                    transCost = transCost.subtract(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
+                    System.out.println("Deposit  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
+
+                } else if (transactions.get(i-1).getdType().equals("WITHDRAW")) {
+                    //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
+                    transCost = transCost.add(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
+                    System.out.println("Withdrew  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
+
+
+                }else if (transactions.get(i-1).getdType().equals("TRANSFER")) {
+                    //i-1 = the transaction infront of i, Adding when a when occurs shows balance before Withdraw at i-1 took place
+                    transCost = transCost.add(new BigInteger(transactions.get(i-1).getdAmount()));
+                    transactions.get(i).setdBalance(convertBigInt(transCost.toString()));
+                    System.out.println("Transfer  " + transactions.get(i).getdAmount() + "  transcost is now " + transCost);
+
+                }
+            }
+        }
+    }
+
+    public void getTransactionsFromServer(){
+        StringRequest stringRequest;
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://54.87.197.206:8080/SparkServer/api/v1/transaction?accountID="+accountnum;
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("OBTAINED RESPONSE FROM GET USER TRANSACTION REQUEST "+response);
+                //Toast.makeText(getContext(),response.toString(),Toast.LENGTH_LONG).show();
+                JSONObject obj = null;
+                JSONArray transactions = null;
+                try {
+                    obj = new JSONObject(response);
+                    transactions = (JSONArray) obj.get("transactions");
+                    for(int i=0; i<transactions.length();i++) {
+
+//                        {"transAmount":"123000000000","fromUserName":"","toAccountType":"CHECKING","transType":"SEED",
+//                                "toUserName":"henry lopez","balanceAfter":"123000000000","creationDate":"Wed May 10 01:42:23 UTC 2017"}
+                        JSONObject rec = transactions.getJSONObject(i);
+                        System.out.println("Got an account " + rec.toString());
+
+                        String type = rec.getString("transType");
+                        String amount = rec.getString("transAmount");//formatServerBalance(rec.getString("transAmount"));
+
+                        Date newDateFormat = new Date();
+                        try {
+                            newDateFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy").parse(rec.getString("creationDate"));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String numericDate = new SimpleDateFormat("yyyy-MM-dd").format(newDateFormat);
+                        String creationDate = new SimpleDateFormat("EEE MMM d, yyyy").format(newDateFormat);
+                        String[] parseCreationDate = newDateFormat.toString().split(" ");
+                        String[] parseTime = parseCreationDate[3].split(":");
+                        Date numericHour = null;
+                        String hour = "";
+                        try {
+                            numericHour = new SimpleDateFormat("k").parse(parseTime[0]);
+                            System.out.println("NUMERIC HOUR IS "+numericHour);
+                            String[] parseH = numericHour.toString().split(" ");
+                            hour = parseH[3];
+                            String[] hours = hour.split(":");
+                            hour = hours[0];
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String[] parseDate = numericDate.split("-");
+                        String hourNumValue = parseDate[0]+parseDate[1]+parseDate[2]+hour+parseTime[1]+parseTime[2];
+                        System.out.println("*****************************************NUMERIC TIME VALUE IS "+parseDate[0]+" "+parseDate[1]+" "+parseDate[2]+" "+hour+" "+parseTime[1]+" "+parseTime[2]);
+                        //String note = rec.getString("note");
+                        String toUserName = rec.getString("toUserName");
+                        String toAccountType = rec.getString("toAccountType");
+                        transDataset.add(new TransactionDisplay(type, amount, creationDate, toUserName, toAccountType, hourNumValue));
+                    }
+                    Collections.sort(transDataset, Collections.reverseOrder());
+                    calculateBalances(transDataset);
+                    rViewAdapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                return params;
+            }
+        };
+        System.out.println("REQUESTING TRANSFER TRANSACTION");
+        queue.add(stringRequest);
+    }
+
+
+    public String formatServerBalance(String amount){
+//        String temp2 = amount.substring(0,amount.length()-7);
+//        String decimal = temp2.substring(temp2.length()-2,temp2.length());
+//        String whole = temp2.substring(0,temp2.length()-2);
+//        return whole+"."+decimal;
+        BigDecimal bigDecimal = new BigDecimal(amount);
+        DecimalFormat df2 = new DecimalFormat("###.##");
+        return String.valueOf(Double.valueOf(df2.format(bigDecimal.doubleValue())));
+    }
+
+    public String formatUserAmountInput(String amount){
+        String[] binput = {" "," "};
+        //Balance contains cents
+        if(amount.contains(".")) {
+            binput = amount.split("\\.");
+            System.out.println("SIZE IS "+binput.length);
+            //Toast.makeText(getContext(),binput.length,Toast.LENGTH_LONG).show();
+            //Format decimal values
+            if(binput[1].length()==1)
+                binput[1] = binput[1]+"0";
+            else if(binput[1].length()==0)
+                binput[1] = "00";
+            else{
+                StringBuilder s = new StringBuilder();
+                s.append(binput[1].charAt(0)).append(binput[1].charAt(1));
+                binput[1] = s.toString();
+            }
+        }
+        //Balance is a whole number
+        else {
+            binput[0] = amount;
+            binput[0] = binput[0].replaceAll("[$,.]", "");
+            binput[1] = "00";
+        }
+        StringBuilder finalinputbalance = new StringBuilder();
+        finalinputbalance.append(binput[0]).append(binput[1]).append("0000000");
+        BigInteger initialBalance = new BigInteger(finalinputbalance.toString());
+        System.out.println("USER INITIAL BALANCE IS "+ initialBalance.toString());
+        return initialBalance.toString();
+    }
+
+
+   }
+
+
+/*
+  Helper class to organize attributes that will be dispalyed
+*/
+class TransactionDisplay implements Comparable {
+    private String dType;
+    private String dAmount;
+    private String dCreationDate;
+    //private String dNote;
+    private String dToUserName;
+    private String dToAccountType;
+    private String dBalance;
+    private String numericDate;
+
+
+    public TransactionDisplay(String type, String amount, String creationDate, String toUsername, String toAccountType, String numericDate){
+        this.dType = type;
+        DecimalFormat precision = new DecimalFormat("0.00");
+        this.dAmount = amount;//precision.format(Double.valueOf(amount));
+        this.dCreationDate = creationDate;
+        this.dToUserName = toUsername;
+        this.dToAccountType = toAccountType;
+        this.numericDate = numericDate;
+    }
+
+
+
+    public String getdAmount() {
+        return dAmount;
+    }
+
+    public void setdAmount(String dAmount) {
+        this.dAmount = dAmount;
+    }
+
+    public String getdCreationDate() {
+        return dCreationDate;
+    }
+
+    public void setdCreationDate(String dCreationDate) {
+        this.dCreationDate = dCreationDate;
+    }
+
+    public String getdType() {
+        return dType;
+    }
+
+    public void setdType(String dType) {
+        this.dType = dType;
+    }
+
+//    public String getdNote() {
+//        return dNote;
+//    }
+//
+//    public void setdNote(String dNote) {
+//        this.dNote = dNote;
+//    }
+    public String getNumericDate() {
+        return numericDate;
+    }
+
+    public String getdToUserName() {
+        return dToUserName;
+    }
+
+    public void setdToUserName(String dToUserName) {
+        this.dToUserName = dToUserName;
+    }
+
+    public String getdToAccountType() {
+        return dToAccountType;
+    }
+
+    public void setdToAccountType(String dToAccountType) {
+        this.dToAccountType = dToAccountType;
+    }
+
+    public String getdBalance() {
+        return dBalance;
+    }
+
+    public void setdBalance(String dBalance) {
+        this.dBalance = dBalance;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        TransactionDisplay other = (TransactionDisplay) o;
+        BigInteger thisValue = new BigInteger(this.getNumericDate());
+        BigInteger otherValue = new BigInteger(other.getNumericDate());
+        if(thisValue.compareTo(otherValue) ==1)
+            return 1;
+        else if(thisValue.compareTo(otherValue) ==-1)
+            return -1;
+        else
+            return 0;
+    }
+
 }

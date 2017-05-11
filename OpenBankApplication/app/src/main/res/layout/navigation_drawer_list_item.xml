@@ -20,9 +20,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:textSize="18sp"
-        android:textColorHighlight="@color/colorAccent"
-        android:textSelectHandle="@color/colorAccent"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:divider="#6a123551"
+        android:textColor="@drawable/selected_drawer_text_color"
         />
 </LinearLayout>

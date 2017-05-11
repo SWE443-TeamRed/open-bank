@@ -54,7 +54,7 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username here"
+                    android:hint="Username"
                     android:inputType="text"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
@@ -82,6 +82,7 @@
 
             <TextView
                 style="?android:textAppearanceSmall"
+                android:id="@+id/forgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password"
@@ -90,7 +91,7 @@
             <Button
                 android:id="@+id/username_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="170dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -103,12 +104,11 @@
             <Button
                 android:id="@+id/register"
                 style="?android:textAppearanceSmall"
-                android:layout_width="170dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="#0b3c5d"
-                android:onClick="register"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
                 android:text="Register"

@@ -12,10 +12,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class FragmentPageAdapter extends FragmentStatePagerAdapter {
 
-    private int accountIndex;
-    public FragmentPageAdapter(FragmentManager fm, int accountIndex) {
+    private int accountnum;
+    static public AccountFrag account_fragment;
+    static public TransactionFrag trans_fragment;
+    static public TransferFrag account2_fragment;
+
+    public FragmentPageAdapter(FragmentManager fm, int accountnum) {
         super(fm);
-        this.accountIndex = accountIndex;
+        this.accountnum = accountnum;
     }
 
     @Override
@@ -23,19 +27,17 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
 
-                Fragment account_fragment = new AccountFrag();
+                account_fragment = new AccountFrag();
                 return account_fragment;
             case 1:
-
-                Fragment trans_fragment = new TransactionFrag();
+                trans_fragment = new TransactionFrag();
                 return trans_fragment;
             case 2:
-                return new TransferFrag();
-            default:
-
-                Fragment account2_fragment = new AccountFrag();
+                account2_fragment = new TransferFrag();
                 return account2_fragment;
-        }
+            default:
+                account_fragment = new AccountFrag();
+                return account_fragment;        }
     }
 
     @Override

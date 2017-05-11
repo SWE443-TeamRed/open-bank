@@ -9,17 +9,6 @@
     android:orientation="vertical"
     tools:context="com.app.swe443.openbankapp.OpenFirstAccountFrag">
 
-    <TextView
-        android:id="@+id/Create_account_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Open Your First Account"
-        android:textColor="@color/colorAccent"
-        android:textSize="30sp"
-        android:gravity="center"
-        />
     <LinearLayout
         android:id="@+id/create_accountFrom"
         android:layout_width="match_parent"
@@ -27,6 +16,17 @@
         android:orientation="vertical"
         android:visibility="visible"
         android:weightSum="1">
+        <TextView
+            android:id="@+id/Create_account_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Open Your First Account"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:gravity="center"
+            />
 
         <TextView
             android:id="@+id/account_type"
@@ -78,12 +78,12 @@
 
 
         <EditText
-                android:id="@+id/initail_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:hint="$0.00"
+            android:id="@+id/initail_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:hint="$0.00"
             />
 
 
@@ -116,19 +116,25 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/createAccountSuccessLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/createAccountFormLayout"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="21dp"
-        android:gravity="center"
         android:visibility="gone"
         android:orientation="vertical"
         android:weightSum="10"
         android:layout_weight="1">
 
+        <TextView
+            android:id="@+id/Create_account2_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Account Has Been Created"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:gravity="center"
+            />
         <TextView
             android:id="@+id/transferCompleteMessage"
             android:layout_width="match_parent"
