@@ -1,23 +1,16 @@
 package org.sdmlib.openbank.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.openbank.Bank;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.openbank.util.UserPO;
-import org.sdmlib.openbank.User;
-import org.sdmlib.openbank.util.BankPO;
-import org.sdmlib.openbank.util.UserSet;
-import org.sdmlib.openbank.util.TransactionPO;
-import org.sdmlib.openbank.Transaction;
-import org.sdmlib.openbank.util.AccountPO;
-import org.sdmlib.openbank.Account;
-import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.openbank.*;
 
 import java.math.BigInteger;
-import org.sdmlib.openbank.util.FeeValuePO;
-import org.sdmlib.openbank.FeeValue;
-import org.sdmlib.openbank.util.FeeValueSet;
+import java.util.Date;
+import java.util.Set;
+import org.sdmlib.openbank.TransactionTypeEnum;
+import java.lang.StringBuilder;
+import org.sdmlib.openbank.Bank;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {
@@ -421,15 +414,6 @@ public class BankPO extends PatternObject<BankPO, Bank>
 
    
    //==========================================================================
-   
-   public boolean confirmTransaction(int toAcctID, int fromAcctID, Integer dollarValue, Integer decimalValue)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Bank) getCurrentMatch()).confirmTransaction(toAcctID, fromAcctID, dollarValue, decimalValue);
-      }
-      return false;
-   }
 
    public FeeValuePO createFeeValuePO()
    {
@@ -470,4 +454,213 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
+   public boolean disableUser(String userID, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
+         return ((Bank) getCurrentMatch()).disableUser(userID, msg);
+      }
+      return false;
+   }
+   //==========================================================================
+   
+   public String Login(String username, String password)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).Login(username, password);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public java.math.BigInteger withDrawFunds(int accountNum, BigInteger amount, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
+         return ((Bank) getCurrentMatch()).withDrawFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+   //==========================================================================
+   
+   public void generateCode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).generateCode();
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public java.math.BigInteger depositFunds(int accountNum, BigInteger amount, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).depositFunds(accountNum, amount, msg);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public String updateUserInfo(String userID, String fieldName, String fieldValue)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).updateUserInfo(userID, fieldName, fieldValue);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public int getNextID()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getNextID();
+      }
+      return 0;
+   }
+
+   
+   //==========================================================================
+
+   public boolean closeAccount(int accountNumber, StringBuilder msg) {
+      if (this.getPattern().getHasMatch()) {
+         return ((Bank) getCurrentMatch()).closeAccount(accountNumber, msg);
+      }
+      return false;
+   }
+
+   public Set getTransactions(int accountNumber, BigInteger amount, Date date)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getTransactions(accountNumber, amount, date);
+      }
+      return null;
+   }
+
+
+   
+   //==========================================================================
+   
+   public String getSecureID(String secretWord, byte[] salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+
+
+   
+   //==========================================================================
+   
+   /*public String getSecureID(String secretWord, byte salt)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getSecureID(secretWord, salt);
+      }
+      return null;
+   }*/
+
+   
+   //==========================================================================
+   
+
+
+   public boolean confirmCode(String code)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).confirmCode(code);
+      }
+      return false;
+   }
+
+   public BankPO createPasswordCodeCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createPasswordCodeCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public BankPO createPasswordCodeAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_PASSWORDCODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public void recordTransaction(int sender, int receiver, TransactionTypeEnum type, BigInteger amount, String note, boolean isAdmin, StringBuilder msg)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Bank) getCurrentMatch()).recordTransaction(sender, receiver, type, amount, note, isAdmin, msg);
+      }
+   }
+
+   
+
+   public String getPasswordCode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Bank) getCurrentMatch()).getPasswordCode();
+      }
+      return null;
+   }
+   
+   public BankPO withPasswordCode(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Bank) getCurrentMatch()).setPasswordCode(value);
+      }
+      return this;
+   }
+   
 }

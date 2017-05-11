@@ -1,11 +1,15 @@
+import de.uniks.networkparser.list.SimpleSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.sdmlib.openbank.*;
 import org.sdmlib.openbank.util.AccountSet;
+import org.sdmlib.openbank.util.TransactionSet;
 import org.sdmlib.storyboards.Storyboard;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -371,17 +375,33 @@ public class Test_Improving_Backend_Functionality {
 
     //Unsuccessful login due to incorrect username and password
     @Test
-    public void testLogin4(){
+    public void testLogin4()  {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
                 .withPassword("BillyB$b1")
                 .withEmail("steverog@live.com")
-                .withPhone("7031234567");
+                .withPhone("7031234567")
+                .withSessionId();
         bob.login("bobby", "BillyB$b");
         assertFalse(bob.isLoggedIn());
     }
 
+    /*@Test
+    public void testSeessionID3()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby17", "BillyB$b1");
+        bob.logout();
+        //System.out.println("Here");
+        //System.out.println(bob.getSessionId());
+        assertFalse(bob.logout());
+    }*/
     //Null username
     @Test (expected = IllegalArgumentException.class)
     public void testLogin5(){
@@ -390,7 +410,9 @@ public class Test_Improving_Backend_Functionality {
                 .withUserID("bobby17")
                 .withPassword("BillyB$b1")
                 .withEmail("steverog@live.com")
-                .withPhone("7031234567");
+                .withPhone("7031234567")
+                .withSessionId();
+        System.out.println("sessionId: " + bob.getSessionId());
         bob.login(null, "BillyB$b1");
     }
 
@@ -416,6 +438,34 @@ public class Test_Improving_Backend_Functionality {
                 .withEmail("steverog@live.com")
                 .withPhone("7031234567");
         bob.login(null, null);
+    }
+    @Test
+    public void testSeessionID1()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby", "BillyB$b");
+        System.out.println(bob.getSessionId());
+        assertFalse(bob.getSessionId() != null);
+    }
+
+
+    @Test
+    public void testSeessionID2()  {
+        User bob = new User()
+                .withName("Bob")
+                .withUserID("bobby17")
+                .withPassword("BillyB$b1")
+                .withEmail("steverog@live.com")
+                .withPhone("7031234567")
+                .withSessionId();
+        bob.login("bobby17", "BillyB$b1");
+        System.out.println(bob.getSessionId());
+        assertFalse(bob.getSessionId() == null);
     }
 /*
     //Successful logout
@@ -1286,10 +1336,10 @@ public class Test_Improving_Backend_Functionality {
         bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
 
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg);
+        int acctNum = Integer.parseInt(bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")),
+                false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg));
 
-        int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
-
+       // int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
         BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(20),msg);
 
         System.out.println("Transaction:" + bnk.getTransaction());
@@ -1403,138 +1453,113 @@ public class Test_Improving_Backend_Functionality {
 
     }
 
-//    //********** Bank updateUserInfo method tests *************
-//    @Test
-//    public void testupdateUserInfoChangeName() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob12","name","jack");
-//
-//        System.out.println("name:" + bnk.getCustomerUser().withUserID("bob12").getName().toString());
-//        System.out.println("result:" + result);
-//        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getName().toString());
-//    }
-//
-//    @Test
-//    public void testupdateUserInfoChangeUserName() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob12","username","jack");
-//
-//        System.out.println("usrName:" + bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
-//        System.out.println("result:" + result);
-//        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getUsername().toString());
-//    }
-//
-//    @Test
-//    public void testupdateUserInfoChangeEmail() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withEmail("bob12@gmail.com")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk = bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob12","email","jack@gmail.com");
-//
-//        System.out.println("email:" + bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
-//        System.out.println("usrBob:" + usrBob.getEmail());
-//        System.out.println("result:" + result);
-//        assertEquals("(jack@gmail.com)",bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
-//    }
-//
-//    @Test
-//    public void testupdateUserInfoChangePhone() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withEmail("bob12@gmail.com")
-//                .withPhone("123456789")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob12","phone","3333333334");
-//
-//        /*
-//        NumberList phnNums = bnk.getCustomerUser().withUserID("bob12").getPhone();
-//
-//        for (Number x : phnNums) {
-//            System.out.println("usrBob:" + x.intValue());
-//        }
-//*/
-//        //System.out.println("phone:" + bnk.getCustomerUser().withUserID("bob12").getPhone().toArray());
-//        System.out.println("usrBob Phone:" + usrBob.getPhone());
-//        System.out.println("result:" + result);
-//        assertEquals("3333333334",usrBob.getPhone());
-//    }
-//
-//    @Test
-//    public void testupdateUserInfoInvalidUser() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withEmail("bob12@gmail.com")
-//                .withPhone("123456789")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob10","phone","3333333334");
-//
-//        System.out.println("usrBob Phone:" + usrBob.getPhone());
-//        System.out.println("result:" + result);
-//        assertEquals("UserID bob10 is not valid.",result);
-//    }
-//
-//    @Test
-//    public void testupdateUserInfoInvalidField() {
-//        User usrBob = new User()
-//                .withName("Bob")
-//                .withUsername("bob")
-//                .withUserID("bob12")
-//                .withEmail("bob12@gmail.com")
-//                .withPhone("123456789")
-//                .withPassword("testbobacnt");
-//
-//        Bank bnk = new Bank();
-//        bnk.createCustomerUser();
-//        bnk.withCustomerUser(usrBob);
-//
-//        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
-//
-//        System.out.println("usrBob Phone:" + usrBob.getPhone());
-//        System.out.println("result:" + result);
-//        assertEquals("Field phone2 is not valid.",result);
-//    }
-//
-//
+    //********** Bank updateUserInfo method tests *************
+    @Test
+    public void testupdateUserInfoChangeName() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","name","jack");
+
+        System.out.println("name:" + bnk.getCustomerUser().withUserID("bob12").getName().toString());
+        System.out.println("result:" + result);
+        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getName().toString());
+    }
+
+
+    @Test
+    public void testupdateUserInfoChangeEmail() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk = bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","email","jack@gmail.com");
+
+        System.out.println("email:" + bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+        System.out.println("usrBob:" + usrBob.getEmail());
+        System.out.println("result:" + result);
+        assertEquals("(jack@gmail.com)",bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+    }
+
+    @Test
+    public void testupdateUserInfoChangePhone() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","phone","3333333334");
+
+        //System.out.println("phone:" + bnk.getCustomerUser().withUserID("bob12").getPhone().toArray());
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("3333333334",usrBob.getPhone());
+    }
+
+    @Test
+    public void testupdateUserInfoInvalidUser() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob10","phone","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("UserID bob10 is not valid.",result);
+    }
+
+    @Test
+    public void testupdateUserInfoInvalidField() {
+        User usrBob = new User()
+                .withName("Bob")
+                .withUsername("bob")
+                .withUserID("bob12")
+                .withEmail("bob12@gmail.com")
+                .withPhone("123456789")
+                .withPassword("testbobacnt");
+
+        Bank bnk = new Bank();
+        bnk.createCustomerUser();
+        bnk.withCustomerUser(usrBob);
+
+        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
+
+        System.out.println("usrBob Phone:" + usrBob.getPhone());
+        System.out.println("result:" + result);
+        assertEquals("Field phone2 is not valid.",result);
+    }
+
+
     @Test
     public void testfindUser() {
 
@@ -1553,4 +1578,558 @@ public class Test_Improving_Backend_Functionality {
         User usrGet = bnk.findUserByID("steverog1");
         assertTrue(usrGet == null);
     }
-}
+
+    @Test
+    public void testGetTrans() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+
+        //String accntNum=null;
+        BigInteger amount = BigInteger.valueOf(20);
+        Date date = new Date("05/04/2017");
+
+        Set<TransactionSet> st = new SimpleSet<TransactionSet>();
+        Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
+
+        //filter by account Number
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }else {
+            if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+        }
+
+        if (amount.compareTo(BigInteger.ZERO) > 0)
+        {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterAmount(amount);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+
+
+        if (date !=null) {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterDatebyMonthDateYear(date);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+/*
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }
+
+        if(amount.compareTo(BigInteger.ZERO) > 0) {
+
+            if (bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getCustomerAccounts().getToTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getFromTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getFromTransaction().filterAmount(amount));
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().filterAmount(amount).size()>0){
+                st.add(bnk.getAdminAccounts().getToTransaction().filterAmount(amount));
+            }
+        }
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50))
+
+        //bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterCreationDate(dt)
+
+
+       //Set st= bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().filterAmount(BigInteger.valueOf(50));
+
+*/
+
+
+    }
+
+    @Test
+    public void testGetTrans2() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+
+        //String accntNum=null;
+        BigInteger amount = BigInteger.valueOf(20);
+        Date date = new Date("05/04/2017");
+
+        Set<TransactionSet> st = new SimpleSet<TransactionSet>();
+        Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
+
+        //filter by account Number
+        if(String.valueOf(acctNum)!=null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
+            }
+
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+                st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
+            }
+        }else {
+            if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getFromTransaction());
+            }
+
+            if (bnk.getCustomerAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getCustomerAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+
+            if (bnk.getAdminAccounts().getToTransaction().size() > 0) {
+                st.add(bnk.getAdminAccounts().getToTransaction());
+            }
+        }
+
+        if (amount.compareTo(BigInteger.ZERO) > 0)
+        {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterAmount(amount);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+
+
+        if (date !=null) {
+            for (TransactionSet s : st) {
+                Set st2 = s.filterDatebyMonthDateYear(date);
+
+                if (st2.size() > 0) {
+                    stTemp.add(s.filterAmount(amount));
+                    st2 = null;
+                }
+            }
+        }
+
+        if(!stTemp.isEmpty()) {
+            st.clear();
+            st.addAll(stTemp);
+            stTemp.clear();
+        }
+    }
+
+    // *************** getTransactions test cases **************************
+    @Test
+    public void testGetTransSetByAccntNum() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Set<TransactionSet>  tranlst = bnk.getTransactions(acctNum,BigInteger.ZERO,null);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Info:" + tran.getNextTransitive().first());
+                System.out.println("CreationDate:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Info:" + tran.getNextTransitive().first());
+                    System.out.println("CreationDate:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testGetTransSetByAmount() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(20),null);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Date:" + tran.getNextTransitive().first());
+                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Date:" + tran.getNextTransitive().first());
+                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetTransSetByDate() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Date date = new Date("05/08/2017");
+        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(0),date);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Date:" + tran.getNextTransitive().first());
+                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Date:" + tran.getNextTransitive().first());
+                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetTransSetByAmountandDate() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Date date = new Date("05/05/2017");
+        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(50),date);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Date:" + tran.getNextTransitive().first());
+                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Date:" + tran.getNextTransitive().first());
+                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetTransSetByAmountandDate2() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Date date = new Date("05/05/2017");
+        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(50),date);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Date:" + tran.getNextTransitive().first());
+                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Date:" + tran.getNextTransitive().first());
+                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetTransSetByAccntNumAmount50andDate() {
+
+        StringBuilder msg = new StringBuilder("");
+
+        Bank bnk = new Bank();
+
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
+
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
+
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+
+        bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
+        bnk.depositFunds(acctNum, BigInteger.valueOf(20), msg);
+
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
+        bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
+
+        Date date = new Date("05/05/2017");
+        Set<TransactionSet>  tranlst = bnk.getTransactions(acctNum,BigInteger.valueOf(50),date);
+
+        for (Set s : tranlst) {
+            Iterator itr = s.iterator();
+
+            if(tranlst.size()==1){
+                Transaction tran = (Transaction) itr.next();
+                System.out.println("Date:" + tran.getNextTransitive().first());
+                System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                System.out.println("************************");
+            }else if(tranlst.size()>1) {
+                while (itr.hasNext()) {
+                    Transaction tran = (Transaction) itr.next();
+                    System.out.println("Date:" + tran.getNextTransitive().first());
+                    System.out.println("Date:" + tran.getNextTransitive().getDate().first());
+                    System.out.println("Amount:" + tran.getNextTransitive().getAmount().first());
+                    System.out.println("TransType:" + tran.getNextTransitive().getTransType().first().name());
+                    System.out.println("Note:" + tran.getNextTransitive().getNote().first());
+
+                    System.out.println("************************");
+                }
+            }
+        }
+
+    }
+
+
+    }

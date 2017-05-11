@@ -111,7 +111,7 @@ public  class Account implements SendableEntity
 
    public void setBalance(BigInteger value)
    {
-      if (value.compareTo(BigInteger.ONE) > 0) {
+      if (value.compareTo(BigInteger.ZERO) >= 0) {
 
          BigInteger oldValue = this.balance;
          this.balance = value;
@@ -718,6 +718,7 @@ public  class Account implements SendableEntity
       trans.setToAccount(receiver);
       trans.setFromAccount(sender);
       trans.setPrevious(bank.getTransaction());
+
       bank.setTransaction(trans);
       return trans;
    }
@@ -736,9 +737,39 @@ public  class Account implements SendableEntity
       trans.setFromAccount(this);
       trans.setToAccount(pulledAdminAccount);
       trans.setTransType(TransactionTypeEnum.FEE);
+      trans.setNext(this.getBank().getTransaction());
+      trans.setBank(this.getBank());
 
       this.setBalance(this.getBalance().subtract(calculatedFee));
       pulledAdminAccount.setBalance(pulledAdminAccount.getBalance().add(calculatedFee));
       return trans;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISCLOSED = "isClosed";
+   
+   private boolean isClosed;
+
+   public boolean isIsClosed()
+   {
+      return this.isClosed;
+   }
+   
+   public void setIsClosed(boolean value)
+   {
+      if (this.isClosed != value) {
+      
+         boolean oldValue = this.isClosed;
+         this.isClosed = value;
+         this.firePropertyChange(PROPERTY_ISCLOSED, oldValue, value);
+      }
+   }
+   
+   public Account withIsClosed(boolean value)
+   {
+      setIsClosed(value);
+      return this;
+   } 
 }

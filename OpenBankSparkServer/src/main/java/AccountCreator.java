@@ -39,6 +39,7 @@ public class AccountCreator implements SendableEntityCreator
       Account.PROPERTY_EMPLOYINGBANK,
       Account.PROPERTY_TOTRANSACTION,
       Account.PROPERTY_FROMTRANSACTION,
+      Account.PROPERTY_ISCLOSED,
    };
    
    @Override
@@ -89,8 +90,6 @@ public class AccountCreator implements SendableEntityCreator
          return ((Account) target).getOwner();
       }
 
-
-
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return ((Account) target).getType();
@@ -116,6 +115,11 @@ public class AccountCreator implements SendableEntityCreator
       {
          return ((Account) target).getFromTransaction();
       }
+
+      if (Account.PROPERTY_ISCLOSED.equalsIgnoreCase(attribute))
+      {
+         return ((Account) target).isIsClosed();
+      }
       
       return null;
    }
@@ -123,6 +127,12 @@ public class AccountCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (Account.PROPERTY_ISCLOSED.equalsIgnoreCase(attrName))
+      {
+         ((Account) target).setIsClosed((Boolean) value);
+         return true;
+      }
+
       if (Account.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
          ((Account) target).setType(AccountTypeEnum.valueOf((String) value));

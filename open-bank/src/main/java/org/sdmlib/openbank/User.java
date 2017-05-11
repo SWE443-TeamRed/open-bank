@@ -28,7 +28,12 @@ import org.sdmlib.openbank.util.AccountSet;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-   /**
+import java.security.SecureRandom;
+import java.util.Random;
+import org.sdmlib.openbank.Bank;
+import org.sdmlib.openbank.Account;
+
+/**
     * 
     * @see <a href='../../../../../../src/main/java/Model.java'>Model.java</a>
  */
@@ -74,7 +79,7 @@ import java.io.File;
                return true;
            } else {
                if (getUserID().equals(userId))
-                   System.out.println("Username is incorrect");
+                   System.out.println("Password is incorrect");
                if (getPassword().equals(password))
                    System.out.println("Username is incorrect");
                return false;
@@ -160,6 +165,42 @@ import java.io.File;
            return this;
        }
 
+       public static final String PROPERTY_SESSIONID = "sessionId";
+
+       private String sessionid;
+
+       public void setSessionId()  {
+           byte[] salt;
+           if(this.isLoggedIn())
+           {
+               StringBuilder value = new StringBuilder();
+               String usrID = this.getUserID() ;
+               value.append(usrID);
+               String time = Long.toString(System.currentTimeMillis());
+               value.append(time);
+               final Random sr = new SecureRandom();
+               salt = new byte[32];
+               sr.nextBytes(salt);
+               System.out.println(value.toString());
+               System.out.println(salt.toString());
+               String oldValue = this.sessionid;
+               Bank bank=new Bank();
+               this.sessionid = bank.getSecureID(value.toString(), salt);
+
+               this.firePropertyChange(PROPERTY_SESSIONID, oldValue, sessionid);
+           }
+       }
+
+       public User withSessionId()
+       {
+           this.setSessionId();
+           return this;
+       }
+
+       public String getSessionId()
+       {
+           return (this.sessionid);
+       }
 
        @Override
        public String toString() {
@@ -172,10 +213,9 @@ import java.io.File;
            result.append(" ").append(this.getEmail());
            result.append(" ").append(this.getPhone());
            result.append(" ").append(this.getUsername());
-           return result.substring(1);
+           result.append(" ").append(this.getSessionID());
+      return result.substring(1);
        }
-
-
 
 
        //==========================================================================
@@ -357,6 +397,7 @@ import java.io.File;
 
                boolean oldValue = this.LoggedIn;
                this.LoggedIn = value;
+               setSessionId();
                this.firePropertyChange(PROPERTY_LOGGEDIN, oldValue, value);
            }
        }
@@ -398,11 +439,14 @@ import java.io.File;
    //==========================================================================
    public boolean logout(  )
    {
+
        Account usersAccount = this.getAccount().get(0);
        JsonPersistency writeToJson = new JsonPersistency();
        writeToJson.toJson(usersAccount);
-      this.LoggedIn = false;
-      return true;
+       this.LoggedIn = false;
+       //this.sessionid=null;
+       //this.getSessionId();
+       return true;
    }
 
    public Account createAccount()
@@ -589,5 +633,31 @@ import java.io.File;
       Bank value = new Bank();
       withEmployingBank(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   private String sessionID;
+
+   public String getSessionID()
+   {
+      return this.sessionID;
+   }
+   
+   public void setSessionID(String value)
+   {
+      if ( ! EntityUtil.stringEquals(this.sessionID, value)) {
+      
+         String oldValue = this.sessionID;
+         this.sessionID = value;
+         this.firePropertyChange(PROPERTY_SESSIONID, oldValue, value);
+      }
+   }
+   
+   public User withSessionID(String value)
+   {
+      setSessionID(value);
+      return this;
    } 
 }

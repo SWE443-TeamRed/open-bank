@@ -17,4 +17,5 @@ dependencies {
     compile "com.sparkjava:spark-core:2.5.5"
     compile 'org.sdmlib:SDMLib:2.2.+'
     compile 'com.googlecode.json-simple-1.1'
+    compile 'javax.mail:mail:1.4.7'
 }

@@ -1044,4 +1044,87 @@ public class UserSet extends SimpleSet<User>
       return this;
    }
 
+
+   /**
+    * Loop through the current set of User objects and collect a list of the sessionID attribute values. 
+    * 
+    * @return List of String objects reachable via sessionID attribute
+    */
+   public ObjectSet getSessionID()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (User obj : this)
+      {
+         result.add(obj.getSessionID());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the sessionID attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterSessionID(String value)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (value.equals(obj.getSessionID()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and collect those User objects where the sessionID attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of User objects that match the parameter
+    */
+   public UserSet filterSessionID(String lower, String upper)
+   {
+      UserSet result = new UserSet();
+      
+      for (User obj : this)
+      {
+         if (lower.compareTo(obj.getSessionID()) <= 0 && obj.getSessionID().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of User objects and assign value to the sessionID attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of User objects now with new attribute values.
+    */
+   public UserSet withSessionID(String value)
+   {
+      for (User obj : this)
+      {
+         obj.setSessionID(value);
+      }
+      
+      return this;
+   }
+
 }

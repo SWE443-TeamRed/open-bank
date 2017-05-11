@@ -37,6 +37,7 @@ public class UserCreator implements SendableEntityCreator
       User.PROPERTY_USERNAME,
       User.PROPERTY_BANK,
       User.PROPERTY_EMPLOYINGBANK,
+      User.PROPERTY_SESSIONID,
    };
    
    @Override
@@ -116,6 +117,11 @@ public class UserCreator implements SendableEntityCreator
       {
          return ((User) target).getEmployingBank();
       }
+
+      if (User.PROPERTY_SESSIONID.equalsIgnoreCase(attribute))
+      {
+         return ((User) target).getSessionID();
+      }
       
       return null;
    }
@@ -123,6 +129,12 @@ public class UserCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (User.PROPERTY_SESSIONID.equalsIgnoreCase(attrName))
+      {
+         ((User) target).setSessionID((String) value);
+         return true;
+      }
+
       if (User.PROPERTY_USERNAME.equalsIgnoreCase(attrName))
       {
          ((User) target).setUsername((String) value);

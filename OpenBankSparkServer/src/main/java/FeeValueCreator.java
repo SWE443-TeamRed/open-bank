@@ -32,25 +32,25 @@ public class FeeValueCreator implements SendableEntityCreator
       FeeValue.PROPERTY_PERCENT,
       FeeValue.PROPERTY_BANK,
    };
-   
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new FeeValue();
    }
-   
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -70,10 +70,10 @@ public class FeeValueCreator implements SendableEntityCreator
       {
          return ((FeeValue) target).getBank();
       }
-      
+
       return null;
    }
-   
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -99,14 +99,14 @@ public class FeeValueCreator implements SendableEntityCreator
          ((FeeValue) target).setBank((Bank) value);
          return true;
       }
-      
+
       return false;
    }
    public static IdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-   
+
    //==========================================================================
       public void removeObject(Object entity)
    {
