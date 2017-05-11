@@ -380,7 +380,7 @@ public class TransferFrag extends Fragment implements View.OnClickListener {
                 }
                 else{
                       String balanceString = mCallback.getAccountInfo()[1];
-                      balanceString = formatUserAmountInput(balanceString);
+                      //balanceString = formatUserAmountInput(balanceString);
                       String toRemoveString = formatUserAmountInput(amount.getText().toString());
                       BigInteger bigBalance = new BigInteger(balanceString);
                       BigInteger bigToRemove = new BigInteger(toRemoveString);
