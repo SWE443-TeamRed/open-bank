@@ -161,7 +161,7 @@ public class ChangePasswordFrag extends Fragment implements View.OnClickListener
                     public void onResponse(String response) {
                         //TODO Erase latter, for testing.
                         // System.out.println("Success********"+response +"********");
-                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         try {
                             JSONObject obj = new JSONObject(response);
                             responseHandler(obj);

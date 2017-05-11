@@ -347,6 +347,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 main.putExtra("name", obj.get("name").toString());
                 main.putExtra("email", obj.get("email").toString());
                 startActivity(main);
+                finish();
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -354,6 +355,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 }
+
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
 
 }
 

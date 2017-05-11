@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity
                         Drawer.closeDrawer(Gravity.LEFT);
                         Intent intent = new Intent(v.getContext(), LoginActivity.class);
                         startActivity(intent);
-
+                        finish();
                         break;
 
                 }

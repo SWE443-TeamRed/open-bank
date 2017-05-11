@@ -210,7 +210,7 @@ public class OpenFirstAccountFrag extends Fragment implements View.OnClickListen
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(activity,response,Toast.LENGTH_LONG).show();
+//                            Toast.makeText(activity,response,Toast.LENGTH_LONG).show();
                             try {
                                 JSONObject obj = new JSONObject(response);
 

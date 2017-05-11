@@ -67,7 +67,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
     private ArrayList<String> messagesToSendArray = new ArrayList<>();
 
     public void addMessage(View view) {
-        Toast.makeText(this, "Added Message", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Added Message", Toast.LENGTH_LONG).show();
     }
 
     private String name;
@@ -85,8 +85,7 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
                 if((fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)) != null)
                     ((EditText)fragmentPagerAdapter.account2_fragment.getView().findViewById(R.id.accountnumToAccountInput)).setText(messagesReceivedArray.get(messagesReceivedArray.size()-1));
             }
-        }else
-            Toast.makeText(this, "FAIL", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -162,15 +161,21 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 
     //When user selects to go back from the top left arrow option on the header, go to Mainactivity
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent main = new Intent(getApplicationContext(), MainActivity.class);
-        main.putExtra("userID", userID);
-        main.putExtra("username", username);
-        main.putExtra("balance", balance);
-        main.putExtra("name", name);
-        main.putExtra("email", email);
-        main.putExtra("phone", phone);
-        startActivity(main);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
         return true;
+//        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+//        main.putExtra("userID", userID);
+//        main.putExtra("username", username);
+//        main.putExtra("balance", balance);
+//        main.putExtra("name", name);
+//        main.putExtra("email", email);
+//        main.putExtra("phone", phone);
+//        startActivity(main);
+//        return true;
 
     }
 
@@ -244,13 +249,13 @@ public class AccountDetails extends AppCompatActivity implements AccountFrag.OnA
 //                    this.updateNFCAccount(new String(record.getPayload()));
                     messagesReceivedArray.add(string);
                 }
-                Toast.makeText(this, "Received " + messagesReceivedArray.size() + " Messages", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Received Message" + messagesReceivedArray, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Received " + messagesReceivedArray.size() + " Messages", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Received Message" + messagesReceivedArray, Toast.LENGTH_SHORT).show();
 
                 updateTextViews();
 
             } else {
-                Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Received Blank Parcel", Toast.LENGTH_LONG).show();
             }
         }
     }
