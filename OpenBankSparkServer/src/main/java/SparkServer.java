@@ -429,27 +429,31 @@ public class SparkServer implements SparkApplication {
 
                                     transactionItem.put("transAmount", tran.getNextTransitive().getAmount().first().toString());
                                     transactionItem.put("transType", tran.getNextTransitive().getTransType().first().name());
+                                    transactionItem.put("note", tran.getNextTransitive().getNote().first().toString());
 
                                     if (tran.getNextTransitive().getCreationdate().first() != null)
                                         transactionItem.put("creationDate", tran.getNextTransitive().getCreationdate().first().toString());
                                     else
-                                        transactionItem.put("creationDate", "");
+                                        transactionItem.put("creationDate", "N/A");
 
                                     if (tran.getNextTransitive().getFromAccount().first().getOwner() != null)
                                         transactionItem.put("fromUserName", tran.getNextTransitive().getFromAccount().first().getOwner().getName());
                                     else
-                                        transactionItem.put("fromUserName", "");
+                                        transactionItem.put("fromUserName", "N/A");
 
                                     if (tran.getNextTransitive().getToAccount().first().getOwner() != null)
                                         transactionItem.put("toUserName", tran.getNextTransitive().getToAccount().first().getOwner().getName());
                                     else
-                                        transactionItem.put("toUserName", "");
+                                        transactionItem.put("toUserName", "N/A");
 
-                                    if (tran.getNextTransitive().getToAccount().first().getType() != null)
-                                        transactionItem.put("toAccountType", tran.getNextTransitive().getToAccount().first().getType().toString());
+                                    if (tran.getNextTransitive().getToAccount().first() != null)
+                                        transactionItem.put("toAccount", Integer.toString(tran.getNextTransitive().getToAccount().first().getAccountnum()));
                                     else
-                                        transactionItem.put("toAccountType", "");
-                                    transactionItem.put("balanceAfter", tran.getNextTransitive().getToAccount().first().getBalance().toString());
+                                        transactionItem.put("toAccount", "N/A");
+                                    if (tran.getNextTransitive().getFromAccount().first() != null)
+                                        transactionItem.put("fromAccount", Integer.toString(tran.getNextTransitive().getFromAccount().first().getAccountnum()));
+                                    else
+                                        transactionItem.put("fromAccount", "N/A");
                                     responseJSON.add(transactionItem);
                                 }
                             }
@@ -944,7 +948,7 @@ public class SparkServer implements SparkApplication {
 //                                    StringBuilder msg = new StringBuilder();
 //                                    bank.depositFunds(toAccount, bigInteger, msg);
                                     StringBuilder msg2 = new StringBuilder();
-                                    bank.recordTransaction(-1, toAccount, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(toAccount).getOwner() + " Deposits", false, msg2);
+                                    bank.recordTransaction(-1, toAccount, TransactionTypeEnum.DEPOSIT, bigInteger, bank.findAccountByID(toAccount).getOwner().getName() + " Deposits", false, msg2);
                                     logger.info("Transaction Result: " + msg2);
 
                                     responseJSON.put("request", "success");
@@ -970,7 +974,7 @@ public class SparkServer implements SparkApplication {
 //                                        StringBuilder msg = new StringBuilder();
 //                                        bank.withDrawFunds(fromAccount, bigInteger, msg);
                                         StringBuilder msg2 = new StringBuilder();
-                                        bank.recordTransaction(fromAccount, -1, TransactionTypeEnum.WITHDRAW, bigInteger, bank.findAccountByID(fromAccount).getOwner() + " Withdraws", false, msg2);
+                                        bank.recordTransaction(fromAccount, -1, TransactionTypeEnum.WITHDRAW, bigInteger, bank.findAccountByID(fromAccount).getOwner().getName() + " Withdraws", false, msg2);
                                         logger.info("Transaction Result: " + msg2);
 
                                         responseJSON.put("request", "success");
@@ -1210,21 +1214,19 @@ public class SparkServer implements SparkApplication {
             FeeValue f1, f2, f3, f4;
 
             f1 = new FeeValue()
-                    .withBank(bank)
                     .withTransType(TransactionTypeEnum.DEPOSIT)
                     .withPercent(new BigInteger("50000000")); //.05
             f2 = new FeeValue()
-                    .withBank(bank)
                     .withTransType(TransactionTypeEnum.WITHDRAW)
                     .withPercent(new BigInteger("50000000")); //.05
             f3 = new FeeValue()
-                    .withBank(bank)
                     .withTransType(TransactionTypeEnum.TRANSFER)
                     .withPercent(new BigInteger("50000000")); //.05
             f4 = new FeeValue()
-                    .withBank(bank)
                     .withTransType(TransactionTypeEnum.SEED)
                     .withPercent(new BigInteger("50000000")); //.05
+
+            bank.withFeeValue(f1, f2, f3, f4);
         }
     }
 
