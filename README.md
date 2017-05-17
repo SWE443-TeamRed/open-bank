@@ -8,6 +8,8 @@ Provides the basic framework for a banking application: Android UI, AngularJS we
 
 ## Table of Contents
 
+[![Join the chat at https://gitter.im/open-bank/Lobby](https://badges.gitter.im/open-bank/Lobby.svg)](https://gitter.im/open-bank/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 - [Quick Start](#quick-start)
 - [File Structure](#file-structure)
 - [Bugs and Feature Requests](#bugs-and-feature-requests)
