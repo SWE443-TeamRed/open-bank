@@ -1,7 +1,8 @@
 <h1>Open Bank</h1>
 SWE-443 Team Red
 
-An open-source bank (transaction) server.
+An open-source bank (transaction) server.<br>
+Provides the basic framework for a banking application: Android UI, AngularJS web admin console, and a Java Spark server solution.
 
 <br>
 
@@ -18,6 +19,7 @@ An open-source bank (transaction) server.
 ## Quick Start
 - [Download the latest release.](https://github.com/SWE443-TeamRed/open-bank/archive/master.zip)
 - Clone the repository: `git clone https://github.com/SWE443-TeamRed/open-bank.git`
+- See [Instructions](https://github.com/SWE443-TeamRed/open-bank/blob/master/INSTRUCTIONS) for in-depth user installation and building of Android UI.
 
 <br>
 
@@ -38,24 +40,20 @@ open-bank/
 │   └── src
 │       ├── main
 │       └── test
-├── kanban/
-│   ├── Done
-│   ├── InProcess
-│   ├── Research Documentation
-│   └── ToDo
-└── scenarios/
+├── OpenBankSparkServer/
+│   └── src
 ```
 <br>
 OpenBankApplication:    front-end<br>
-open-bank:              back-end<br>
-kanban:                 task management<br>
-scenarios:              story-driven-modeling<br>
+OpenBankSparkServer:    back-end<b>
+open-bank:              back-end logic and modeling<br>
+archive:                deprecated architectural modeling for story-driven modeling
 <br>
 
 ## Bugs and Feature Requests
-Found a bug or want to request a new feature?  [Please open a new issue.](https://github.com/SWE-443-TeamRed/open-bank/issues/new)
+Found a bug? [Please open a new issue.](https://github.com/SWE443-TeamRed/open-bank/issues/new)
 <br>
-Requesting a new feature? Please e-mail at [Please request a new feature](https://github.com/SWE-443-TeamRed/open-bank/issues/new)
+Requesting a new feature? Please e-mail at [Please request a new feature](https://github.com/SWE443-TeamRed/open-bank/issues/new)
 
 
 ## Creators
@@ -92,4 +90,4 @@ Requesting a new feature? Please e-mail at [Please request a new feature](https:
 <br>
 
 ## Copyright
-Code released under the [MIT License](https://github.com/SWE-443-TeamRed/open-bank/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE-443-TeamRed/open-bank/master/COMMONS).
+Code released under the [MIT License](https://github.com/SWE443-TeamRed/open-bank/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/SWE443-TeamRed/open-bank/blob/master/COMMONS).
