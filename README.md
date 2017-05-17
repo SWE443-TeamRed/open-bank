@@ -1,5 +1,5 @@
 <h1>Open Bank</h1>
-SWE-443 Team Red
+SWE443-TeamRed
 
 An open-source bank (transaction) server.<br>
 Provides the basic framework for a banking application: Android UI, AngularJS web admin console, and a Java Spark server solution.
@@ -46,10 +46,10 @@ open-bank/
 │   └── src
 ```
 <br>
-OpenBankApplication:    front-end<br>
-OpenBankSparkServer:    back-end<b>
-open-bank:              back-end logic and modeling<br>
-archive:                deprecated architectural modeling for story-driven modeling
+<b>OpenBankApplication</b>:    front-end<br>
+<b>OpenBankSparkServer</b>:    back-end<br>
+<b>open-bank</b>:              back-end logic and modeling<br>
+<b>archive</b>:                deprecated architectural modeling for story-driven modeling
 <br>
 
 ## Bugs and Feature Requests
