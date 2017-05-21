@@ -20,29 +20,29 @@ public class Test_Improving_Backend_Functionality {
     Transaction trans;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         // initiate transaction class
         trans = new org.sdmlib.openbank.Transaction();
     }
 
     //******** TRANSACTION CLASS TESTS *****************
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     // this will test for negative value in setAmount
     // it will throw an IllegalArgumentException if the value is negative
-    public void testSetAmountNegative()throws Exception{
+    public void testSetAmountNegative() throws Exception {
         trans.setAmount(BigInteger.valueOf(-5));
     }
 
     @Test
     // setAmount and get the amount to make sure you get the correct amount
-    public void setgetAmount(){
+    public void setgetAmount() {
         trans.setAmount(BigInteger.valueOf(50));
         assertTrue(BigInteger.valueOf(50) == trans.getAmount());
     }
 
     @Test
     // setDate and get the date to make sure you get the correct date
-    public void setgetDate(){
+    public void setgetDate() {
         Date dt = new Date("03/19/2017");
 
         // set date
@@ -50,9 +50,9 @@ public class Test_Improving_Backend_Functionality {
         assertTrue(dt == trans.getCreationdate());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     // setDate with null to see if it will throw IllegalArgumentException
-    public void setgetDateTestNULL(){
+    public void setgetDateTestNULL() {
         Date dt = new Date(null);
 
         // set date with null
@@ -61,7 +61,7 @@ public class Test_Improving_Backend_Functionality {
 
     @Test
     // setNote and get the note to make sure you get the correct note
-    public void setgetNote(){
+    public void setgetNote() {
         String nt = "Testing Notes..";
         // set note
         trans.setNote(nt);
@@ -70,7 +70,7 @@ public class Test_Improving_Backend_Functionality {
 
     @Test
     // setNote and get the note to make sure you get the correct value
-    public void setgetNoteNULL(){
+    public void setgetNoteNULL() {
         String nt = null;
         // set note
         trans.setNote(nt);
@@ -79,23 +79,23 @@ public class Test_Improving_Backend_Functionality {
 
     @Test
     // setNote and get the note to make sure you get the correct value
-    public void setgetNoteEmpty(){
+    public void setgetNoteEmpty() {
         String nt = " ";
         // set note
         trans.setNote(nt);
         assertTrue(nt == trans.getNote());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     // setTrans Type with null should throws IllegalArgumentException exception
-    public void setNullTransType(){
+    public void setNullTransType() {
         // set type
         trans.setTransType(null);
     }
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
-    public void setgetTransTypeWithdraw(){
+    public void setgetTransTypeWithdraw() {
         // set type
         trans.setTransType(TransactionTypeEnum.WITHDRAW);
 
@@ -104,7 +104,7 @@ public class Test_Improving_Backend_Functionality {
 
     @Test
     // setTrans Type and get the type to make sure you get the correct type
-    public void setgetTransTypeDeposit(){
+    public void setgetTransTypeDeposit() {
         // set type
         trans.setTransType(TransactionTypeEnum.DEPOSIT);
 
@@ -112,7 +112,7 @@ public class Test_Improving_Backend_Functionality {
     }
 
     // JSON Test Case
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     // set user with null should throws NullPointerException exception
     public void testtoJsonWithNULL() {
         Account accnt = new Account();
@@ -144,7 +144,7 @@ public class Test_Improving_Backend_Functionality {
 
         Account accountBeforeJson = new Account().withOwner(usr1)
                 .withBalance(BigInteger.valueOf(550)).withCreationdate(dt);
-                //.withCredit(trans);
+        //.withCredit(trans);
 /*
         accountBeforeJson.withBalance(570.00).withCreationdate(dt);
         accountBeforeJson.withCredit(trans2);
@@ -157,7 +157,7 @@ public class Test_Improving_Backend_Functionality {
     }
 
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     // set user with null should throws NullPointerException exception
     public void testFromJsonWithNULL() {
         Account accnt = new Account();
@@ -186,8 +186,8 @@ public class Test_Improving_Backend_Functionality {
 
         System.out.println("UserID: " + accountAfterJson.getOwner().getUserID().toString());
         System.out.println("Name: " + accountAfterJson.getOwner().getName().toString());
-        assertEquals(usr1.getUserID().toString(),accountAfterJson.getOwner().getUserID().toString());
-        assertEquals(usr1.getName().toString(),accountAfterJson.getOwner().getName().toString());
+        assertEquals(usr1.getUserID().toString(), accountAfterJson.getOwner().getUserID().toString());
+        assertEquals(usr1.getName().toString(), accountAfterJson.getOwner().getName().toString());
         assertTrue(BigInteger.valueOf(540) == accountAfterJson.getBalance());
     }
 
@@ -203,16 +203,16 @@ public class Test_Improving_Backend_Functionality {
             .withOwner(peter)
             .withBalance(BigInteger.valueOf(100))
             .withCreationdate(new Date());
-            //.withCredit()
-            //.withDebit();
+    //.withCredit()
+    //.withDebit();
     Storyboard storyboard = new Storyboard();
 
     @Test(expected = IllegalArgumentException.class)
-    public void testwithBalance(){
+    public void testwithBalance() {
         Account accountWithNegative = new Account().withBalance(BigInteger.valueOf(-100));
     }
+
     /**
-     *
      * @see <a href='../../../doc/2.html'>2.html</a>
      */
     @Test
@@ -222,16 +222,17 @@ public class Test_Improving_Backend_Functionality {
     }
 
     @Test
-    public void testAccountToString(){
-        storyboard.assertEquals("Check for is the toString is correct","100.0 1 " + account1.getCreationdate(),account1.toString());
+    public void testAccountToString() {
+        storyboard.assertEquals("Check for is the toString is correct", "100.0 1 " + account1.getCreationdate(), account1.toString());
     }
 
     @Test
-    public void testgetAccountnum(){
-        storyboard.assertEquals("Check for if getAccountnum works", 1,account1.getAccountnum());
+    public void testgetAccountnum() {
+        storyboard.assertEquals("Check for if getAccountnum works", 1, account1.getAccountnum());
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testwithAccountnumAndsetAccountnum(){
+    public void testwithAccountnumAndsetAccountnum() {
         Account accountNumWithNegatve = new Account().withAccountnum(-1);
     }
 
@@ -241,34 +242,37 @@ public class Test_Improving_Backend_Functionality {
          storyboard.assertEquals("Testing if date is working",new Date(),account1.getCreationdate());
      }*/
     @Test
-    public void testgetOwner(){
-        storyboard.assertEquals("Testing if proper owner is in account",peter,account1.getOwner());
+    public void testgetOwner() {
+        storyboard.assertEquals("Testing if proper owner is in account", peter, account1.getOwner());
     }
+
     @Test
-    public void testsetOwner(){
+    public void testsetOwner() {
         Account accountTestOwner = new Account();
-        storyboard.assertEquals("Setting owner with null value should return false",false,accountTestOwner.setOwner(null));
+        storyboard.assertEquals("Setting owner with null value should return false", false, accountTestOwner.setOwner(null));
     }
+
     /* @Test
      public void testCreateOwner(){
          User accountTestCreateOwner = new Account().withOwner(peter).createOwner();
          storyboard.assertEquals("Testing createOwner",peter.getName(),accountTestCreateOwner.getName());
      }*/
     @Test
-    public void testgetCredit(){
+    public void testgetCredit() {
 
         Account creditAccount = new Account(); //.withCredit();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTransferToAccount(){
+    public void testTransferToAccount() {
         Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
-        account1.transferToAccount(BigInteger.valueOf(-1),receivingAccount,"Testing negative");
+        account1.transferToAccount(BigInteger.valueOf(-1), receivingAccount, "Testing negative");
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testTransferToAccount2(){
+    public void testTransferToAccount2() {
         Account receivingAccount = new Account().withBalance(BigInteger.valueOf(100));
-        account1.transferToAccount(BigInteger.valueOf(100),null,"Testing null account");
+        account1.transferToAccount(BigInteger.valueOf(100), null, "Testing null account");
     }
     /*@Test
     public void testTransferToAccount3(){
@@ -290,7 +294,7 @@ public class Test_Improving_Backend_Functionality {
     }*/
 
     @Test
-    public void testTransferToAccount4(){
+    public void testTransferToAccount4() {
         User victor = new User()
                 .withName("Victor")
                 .withUserID("peter1")
@@ -302,8 +306,8 @@ public class Test_Improving_Backend_Functionality {
                 .withOwner(victor)
                 .withBalance(BigInteger.valueOf(100))
                 .withCreationdate(new Date());
-                //.withCredit()
-                //.withDebit();
+        //.withCredit()
+        //.withDebit();
         User tina = new User()
                 .withName("Tina")
                 .withUserID("peter1")
@@ -315,20 +319,22 @@ public class Test_Improving_Backend_Functionality {
                 .withOwner(victor)
                 .withBalance(BigInteger.valueOf(100))
                 .withCreationdate(new Date());
-                //.withCredit()
-                //.withDebit();
-        originAccount.transferToAccount(BigInteger.valueOf(50),receivingAccount,"Testing balance after transfer amount account");
+        //.withCredit()
+        //.withDebit();
+        originAccount.transferToAccount(BigInteger.valueOf(50), receivingAccount, "Testing balance after transfer amount account");
         System.out.println(originAccount.getBalance());
         System.out.println(receivingAccount.getBalance());
     }
+
     @Test
-    public void testReceiveFunds(){
+    public void testReceiveFunds() {
 
         //storyboard.assertEquals("Testing receive funds",true,account1.receiveFunds(100,"Testing receive funds"));
 
     }
+
     @Test
-    public void testRecordTransaction(){
+    public void testRecordTransaction() {
         Account recordAccount = new Account();
     }
 
@@ -336,7 +342,7 @@ public class Test_Improving_Backend_Functionality {
      */
     //Test for successful login
     @Test
-    public void testLogin1(){
+    public void testLogin1() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -349,7 +355,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Unsuccessful login due to incorrect username
     @Test
-    public void testLogin2(){
+    public void testLogin2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -362,7 +368,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Unsuccessful login due to incorrect password
     @Test
-    public void testLogin3(){
+    public void testLogin3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -375,7 +381,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Unsuccessful login due to incorrect username and password
     @Test
-    public void testLogin4()  {
+    public void testLogin4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -403,8 +409,8 @@ public class Test_Improving_Backend_Functionality {
         assertFalse(bob.logout());
     }*/
     //Null username
-    @Test (expected = IllegalArgumentException.class)
-    public void testLogin5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testLogin5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -417,8 +423,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //Null password
-    @Test (expected = IllegalArgumentException.class)
-    public void testLogin6(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testLogin6() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -429,8 +435,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //Null username and password
-    @Test (expected = IllegalArgumentException.class)
-    public void testLogin7(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testLogin7() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -439,8 +445,9 @@ public class Test_Improving_Backend_Functionality {
                 .withPhone("7031234567");
         bob.login(null, null);
     }
+
     @Test
-    public void testSeessionID1()  {
+    public void testSeessionID1() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -455,7 +462,7 @@ public class Test_Improving_Backend_Functionality {
 
 
     @Test
-    public void testSeessionID2()  {
+    public void testSeessionID2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -512,8 +519,8 @@ public class Test_Improving_Backend_Functionality {
     */
 
     //SetName without logging in
-    @Test (expected = Exception.class)
-    public void testSetName(){
+    @Test(expected = Exception.class)
+    public void testSetName() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -525,7 +532,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Successful setName
     @Test
-    public void testSetName2(){
+    public void testSetName2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -539,8 +546,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetName with null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetName3(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetName3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -553,8 +560,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetName with digits
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetName4(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetName4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -567,8 +574,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetName with digits
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetName5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetName5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -581,8 +588,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetUserID
-    @Test (expected = Exception.class)
-    public void testSetUserID(){
+    @Test(expected = Exception.class)
+    public void testSetUserID() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -593,8 +600,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetUserID null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetUserID2(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetUserID2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -607,8 +614,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetUserID to the current UserID
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetUserID3(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetUserID3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -622,7 +629,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Successfully SetUserID
     @Test
-    public void testSetUserID4(){
+    public void testSetUserID4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -636,8 +643,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetUserID with a character string less than 4
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetUserID5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetUserID5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -650,8 +657,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetUserID with a character string greater than 12
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetUserID6(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetUserID6() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -664,8 +671,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword without logging in
-    @Test (expected = Exception.class)
-    public void testSetPassword(){
+    @Test(expected = Exception.class)
+    public void testSetPassword() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -678,7 +685,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Successful setPassword
     @Test
-    public void testSetPassword2(){
+    public void testSetPassword2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -692,8 +699,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword to the current password
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword3(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -706,8 +713,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword without special character
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword4(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -720,8 +727,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword without digit
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -734,8 +741,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword without uppercase
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword6(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword6() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -748,8 +755,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword without lowercase
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword7(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword7() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -762,8 +769,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword with less than 4 characters
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword8(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword8() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -776,8 +783,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPassword with greater than 12 characters
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPassword9(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPassword9() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -790,8 +797,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail when not logged in
-    @Test (expected = Exception.class)
-    public void testSetEmail(){
+    @Test(expected = Exception.class)
+    public void testSetEmail() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -803,7 +810,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Successful setEmail
     @Test
-    public void testSetEmail2(){
+    public void testSetEmail2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -817,8 +824,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail format broken: userid@address.domain
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail3(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -831,8 +838,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail format broken by address: userid@address.domain
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail4(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -845,8 +852,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail format broken by domain: userid@address.domain
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -859,8 +866,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail format broken by excluding @: userid@address.domain
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail6(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail6() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -873,8 +880,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail format broken by excluding all special characters: userid@address.domain
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail7(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail7() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -887,8 +894,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail8(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail8() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -901,8 +908,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetEmail to current Email
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetEmail9(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEmail9() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -915,8 +922,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //
-    @Test (expected = Exception.class)
-    public void testSetPhone(){
+    @Test(expected = Exception.class)
+    public void testSetPhone() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -928,7 +935,7 @@ public class Test_Improving_Backend_Functionality {
 
     //Successful SetPhone
     @Test
-    public void testSetPhone2(){
+    public void testSetPhone2() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -942,8 +949,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone with invalid PhoneNo length
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone3(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone3() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -956,8 +963,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone with invalid PhoneNo length
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone4(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone4() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -970,8 +977,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone with nondigit characters
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone5(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone5() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -984,8 +991,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone with nondigit characters
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone6(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone6() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -998,8 +1005,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone null
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone7(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone7() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -1012,8 +1019,8 @@ public class Test_Improving_Backend_Functionality {
     }
 
     //SetPhone to current phone
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetPhone8(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhone8() {
         User bob = new User()
                 .withName("Bob")
                 .withUserID("bobby17")
@@ -1047,7 +1054,7 @@ public class Test_Improving_Backend_Functionality {
 
         Account acntGet = bnk.findAccountByID(1);
         //System.out.println("acntGet" + acntGet);
-        assertTrue(1==acntGet.getAccountnum());
+        assertTrue(1 == acntGet.getAccountnum());
     }
 
     @Test
@@ -1060,7 +1067,7 @@ public class Test_Improving_Backend_Functionality {
 
         Account acntGet = bnk.findAccountByID(1);
         //System.out.println("acntGet" + acntGet);
-        assertTrue(null==acntGet);
+        assertTrue(null == acntGet);
     }
 
     /**
@@ -1107,13 +1114,13 @@ public class Test_Improving_Backend_Functionality {
         assertFalse("Validated karli's login with incorrect password", bnk.validateLogin(1, "karli25", "SDML1b"));
         assertTrue("Did not successfully validate karli's login", bnk.validateLogin(1, "karli25", "StudyRight"));
         assertFalse("Validated account 2 with incorrect userID", bnk.validateLogin(2, "steverog2", "Th3C@pt"));
-        assertTrue("Did not successfully validate steve's login" ,bnk.validateLogin(2, "steverog1", "Th3C@pt"));
+        assertTrue("Did not successfully validate steve's login", bnk.validateLogin(2, "steverog1", "Th3C@pt"));
         assertTrue("Did not validate admin login", bnk.validateLogin(3, "ksludo", "Zh1p@n"));
         assertFalse("Validated login of an nonexisting account", bnk.validateLogin(4, "ulnoSDM", "SDML1b"));
     }
 
     // Should throw an IllegalArgument Exception when trying to validate login of an account with a negative ID
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testvalidateLoginWithNegativeAccountID() {
         User usr1 = new User()
                 .withName("karli")
@@ -1130,7 +1137,7 @@ public class Test_Improving_Backend_Functionality {
     }
 
     // Should throw an IllegalArgument Exception when trying to validate login of null UserID
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testvalidateLoginWithNullUserID() {
         User usr1 = new User()
                 .withName("karli")
@@ -1147,7 +1154,7 @@ public class Test_Improving_Backend_Functionality {
     }
 
     // Should throw an IllegalArgument Exception when trying to validate login of null UserID
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testvalidateLoginWithNullPassword() {
         User usr1 = new User()
                 .withName("karli")
@@ -1169,23 +1176,23 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
         //bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false);
-       // System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
+        // System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
     }
 
     // Should throw an IllegalArgument Exception when trying to create user with existing usernanme
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateUserWithExistingUsername() {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
     }
 
@@ -1195,10 +1202,10 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID());
 
-        bnk.createUser("Pam","Pam211","Pam Lake","1234567890","tom@gmail.com",false,msg);
+        bnk.createUser("Pam", "Pam211", "Pam Lake", "1234567890", "tom@gmail.com", false, msg);
         System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Pam").getUserID());
     }
 
@@ -1208,15 +1215,15 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
-        System.out.println("Accountnum:" + bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg));
+        System.out.println("Accountnum:" + bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg));
 
         AccountSet accountSets = bnk.getCustomerAccounts();
 
         for (Account acnt : accountSets) {
-            if(acnt.getAccountnum()!=0){
+            if (acnt.getAccountnum() != 0) {
                 System.out.println("Accountnum From Loop:" + acnt.getAccountnum());
             }
         }
@@ -1229,18 +1236,18 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
         // create a user account
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.SAVINGS,msg);
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.SAVINGS, msg);
 
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(500),AccountTypeEnum.SAVINGS,msg);
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(500), AccountTypeEnum.SAVINGS, msg);
 
         AccountSet accountSets = bnk.getCustomerAccounts();
 
         for (Account acnt : accountSets) {
-            if(acnt.getAccountnum()!=0){
+            if (acnt.getAccountnum() != 0) {
                 System.out.println("Accountnum:" + acnt.getAccountnum());
                 System.out.println("Account Balance: $" + acnt.getBalance());
             }
@@ -1298,14 +1305,13 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
 
         Bank bnk = new Bank();
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
 
+        System.out.println(bnk.Login("Tom", "TommyBoy11"));
 
-        System.out.println(bnk.Login("Tom","TommyBoy11"));
-
-        String usrID = bnk.Login("Tom","TommyBoy11");
+        String usrID = bnk.Login("Tom", "TommyBoy11");
 
         System.out.println("usrID:" + usrID);
 
@@ -1318,34 +1324,33 @@ public class Test_Improving_Backend_Functionality {
         bnk.withCustomerUser(null);
 
 
-        System.out.println(bnk.Login("tina","testtina1"));
+        System.out.println(bnk.Login("tina", "testtina1"));
 
-        String usrID = bnk.Login("tina","testtina1");
+        String usrID = bnk.Login("tina", "testtina1");
 
-        assertTrue(null==usrID);
+        assertTrue(null == usrID);
     }
 
 
-
-//    //********** Bank withDrawFunds method tests *************
+    //    //********** Bank withDrawFunds method tests *************
     @Test
     public void testBankWithdraw() {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
-        int acctNum = Integer.parseInt(bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")),
-                false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg));
+        int acctNum = Integer.parseInt(bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")),
+                false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg));
 
-       // int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
-        BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(20),msg);
+        // int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+        BigInteger amnt = bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
 
         System.out.println("Transaction:" + bnk.getTransaction());
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
-        assertTrue(amnt.compareTo(BigInteger.valueOf(230))==0);
+        assertTrue(amnt.compareTo(BigInteger.valueOf(230)) == 0);
     }
 
 
@@ -1373,11 +1378,11 @@ public class Test_Improving_Backend_Functionality {
 
         StringBuilder msg = new StringBuilder("");
 
-        BigInteger amnt = bnk.withDrawFunds(123456,BigInteger.valueOf(20),msg);
+        BigInteger amnt = bnk.withDrawFunds(123456, BigInteger.valueOf(20), msg);
 
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
-        assertTrue(amnt.compareTo(BigInteger.valueOf(0))==0);
+        assertTrue(amnt.compareTo(BigInteger.valueOf(0)) == 0);
 
     }
 
@@ -1386,38 +1391,38 @@ public class Test_Improving_Backend_Functionality {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg);
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
 
-        int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
 
-        BigInteger amnt = bnk.withDrawFunds(acctNum,BigInteger.valueOf(300),msg);
+        BigInteger amnt = bnk.withDrawFunds(acctNum, BigInteger.valueOf(300), msg);
 
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
-        assertTrue(amnt.compareTo(BigInteger.valueOf(250))==0);
+        assertTrue(amnt.compareTo(BigInteger.valueOf(250)) == 0);
     }
 
-//    //********** Bank depositFunds method tests *************
+    //    //********** Bank depositFunds method tests *************
     @Test
     public void testdepositFunds() {
         StringBuilder msg = new StringBuilder("");
         Bank bnk = new Bank();
 
-        bnk.createUser("Tom","TommyBoy11","Tom Buck","1234567890","tom@gmail.com",false,msg);
-        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]",""));
+        bnk.createUser("Tom", "TommyBoy11", "Tom Buck", "1234567890", "tom@gmail.com", false, msg);
+        System.out.println("UserID:" + bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", ""));
 
-        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]","")), false,BigInteger.valueOf(250),AccountTypeEnum.CHECKING,msg);
+        bnk.createAccount(String.valueOf(bnk.getCustomerUser().filterUsername("Tom").getUserID().toString().replaceAll("[()]", "")), false, BigInteger.valueOf(250), AccountTypeEnum.CHECKING, msg);
 
-        int acctNum=bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
+        int acctNum = bnk.getCustomerAccounts().getAccountnum().get(0).intValue();
 
-        BigInteger amnt = bnk.depositFunds(acctNum,BigInteger.valueOf(50),msg);
+        BigInteger amnt = bnk.depositFunds(acctNum, BigInteger.valueOf(50), msg);
 
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
-        assertTrue(amnt.compareTo(BigInteger.valueOf(300))==0);
+        assertTrue(amnt.compareTo(BigInteger.valueOf(300)) == 0);
     }
 
 
@@ -1445,11 +1450,11 @@ public class Test_Improving_Backend_Functionality {
 
         StringBuilder msg = new StringBuilder("");
 
-        BigInteger amnt = bnk.depositFunds(123456,BigInteger.valueOf(20),msg);
+        BigInteger amnt = bnk.depositFunds(123456, BigInteger.valueOf(20), msg);
 
 
         System.out.println("amnt:" + amnt + "--msg: " + msg);
-        assertTrue(amnt.compareTo(BigInteger.valueOf(0))==0);
+        assertTrue(amnt.compareTo(BigInteger.valueOf(0)) == 0);
 
     }
 
@@ -1466,11 +1471,11 @@ public class Test_Improving_Backend_Functionality {
         bnk.createCustomerUser();
         bnk.withCustomerUser(usrBob);
 
-        String result = bnk.updateUserInfo("bob12","name","jack");
+        String result = bnk.updateUserInfo("bob12", "name", "jack");
 
         System.out.println("name:" + bnk.getCustomerUser().withUserID("bob12").getName().toString());
         System.out.println("result:" + result);
-        assertEquals("(jack)",bnk.getCustomerUser().withUserID("bob12").getName().toString());
+        assertEquals("(jack)", bnk.getCustomerUser().withUserID("bob12").getName().toString());
     }
 
 
@@ -1487,12 +1492,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.createCustomerUser();
         bnk = bnk.withCustomerUser(usrBob);
 
-        String result = bnk.updateUserInfo("bob12","email","jack@gmail.com");
+        String result = bnk.updateUserInfo("bob12", "email", "jack@gmail.com");
 
         System.out.println("email:" + bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
         System.out.println("usrBob:" + usrBob.getEmail());
         System.out.println("result:" + result);
-        assertEquals("(jack@gmail.com)",bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
+        assertEquals("(jack@gmail.com)", bnk.getCustomerUser().withUserID("bob12").getEmail().toString());
     }
 
     @Test
@@ -1509,12 +1514,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.createCustomerUser();
         bnk.withCustomerUser(usrBob);
 
-        String result = bnk.updateUserInfo("bob12","phone","3333333334");
+        String result = bnk.updateUserInfo("bob12", "phone", "3333333334");
 
         //System.out.println("phone:" + bnk.getCustomerUser().withUserID("bob12").getPhone().toArray());
         System.out.println("usrBob Phone:" + usrBob.getPhone());
         System.out.println("result:" + result);
-        assertEquals("3333333334",usrBob.getPhone());
+        assertEquals("3333333334", usrBob.getPhone());
     }
 
     @Test
@@ -1531,11 +1536,11 @@ public class Test_Improving_Backend_Functionality {
         bnk.createCustomerUser();
         bnk.withCustomerUser(usrBob);
 
-        String result = bnk.updateUserInfo("bob10","phone","3333333334");
+        String result = bnk.updateUserInfo("bob10", "phone", "3333333334");
 
         System.out.println("usrBob Phone:" + usrBob.getPhone());
         System.out.println("result:" + result);
-        assertEquals("UserID bob10 is not valid.",result);
+        assertEquals("UserID bob10 is not valid.", result);
     }
 
     @Test
@@ -1552,11 +1557,11 @@ public class Test_Improving_Backend_Functionality {
         bnk.createCustomerUser();
         bnk.withCustomerUser(usrBob);
 
-        String result = bnk.updateUserInfo("bob12","phone2","3333333334");
+        String result = bnk.updateUserInfo("bob12", "phone2", "3333333334");
 
         System.out.println("usrBob Phone:" + usrBob.getPhone());
         System.out.println("result:" + result);
-        assertEquals("Field phone2 is not valid.",result);
+        assertEquals("Field phone2 is not valid.", result);
     }
 
 
@@ -1608,23 +1613,23 @@ public class Test_Improving_Backend_Functionality {
         Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
 
         //filter by account Number
-        if(String.valueOf(acctNum)!=null) {
-            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+        if (String.valueOf(acctNum) != null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
             }
 
-            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
             }
 
-            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size() > 0) {
                 st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
             }
 
-            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size() > 0) {
                 st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
             }
-        }else {
+        } else {
             if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().getFromTransaction());
             }
@@ -1642,8 +1647,7 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if (amount.compareTo(BigInteger.ZERO) > 0)
-        {
+        if (amount.compareTo(BigInteger.ZERO) > 0) {
             for (TransactionSet s : st) {
                 Set st2 = s.filterAmount(amount);
 
@@ -1654,14 +1658,14 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if(!stTemp.isEmpty()) {
+        if (!stTemp.isEmpty()) {
             st.clear();
             st.addAll(stTemp);
             stTemp.clear();
         }
 
 
-        if (date !=null) {
+        if (date != null) {
             for (TransactionSet s : st) {
                 Set st2 = s.filterDatebyMonthDateYear(date);
 
@@ -1672,7 +1676,7 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if(!stTemp.isEmpty()) {
+        if (!stTemp.isEmpty()) {
             st.clear();
             st.addAll(stTemp);
             stTemp.clear();
@@ -1756,23 +1760,23 @@ public class Test_Improving_Backend_Functionality {
         Set<TransactionSet> stTemp = new SimpleSet<TransactionSet>();
 
         //filter by account Number
-        if(String.valueOf(acctNum)!=null) {
-            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+        if (String.valueOf(acctNum) != null) {
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getFromTransaction());
             }
 
-            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+            if (bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().filterAccountnum(acctNum).getToTransaction());
             }
 
-            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size()>0){
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction().size() > 0) {
                 st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getFromTransaction());
             }
 
-            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size()>0){
+            if (bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction().size() > 0) {
                 st.add(bnk.getAdminAccounts().filterAccountnum(acctNum).getToTransaction());
             }
-        }else {
+        } else {
             if (bnk.getCustomerAccounts().getFromTransaction().size() > 0) {
                 st.add(bnk.getCustomerAccounts().getFromTransaction());
             }
@@ -1790,8 +1794,7 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if (amount.compareTo(BigInteger.ZERO) > 0)
-        {
+        if (amount.compareTo(BigInteger.ZERO) > 0) {
             for (TransactionSet s : st) {
                 Set st2 = s.filterAmount(amount);
 
@@ -1802,14 +1805,14 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if(!stTemp.isEmpty()) {
+        if (!stTemp.isEmpty()) {
             st.clear();
             st.addAll(stTemp);
             stTemp.clear();
         }
 
 
-        if (date !=null) {
+        if (date != null) {
             for (TransactionSet s : st) {
                 Set st2 = s.filterDatebyMonthDateYear(date);
 
@@ -1820,7 +1823,7 @@ public class Test_Improving_Backend_Functionality {
             }
         }
 
-        if(!stTemp.isEmpty()) {
+        if (!stTemp.isEmpty()) {
             st.clear();
             st.addAll(stTemp);
             stTemp.clear();
@@ -1848,12 +1851,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
-        Set<TransactionSet>  tranlst = bnk.getTransactions(acctNum,BigInteger.ZERO,null);
+        Set<TransactionSet> tranlst = bnk.getTransactions(acctNum, BigInteger.ZERO, null);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Info:" + tran.getNextTransitive().first());
                 System.out.println("CreationDate:" + tran.getNextTransitive().getDate().first());
@@ -1862,7 +1865,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Info:" + tran.getNextTransitive().first());
@@ -1897,12 +1900,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(20), msg);
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
-        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(20),null);
+        Set<TransactionSet> tranlst = bnk.getTransactions(0, BigInteger.valueOf(20), null);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Date:" + tran.getNextTransitive().first());
                 System.out.println("Date:" + tran.getNextTransitive().getDate().first());
@@ -1911,7 +1914,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Date:" + tran.getNextTransitive().first());
@@ -1948,12 +1951,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
         Date date = new Date("05/08/2017");
-        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(0),date);
+        Set<TransactionSet> tranlst = bnk.getTransactions(0, BigInteger.valueOf(0), date);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Date:" + tran.getNextTransitive().first());
                 System.out.println("Date:" + tran.getNextTransitive().getDate().first());
@@ -1962,7 +1965,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Date:" + tran.getNextTransitive().first());
@@ -1999,12 +2002,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
         Date date = new Date("05/05/2017");
-        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(50),date);
+        Set<TransactionSet> tranlst = bnk.getTransactions(0, BigInteger.valueOf(50), date);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Date:" + tran.getNextTransitive().first());
                 System.out.println("Date:" + tran.getNextTransitive().getDate().first());
@@ -2013,7 +2016,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Date:" + tran.getNextTransitive().first());
@@ -2050,12 +2053,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
         Date date = new Date("05/05/2017");
-        Set<TransactionSet>  tranlst = bnk.getTransactions(0,BigInteger.valueOf(50),date);
+        Set<TransactionSet> tranlst = bnk.getTransactions(0, BigInteger.valueOf(50), date);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Date:" + tran.getNextTransitive().first());
                 System.out.println("Date:" + tran.getNextTransitive().getDate().first());
@@ -2064,7 +2067,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Date:" + tran.getNextTransitive().first());
@@ -2101,12 +2104,12 @@ public class Test_Improving_Backend_Functionality {
         bnk.withDrawFunds(acctNum, BigInteger.valueOf(10), msg);
 
         Date date = new Date("05/05/2017");
-        Set<TransactionSet>  tranlst = bnk.getTransactions(acctNum,BigInteger.valueOf(50),date);
+        Set<TransactionSet> tranlst = bnk.getTransactions(acctNum, BigInteger.valueOf(50), date);
 
         for (Set s : tranlst) {
             Iterator itr = s.iterator();
 
-            if(tranlst.size()==1){
+            if (tranlst.size() == 1) {
                 Transaction tran = (Transaction) itr.next();
                 System.out.println("Date:" + tran.getNextTransitive().first());
                 System.out.println("Date:" + tran.getNextTransitive().getDate().first());
@@ -2115,7 +2118,7 @@ public class Test_Improving_Backend_Functionality {
                 System.out.println("Note:" + tran.getNextTransitive().getNote().first());
 
                 System.out.println("************************");
-            }else if(tranlst.size()>1) {
+            } else if (tranlst.size() > 1) {
                 while (itr.hasNext()) {
                     Transaction tran = (Transaction) itr.next();
                     System.out.println("Date:" + tran.getNextTransitive().first());
@@ -2130,4 +2133,5 @@ public class Test_Improving_Backend_Functionality {
         }
 
     }
+}
     
