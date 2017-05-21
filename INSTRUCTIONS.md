@@ -3,7 +3,9 @@
 <br>
 
 ## Building the Application in Android Studio
-
+- After cloning, import OpenBankApplication into Android Studio
+<br>
+- All calls to the api will need to be changed to reflect your api location
 <br>
 
 
@@ -17,19 +19,19 @@
 
 <i>Make sure you have the following dependencies in place:</i>
 <br>
--spark_cor_jar
+- spark_cor_jar
 <br>
--hamcrest-core-1.3.jar
+- hamcrest-core-1.3.jar
 <br>
--json-simple-1.1.jar
+- json-simple-1.1.jar
 <br>
--NetworkParser-4.4.311-sources.jar
+- NetworkParser-4.4.311-sources.jar
 <br>
--SDMLib-2.2.1094.jar
+- SDMLib-2.2.1094.jar
 <br>
--slf4j-api-1.7.25.jar
+- slf4j-api-1.7.25.jar
 <br>
--slf4j-simple-1.7.25.jar
+- slf4j-simple-1.7.25.jar
 
 <br>
 
