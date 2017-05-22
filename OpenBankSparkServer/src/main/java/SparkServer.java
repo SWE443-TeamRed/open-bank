@@ -156,7 +156,7 @@ public class SparkServer implements SparkApplication {
 
                 path(".html", () -> {
                     get("", (Request request, Response response) -> {
-                        return IOUtils.toString(SparkServer.class.getResourceAsStream("var/www/html/index.html"));
+                        return IOUtils.toString(SparkServer.class.getResourceAsStream("html/index.html"));
                     });
                 });
             });
